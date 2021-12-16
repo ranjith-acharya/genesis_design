@@ -57,8 +57,8 @@
         <li class="divider"></li>
     @elseif(Auth::user() && Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
     <li><a href="{{route('profile.main')}}">Profile</a></li>
-        <li><a href="{{route('admin.list',['role'=> \App\Statics\Statics::USER_TYPE_ENGINEER])}}">Engineer</a></li>
-        <li><a href="{{route('admin.list',['role'=> \App\Statics\Statics::USER_TYPE_CUSTOMER])}}">Customers</a></li>
+        <li><a href="{{route('admin.engineers')}}">Engineer</a></li>
+        <li><a href="{{route('admin.customers')}}">Customers</a></li>
         <li><a href="{{route('home')}}">Projects</a></li>
         <li class="divider"></li>
     @endif

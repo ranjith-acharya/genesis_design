@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
@@ -14,7 +15,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        return "hello";
+        //return $role;
+        return view('admin.home');
+        //$users = User::where('role', '=',  $role)->get();
+        //return $users;
+    }
+
+    public function getList(Request $request, $role)
+    {
+        //return "sdfsdf";
+        //return $role;
+        $users = User::where('role', $role);
+        //return view('admin.users');
+        return $users->latest()->paginate(5);
     }
 
     /**

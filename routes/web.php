@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return Redirect::route('login');
+    return redirect()->route('login');
 });
 
 Auth::routes(['verify' => true]);
@@ -19,7 +20,11 @@ Route::middleware(['verified', 'auth'])->group(function () {
             Route::name('admin.')->group(function () {
                 Route::namespace('Admin')->group(function () {
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
-                Route::get('/users/{role}', 'UserController@index')->name('list');
+                Route::get('/customer','UserController@index')->name('customers');
+                Route::get('/engineer','UserController@index')->name('engineers');
+                
+                //API
+                Route::get('/users/{role}', 'UserController@getList')->name('list');
             });
         });
         });

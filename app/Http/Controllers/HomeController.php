@@ -33,7 +33,8 @@ class HomeController extends Controller
                 $return = view('home')->with('projectTypes', $types);
                 break;
             case (Statics::USER_TYPE_ADMIN):
-                $return = view('admin.home');
+                $types = ProjectType::where('is_hidden', false)->get();
+                $return = view('admin.home')->with('projectTypes', $types);
                 break;
         }
 
