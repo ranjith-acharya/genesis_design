@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="inmotion" uploadOnCheckin="2a6c03cb-9ae6-4024-8d87-205bf85ae58a">
+    <serverData>
+      <paths name="inmotion">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/beta.genesisdesign.io" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="sun_sftp">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="inmotion" />
+  </component>
+</project>

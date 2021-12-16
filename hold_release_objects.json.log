@@ -1,0 +1,145 @@
+[2020-05-15 17:13:35] local.INFO: Amount held {"stripe_response":{"Stripe\\PaymentIntent":{"id":"pi_1Gj76JGjCH117sQy5M6ALivo","object":"payment_intent","amount":50,"amount_capturable":0,"amount_received":0,"application":null,"application_fee_amount":null,"canceled_at":null,"cancellation_reason":null,"capture_method":"manual","charges":{"object":"list","data":[],"has_more":false,"total_count":0,"url":"/v1/charges?payment_intent=pi_1Gj76JGjCH117sQy5M6ALivo"},"client_secret":"pi_1Gj76JGjCH117sQy5M6ALivo_secret_q1ylTrfAKouDRMY3TSCMZ9tEo","confirmation_method":"automatic","created":1589562815,"currency":"usd","customer":"cus_HHKUeiuUvcZOp3","description":null,"invoice":null,"last_payment_error":null,"livemode":false,"metadata":[],"next_action":null,"on_behalf_of":null,"payment_method":"pm_1GilpzGjCH117sQy06q4jBuU","payment_method_options":{"card":{"installments":null,"request_three_d_secure":"automatic"}},"payment_method_types":["card"],"receipt_email":null,"review":null,"setup_future_usage":null,"shipping":null,"source":null,"statement_descriptor":null,"statement_descriptor_suffix":null,"status":"requires_confirmation","transfer_data":null,"transfer_group":null}}}
+[2020-05-15 17:17:21] local.INFO: Stripe\PaymentIntent JSON: {
+"id": "pi_1Gj76JGjCH117sQy5M6ALivo",
+"object": "payment_intent",
+"amount": 50,
+"amount_capturable": 0,
+"amount_received": 50,
+"application": null,
+"application_fee_amount": null,
+"canceled_at": null,
+"cancellation_reason": null,
+"capture_method": "manual",
+"charges": {
+"object": "list",
+"data": [
+{
+"id": "ch_1Gj76KGjCH117sQyXvicuEkG",
+"object": "charge",
+"amount": 50,
+"amount_refunded": 0,
+"application": null,
+"application_fee": null,
+"application_fee_amount": null,
+"balance_transaction": "txn_1Gj79wGjCH117sQyVpuDe2AA",
+"billing_details": {
+"address": {
+"city": null,
+"country": null,
+"line1": null,
+"line2": null,
+"postal_code": "07740",
+"state": null
+},
+"email": null,
+"name": null,
+"phone": null
+},
+"calculated_statement_descriptor": "SUNTUITY SOLAR LLC",
+"captured": true,
+"created": 1589562816,
+"currency": "usd",
+"customer": "cus_HHKUeiuUvcZOp3",
+"description": null,
+"destination": null,
+"dispute": null,
+"disputed": false,
+"failure_code": null,
+"failure_message": null,
+"fraud_details": [],
+"invoice": null,
+"livemode": false,
+"metadata": [],
+"on_behalf_of": null,
+"order": null,
+"outcome": {
+"network_status": "approved_by_network",
+"reason": null,
+"risk_level": "normal",
+"risk_score": 40,
+"seller_message": "Payment complete.",
+"type": "authorized"
+},
+"paid": true,
+"payment_intent": "pi_1Gj76JGjCH117sQy5M6ALivo",
+"payment_method": "pm_1GilpzGjCH117sQy06q4jBuU",
+"payment_method_details": {
+"card": {
+"brand": "visa",
+"checks": {
+"address_line1_check": null,
+"address_postal_code_check": "pass",
+"cvc_check": null
+},
+"country": "US",
+"exp_month": 2,
+"exp_year": 2022,
+"fingerprint": "cQmB1KvYrLtJcD7r",
+"funding": "credit",
+"installments": null,
+"last4": "0077",
+"network": "visa",
+"three_d_secure": null,
+"wallet": null
+},
+"type": "card"
+},
+"receipt_email": null,
+"receipt_number": null,
+"receipt_url": "https:\/\/pay.stripe.com\/receipts\/acct_1G8Wc5GjCH117sQy\/ch_1Gj76KGjCH117sQyXvicuEkG\/rcpt_HHgTu79ABxhKYpWGGsBGNeS4UC7Z3K8",
+"refunded": false,
+"refunds": {
+"object": "list",
+"data": [],
+"has_more": false,
+"total_count": 0,
+"url": "\/v1\/charges\/ch_1Gj76KGjCH117sQyXvicuEkG\/refunds"
+},
+"review": null,
+"shipping": null,
+"source": null,
+"source_transfer": null,
+"statement_descriptor": null,
+"statement_descriptor_suffix": null,
+"status": "succeeded",
+"transfer_data": null,
+"transfer_group": null
+}
+],
+"has_more": false,
+"total_count": 1,
+"url": "\/v1\/charges?payment_intent=pi_1Gj76JGjCH117sQy5M6ALivo"
+},
+"client_secret": "pi_1Gj76JGjCH117sQy5M6ALivo_secret_q1ylTrfAKouDRMY3TSCMZ9tEo",
+"confirmation_method": "automatic",
+"created": 1589562815,
+"currency": "usd",
+"customer": "cus_HHKUeiuUvcZOp3",
+"description": null,
+"invoice": null,
+"last_payment_error": null,
+"livemode": false,
+"metadata": [],
+"next_action": null,
+"on_behalf_of": null,
+"payment_method": "pm_1GilpzGjCH117sQy06q4jBuU",
+"payment_method_options": {
+"card": {
+"installments": null,
+"request_three_d_secure": "automatic"
+}
+},
+"payment_method_types": [
+"card"
+],
+"receipt_email": null,
+"review": null,
+"setup_future_usage": null,
+"shipping": null,
+"source": null,
+"statement_descriptor": null,
+"statement_descriptor_suffix": null,
+"status": "succeeded",
+"transfer_data": null,
+"transfer_group": null
+}

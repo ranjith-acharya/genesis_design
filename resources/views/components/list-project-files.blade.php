@@ -1,0 +1,14 @@
+<ul class="collection with-header">
+    @foreach($fileTypes as $fileType => $files)
+        <li class="collection-header steel-blue-text capitalize"><h6>{{$fileType}}</h6></li>
+        @foreach($files as $file)
+            <li class="collection-item avatar">
+                <i class="fal fa-file circle prussian-blue"></i>
+                <span class="title prussian-blue-text">{{last(explode("_", $file->path))}}</span>
+                <p class="steel-blue-text">{{$file->created_at->format('F dS Y - h:i A')}} (UTC)</p>
+                <a class="secondary-content steel-blue-text tooltipped" data-position="left" data-tooltip="Open in a new tab" target="_blank"
+                   href="{{$path}}?project={{$project->id}}&file={{$file->id}}">View</a>
+            </li>
+        @endforeach
+    @endforeach
+</ul>
