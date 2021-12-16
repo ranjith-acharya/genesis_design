@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\ProjectType;
 
 class UserController extends Controller
 {
@@ -13,10 +14,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function customerIndex()
     {
         //return $role;
-        return view('admin.home');
+        $types = ProjectType::where('is_hidden', false)->get();
+        return view('admin.customer.home')->with('projectTypes', $types);
+        //$users = User::where('role', '=',  $role)->get();
+        //return $users;
+    }
+
+    public function engineerIndex()
+    {
+        //return $role;
+        $types = ProjectType::where('is_hidden', false)->get();
+        return view('admin.engineer.home')->with('projectTypes', $types);
         //$users = User::where('role', '=',  $role)->get();
         //return $users;
     }
