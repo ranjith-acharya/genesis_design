@@ -3,21 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>@yield('title') - {{env('APP_NAME')}}</title>
-
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset("apple-touch-icon.png")}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon-32x32.png")}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset("favicon-16x16.png")}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
     <link rel="manifest" href="{{asset('site.webmanifest')}}">
-
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Manrope|Montserrat" rel="stylesheet">
-
-    <!-- Styles -->
     <link href="{{ asset('materialize/css/materialize.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/spaces.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -37,12 +29,12 @@
                 <div class="nav-wrapper">
                     <a href="javascript:void(0)" class="brand-logo">
                         <span class="icon">
-                            <img class="light-logo" src="assets/images/logo-light-icon.png">
-                            <img class="dark-logo" src="assets/images/logo-icon.png">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-light-icon.png') }}">
+                            <img class="dark-logo" src="{{ asset('assets/images/logo-icon.png') }}">
                         </span>
                         <span class="text">
-                            <img class="light-logo" src="assets/images/logo-light-text.png">
-                            <img class="dark-logo" src="assets/images/logo-text.png">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-light-text.png') }}">
+                            <img class="dark-logo" src="{{ asset('assets/images/logo-text.png') }}">
                         </span>
                     </a>
                     <ul class="left">
@@ -115,7 +107,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                                 <span class="user-img">
-                                                    <img src="../../assets/images/users/1.jpg" alt="user" class="circle">
+                                                    <img src="{{ asset('assets/images/users/1.jpg') }}" alt="user" class="circle">
                                                     <span class="profile-status online pull-right"></span>
                                                 </span>
                                                 <span class="mail-contnet">
@@ -127,7 +119,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                                 <span class="user-img">
-                                                    <img src="../../assets/images/users/2.jpg" alt="user" class="circle">
+                                                    <img src="{{ asset('assets/images/users/2.jpg') }}" alt="user" class="circle">
                                                     <span class="profile-status busy pull-right"></span>
                                                 </span>
                                                 <span class="mail-contnet">
@@ -139,7 +131,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                                 <span class="user-img">
-                                                    <img src="../../assets/images/users/3.jpg" alt="user" class="circle">
+                                                    <img src="{{ asset('assets/images/users/3.jpg') }}" alt="user" class="circle">
                                                     <span class="profile-status away pull-right"></span>
                                                 </span>
                                                 <span class="mail-contnet">
@@ -151,7 +143,7 @@
                                         <!-- Message -->
                                         <a href="#">
                                                 <span class="user-img">
-                                                    <img src="../../assets/images/users/4.jpg" alt="user" class="circle">
+                                                    <img src="{{ asset('assets/images/users/4.jpg') }}" alt="user" class="circle">
                                                     <span class="profile-status offline pull-right"></span>
                                                 </span>
                                                 <span class="mail-contnet">
@@ -195,11 +187,11 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="../../assets/images/users/2.jpg" alt="user" class="circle profile-pic"></a>
+                        <li><a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="{{ asset('assets/images/users/2.jpg')}}" alt="user" class="circle profile-pic"></a>
                             <ul id="user_dropdown" class="mailbox dropdown-content dropdown-user">
                                 <li>
                                     <div class="dw-user-box">
-                                        <div class="u-img"><img src="../../assets/images/users/2.jpg" alt="user"></div>
+                                        <div class="u-img"><img src="{{ asset('assets/images/users/2.jpg')}}" alt="user"></div>
                                         <div class="u-text">
                                             <h4>Steve Harvey</h4>
                                             <p>steve@gmail.com</p>
@@ -227,6 +219,7 @@
                 
                 <li>
                     <ul class="collapsible">
+                        @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                         <li class="small-cap"><span class="hide-menu">USER(s)</span></li>
                         <ul>
                             <li><a href="index.html"><i class="material-icons">adjust</i><span class="hide-menu">Customers</span></a></li>
@@ -234,9 +227,18 @@
                             <li><a href="index3.html"><i class="material-icons">adjust</i><span class="hide-menu">Engineers</span></a></li>
                         </ul>
                         <li><a href="index.html"><i class="material-icons">adjust</i><span class="hide-menu">Projects</span></a></li>
+                        <li class="divider"></li>
+                        @endif
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
+                            <li class="small-cap"><span class="hide-menu">CUSTOMER</span></li>
+                            <li><a href="{{route('profile.main')}}">Profile</a></li>
+                            <li><a href="{{route('profile.payment.methods')}}">Payment Methods</a></li>
+                            <li class="divider"></li>
+                        @endif
                         <li>
-                            <a href="logout.html" class="collapsible-header"><i class="material-icons">directions</i><span class="hide-menu"> Log Out </span></a>
+                            <a href="{{ route('logout') }}" class="collapsible-header"><i class="material-icons">directions</i><span class="hide-menu"> Log Out </span></a>
                         </li>
+                        <li class="divider"></li>
                     </ul>
                 </li>
             </ul>

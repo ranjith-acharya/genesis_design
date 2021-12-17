@@ -26,6 +26,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
                 Route::get('/customer','UserController@customerIndex')->name('customers');
                 Route::get('/engineer','UserController@engineerIndex')->name('engineers');
+                Route::get('/home', 'ProjectController@index')->name('home');
+
+                //project controller edit, delete
                 
                 //API
                 Route::get('/users/{role}', 'UserController@getList')->name('list');

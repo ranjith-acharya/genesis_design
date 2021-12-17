@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\User;
 use App\ProjectFile;
 use App\ProjectType;
 use App\Statics\Statics;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+
 class ProjectController extends Controller
 {
     /**
@@ -20,7 +23,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projectQuery = Project::all();
+        return view('admin.home', compact('projectQuery'));
     }
 
     /**
