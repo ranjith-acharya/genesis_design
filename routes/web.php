@@ -7,6 +7,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/datatable', function(){
+    return view('home1');
+});
+
 Auth::routes(['verify' => true]);
 Route::post('/register/verify', '\App\Http\Controllers\Auth\RegisterController@verify')->name('register.verify');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -20,8 +24,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
             Route::name('admin.')->group(function () {
                 Route::namespace('Admin')->group(function () {
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
-                Route::get('/customer','UserController@index')->name('customers');
-                Route::get('/engineer','UserController@index')->name('engineers');
+                Route::get('/customer','UserController@customerIndex')->name('customers');
+                Route::get('/engineer','UserController@engineerIndex')->name('engineers');
                 
                 //API
                 Route::get('/users/{role}', 'UserController@getList')->name('list');

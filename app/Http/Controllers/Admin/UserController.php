@@ -14,12 +14,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function customerIndex()
     {
         //return $role;
         $types = ProjectType::where('is_hidden', false)->get();
-       // $return = view('admin.home')->with('projectTypes', $types);
-        return view('admin.home')->with('projectTypes', $types);
+        return view('admin.customer.home')->with('projectTypes', $types);
+        //$users = User::where('role', '=',  $role)->get();
+        //return $users;
+    }
+
+    public function engineerIndex()
+    {
+        //return $role;
+        $types = ProjectType::where('is_hidden', false)->get();
+        return view('admin.engineer.home')->with('projectTypes', $types);
         //$users = User::where('role', '=',  $role)->get();
         //return $users;
     }
