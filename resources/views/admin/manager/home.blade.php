@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Engineer Details - Design Genesis
+Manager Details - Design Genesis
 @endsection
 
 @section('content')
@@ -18,11 +18,11 @@ Engineer Details - Design Genesis
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
-                            <h3>List of Engineers</h3>
+                            <h3>List of Managers</h3>
                         </div>
                         <div class="col s6">
                             <div class="right-align">
-                                <button data-target="createEngineer" class="btn indigo modal-trigger"><i class="material-icons left">add</i>NEW ENGINEER</button>
+                                <button data-target="createManager" class="btn indigo modal-trigger"><i class="material-icons left">add</i>NEW MANAGER</button>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ Engineer Details - Design Genesis
                                 <td>{{ $data->company }}</td>
                                 <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M Y, H:i A') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.engineer.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
+                                    <a href="{{ route('admin.manager.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                     <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>
                                 </td>
                             </tr>
@@ -52,10 +52,10 @@ Engineer Details - Design Genesis
                         </tbody>
                     </table>
                 </div>
-                <div id="createEngineer" class="modal">
+                <div id="createManager" class="modal">
                     <div class="modal-content center">
-                        <h4>Add new Engineer</h4>
-                        <form class="center" method="post" action="{{ route('admin.engineer.store') }}">
+                        <h4>Add new Manager</h4>
+                        <form class="center" method="post" action="{{ route('admin.manager.store') }}">
                             @csrf
                             <div class="row">
                                 <div class="col s6">

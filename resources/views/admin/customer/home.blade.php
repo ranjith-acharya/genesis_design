@@ -1,258 +1,128 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
-
-@section('js')
-    <script src="{{asset('js/paginator.js')}}"></script>
-    <script type="text/javascript">
-        const paginationOptions = {
-            currentPage: 1,
-            lastPage: 1,
-            searchTerm: "",
-            filers: null,
-            url: '{{ route('admin.list', 'customer') }}',
-        };
-
-        document.addEventListener('DOMContentLoaded', function () {
-            loadThings();
-            document.getElementById('project_search').addEventListener("keyup", debouncer(search, 100));
-        });
-
-        function loadThings() {
-            paginationOptions.filers = [
-                {field: "project_type_id", value: M.FormSelect.getInstance(document.getElementById('project_type_select')).getSelectedValues()[0]},
-                {field: "status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]}
-            ]
-            paginate().then(() => {
-                let instances = M.Collapsible.init(document.querySelectorAll('.collapsible'), {
-                    accordion: true
-                });
-                instances[0].open(0);
-            });
-        }
-
-        function filter() {
-            M.FormSelect.init(document.querySelectorAll('select'));
-            paginationOptions.filers = [
-                {field: "project_type_id", value: M.FormSelect.getInstance(document.getElementById('project_type_select')).getSelectedValues()[0]},
-                {field: "status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]}
-            ]
-            paginate();
-        }
-    </script>
-    <script id="row" type="text/html">
-        @{{#each data}}
-        <li class="mb-xxs">
-            <div class="collapsible-header" style="flex-direction: column">
-                <div class="row mb-0 w100">
-                    <div class="col s12 center">
-                        <div class="valign-wrapper">
-                            <div class="col s4 m3 left-align imperial-red-text bold center">@{{ this.name }}</div>
-                            <div class="col s3 m2 left-align center capitalize">@{{ this.status }}</div>
-                            <div class="col s3 m2 left-align center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s12 m5 right-align hide-on-med-and-down center">
-                                @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                                    <a class="btn steel-blue-outline-button" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
-                                    <a class="btn steel-blue-outline-button ml-xxxs" href="{{route('design.list')}}/@{{ this.id  }}">Designs</a>
-                                @else
-                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
-                                    <a class="btn steel-blue-outline-button ml-xxxs" href="{{route('engineer.design.list')}}/@{{ this.id  }}">Designs</a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hide-on-med-and-up mt-s">
-                    <div class="col s12 center">
-                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                            <a class="btn steel-blue-outline-button" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
-                            <a class="btn steel-blue-outline-button" href="{{route('design.list')}}">Designs</a>
-                        @else
-                            <a class="btn steel-blue-outline-button" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
-                            <a class="btn steel-blue-outline-button" href="{{route('engineer.design.list')}}">Designs</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="collapsible-body">
-                <div class="row">
-                    <div class="col s12">
-                        <span class="prussian-blue-text"><b>Description</b></span>
-                        <blockquote class="mt-xxs">
-                            @{{ this.description }}
-                        </blockquote>
-                    </div>
-                    <div class="col s12 m6">
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Street 1: </b></span>
-                            @{{ this.street_1 }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>City: </b></span>
-                            @{{ this.city }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Zip: </b></span>
-                            @{{ this.zip }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Latitude: </b></span>
-                            @{{ this.latitude }}
-                        </div>
-                    </div>
-                    <div class="col s12 m6">
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Street 2: </b></span>
-                            @{{ this.street-2 }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>State: </b></span>
-                            @{{ this.state }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Country: </b></span>
-                            @{{ this.country }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Longitude: </b></span>
-                            @{{ this.longitude }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Project Type: </b></span>
-                            @{{ this.type.name }}
-                        </div>
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Project Status: </b></span>
-                            @{{ this.status }}
-                        </div>
-                    </div>
-                    <div class="col s12 m6">
-                        <div class="mb-xxxs">
-                            <span class="prussian-blue-text"><b>Created On: </b></span>
-                            @{{ this.created_at }} (UTC)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-        @{{/each}}
-    </script>
-    <script id="row_empty" type="text/x-handlebars-template">
-        <li class="mb-xxs">
-            <div class="collapsible-header center imperial-red-text">
-                No projects found
-            </div>
-            <div class="collapsible-body center">Even more nothingness...</div>
-        </li>
-    </script>
+@section('title')
+Customer Details - Design Genesis
 @endsection
 
 @section('content')
-    <div class="container">
-        @if (!Auth::user()->email_verified_at)
-            <div class="row">
-                <div class="col s12">
-                    <div class="card-panel imperial-red center white-text">
-                        Please verify you email address to enable full functionality. If you did not receive an email from us <a href="{{route('verification.notice')}}">click here</a> to resend the email.
-                    </div>
-                </div>
-            </div>
-        @endif
-        <div class="row">
-            <div class="col s12 m9">
-                <h3>Your Projects</h3>
-            </div>
-            <div class="col s12 m3 pt-s hide-on-med-and-down right-align">
-                @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                    <a class="btn btn-large imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        @foreach($projectTypes as $projectType)
-                            <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{Str::ucfirst($projectType->name)}}</a></li>
-                            <li class="divider" tabindex="-1"></li>
-                        @endforeach
-                    </ul>
-                @else
-                    <a class="btn btn-large imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                @if ($message = Session::get('success'))
+                    <script>M.toast({html: '{{ $message }}'})</script>
+	            @endif
+                @if ($message = Session::get('error'))
+                    <script>M.toast({html: '{{ $message }}'})</script>
                 @endif
-            </div>
-        </div>
-        <div class="row mb-0">
-            <div class="col s12 m9 center-on-small-only">
-                <div class="input-field inline w100-on-small-only" style="min-width: 33%">
-                    <input id="project_search" type="text" data-type="projects">
-                    <label for="project_search">Search for project(s)...</label>
-                </div>
-                <div class="input-field inline w100-on-small-only">
-                    <select id="project_type_select" onchange="filter()">
-                        <option value="all">All</option>
-                        @foreach($projectTypes as $projectType)
-                            <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
-                        @endforeach
-                    </select>
-                    <label for="project_type_select">Project Type</label>
-                </div>
-                <div class="input-field inline w100-on-small-only">
-                    <select id="project_status_select" onchange="filter()">
-                        <option value="all">All</option>
-                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                            @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
-                                <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
-                            @endforeach
-                        @else
-                            <option value="{{\App\Statics\Statics::PROJECT_STATUS_ACTIVE}}">{{Str::ucfirst(\App\Statics\Statics::PROJECT_STATUS_ACTIVE)}}</option>
-                            <option value="{{\App\Statics\Statics::PROJECT_STATUS_ARCHIVED}}">{{Str::ucfirst(\App\Statics\Statics::PROJECT_STATUS_ARCHIVED)}}</option>
-                        @endif
-                    </select>
-                    <label for="project_status_select">Project Status</label>
-                </div>
-            </div>
-            <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
-                <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
-                    <i class="fal fa-angle-left"></i>
-                </a>
-                Page <span id="current_page">1</span> of <span id="last_page">1</span>
-                <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
-                    <i class="fal fa-angle-right"></i>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 mt-0 mb-0">
-                <div class="card-panel z-depth-0 transparent pb-xxs mb-0 mt-0" style="flex-direction: column; padding: 1rem">
-                    <div class="row mb-0 w100">
-                        <div class="col s12 center">
-                            <div class="col s4 m3 left-align imperial-red-text bold center">Name</div>
-                            <div class="col s3 m2 left-align center">Project Status</div>
-                            <div class="col s3 m2 left-align center">Project Type</div>
-                            <div class="col m5 left-align center"></div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s6">
+                            <h3>List of Customers</h3>
+                        </div>
+                        <div class="col s6">
+                            <div class="right-align">
+                                <button data-target="createCustomer" class="btn indigo modal-trigger"><i class="material-icons left">add</i>NEW CUSTOMER</button>
+                            </div>
                         </div>
                     </div>
+                    <table id="zero_config" class="responsive-table display">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Company Name</th>
+                                <th>Created at</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $data)
+                            <tr>
+                                <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                                <td>{{ $data->email }}</td>
+                                <td>{{ $data->company }}</td>
+                                <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M Y, H:i A') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.customer.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
+                                    <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="col s12">
-                <div id="loading">
-                    <div class="progress">
-                        <div class="indeterminate"></div>
+                <div id="createCustomer" class="modal">
+                    <div class="modal-content center">
+                        <h4>Add new Customer</h4>
+                        <form class="center" method="post" action="{{ route('admin.customer.store') }}">
+                            @csrf
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="first_name" type="text" class="validate @error('first_name') invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first name">
+                                        <label for="first_name">First Name</label>
+                                        @error('first_name')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="last_name" type="text" class="validate @error('last_name') invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last name">
+                                        <label for="last_name">Last Name</label>
+                                        @error('last_name')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="company" type="text" class="" name="company" value="{{ old('company') }}" autocomplete="company">
+                                        <label for="company">Company Name</label>
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="phone" type="text" class="validate @error('phone') invalid @enderror" name="phone" value="{{ old('phone') }}" required maxlength="10" autocomplete="phone">
+                                        <label for="phone">Phone Number</label>
+                                        @error('phone')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="email" type="text" class="validate @error('email') invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                        <label for="email">Email Address</label>
+                                        @error('email')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field w100 col">
+                                        <input id="password" type="password" class="validate @error('password') invalid @enderror" name="password" required autocomplete="password">
+                                        <label for="password">Password</label>
+                                        @error('password')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn green">Create</button>
+                                <button type="reset" class="modal-close btn red">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <ul class="collapsible popout" id="pagination_target"></ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 center-on-small-only right-on-lg-and-up">
-                <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
-                    <i class="fal fa-angle-left"></i>
-                </a>
-                <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
-                    <i class="fal fa-angle-right"></i>
-                </button>
-            </div>
+            </dv>
         </div>
     </div>
-    {{--    @TODO: new project FAB on small screens--}}
+</div>
 @endsection

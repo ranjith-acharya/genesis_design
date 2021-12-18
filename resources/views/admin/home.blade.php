@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Admin Home - Design Genesis
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -40,7 +44,7 @@
                                 <td>{{ $data->status }}</td>
                                 <td>{{ $data->type->name }}</td>
                                 <td>
-                                    <button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button>
+                                    <a href="{{ route('admin.projects.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                     <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>
                                 </td>
                                 <!-- <td>
@@ -49,7 +53,6 @@
                             </tr>
                             @endforeach
                         </tbody>
-                        
                     </table>
                 </div>
             </div>

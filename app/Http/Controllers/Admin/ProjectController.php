@@ -67,7 +67,10 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::with(['type', 'files.type'])->findOrFail($id);
+       // return view('admin.project.edit', compact('projectQuery', 'id'));
+       // $project = Auth::user()->projects()->with(['type', 'files.type'])->findOrFail($id);
+        return view('admin.project.edit', ["projectType" => $project->type, "project" => $project, 'fileTypes' => $project->files->groupBy('type.name')]);
     }
 
     /**
@@ -82,6 +85,17 @@ class ProjectController extends Controller
         //
     }
 
+    public function attachFile(Request $request)
+    {
+        $this->validate($request, [
+            'file_type_id' => 'required|numeric',
+            'path' => 'required|string|max:255',
+            'project_id' => 'required|numeric',
+            'content_type' => 'required|string'
+        ]);
+        return ProjectFile::create($request->all());
+    }
+    
     /**
      * Remove the specified resource from storage.
      *

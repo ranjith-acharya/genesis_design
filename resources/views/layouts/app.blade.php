@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') - {{env('APP_NAME')}}</title>
+    <title>@yield('title')</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
@@ -21,6 +21,8 @@
     <link href="{{ asset('dist/css/pages/data-table.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
 </head>
 <body>
     <div class="main-wrapper" id="main-wrapper">
@@ -220,23 +222,25 @@
                 <li>
                     <ul class="collapsible">
                         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                        <li class="small-cap"><span class="hide-menu">USER(s)</span></li>
+                        <li class="small-cap"><i class="material-icons tiny">group</i><span class="hide-menu">&nbsp;&nbsp;&nbsp;&nbsp;USER(s)</span></li>
                         <ul>
-                            <li><a href="index.html"><i class="material-icons">adjust</i><span class="hide-menu">Customers</span></a></li>
-                            <li><a href="index2.html"><i class="material-icons">adjust</i><span class="hide-menu">Managers</span></a></li>
-                            <li><a href="index3.html"><i class="material-icons">adjust</i><span class="hide-menu">Engineers</span></a></li>
+                            <li><a href="{{ route('admin.home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
+                            <li><a href="{{ route('admin.customer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Customers</span></a></li>
+                            <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Managers</span></a></li>
+                            <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Engineers</span></a></li>
                         </ul>
-                        <li><a href="index.html"><i class="material-icons">adjust</i><span class="hide-menu">Projects</span></a></li>
+                        <li><a href="index.html"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
                             <li class="small-cap"><span class="hide-menu">CUSTOMER</span></li>
-                            <li><a href="{{route('profile.main')}}">Profile</a></li>
-                            <li><a href="{{route('profile.payment.methods')}}">Payment Methods</a></li>
+                            <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
+                            <li><a href="{{route('profile.main')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li>
+                            <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li>
                             <li class="divider"></li>
                         @endif
                         <li>
-                            <a href="{{ route('logout') }}" class="collapsible-header"><i class="material-icons">directions</i><span class="hide-menu"> Log Out </span></a>
+                            <a href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i><span class="hide-menu"> Log Out </span></a>
                         </li>
                         <li class="divider"></li>
                     </ul>
@@ -338,7 +342,7 @@
 @yield('js')
 @stack('scripts')
 </body>
-<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
     <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/app.js') }}"></script>
