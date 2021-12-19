@@ -93,7 +93,15 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        return redirect()->route('admin.customer.index')->with('success','Customer details updated successfully');
     }
 
     /**

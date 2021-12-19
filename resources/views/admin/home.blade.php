@@ -41,8 +41,8 @@ Admin Home - Design Genesis
                             @foreach($projectQuery as $data)
                             <tr>
                                 <td>{{ $data->name }}</td>
-                                <td>{{ $data->status }}</td>
-                                <td>{{ $data->type->name }}</td>
+                                <td class="capitalize">{{ $data->status }}</td>
+                                <td class="capitalize">{{ $data->type->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.projects.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                     <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>

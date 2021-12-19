@@ -11,7 +11,7 @@ Edit Manager - {{ $user->first_name }} {{ $user->last_name }}
             <div class="card">
                 <div class="card-content">
                     <h3>Manager Info</h3>
-                    <form class="center" method="post" action="#">
+                    <form class="center" method="post" action="{{ route('admin.manager.update', $user->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -54,7 +54,7 @@ Edit Manager - {{ $user->first_name }} {{ $user->last_name }}
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field w100 col">
-                                    <input id="email" type="text" class="validate @error('email') invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                                    <input id="email" type="text" class="validate @error('email') invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" disabled>
                                     <label for="email">Email Address</label>
                                     @error('email')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -63,7 +63,7 @@ Edit Manager - {{ $user->first_name }} {{ $user->last_name }}
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn green">Edit</button>
+                            <button type="submit" class="btn green">Update</button>
                             <a href="{{ route('admin.manager.index') }}"><button type="button" class="btn red">Cancel</button></a>
                         </div> 
                     </form>

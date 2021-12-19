@@ -42,7 +42,7 @@ Engineer Details - Design Genesis
                                 <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                                 <td>{{ $data->email }}</td>
                                 <td>{{ $data->company }}</td>
-                                <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M Y, H:i A') }}</td>
+                                <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</td>
                                 <td>
                                     <a href="{{ route('admin.engineer.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                     <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>
