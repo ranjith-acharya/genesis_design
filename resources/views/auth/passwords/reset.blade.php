@@ -26,7 +26,7 @@
                         <div class="col s12 m8 offset-m2">
                             <div class="card">
                                 <div class="center">
-                                    <h4 class="card-header imperial-red-text" style="padding-top: 20px;text-transform: capitalize">{{ __('Verify Your Email Address') }}</h4>
+                                    <h4 class="card-header imperial-red-text" style="padding-top: 20px;text-transform: capitalize">{{ __('Reset your password') }}</h4>
                                 </div>
                                 <div class="card-content container">
                                     <form method="POST" action="{{ route('password.update') }}">
