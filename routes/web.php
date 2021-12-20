@@ -23,10 +23,23 @@ Route::middleware(['verified', 'auth'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
                 Route::namespace('Admin')->group(function () {
-                Route::get('/projects', 'ProjectController@getProjects')->name('get');
-                Route::get('/customer','UserController@customerIndex')->name('customers');
-                Route::get('/engineer','UserController@engineerIndex')->name('engineers');
-                
+                //Route::get('/projects', 'ProjectController@getProjects')->name('get');
+                //Route::get('/customer','UserController@customerIndex')->name('customers');
+                //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
+                Route::get('/home', 'ProjectController@index')->name('home');
+
+                //project controller edit, delete
+                Route::resource('/projects', 'ProjectController');
+                Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
+
+                //Admin Customer Controller
+                Route::resource('/customer', 'CustomerController');
+
+                //Admin Engineer Controller
+                Route::resource('/engineer', 'EngineerController');
+
+                //Admin Manager Controller
+                Route::resource('/manager', 'ManagerController');
                 //API
                 Route::get('/users/{role}', 'UserController@getList')->name('list');
             });

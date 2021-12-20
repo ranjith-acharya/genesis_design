@@ -83,7 +83,7 @@ class RegisterController extends Controller
         $intent = null;
         $customer = null;
         if (!$validation->fails()) {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe::setApiKey('sk_test_QRlgi66jX7UyI2ZABx7tX96s00mVjwISwc');
             $customer = Customer::create([
                 "email" => "pending.registeration@genesis.io"
             ]);
@@ -108,7 +108,7 @@ class RegisterController extends Controller
         $company->name = $data['company'];
         $company->save();
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey('sk_test_QRlgi66jX7UyI2ZABx7tX96s00mVjwISwc');
         Customer::update(
             $data['stripe_id'],
             [
@@ -134,9 +134,12 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        // return "Hello";
+        // $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+        $userData = $request->all();
+        $userData['password'] = Hash::make($userData['password']);
+        event(new Registered(User::create($userData)));
 
         return new Response(["status" => "registered"], 201);
 

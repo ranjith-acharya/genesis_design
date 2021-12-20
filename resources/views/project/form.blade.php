@@ -37,7 +37,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-3" id="container">
+    <div class="container-fluid" id="container">
 
         @if ($project)
             {{ Breadcrumbs::render('project', $project) }}
@@ -80,7 +80,7 @@
                 @endif
             </div>
         </div>
-        <form id="lead_form">
+        <form id="lead_form" method="post">
             <input type="hidden" name="project_type_id" validate="string" value="{{$projectType->id}}">
             <input type="hidden" name="project_id" validate="string" value="{{($project)?$project->id:"0"}}">
             <input type="hidden" name="country" validate="string" value="United States of America">
@@ -163,7 +163,7 @@
             @endisset
             <div id="uppies">
                 @foreach($projectType->fileCategories as $cat)
-                    <div class="col s12">
+                    <div class="col s12 container" style="height:100%;">
                         <h5 class="capitalize">{{$cat->name}} </h5>
                         <span class="helper-text grey-text small" style="font-size: 0.8rem">{{($cat->pivot->is_required)?"Required":""}}</span>
                         @if($cat->description)
@@ -177,6 +177,7 @@
                 @endforeach
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col s12 center">
                 @unless($project)
@@ -193,5 +194,6 @@
                 @endif
             </div>
         </div>
+        <br>
     </div>
 @endsection
