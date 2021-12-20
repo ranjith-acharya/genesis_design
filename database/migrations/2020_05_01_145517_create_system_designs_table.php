@@ -18,7 +18,7 @@ class CreateSystemDesignsTable extends Migration
             $table->id();
             $table->unsignedFloat('price');
             $table->enum('status', \App\Statics\Statics::DESIGN_STATUSES)->default(\App\Statics\Statics::DESIGN_STATUS_REQUESTED);
-            $table->json('fields')->nullable()->default(null);
+            $table->longText('fields')->nullable()->default(null);
             $table->string('stripe_payment_code')->nullable()->default(null);
             $table->dateTime('payment_date')->nullable()->default(null);
 

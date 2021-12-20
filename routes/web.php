@@ -19,11 +19,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['verified', 'auth'])->group(function () {
 
-    Route::middleware('role:admin')->group(function () {
+    Route::group(['middleware' => ['role:admin']], function () {
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
                 Route::namespace('Admin')->group(function () {
-                //Route::get('/projects', 'ProjectController@getProjects')->name('get');
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
                 Route::get('/home', 'ProjectController@index')->name('home');
@@ -31,6 +30,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects', 'ProjectController@getProjects')->name('get');
 
                 //Admin Customer Controller
                 Route::resource('/customer', 'CustomerController');
@@ -40,6 +40,11 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
                 //Admin Manager Controller
                 Route::resource('/manager', 'ManagerController');
+
+                //Role and Permissions
+                Route::resource('/roles', 'RoleController');
+                Route::resource('/permissions', 'PermissionController');
+
                 //API
                 Route::get('/users/{role}', 'UserController@getList')->name('list');
             });
@@ -47,7 +52,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
         });
     });
 
-    Route::middleware('role:engineer')->group(function () {
+    Route::group(['middleware' => ['role:engineer']], function () {
         Route::prefix('engineer')->group(function () {
             Route::name('engineer.')->group(function () {
                 Route::namespace('Engineer')->group(function () {
@@ -96,7 +101,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
         });
     });
 
-    Route::middleware('role:customer')->group(function () {
+    //Route::group(['middleware' => ['role:customer']], function () {
 
         Route::prefix('project')->group(function () {
             Route::name('project.')->group(function () {
@@ -157,9 +162,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('reject', 'ChangeRequestController@reject')->name('reject');
             });
         });
-    });
+    //});
 
-    Route::middleware('role:engineer|customer')->group(function () {
+    Route::group(['middleware' => ['role:engineer|customer']], function () {
         Route::prefix('messages')->group(function () {
             Route::name('messages.')->group(function () {
                 Route::post('/insert', 'MessageController@insert')->name('insert');

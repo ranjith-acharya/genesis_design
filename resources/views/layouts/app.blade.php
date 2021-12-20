@@ -228,6 +228,7 @@
                             <li><a href="{{ route('admin.customer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Customers</span></a></li>
                             <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Managers</span></a></li>
                             <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Engineers</span></a></li>
+                            <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Roles</span></a></li>
                         </ul>
                         <li><a href="index.html"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
                         <li class="divider"></li>
