@@ -53,11 +53,13 @@ class EngineerController extends Controller
         ]);
         
         $userData = $request->all();
-        $userData['role'] = 'engineer';
+       
+        $userData['role'] = \App\Statics\Statics::USER_TYPE_ENGINEER;
         $userData['password'] = Hash::make($userData['password']);
-        
+        //return $userData;
         //return $userData;
         $user = User::create($userData);
+        //DB::table('users')->insert($userData);
         //$user->assignRole('customer');
 
         return back()->with('success', 'Engineer  created successfully!');

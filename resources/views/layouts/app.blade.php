@@ -232,11 +232,18 @@
                         <li><a href="index.html"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
                         <li class="divider"></li>
                         @endif
-                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
                             <li class="small-cap"><span class="hide-menu">CUSTOMER</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
                             <li><a href="{{route('profile.main')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li>
                             <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li>
+                            <li class="divider"></li>
+                        @endif
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
+                            <li class="small-cap"><span class="hide-menu">ENGINEER</span></li>
+                            <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Projects</span></a></li>
+                            <!-- <li><a href="{{route('profile.main')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li> -->
+                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         <li>

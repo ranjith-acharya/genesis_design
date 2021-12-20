@@ -53,8 +53,9 @@ class Statics
     const USER_TYPE_ADMIN = "admin";
     const USER_TYPE_CUSTOMER = "customer";
     const USER_TYPE_ENGINEER = "engineer";
+    const USER_TYPE_MANAGER = "manager";
 
-    const USER_TYPES = [self::USER_TYPE_ADMIN, self::USER_TYPE_CUSTOMER, self::USER_TYPE_ENGINEER];
+    const USER_TYPES = [self::USER_TYPE_ADMIN, self::USER_TYPE_CUSTOMER, self::USER_TYPE_ENGINEER,self::USER_TYPE_MANAGER];
 
 //    Proposals File Type
     const PROPOSAL_FILE_TYPE_FULL = "full";
