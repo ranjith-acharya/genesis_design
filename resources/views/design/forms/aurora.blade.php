@@ -295,7 +295,7 @@
 @endphp
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <form id="aurora_form">
             <div class="row">
                 <div class="col s12">

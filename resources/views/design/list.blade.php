@@ -216,7 +216,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             {{ Breadcrumbs::render('design_list', $project) }}
             <div class="col s12 m9">
@@ -225,7 +225,7 @@
             </div>
             @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                 <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
-                    <a class="btn btn-large imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
+                    <a class="btn imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
                     @foreach($types as $designType)
@@ -237,61 +237,97 @@
         </div>
         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
             <div class="row">
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="designs">{{$designs}}</span>
-                        <i class="fal fa-draw-polygon"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text text-darken-1">
-                            Designs Requested
+                    <div class="col l4 m6">
+                        <div class="card indigo darken-1">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$designs}}</h2>
+                                        <h6 class="white-text m-b-0">Design Requested</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-notepad"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card green darken-1">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$change_requests}}</h2>
+                                        <h6 class="white-text m-b-0">Change Requests</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-clipboard"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card blue">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$proposals}}</h2>
+                                        <h6 class="white-text m-b-0">Proposal Received</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-wallet"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card yellow darken-1">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$cost}}</h2>
+                                        <h6 class="white-text m-b-0">Design Costs</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-stats-down"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card red lighten-1">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$change_request_cost}}</h2>
+                                        <h6 class="white-text m-b-0">Change Request Costs</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-map-alt"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card blue-grey darken-4">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$total}}</h2>
+                                        <h6 class="white-text m-b-0">Total</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-check-box"></i></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card amber steel-blue">
-                        <span id="proposals_received">{{$change_requests}}</span>
-                        <i class="fal fa-exchange-alt"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Change Requests
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card amber steel-blue">
-                        <span id="proposals_received">{{$proposals}}</span>
-                        <i class="fal fa-drafting-compass"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Proposals Received
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$cost}}</span>
-                        <i class="fal fa-money-bill-wave"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Design Costs
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$change_request_cost}}</span>
-                        <i class="fal fa-money-bill-wave"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Change Request Costs
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$total}}</span>
-                        <i class="fal fa-usd-circle"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Total
-                        </div>
-                    </div>
-                </div>
-            </div>
         @endif
         <div class="row">
             <div class="col s12 m9 center-on-small-only">
