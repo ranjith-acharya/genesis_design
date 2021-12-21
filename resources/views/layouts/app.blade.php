@@ -21,8 +21,11 @@
     <link href="{{ asset('dist/css/pages/data-table.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/toastr/toastr-init.js') }}"></script>
 </head>
 <body>
     <div class="main-wrapper" id="main-wrapper">
@@ -359,4 +362,6 @@
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/Datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
+    <script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/toastr/toastr-init.js') }}"></script>
 </html>

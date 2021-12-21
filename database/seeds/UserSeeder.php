@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         DB::table('companies')->insert([
             'name' => 'Test Company'
         ]);
-        DB::table('users')->insert([
+        $customer = User::create([
             'first_name' => "customer",
             'last_name' => "user",
             'stripe_id' => "cus_HHKW1WP0v2x7rA",
@@ -50,6 +50,10 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'company_id' => 1
         ]);
+
+        $role = Role::create(['name' => 'customer']);
+        $role->givePermissionTo(['project-list', 'project-create', 'project-edit', 'project-delete', 'design-list', 'design-create', 'design-edit', 'design-delete']);
+        $customer->assignRole('customer');
 
         //        engineer
         DB::table('users')->insert([

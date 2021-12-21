@@ -9,12 +9,11 @@ Engineer Details - Design Genesis
     <div class="row">
         <div class="col s12">
             <div class="card">
-                @if ($message = Session::get('success'))
-                    <script>M.toast({html: '{{ $message }}'})</script>
+             @if ($message = Session::get('success'))
+                <script>
+                    toastr.success('{{$message}}', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                </script>
 	            @endif
-                @if ($message = Session::get('error'))
-                    <script>M.toast({html: '{{ $message }}'})</script>
-                @endif
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
