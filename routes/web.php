@@ -31,6 +31,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
+                Route::post('/projects/assign', 'ProjectController@assign')->name('assign');
 
                 //Admin Customer Controller
                 Route::resource('/customer', 'CustomerController');

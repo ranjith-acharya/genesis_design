@@ -37,14 +37,13 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid" id="container">
-
+<div class="container-fluid" id="container">
         @if ($project)
             {{ Breadcrumbs::render('project', $project) }}
         @else
             {{ Breadcrumbs::render('project_new') }}
         @endif
-
+    <div class="card card-content">
         @isset($archive_error)
             <div class="center">
                 <h5 class="imperial-red-text">{{$archive_error}}</h5>
@@ -53,7 +52,7 @@
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s12 m6">
-                    <h3 class="mt-2 capitalize">{{$projectType->name}} Project</h3>
+                    <h3 class="mt-2 capitalize" style="margin-top:20px;">{{$projectType->name}} Project</h3>
                     <h4>Information</h4>
                 </div>
                 <div class="col s12 m6 hide-on-small-and-down right right-align">
@@ -85,12 +84,12 @@
             <input type="hidden" name="project_id" validate="string" value="{{($project)?$project->id:"0"}}">
             <input type="hidden" name="country" validate="string" value="United States of America">
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input id="name" class="main_text_fields" name="name" value="{{($project)?$project->name:""}}" validate="string" type="text"/>
                     <label for="name">Project Name</label>
                     <span class="helper-text">Required</span>
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <textarea id="description" class="materialize-textarea" name="description">{{($project)?$project->description:""}}</textarea>
                     <label for="description">Project Description</label>
                     <span class="helper-text">Required</span>
@@ -157,7 +156,7 @@
             </div>
         @endisset
         <div class="row">
-            <h4 class="mt-2">File Attachments</h4>
+            <h4 class="mt-2" style="margin-left:10px;">File Attachments</h4>
             @isset($project)
                 @component('components.list-project-files', ['fileTypes' => $fileTypes, 'project' => $project, 'path' => route('project.file.get')])@endcomponent
             @endisset
@@ -196,4 +195,5 @@
         </div>
         <br>
     </div>
+</div>
 @endsection

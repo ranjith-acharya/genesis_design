@@ -60,7 +60,7 @@ class EngineerController extends Controller
         //return $userData;
         $user = User::create($userData);
         //DB::table('users')->insert($userData);
-        //$user->assignRole('customer');
+        $user->assignRole('engineer');
 
         return back()->with('success', 'Engineer  created successfully!');
     }

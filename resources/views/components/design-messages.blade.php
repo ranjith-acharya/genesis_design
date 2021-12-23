@@ -38,7 +38,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -154,7 +154,7 @@
 
         const sendFileToDb = function (file, response) {
 
-            axios('{{route('messages.file.attach')}}', {
+            axios("{{route('messages.file.attach')}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

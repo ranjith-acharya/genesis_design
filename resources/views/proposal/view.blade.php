@@ -3,7 +3,7 @@
 @section('title', "Proposal for: " . $design->type->name )
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         {{ Breadcrumbs::render('proposal', $design) }}
         <div class="row">
             <div class="valign-wrapper">

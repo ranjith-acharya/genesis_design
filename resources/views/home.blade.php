@@ -168,7 +168,7 @@
             </div>
             <div class="col s12 m3 pt-s hide-on-med-and-down right-align">
                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                    <a class="btn btn-large imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
+                    <a class="btn imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content'>
                         @foreach($projectTypes as $projectType)
@@ -177,7 +177,7 @@
                         @endforeach
                     </ul>
                 @else
-                    <a class="btn btn-large imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a>
+                    <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a>
                 @endif
             </div>
         </div>

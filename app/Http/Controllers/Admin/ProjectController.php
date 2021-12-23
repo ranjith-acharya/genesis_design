@@ -24,7 +24,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projectQuery = Project::all();
-        return view('admin.home', compact('projectQuery'));
+        $engineers = User::where('role', 'engineer')->get();
+        return view('admin.home', compact('projectQuery', 'engineers'));
     }
 
     /**
@@ -122,5 +123,22 @@ class ProjectController extends Controller
         //         $query->where($filter->field, '=', $filter->value);
 
         return $query->paginate(5);
+    }
+
+    public function assign(Request $request)
+    {
+        //return $request;
+        $project = Project::with('customer')->findOrFail($request->project_id);
+        Project::where('id', $request->project_id)->update([
+            "engineer_id" => $request->engineer_id,
+            'status' => Statics::PROJECT_STATUS_ACTIVE
+        ]);
+
+//        email customer that project is being worked on
+//        Mail::to($project->customer->email)
+//            ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+
+
+        return back()->with('success', 'Project assigned successfully!');
     }
 }

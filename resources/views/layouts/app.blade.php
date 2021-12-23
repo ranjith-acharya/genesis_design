@@ -14,6 +14,7 @@
     <link href="{{ asset('css/spaces.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/fontawesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/light.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('uppy/uppy.min.css') }}" rel="stylesheet">
     @yield('css')
     @stack('stylesheets')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

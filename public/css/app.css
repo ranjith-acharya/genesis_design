@@ -6,6 +6,13 @@ body {
     font-family: 'Manrope', sans-serif;
 }
 
+.uppy-Dashboard-inner{
+    margin-right: auto!important;
+    margin-left: auto!important;
+    height: 350px !important;
+    width: 600px !important;
+}
+
 main {
     flex: 1 0 auto;
 }

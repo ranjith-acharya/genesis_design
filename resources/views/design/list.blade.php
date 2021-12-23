@@ -246,7 +246,7 @@
                                         <h6 class="white-text m-b-0">Design Requested</h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="ti-notepad"></i></span>
+                                        <span class="white-text display-6"><i class="ti-clipboard"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
                                         <h6 class="white-text m-b-0">Change Requests</h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="ti-clipboard"></i></span>
+                                        <span class="white-text display-6"><i class="ti-control-shuffle"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                         <h6 class="white-text m-b-0">Proposal Received</h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="ti-wallet"></i></span>
+                                        <span class="white-text display-6"><i class="ti-write"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                         <h6 class="white-text m-b-0">Design Costs</h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="ti-stats-down"></i></span>
+                                        <span class="white-text display-6"><i class="ti-wallet"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                         <h6 class="white-text m-b-0">Change Request Costs</h6>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="ti-map-alt"></i></span>
+                                        <span class="white-text display-6"><i class="ti-money"></i></span>
                                     </div>
                                 </div>
                             </div>

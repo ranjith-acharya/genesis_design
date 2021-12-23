@@ -1,8 +1,8 @@
 <div class="card-panel p-xxs">
     @if($message->userType->role === "customer")
-        <i class="fal fa-user-alt circle steel-blue white-text honeydew-text mr-xxs" style="font-size: 1.8em;padding: 12px"></i>
+        <i class="fal fa-user circle green darken-1 white-text honeydew-text mr-xxs" style="font-size: 1.8em;padding: 12px;"></i>
     @else
-        <i class="fal fa-wrench circle prussian-blue white-text honeydew-text mr-xxs" style="font-size: 1.8em;padding: 12px"></i>
+        <i class="fal fa-user-hard-hat circle blue-grey darken-4 white-text honeydew-text mr-xxs" style="font-size: 1.8em;padding: 12px"></i>
     @endif
     {{$message->message}}
     <div class="small imperial-red-text right-align">
