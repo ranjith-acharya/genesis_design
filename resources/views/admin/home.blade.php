@@ -49,9 +49,9 @@ Admin Home - Design Genesis
                                 <td class="capitalize">{{ $data->status }}</td>
                                 <td class="capitalize">{{ $data->type->name }}</td>
                                 <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action'><i class="ti-view-list"></i></a>
-                                    <ul id='action' class='dropdown-content'>
-                                        <li><a href="#assign" onclick="setProjectID({{ $data->id }})" class="blue-text modal-trigger">Assign</a></li>
+                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
+                                    <ul id='action{{$data->id}}' class='dropdown-content'>
+                                        <li><a href="#assign{{$data->id}}" onclick="setProjectID({{ $data->id }})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="{{ route('admin.projects.edit', $data->id) }}" class="indigo-text">Edit</a></li>
                                         <li><a href="" class="imperial-red-text">Delete</a></li>
                                     </ul>
@@ -63,9 +63,9 @@ Admin Home - Design Genesis
                             @endforeach
                         </tbody>
                     </table>
-                    <div id="assign" class="modal modal-fixed-footer">
+                    <div id="assign{{ $data->id }}" class="modal modal-fixed-footer">
                         <div class="modal-content">
-                            <h4>Select Engineer to Assign</h4>
+                            <h4>Select Engineer to Assign {{ $data->name }} project</h4>
                             <form method="post" id="assign_form">
                             @csrf
                                 <div class="input-field col s12">

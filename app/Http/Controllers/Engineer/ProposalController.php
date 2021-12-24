@@ -31,7 +31,7 @@ class ProposalController extends Controller
 
     private function capture($payment_id)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey('sk_test_QRlgi66jX7UyI2ZABx7tX96s00mVjwISwc');
         $intent = \Stripe\PaymentIntent::retrieve($payment_id);
         $response = $intent->capture();
         Log::info("captured $payment_id", $response->toArray());

@@ -13,7 +13,7 @@
         let uppyPartial = null;
         let fileCount = 0;
         let filesUploaded = 0;
-        const redirect = '{{route('engineer.design.view', $design->id)}}';
+        const redirect = "{{route('engineer.design.view', $design->id)}}";
         const company = '{{($design->project->customer->company)?$design->project->customer->company:"no-company"}}';
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -38,7 +38,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -197,7 +197,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         @if((sizeof($design->changeRequests)>0))
             {{ Breadcrumbs::render('change_request_proposal_new', $design) }}
         @else
@@ -241,9 +241,9 @@
                 <div class="imperial-red-text" id="uppy_errors"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row"><br>
             <div class="col s12 center">
-                <button class="btn btn-large imperial-red-outline-button" onclick="send(this)">Send Proposal</button>
+                <button class="btn imperial-red-outline-button" onclick="send(this)">Send Proposal</button>
             </div>
         </div>
     </div>
