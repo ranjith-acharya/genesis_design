@@ -25,13 +25,16 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::namespace('Admin')->group(function () {
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
-                Route::get('/home', 'ProjectController@index')->name('home');
+                Route::get('/home', 'UserController@adminIndex')->name('home');
 
+                Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
+                
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
                 Route::post('/projects/assign', 'ProjectController@assign')->name('assign');
+                
 
                 //Admin Customer Controller
                 Route::resource('/customer', 'CustomerController');

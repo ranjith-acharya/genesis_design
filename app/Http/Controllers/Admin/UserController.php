@@ -32,6 +32,10 @@ class UserController extends Controller
         //return $users;
     }
 
+    public function adminIndex(){
+        return view('admin.home');
+    }
+
     public function getList(Request $request, $role)
     {
         //return "sdfsdf";

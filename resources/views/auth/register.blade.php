@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{ asset('assets/images/big/auth-bg.jpg') }}) no-repeat center center;">
-            <div class="auth-box">
+            <div class="auth-box" style="width:100%;">
                 <div id="loginform">
                     <div class="logo">
-                        <span class="db"><img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo" /></span>
+                        <span class="db"><img src="{{ asset('assets/images/logo-icon-1.png') }}" alt="logo" height="50px" width="60px" /></span>
                         <h5 class="font-medium m-b-20">Sign up to continue <br> Design Genesis</h5>
                     </div>
                     <!-- Form -->

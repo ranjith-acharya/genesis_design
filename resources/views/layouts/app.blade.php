@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/pages/data-table.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/pages/dashboard1.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
@@ -35,12 +36,10 @@
                 <div class="nav-wrapper">
                     <a href="javascript:void(0)" class="brand-logo">
                         <span class="icon">
-                            <img class="light-logo" src="{{ asset('assets/images/logo-light-icon.png') }}">
-                            <img class="dark-logo" src="{{ asset('assets/images/logo-icon.png') }}">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-icon.png') }}">
                         </span>
                         <span class="text">
-                            <img class="light-logo" src="{{ asset('assets/images/logo-light-text.png') }}">
-                            <img class="dark-logo" src="{{ asset('assets/images/logo-text.png') }}">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-text-1.png') }}" height="40px" style="margin-top:22px;margin-left:15px;">
                         </span>
                     </a>
                     <ul class="left">
@@ -212,7 +211,7 @@
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#"><i class="material-icons">settings</i> Account Setting</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="material-icons">power_settings_new</i> Logout</a></li>
+                                <li><a href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i> Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -233,8 +232,8 @@
                             <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Managers</span></a></li>
                             <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Engineers</span></a></li>
                             <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Roles</span></a></li>
+                            <li><a href="{{ route('admin.projects.list') }}"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
                         </ul>
-                        <li><a href="index.html"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
@@ -365,4 +364,8 @@
     <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
     <script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/toastr/toastr-init.js') }}"></script>
+    <script src="{{ asset('assets/libs/chartist/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
 </html>
