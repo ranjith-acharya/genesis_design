@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Engineer Details - Design Genesis
+Engineer Details - Genesis Design
 @endsection
 
 @section('content')
