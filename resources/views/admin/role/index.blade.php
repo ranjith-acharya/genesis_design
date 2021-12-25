@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Roles - Design Genesis
+Roles - - Genesis Design
 @endsection
 
 @section('content')
