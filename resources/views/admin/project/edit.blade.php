@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Update Project Details - Design Genesis
+Update Project Details - Genesis Design
 @endsection
 
 @section('content')

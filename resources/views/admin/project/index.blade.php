@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Project Index - Design Genesis
+Project Index - Genesis Design
 @endsection
 
 @section('content')
