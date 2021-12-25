@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-    <title>Design Genesis - Login</title>
+    <title>Genesis Design - Login</title>
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/pages/authentication.css') }}" rel="stylesheet">
 </head>
@@ -16,15 +16,15 @@
         <div class="preloader">
             <div class="loader">
                 <div class="loader__figure"></div>
-                <p class="loader__label">Design Genesis</p>
+                <p class="loader__label">Genesis Design</p>
             </div>
         </div>
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{ asset('assets/images/big/auth-bg.jpg') }}) no-repeat center center;">
-            <div class="auth-box" style="position: absolute; width:100%;">
+            <div class="auth-box">
                 <div id="loginform" >
                     <div class="logo">
                         <span class="db"><img src="{{ asset('assets/images/logo-icon-1.png') }}" alt="logo" height="50px" width="60px"/></span>
-                        <h5 class="font-medium m-b-20">Sign in to continue <br> Design Genesis</h5>
+                        <h5 class="font-medium m-b-20">Sign in to continue <br> Genesis Design</h5>
                     </div>
                     <!-- Form -->
                     <div class="row">

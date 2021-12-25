@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
-    <title>Design Genesis - Login</title>
+    <title>Genesis Design - Verify</title>
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/pages/authentication.css') }}" rel="stylesheet">
 </head>
