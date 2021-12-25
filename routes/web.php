@@ -25,7 +25,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::namespace('Admin')->group(function () {
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
-                Route::get('/home', 'UserController@adminIndex')->name('home');
+                Route::get('/home', 'DashBoardController@index')->name('home');
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 
@@ -150,11 +150,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
             });
         });
 
-        Route::prefix('profile')->group(function () {
-            Route::name('profile.')->group(function () {
-                Route::view('/', 'profile.profile')->name('main');
-                Route::get('/payment/methods', 'PaymentController@getPaymentMethods')->name('payment.methods');
-            });
+        Route::name('profile.')->group(function () {
+            Route::resource('/profile', 'ProfileController');
+            Route::get('/profile/payment/methods', 'PaymentController@getPaymentMethods')->name('payment.methods');
         });
 
         Route::prefix('changeRequests')->group(function () {

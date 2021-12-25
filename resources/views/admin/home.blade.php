@@ -12,11 +12,11 @@ Admin Home - Genesis Design
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
-                            <h2 class="white-text m-b-5">250</h2>
-                            <h6 class="white-text op-5 light-blue-text">Invoices</h6>
+                            <h2 class="white-text m-b-5">{{ $customerCount }}</h2>
+                            <h6 class="white-text op-5 light-blue-text">Customers</h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="white-text display-6"><i class="material-icons">assignment</i></span>
+                            <span class="white-text display-6"><i class="ti-user"></i></span>
                         </div>
                     </div>
                 </div>
@@ -27,11 +27,11 @@ Admin Home - Genesis Design
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
-                            <h2 class="white-text m-b-5">520</h2>
-                            <h6 class="white-text op-5">News Feed</h6>
+                            <h2 class="white-text m-b-5">{{ $engineerCount }}</h2>
+                            <h6 class="white-text op-5">Engineers</h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="white-text display-6"><i class="material-icons">receipt</i></span>
+                            <span class="white-text display-6"><i class="fal fa-user-hard-hat"></i></span>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@ Admin Home - Genesis Design
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
-                            <h2 class="white-text m-b-5">100</h2>
-                            <h6 class="white-text op-5 text-darken-2">Sales</h6>
+                            <h2 class="white-text m-b-5">{{$projectsActive }}</h2>
+                            <h6 class="white-text op-5 text-darken-2">Active Projects</h6>
                         </div>
                         <div class="ml-auto">
                             <span class="white-text display-6"><i class="material-icons">equalizer</i></span>
@@ -57,11 +57,11 @@ Admin Home - Genesis Design
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
-                            <h2 class="white-text m-b-5">450</h2>
-                            <h6 class="white-text op-5">Revenue</h6>
+                            <h2 class="white-text m-b-5">{{ $projectsPending }}</h2>
+                            <h6 class="white-text op-5">Pending Projects</h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="white-text display-6"><i class="material-icons">attach_money</i></span>
+                            <span class="white-text display-6"><i class="ti-info-alt"></i></span>
                         </div>
                     </div>
                 </div>

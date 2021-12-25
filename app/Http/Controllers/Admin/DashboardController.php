@@ -5,44 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
-use App\ProjectType;
+use App\Project;
 
-class UserController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function customerIndex()
+    public function index()
     {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.customer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
-    }
-
-    public function engineerIndex()
-    {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.engineer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
-    }
-
-    // public function adminIndex(){
-    //     return view('admin.home');
-    // }
-
-    public function getList(Request $request, $role)
-    {
-        //return "sdfsdf";
-        //return $role;
-        $users = User::where('role', $role);
-        //return view('admin.users');
-        return $users->latest()->paginate(5);
+        $customerCount = User::where('role', 'customer')->count();
+        $engineerCount = User::where('role', 'engineer')->count();
+        $projectsActive = Project::where('status', 'active')->count();
+        $projectsPending = Project::where('status', 'pending')->count();
+        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending'));
     }
 
     /**

@@ -1,48 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
-use App\ProjectType;
+use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function customerIndex()
+    public function index()
     {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.customer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
-    }
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $cards = \Stripe\PaymentMethod::all([
+            'customer' => Auth::user()->stripe_id,
+            'type' => 'card',
+        ]);
 
-    public function engineerIndex()
-    {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.engineer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
-    }
+        $data = collect($cards->data);
 
-    // public function adminIndex(){
-    //     return view('admin.home');
-    // }
+        $filtered = $data->map(function ($item, $key) {
+            return [
+                "id" => $item->id,
+                "card" => $item->card,
+            ];
+        });
 
-    public function getList(Request $request, $role)
-    {
-        //return "sdfsdf";
-        //return $role;
-        $users = User::where('role', $role);
-        //return view('admin.users');
-        return $users->latest()->paginate(5);
+        $default = $filtered->firstWhere('id', '=', Auth::user()->default_payment_method);
+
+        $filtered = $filtered->reject(function ($item, $key) {
+            return Auth::user()->default_payment_method === $item['id'];
+        });
+
+        return view('profile.profile', ["cards" => $filtered, "default" => $default]);
     }
 
     /**

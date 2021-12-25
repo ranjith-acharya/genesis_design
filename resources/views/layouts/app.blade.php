@@ -192,21 +192,24 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="{{ asset('assets/images/users/2.jpg')}}" alt="user" class="circle profile-pic"></a>
+                        @php
+                            $profile_img=Auth::user()->role.".png";
+                        @endphp
+                        <li><a class="dropdown-trigger" href="javascript: void(0);" data-target="user_dropdown"><img src="{{ asset('assets/images/users/'.$profile_img)}}" alt="user" class="circle profile-pic"></a>
                             <ul id="user_dropdown" class="mailbox dropdown-content dropdown-user">
                                 <li>
                                     <div class="dw-user-box">
-                                        <div class="u-img"><img src="{{ asset('assets/images/users/2.jpg')}}" alt="user"></div>
+                                        <div class="u-img"><img src="{{ asset('assets/images/users/'.$profile_img)}}" alt="user"></div>
                                         <div class="u-text">
-                                            <h4>Steve Harvey</h4>
-                                            <p>steve@gmail.com</p>
-                                            <a class="waves-effect waves-light btn-small red white-text">View Profile</a>
+                                            <h4>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
+                                            <p>{{ Auth::user()->email }}</p>
+                                            <a class="waves-effect waves-light btn-small red white-text" href="{{ route('profile.profile.index') }}">View Profile</a>
                                         </div>
                                     </div>
                                 </li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="material-icons">account_circle</i> My Profile</a></li>
-                                <li><a href="#"><i class="material-icons">account_balance_wallet</i> My Balance</a></li>
+                                <!-- <li><a href="#"><i class="material-icons">account_circle</i> My Profile</a></li> -->
+                                <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">account_balance_wallet</i> Payment Methods</a></li>
                                 <li><a href="#"><i class="material-icons">inbox</i> Inbox</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#"><i class="material-icons">settings</i> Account Setting</a></li>
@@ -239,14 +242,14 @@
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
                             <li class="small-cap"><span class="hide-menu">CUSTOMER</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
-                            <li><a href="{{route('profile.main')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li>
-                            <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li>
+                            <li><a href="{{route('profile.profile.index')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li>
+                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
                             <li class="small-cap"><span class="hide-menu">ENGINEER</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Projects</span></a></li>
-                            <!-- <li><a href="{{route('profile.main')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li> -->
+                            <!-- <li><a href="{{route('profile.profile.index')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li> -->
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif

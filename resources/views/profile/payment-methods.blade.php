@@ -189,7 +189,7 @@
         <div class="col s12 m8 offset-m2 center-align">
             <label for="card-element"></label>
             <div id="card-element"></div>
-            <span class="helper-text red-text bold" id="stripe_error"></span>
+            <div class="helper-text red-text bold" id="stripe_error"></div>
             <button type="button" class="btn mt-s imperial-red-outline-button" id="addCard">Add new card</button>
         </div>
     </div>
