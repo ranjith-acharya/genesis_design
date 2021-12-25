@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Edit Manager - {{ $user->first_name }} {{ $user->last_name }}
+Edit Manager - {{ $user->first_name }} {{ $user->last_name }} - Genesis Design
 @endsection
 
 @section('content')
