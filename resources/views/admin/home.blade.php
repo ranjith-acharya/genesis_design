@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Admin Home - Design Genesis
+Admin Home - Genesis Design
 @endsection
 
 @section('content')
