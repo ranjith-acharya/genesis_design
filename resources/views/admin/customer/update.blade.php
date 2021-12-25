@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Edit Customer - {{ $user->first_name }} {{ $user->last_name }}
+Edit Customer - {{ $user->first_name }} {{ $user->last_name }} - Genesis Design
 @endsection
 
 @section('content')

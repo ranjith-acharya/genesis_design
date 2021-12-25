@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Customer Details - Design Genesis
+Customer Details - Genesis Design
 @endsection
 
 @section('content')
