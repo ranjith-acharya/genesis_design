@@ -9,7 +9,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
     <link rel="manifest" href="{{asset('site.webmanifest')}}">
-    <link href="https://fonts.googleapis.com/icon?family=Manrope|Montserrat" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link href="{{ asset('materialize/css/materialize.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/spaces.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -36,10 +38,10 @@
                 <div class="nav-wrapper">
                     <a href="javascript:void(0)" class="brand-logo">
                         <span class="icon">
-                            <img class="light-logo" src="{{ asset('assets/images/logo-icon.png') }}">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-icon-white.png') }}" height="40px" style="margin-top:2px;margin-left:-8px;">
                         </span>
                         <span class="text">
-                            <img class="light-logo" src="{{ asset('assets/images/logo-text-1.png') }}" height="40px" style="margin-top:22px;margin-left:15px;">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-text-white.png') }}" height="40px" style="margin-top:22px;margin-left:15px;">
                         </span>
                     </a>
                     <ul class="left">
@@ -223,38 +225,62 @@
         </header>
 
         <aside class="left-sidebar">
-            <ul id="slide-out" class="sidenav">
-                
+            <ul id="slide-out" class="sidenav">     
                 <li>
                     <ul class="collapsible">
                         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                        <li class="small-cap"><i class="material-icons tiny">group</i><span class="hide-menu">&nbsp;&nbsp;&nbsp;&nbsp;USER(s)</span></li>
-                        <ul>
-                            <li><a href="{{ route('admin.home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
-                            <li><a href="{{ route('admin.customer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Customers</span></a></li>
-                            <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Managers</span></a></li>
-                            <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Engineers</span></a></li>
-                            <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons">person_pin</i><span class="hide-menu">Roles</span></a></li>
-                            <li><a href="{{ route('admin.projects.list') }}"><i class="material-icons">next_week</i><span class="hide-menu">Projects</span></a></li>
-                        </ul>
+                        <li class="small-cap"><span class="hide-menu white-text">ADMINISTRATOR</span></li>
+                        <li><a href="{{ route('admin.home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li>
+                        <li>
+                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="material-icons white-text">dashboard</i><span class="hide-menu white-text"> Users</span></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <ul>
+                                    <li><a href="{{ route('admin.customer.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Customers</span></a></li>
+                                    <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Managers</span></a></li>
+                                    <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Engineers</span></a></li>
+                                    <li><a href="{{ route('admin.users.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Users</span></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                        </li>
+                        <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Roles</span></a></li>
+                        <li><a href="{{ route('admin.projects.list') }}"><i class="material-icons white-text" style="font-size:20px;">next_week</i><span class="hide-menu white-text">Projects</span></a></li>
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
-                            <li class="small-cap"><span class="hide-menu">CUSTOMER</span></li>
-                            <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Home</span></a></li>
-                            <li><a href="{{route('profile.profile.index')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li>
-                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li> -->
+                            <li class="small-cap"><span class="hide-menu white-text">CUSTOMER</span></li>
+                            <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Home</span></a></li>
+                            <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Profile</span></a></li>
+                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:20px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
-                            <li class="small-cap"><span class="hide-menu">ENGINEER</span></li>
-                            <li><a href="{{ route('home') }}"><i class="material-icons">home</i><span class="hide-menu">Projects</span></a></li>
-                            <!-- <li><a href="{{route('profile.profile.index')}}"><i class="material-icons">person_pin    </i><span class="hide-menu">Profile</span></a></li> -->
-                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">credit_card</i><span class="hide-menu">Payment Methods</span></a></li> -->
+                            <li class="small-cap"><span class="hide-menu white-text">ENGINEER</span></li>
+                            <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Projects</span></a></li>
+                            <!-- <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Profile</span></a></li> -->
+                            <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:20px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
+                            <li class="divider"></li>
+                        @endif
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER)
+                            <li class="small-cap"><span class="hide-menu white-text">MANAGER</span></li>
+                            <li><a href="{{ route('manager.projects.list') }}"><i class="material-icons white-text" style="font-size:20px;">next_week</i><span class="hide-menu white-text">Projects</span></a></li>
+                            <!-- <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li> -->
+                            <li>
+                            <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="material-icons white-text">dashboard</i><span class="hide-menu white-text"> Users</span></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <ul>
+                                        <li><a href="{{ route('manager.customer.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Customers</span></a></li>
+                                        <li><a href="{{ route('manager.engineer.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Engineers</span></a></li>
+                                    </ul>
+                                </ul>
+                            </div>
+                            </li>
                             <li class="divider"></li>
                         @endif
                         <li>
-                            <a href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i><span class="hide-menu"> Log Out </span></a>
+                            <a href="{{ route('logout') }}"><i class="material-icons white-text" style="font-size:20px;">power_settings_new</i><span class="hide-menu white-text"> Log Out </span></a>
                         </li>
                         <li class="divider"></li>
                     </ul>
@@ -371,4 +397,5 @@
     <script src="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
 </html>

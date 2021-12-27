@@ -5,7 +5,7 @@ Engineer Details - Genesis Design
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid black-text">
     <div class="row">
         <div class="col s12">
             <div class="card">
@@ -43,7 +43,7 @@ Engineer Details - Genesis Design
                                 <td>{{ $data->company }}</td>
                                 <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M Y') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.engineer.edit', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
+                                    <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $data->id) }}@else{{ route('manager.engineer.edit', $data->id) }}@endif"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                     <button type="submit" class="btn-small red"><i class="material-icons">delete</i></button>
                                 </td>
                             </tr>
@@ -54,7 +54,7 @@ Engineer Details - Genesis Design
                 <div id="createEngineer" class="modal">
                     <div class="modal-content center">
                         <h4>Add new Engineer</h4>
-                        <form class="center" method="post" action="{{ route('admin.engineer.store') }}">
+                        <form class="center" method="post" action="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.store') }}@else{{ route('manager.engineer.store') }}@endif">
                             @csrf
                             <div class="row">
                                 <div class="col s6">

@@ -148,4 +148,9 @@ class ProjectController extends Controller
 
         return back()->with('success', 'Project assigned successfully!');
     }
+    public function getAssignEngineer($id)
+    {
+        $project = Project::findOrFail($id);
+        return $project;
+    }
 }

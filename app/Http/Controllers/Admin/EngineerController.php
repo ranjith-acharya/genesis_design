@@ -105,7 +105,7 @@ class EngineerController extends Controller
     
         $user = User::find($id);
         $user->update($request->all());
-        return redirect()->route('admin.engineer.index')->with('success','Engineer details updated successfully');
+        return back()->with('success','Engineer details updated successfully');
     }
 
     /**

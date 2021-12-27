@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 use App\ProjectType;
 
 class UserController extends Controller
@@ -14,27 +16,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function customerIndex()
-    {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.customer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
-    }
 
-    public function engineerIndex()
-    {
-        //return $role;
-        $types = ProjectType::where('is_hidden', false)->get();
-        return view('admin.engineer.home')->with('projectTypes', $types);
-        //$users = User::where('role', '=',  $role)->get();
-        //return $users;
+    public function index(){
+        
+        $roles = Role::all();
+        $users = User::all()->except(1);
+        return view('admin.user.index', compact('users', 'roles'));
     }
-
-    // public function adminIndex(){
-    //     return view('admin.home');
-    // }
 
     public function getList(Request $request, $role)
     {
@@ -63,7 +51,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone' => ['max:10'],
+            'role_name' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ], [
+            'first_name.required' => 'First name required',
+            'last_name.required' => 'Last name required',
+            'role_name.required' => 'Select role',
+            'email.required' => 'Email address required',
+            'password.required' => 'Password required',
+        ]);
+        
+        $userData = $request->all();
+        $userData['role'] = 'engineer';
+        $userData['password'] = Hash::make($userData['password']);
+        $user = User::create($userData);
+        $user->assignRole($userData['role_name']);
+
+        return back()->with('success', 'User  created successfully!');
     }
 
     /**
@@ -85,7 +94,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles = Role::all();
+        $user = User::find($id);
+        return view('admin.user.update', compact('user', 'roles'));
     }
 
     /**
@@ -97,7 +108,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        //return $user;
+        $user->assignRole($request['role_name']);
+        return redirect()->route('admin.users.index')->with('success','User details updated successfully');
     }
 
     /**

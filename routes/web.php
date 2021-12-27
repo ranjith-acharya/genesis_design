@@ -34,7 +34,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
                 Route::post('/projects/assign', 'ProjectController@assign')->name('assign');
-                
+                Route::get('/projects/{id}/assign', 'ProjectController@getAssignEngineer')->name('assignValue');
 
                 //Admin Customer Controller
                 Route::resource('/customer', 'CustomerController');
@@ -45,6 +45,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Admin Manager Controller
                 Route::resource('/manager', 'ManagerController');
 
+                //Admin Users Controller
+                Route::resource('/users', 'UserController');
+
                 //Role and Permissions
                 Route::resource('/roles', 'RoleController');
                 Route::resource('/permissions', 'PermissionController');
@@ -53,6 +56,23 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/users/{role}', 'UserController@getList')->name('list');
             });
         });
+        });
+    });
+
+    Route::group(['middleware' => ['role:manager']], function() {
+        Route::prefix('manager')->group(function() {
+            Route::name('manager.')->group(function() {
+                Route::resource('/customer', 'Admin\CustomerController');
+                Route::resource('/engineer', 'Admin\EngineerController');
+                
+                Route::get('/projects/list', 'Admin\ProjectController@indexProject')->name('projects.list');
+
+                Route::resource('/projects', 'Admin\ProjectController');
+                Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');
+                Route::post('/projects/assign', 'Admin\ProjectController@assign')->name('assign');
+                Route::get('/projects/{id}/assign', 'Admin\ProjectController@getAssignEngineer')->name('assignValue');
+            });
         });
     });
 

@@ -5,7 +5,7 @@ Project Index - Genesis Design
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid black-text">
     <div class="row">
         <div class="col s12">
             <div class="card">
@@ -21,20 +21,21 @@ Project Index - Genesis Design
                     </div>
                     <div class="col s6">
                     <div class="right-align">
-                        
-                    <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
+                    
+                    <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
                         <ul id='dropdown1' class='dropdown-content'>
                             <li><a href="http://127.0.0.1:8000/project/new/residential">Residential</a></li>
                             <li class="divider" tabindex="-1"></li>
                             <li><a href="http://127.0.0.1:8000/project/new/commercial">Commercial</a></li>
                             <li class="divider" tabindex="-1"></li>
-                        </ul>
+                        </ul> -->
+                    
                     </div>
                     </div>
                     </div>
                     <table id="zero_config" class="responsive-table display">
                         <thead>
-                            <tr>
+                            <tr class="black-text">
                                 <th>Project Name</th>
                                 <th>Project Status</th>
                                 <th>Project Type</th>
@@ -52,7 +53,7 @@ Project Index - Genesis Design
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
                                         <li><a href="#assign" onclick="setProjectID('{{ $data->name }}',{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
-                                        <li><a href="{{ route('admin.projects.edit', $data->id) }}" class="indigo-text">Edit</a></li>
+                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
                                         <li><a href="" class="imperial-red-text">Delete</a></li>
                                     </ul>
                                 </td>
@@ -69,13 +70,12 @@ Project Index - Genesis Design
                             <form method="post" id="assign_form">
                             @csrf
                                 <div class="input-field col s12">
-                                    <select multiple name="engineer_id">
-                                        <option value="" disabled>Select Engineer</option>
+                                    <select class="browser-default" name="engineer_id" id="engineer_select">
+                                        <option disabled >Select Engineer</option>
                                         @foreach($engineers as $engineer)
                                             <option value="{{ $engineer->id }}">{{ $engineer->first_name }} {{ $engineer->last_name }}</option>
                                         @endforeach
                                     </select>
-                                    <label>Select Engineer</label>
                                 </div>
                                 <div class="col s12">
                                     <input type="hidden" name="project_id" id="project_id" value="">
@@ -99,8 +99,24 @@ Project Index - Genesis Design
     function setProjectID(name,id)
     {
         $('#project_id').val(id);
-        $("#assign_form").attr('action',"{{ route('admin.assign') }}");
+        $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
         $("#project_name").text(name);
+        //alert(id)
+       var modelid=id;
+        $.ajax({
+                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
+                method:"GET",
+                datatype:"JSON",
+                success:function(data)
+                {
+                   //alert(data);
+                   console.log(data);
+                   //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
+                   $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
+                    // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
+                    // $("#method").val("PATCH");        
+                }
+            });
     }
 </script>
 @endsection

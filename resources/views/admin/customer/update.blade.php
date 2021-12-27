@@ -9,9 +9,14 @@ Edit Customer - {{ $user->first_name }} {{ $user->last_name }} - Genesis Design
     <div class="row">
         <div class="col s12">
             <div class="card">
+                @if ($message = Session::get('success'))
+                <script>
+                    toastr.success('{{$message}}', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                </script>
+	            @endif
                 <div class="card-content">
                     <h3>Customer Info</h3>
-                    <form class="center" method="post" action="{{ route('admin.customer.update', $user->id) }}">
+                    <form class="center" method="post" action="@if(Auth::user()->role == 'admin'){{ route('admin.customer.update', $user->id) }}@else{{ route('manager.customer.update', $user->id) }}@endif">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -64,7 +69,7 @@ Edit Customer - {{ $user->first_name }} {{ $user->last_name }} - Genesis Design
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn green">Update</button>
-                            <a href="{{ route('admin.customer.index') }}"><button type="button" class="btn red">Cancel</button></a>
+                            <a href="@if(Auth::user()->role == 'admin'){{ route('admin.customer.index') }}@else{{ route('manager.customer.index') }}@endif"><button type="button" class="btn red">Cancel</button></a>
                         </div> 
                     </form>
                 </div>

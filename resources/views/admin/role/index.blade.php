@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-Roles - - Genesis Design
+Roles - Genesis Design
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid black-text">
     <div class="row">
         <div class="col s12">
             <div class="card">

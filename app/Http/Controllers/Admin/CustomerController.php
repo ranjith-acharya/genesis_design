@@ -101,7 +101,7 @@ class CustomerController extends Controller
     
         $user = User::find($id);
         $user->update($request->all());
-        return redirect()->route('admin.customer.index')->with('success','Customer details updated successfully');
+        return back()->with('success','Customer details updated successfully');
     }
 
     /**
