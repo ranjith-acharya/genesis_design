@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col s12">
-        <h5 class="imperial-red-text">Cost Breakdown For Project: <span class="prussian-blue-text">{{$project->name}}</span></h5>
+    <div class="col s12"><br>
+        <h5 class="imperial-red-text center-align">Cost Breakdown For Project: <span class="prussian-blue-text">{{$project->name}}</span></h5>
         <div class="row">
             <div class="col s12 m4 offset-m4">
                 <ul class="collection with-header">

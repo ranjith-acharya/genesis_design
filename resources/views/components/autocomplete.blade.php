@@ -1,5 +1,4 @@
 @push('scripts')
-
     <script type='text/javascript'>
         document.addEventListener('DOMContentLoaded', function () {
             M.Autocomplete.init(document.getElementById('{{$name}}'), {

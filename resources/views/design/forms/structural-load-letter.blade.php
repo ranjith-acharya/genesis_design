@@ -28,8 +28,8 @@
     <script src="{{asset('js/designs/payment.js')}}"></script>
     <script type="text/javascript">
         // Payment stuff
-        const paymentHoldUrl = '{{route('payment.hold')}}';
-        const stripePublicKey = '{{env('STRIPE_KEY')}}';
+        const paymentHoldUrl = "{{route('payment.hold')}}";
+        const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
         //local vars
         let arrays = {};
@@ -63,7 +63,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -104,7 +104,7 @@
                     });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
-                        window.location = '{{route('design.list', $project_id)}}';
+                        window.location = "{{route('design.list', $project_id)}}";
                 } else {
                     M.toast({
                         html: "There was a error uploading images. Please try again.",
@@ -241,7 +241,7 @@
                                     console.log(response.data)
                                     uploadFiles(response.data.id);
                                     if (fileCount === 0)
-                                        window.location = '{{route('design.list', $project_id)}}';
+                                        window.location = "{{route('design.list', $project_id)}}";
                                     M.toast({
                                         html: "Design inserted",
                                         classes: "steel-blue"
@@ -280,14 +280,14 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col s12">
                 <h3 class="imperial-red-text capitalize">{{$type->name}}</h3>
                 <h5>Design Request</h5>
             </div>
         </div>
-        <form id="array_form">
+        <form id="array_form" class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <div class="row">
                 <div class="col s12 input-field">
                     <select id="roof_type">
@@ -337,7 +337,7 @@
         </form>
         <div class="row">
             <div class="col s12">
-                <table class="striped">
+                <table class="striped table responsive-table white black-text">
                     <thead>
                     <tr>
                         <th class="center">Inverter</th>
@@ -355,7 +355,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4 class="mt-2">Supporting Documents</h4>
                 <div class="mh-a" id="uppy"></div>
                 <div class="center">
