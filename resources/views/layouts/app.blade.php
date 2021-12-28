@@ -38,7 +38,7 @@
                 <div class="nav-wrapper">
                     <a href="javascript:void(0)" class="brand-logo">
                         <span class="icon">
-                            <img class="light-logo" src="{{ asset('assets/images/logo-icon-white.png') }}" height="40px" style="margin-top:2px;margin-left:-8px;">
+                            <img class="light-logo" src="{{ asset('assets/images/logo-icon-white.png') }}" height="30px" width="40px" style="margin-top:4px;">
                         </span>
                         <span class="text">
                             <img class="light-logo" src="{{ asset('assets/images/logo-text-white.png') }}" height="40px" style="margin-top:22px;margin-left:15px;">
@@ -229,7 +229,7 @@
                 <li>
                     <ul class="collapsible">
                         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                        <li class="small-cap"><span class="hide-menu white-text">ADMINISTRATOR</span></li>
+                        <li class="small-cap"><span class="hide-menu white-text">ADMINISTRATOR PANEL</span></li>
                         <li><a href="{{ route('admin.home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li>
                         <li>
                         <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="material-icons white-text">dashboard</i><span class="hide-menu white-text"> Users</span></a>
@@ -249,21 +249,21 @@
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
-                            <li class="small-cap"><span class="hide-menu white-text">CUSTOMER</span></li>
+                            <li class="small-cap"><span class="hide-menu white-text">CUSTOMER PANEL</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Home</span></a></li>
                             <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Profile</span></a></li>
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:20px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
-                            <li class="small-cap"><span class="hide-menu white-text">ENGINEER</span></li>
+                            <li class="small-cap"><span class="hide-menu white-text">ENGINEER PANEL</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Projects</span></a></li>
                             <!-- <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Profile</span></a></li> -->
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:20px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER)
-                            <li class="small-cap"><span class="hide-menu white-text">MANAGER</span></li>
+                            <li class="small-cap"><span class="hide-menu white-text">MANAGER PANEL</span></li>
                             <li><a href="{{ route('manager.projects.list') }}"><i class="material-icons white-text" style="font-size:20px;">next_week</i><span class="hide-menu white-text">Projects</span></a></li>
                             <!-- <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li> -->
                             <li>
