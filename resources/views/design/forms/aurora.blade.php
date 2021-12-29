@@ -303,6 +303,7 @@
                     <h5>Design Request</h5>
                 </div>
             </div>
+        <div class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <div class="row valign-wrapper">
                 <div class="input-field col s6">
                     <div class="switch center">
@@ -360,17 +361,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
+                <div class="col s4">
                     @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
                 </div>
             </div>
@@ -383,6 +380,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </form>
         <div class="row">
             <div class="col s12">
