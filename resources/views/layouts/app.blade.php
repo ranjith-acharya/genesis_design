@@ -244,6 +244,7 @@
                             </ul>
                         </div>
                         </li>
+                        <li><a href="{{ route('admin.price.index') }}"><i class="material-icons white-text" style="font-size:20px;">attach_money</i><span class="hide-menu white-text">Set Price</span></a></li>
                         <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons white-text" style="font-size:20px;">person_pin</i><span class="hide-menu white-text">Roles</span></a></li>
                         <li><a href="{{ route('admin.projects.list') }}"><i class="material-icons white-text" style="font-size:20px;">next_week</i><span class="hide-menu white-text">Projects</span></a></li>
                         <li class="divider"></li>

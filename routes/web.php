@@ -48,6 +48,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Admin Users Controller
                 Route::resource('/users', 'UserController');
 
+                //Admin Design Price Controller
+                Route::resource('/price', 'DesignPriceController');
+                
                 //Role and Permissions
                 Route::resource('/roles', 'RoleController');
                 Route::resource('/permissions', 'PermissionController');

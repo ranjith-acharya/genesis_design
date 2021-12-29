@@ -23,7 +23,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return 'hello';
+        //return 'hello';
         $projectQuery = Project::all();
         $engineers = User::where('role', 'engineer')->get();
         return view('admin.project.index', compact('projectQuery', 'engineers'));
