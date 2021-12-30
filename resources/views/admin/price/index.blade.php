@@ -30,7 +30,7 @@ Set Price for System Design - Genesis Design
                             @foreach($systemDesignPrice as $data)
                             <tr>
                                 <td class="capitalize">{{ $data->design->name }}</td>
-                                <td>{{ $data->price }}</td>
+                                <td>&dollar; {{ $data->price }}</td>
                                 <td>
                                     <a href="{{ route('admin.price.update', $data->id) }}"><button type="submit" class="btn-small blue"><i class="material-icons">edit</i></button></a>
                                 </td>
