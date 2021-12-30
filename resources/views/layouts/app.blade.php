@@ -17,6 +17,7 @@
     <link href="{{ asset('font-awesome/css/fontawesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/light.min.css') }}" rel="stylesheet">
     <link href="{{ asset('uppy/uppy.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
     @yield('css')
     @stack('stylesheets')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -30,7 +31,10 @@
     <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
     <script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/toastr/toastr-init.js') }}"></script>
+    <link href="{{ asset('assets/libs/jquery-steps/jquery.steps.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/libs/jquery-steps/steps.css') }}" rel="stylesheet">
 </head>
+<style> label{color:#000 !important;} </style>
 <body>
     <div class="main-wrapper" id="main-wrapper">
         <header class="topbar">
@@ -399,4 +403,10 @@
     <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+    <script src="{{ asset('assets/libs/jquery-steps/build/jquery.steps.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/forms/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/jquery.repeater/repeater-init.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/jquery.repeater/dff.js') }}"></script>
 </html>
