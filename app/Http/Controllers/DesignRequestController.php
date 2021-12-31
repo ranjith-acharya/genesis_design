@@ -7,6 +7,7 @@ use App\Mail\Notification;
 use App\ProjectFile;
 use App\Statics\Statics;
 use App\SystemDesign;
+use App\Project;
 use App\SystemDesignType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,11 +50,12 @@ class DesignRequestController extends Controller
     {
         $response = null;
         $type = str_replace('-', ' ', $type);
-
+        $project_type = Project::findOrFail($project_id)->type->name;
+        //return $project_type;
         switch ($type) {
             case (Statics::DESIGN_TYPE_AURORA):
                 $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_AURORA)->firstOrFail();
-                $response = view('design.forms.aurora', ["type" => $type, "project_id" => $project_id]);
+                $response = view('design.forms.aurora', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
                 break;
             case (Statics::DESIGN_TYPE_STRUCTURAL):
                 $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_STRUCTURAL)->firstOrFail();
@@ -97,7 +99,8 @@ class DesignRequestController extends Controller
         $this->validate($request, [
             "annual_usage" => "required|string|max:255",
             "module" => "required|string|max:255",
-            "monitor" => "required|string|max:255",
+            "monitor" => "string|max:255",
+            "racking" => "string|max:255",
             "inverter" => "required|string|max:255",
             "installation" => "required|string|max:255",
             "hoa" => "required|boolean",
@@ -118,7 +121,7 @@ class DesignRequestController extends Controller
             $sd->project_id = $project->id;
             $sd->status = Statics::DESIGN_STATUS_REQUESTED;
             $sd->price = $type->latestPrice->price;
-            $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "monitor", "inverter"]);
+            $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "racking", "inverter", "monitor"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
 

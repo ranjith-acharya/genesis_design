@@ -280,7 +280,7 @@
 @endsection
 
 @php
-    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR ])->get(['name', 'model', 'type']);
+    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR, \App\Statics\Statics::EQUIPMENT_TYPE_RACKING ])->get(['name', 'model', 'type']);
     $monitorSelect = [];
     $inverterSelect = [];
     $moduleSelect = [];
@@ -289,6 +289,8 @@
             $inverterSelect[$item->name . " | " . $item->model] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MODULE)
             $moduleSelect[$item->name . " | " . $item->model] = null;
+        elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_RACKING)
+            $rackingSelect[$item->name . " | " . $item->model] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
             $monitorSelect[$item->name . " | " . $item->model] = null;
     }
@@ -361,15 +363,31 @@
                 </div>
             </div>
             <div class="row">
+                @if($project_type == 'commercial')
+                <div class="col s3">
+                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                </div>
+                <div class="col s3">
+                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                </div>
+                <div class="col s3">
+                    @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                </div>
+                <div class="col s3">
+                    @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                </div>
+                @endif
+                @if($project_type == 'residential')
                 <div class="col s4">
                     @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                 </div>
                 <div class="col s4">
-                    @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                 </div>
                 <div class="col s4">
                     @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
                 </div>
+                @endif
             </div>
             <div class="row">
                 <div class="col s12">
