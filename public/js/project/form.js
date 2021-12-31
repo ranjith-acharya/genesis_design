@@ -196,8 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize map
     map = new google.maps.Map(document.getElementById("map"), {
         center: {
-            lat: (latOverload) ? parseFloat(latOverload) : 38.889695,
-            lng: (longOverload) ? parseFloat(longOverload) : -77.034908
+            lat: (latOverload) ? parseFloat(latOverload) : 18.9255728,
+            lng: (longOverload) ? parseFloat(longOverload) : 72.8242221
         },
         zoom: 16,
         mapTypeId: 'satellite'

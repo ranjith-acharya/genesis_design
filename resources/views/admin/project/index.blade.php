@@ -16,11 +16,11 @@ Project Index - Genesis Design
 	            @endif
                 <div class="card-content">
                     <div class="row">
-                    <div class="col s6">
-                        <h3>List of Projects</h3>
-                    </div>
-                    <div class="col s6">
-                    <div class="right-align">
+                        <div class="col s6">
+                            <h3>List of Projects</h3>
+                        </div>
+                        <div class="col s6 right-align">
+                    
                     
                     <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
                         <ul id='dropdown1' class='dropdown-content'>
@@ -28,10 +28,8 @@ Project Index - Genesis Design
                             <li class="divider" tabindex="-1"></li>
                             <li><a href="http://127.0.0.1:8000/project/new/commercial">Commercial</a></li>
                             <li class="divider" tabindex="-1"></li>
-                        </ul> -->
-                    
-                    </div>
-                    </div>
+                        </ul> -->                   
+                        </div>
                     </div>
                     <table id="zero_config" class="responsive-table display">
                         <thead>

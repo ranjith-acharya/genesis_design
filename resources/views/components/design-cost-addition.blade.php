@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col s12"><br>
-        <h5 class="imperial-red-text center-align">Cost Breakdown For Project: <span class="prussian-blue-text">{{$project->name}}</span></h5>
+        <h5 class="imperial-red-text center-align">Cost Breakdown For Project: <span class="prussian-blue-text">{{$project->name}}</span></h5><br>
         <div class="row">
-            <div class="col s12 m4 offset-m4">
+            <div class="col s12 m6 offset-m3">
                 <ul class="collection with-header">
                     <li class="collection-header steel-blue-text"><h6>Existing Designs</h6></li>
                     @php($total = 0)
