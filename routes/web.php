@@ -29,6 +29,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 
+                Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
+
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');

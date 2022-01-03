@@ -177,7 +177,7 @@
                         @endforeach
                     </ul>
                 @else
-                    <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a>
+                    <!-- <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a> -->
                 @endif
             </div>
         </div>

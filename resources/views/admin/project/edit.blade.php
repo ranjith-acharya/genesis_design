@@ -124,7 +124,7 @@ Update Project Details - Genesis Design
                                 </form>
                             @endif
                             @if($project)
-                                <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                                <a class="btn imperial-red-outline-button m-xxxs" href="{{route('admin.view', $project->id)}}">View Designs</a>
                             @endif
                         </div>
                     </div>

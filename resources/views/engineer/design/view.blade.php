@@ -30,6 +30,7 @@
             <div class="col s12">
                 <h4 class="capitalize">Design Details</h4>
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_AURORA, 'design.partials.aurora', ['design' => $design])
+                @if(Auth::user()->role == 'admin')
                 <h5>Payment</h5>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
@@ -39,6 +40,7 @@
                     <span class="prussian-blue-text"><b>Payment Date: </b></span>
                     {{ ($design->payment_date)?$design->payment_date:"Payment Pending"}}
                 </div>
+                @endif
             </div>
         </div>
         <div class="row" id="messages">
