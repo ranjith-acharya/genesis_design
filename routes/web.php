@@ -67,6 +67,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
     Route::group(['middleware' => ['role:manager']], function() {
         Route::prefix('manager')->group(function() {
             Route::name('manager.')->group(function() {
+                Route::resource('/home', 'Manager\DashboardController');
                 Route::resource('/customer', 'Admin\CustomerController');
                 Route::resource('/engineer', 'Admin\EngineerController');
                 

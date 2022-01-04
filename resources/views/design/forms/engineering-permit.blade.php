@@ -7,15 +7,18 @@
 @section('title', "New $type->name design")
 
 @php
-    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_RACKING ])->get(['name', 'model', 'type']);
+    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_RACKING, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR ])->get(['name', 'model', 'type']);
     $monitorSelect = [];
     $inverterSelect = [];
     $moduleSelect = [];
+    $rackingSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
             $inverterSelect[$item->name . " | " . $item->model] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MODULE)
             $moduleSelect[$item->name . " | " . $item->model] = null;
+        elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
+            $monitorSelect[$item->name . " | " . $item->model] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_RACKING)
             $rackingSelect[$item->name . " | " . $item->model] = null;
     }
@@ -91,30 +94,103 @@
                                     </div>
                                     <div class="col m4">
                                         <div class="input-field col s12">
-                                            <input id="remarks" name="remarks" type="text"  value="None">
+                                            <input id="remarks" name="remarks" type="text"  value="" placeholder="If any">
                                             <label for="remarks">Remarks</label>
-            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s4">
+                                    <div class="col s6">
                                         @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                     </div>
-                                    <div class="col s4">
-                                        @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
-                                    </div>
-                                    <div class="col s4">
-                                        @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                            <label for="inverterType">Inverter Type</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <br><br><br>
+                                    <div class="col s6">
+                                        @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                            <label for="rackingType">Racking Type</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 input-field">
+                                        @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                            <label for="moduleType">Module Type</label>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                                            <label for="monitorType">Monitor Type</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br><br>
                                 </div>
                             </section>
                             <h6>Step 2</h6>
                             <section>
                                 <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="utility" name="utility" type="text"  value="" placeholder=" ">
+                                        <label for="utility">Utility</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="tree_cutting" name="tree_cutting" type="text"  value="" placeholder=" ">
+                                            <label for="tree_cutting">Tree Cutting</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="re_roofing" name="re_roofing" type="text"  value="" placeholder=" ">
+                                            <label for="re_roofing">Re-Roofing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <div class="switch center">
+                                                <label>
+                                                    Service Upgrade&emsp;&emsp;No
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="others" name="others" type="text"  value="" placeholder=" ">
+                                            <label for="others">Others</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
                                     <div class="col m4">
                                         <div class="input-field col s12">
                                             <p>
@@ -172,69 +248,26 @@
                                             </p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col m4">
-                                        <div class="input-field col s12">
-                                            <p>
-                                            <strong>Finished or Valued ceiling protocol</strong>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" class="filled-in" />
-                                                    <span>Access from attic vent?</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" class="filled-in" />
-                                                    <span>Stud finder</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col m4">
-                                        <div class="input-field col s12">
-                                            <p>
-                                            <strong>Roof</strong>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" class="filled-in" />
-                                                    <span>360&#176; skyline</span>
-                                                </label>
-                                            </p>
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" class="filled-in" />
-                                                    <span>Pliability test</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                                 <div class="row image-repeater">
                                     <div data-repeater-list="repeater-group">
                                         <div data-repeater-item class="row">
-                                            <div class="input-field col s2">
-                                                <img src="{{ asset('assets/images/big/auth-bg.jpg') }}" width="150px" height="150px" >
+                                            <div class="input-field col s4">
+                                                <img src="{{ asset('assets/images/big/roof.jpg') }}" width="320px" height="150px" >
                                             </div>
-                                            <div class="input-field col s3">
-                                                <input id="height" name="height" type="text" class="required" placeholder=" ">
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="height" name="height" type="text" class="required" placeholder="(feet)">
                                                 <label for="height">Height</label>
-                
                                             </div>
-                                            <div class="input-field col s3">
-                                                <input id="height1" name="height1" type="text" class="required" placeholder=" ">
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="height1" name="height1" type="text" class="required" placeholder="(feet)">
                                                 <label for="height1">Height1</label>
-                
                                             </div>
-                                            <div class="input-field col s3">
-                                                <input id="width" name="width" type="text" class="required" placeholder=" ">
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="width" name="width" type="text" class="required" placeholder="(feet)">
                                                 <label for="width">Width</label>
-                
                                             </div>
-                                            <div class="input-field col s1">
+                                            <div class="input-field col s1" style="margin-top:5%;">
                                                 <button data-repeater-delete="" class="btn btn-small red" type="button"><i class="material-icons">clear</i></button>
                                             </div>
                                         </div>
@@ -279,13 +312,19 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="roofDecking_LayerThickness" name="roofDecking_LayerThickness" type="text"  value="" placeholder=" ">
+                                        <label for="roofDecking_LayerThickness">Roof Decking / Layer Thickess</label>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="center_spacing" name="center_spacing" type="text" class="required" placeholder=" ">
+                                        <input id="center_spacing" name="center_spacing" type="text" class="required" placeholder="(inches)">
                                         <label for="center_spacing">On-Center Spacing: </label>
         
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="purlin" name="purlin" type="text" class="required" placeholder=" ">
+                                        <input id="purlin" name="purlin" type="text" class="required" placeholder="(inches)">
                                         <label for="purlin">Purlin/Support Structure Sizes, Spacing, Span, Notes: </label>
         
                                     </div>
@@ -309,52 +348,127 @@
             
                                         </div>
                                         <div class="input-field col s3">
-                                            <input id="roof_material" name="roof_material" type="text" class="required" placeholder=" ">
+                                            <select>
+                                                <option value="" disabled selected>Choose your option</option>
+                                                <option value="Asphault">Asphault</option>
+                                                <option value="Metal">Metal</option>
+                                                <option value="Shingle">Shingle</option>
+                                                <option value="Others">Others</option>
+                                            </select>
                                             <label for="roof_material">Roof Material: </label>
-            
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s3">
-                                            <input id="soft_spots" name="soft_spots" type="text" class="required" placeholder=" ">
-                                            <label for="soft_spots">Soft Spots: </label>
-            
+                                            <div class="switch center">
+                                                <label>
+                                                    Soft Spots&emsp;&emsp;No
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="input-field col s3">
-                                            <input id="bouncy" name="bouncy" type="text" class="required" placeholder=" ">
-                                            <label for="bouncy">Bouncy: </label>
-            
+                                            <div class="switch center">
+                                                <label>
+                                                    Bouncy&emsp;&emsp;No
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="input-field col s3">
-                                            <input id="existing_leaks" name="existing_leaks" type="text" class="required" placeholder=" ">
-                                            <label for="existing_leaks">Existing leaks: </label>
-            
+                                            <div class="switch center">
+                                                <label>
+                                                    Existing Leaks&emsp;&emsp;No
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <div class="switch center">
+                                                <label>
+                                                    Vaulted Ceiling&emsp;&emsp;No
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="comp_shingle_layers" name="comp_shingle_layers" type="text" class="required" placeholder=" ">
+                                        <select>
+                                            <option value="" disabled selected>Choose your option</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="more than 3">More than 3</option>
+                                        </select>
                                         <label for="comp_shingle_layers">If Comp Shingle how many layers: </label>
         
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="age_of_shingles" name="age_of_shingles" type="text" class="required" placeholder=" ">
+                                        <input id="age_of_shingles" name="age_of_shingles" type="text" class="required" placeholder="(years)">
                                         <label for="age_of_shingles">Age of Shingles: </label>
         
                                     </div>
-                                    <div class="col s12">
-                                        <label>Roof Condition :</label>
-                                        <p>
-                                            <label>
-                                                <input name="group3" type="radio" />
-                                                <span>Good</span>
-                                            </label>
-                                            <label>
-                                                <input name="group3" type="radio" />
-                                                <span>Bad</span>
-                                            </label>
-                                        </p>
+                                    <div class="col s6">
+                                        <div class="input-field">
+                                            <div class="switch center">
+                                                <label>
+                                                    Roof Condition&emsp;&emsp;Bad
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                    Good
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col m4">
+                                            <div class="input-field col s12">
+                                                <p>
+                                                <strong>Finished or Valued ceiling protocol</strong>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" class="filled-in" />
+                                                        <span>Access from attic vent?</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" class="filled-in" />
+                                                        <span>Stud finder</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <!-- <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <p>
+                                            <strong>Roof</strong>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>360&#176; skyline</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Pliability test</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div> -->
                                     </div>
                                 </div>
                             </section>
@@ -362,12 +476,12 @@
                             <section>
                                 <div class="row">
                                     <div class="input-field col s3">
-                                        <input id="supply_side_voltage" name="supply_side_voltage" type="text" class="required" placeholder=" ">
+                                        <input id="supply_side_voltage" name="supply_side_voltage" type="text" placeholder=" ">
                                         <label for="supply_side_voltage">Supply Side Voltage: </label>
         
                                     </div>
                                     <div class="input-field col s3">
-                                        <input id="manufacturer_model" name="manufacturer_model" type="text" class="required" placeholder=" ">
+                                        <input id="manufacturer_model" name="manufacturer_model" type="text" placeholder=" ">
                                         <label for="manufacturer_model">Manufacturer and Model: </label>
         
                                     </div>
@@ -384,12 +498,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s3">
-                                        <input id="meter_reading" name="meter_reading" type="text" class="required" placeholder=" ">
+                                        <input id="meter_reading" name="meter_reading" type="text" placeholder=" ">
                                         <label for="meter_reading">Meter Reading: </label>
         
                                     </div>
                                     <div class="input-field col s3">
-                                        <input id="proposed_point_connection" name="proposed_point_connection" type="text" class="required" placeholder=" ">
+                                        <input id="proposed_point_connection" name="proposed_point_connection" type="text" placeholder=" ">
                                         <label for="proposed_point_connection">Proposed Point of Connection: </label>
         
                                     </div>
@@ -399,9 +513,14 @@
         
                                     </div>
                                     <div class="input-field col s3">
-                                        <input id="tap_possible" name="tap_possible" type="text" class="required" placeholder=" ">
-                                        <label for="tap_possible">Tap Possible: </label>
-        
+                                        <div class="switch center">
+                                            <label>
+                                                Tap Possible&emsp;&emsp;No
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -433,15 +552,15 @@
                                                 <label>Sub Panel</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="manufacturer_model1" type="text" placeholder=" ">
+                                                <input id="manufacturer_model1" type="text" placeholder="(feet)">
                                                 <label for="manufacturer_model1">Manufacturer and Model: </label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="main_breaker_rating1" type="text" placeholder=" ">
+                                                <input id="main_breaker_rating1" type="text" placeholder="(feet)">
                                                 <label for="main_breaker_rating1">Main Breaker Rating</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="busbar_rating1" type="text" placeholder=" ">
+                                                <input id="busbar_rating1" type="text" placeholder="(feet)">
                                                 <label for="busbar_rating1">Busbar Rating</label>
                                             </div>
                                             <div class="input-field col s1">
@@ -454,6 +573,23 @@
                             </section>
                             <h6>Step 4</h6>
                             <section>
+                                <div class="row">
+                                    <h4 class="mt-2">Supporting Documents</h4>
+                                    <div class="col s12">
+                                        <div class="mh-a" id="uppyBill"></div>
+                                        <div class="center">
+                                            <span class="helper-text imperial-red-text" id="files_error"></span>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <h3 class="center-align">- OR - </h3><br>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="average_bill" name="average_bill" type="text" placeholder=" ">
+                                        <label for="average_bill">Yearly usage: </label>
+                                    </div>
+                                </div><br>
+                                <h3 class="center-align">- OR - </h3><br>
                                 <div class="row">
                                     <div class="col s6">
                                         <div class="input-field col s12">
@@ -682,11 +818,16 @@
                             <section>
                             <h4 class="mt-2">Supporting Documents</h4><br>
                                 <div class="row">
-                                    <div class="col s12">
+                                    <div class="col s10">
                                         <div class="mh-a" id="uppy"></div>
                                         <div class="center">
                                             <span class="helper-text imperial-red-text" id="files_error"></span>
                                         </div>
+                                    </div>
+                                    <div class="col s2">
+                                        <a href="{{ asset('assets/document/Site_Survey_Document.pdf') }}" download>
+                                            <button type="button" class="btn btn-small indigo"><i class="ti-cloud-down left"></i>Download</button>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -826,6 +967,48 @@ function toggleSystemSize(elem) {
                 }
             }).use(Uppy.Dashboard, {
                 target: `#uppy`,
+                inline: true,
+                hideUploadButton: true,
+                note: "Upto 20 files of 20 MBs each"
+            }).use(Uppy.XHRUpload, {
+                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                headers: {
+                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
+                },
+                fieldName: "file"
+            });
+            uppy.on('upload-success', sendFileToDb);
+
+            uppy.on('file-added', (file) => {
+                fileCount++;
+            });
+
+            uppy.on('file-removed', (file) => {
+                fileCount--;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            uppy = Uppy.Core({
+                id: "files",
+                debug: true,
+                meta: {
+                    save_as: ''
+                },
+                restrictions: {
+                    maxFileSize: 21000000,
+                    maxNumberOfFiles: 20
+                },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = files[fileID];
+                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
+                    })
+                    return updatedFiles
+                }
+            }).use(Uppy.Dashboard, {
+                target: `#uppyBill`,
                 inline: true,
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
