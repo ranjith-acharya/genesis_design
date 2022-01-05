@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Project;
-use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -21,10 +20,7 @@ class DashboardController extends Controller
         $engineerCount = User::where('role', 'engineer')->count();
         $projectsActive = Project::where('status', 'active')->count();
         $projectsPending = Project::where('status', 'pending')->count();
-        $projects = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
-        //return $projects;
-        //return Carbon::now()->subWeek()->endOfWeek();
-        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projects'));
+        return view('manager.dashboard', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending'));
     }
 
     /**

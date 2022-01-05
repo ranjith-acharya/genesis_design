@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
-use App\Project;
-use Illuminate\Support\Carbon;
 
-class DashboardController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $customerCount = User::where('role', 'customer')->count();
-        $engineerCount = User::where('role', 'engineer')->count();
-        $projectsActive = Project::where('status', 'active')->count();
-        $projectsPending = Project::where('status', 'pending')->count();
-        $projects = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
-        //return $projects;
-        //return Carbon::now()->subWeek()->endOfWeek();
-        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projects'));
+        //
     }
 
     /**

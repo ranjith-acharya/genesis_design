@@ -269,6 +269,7 @@
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER)
                             <li class="small-cap"><span class="hide-menu white-text">MANAGER PANEL</span></li>
+                            <li><a href="{{ route('manager.home.index') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li>
                             <li><a href="{{ route('manager.projects.list') }}"><i class="material-icons white-text" style="font-size:20px;">next_week</i><span class="hide-menu white-text">Projects</span></a></li>
                             <!-- <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:20px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li> -->
                             <li>
