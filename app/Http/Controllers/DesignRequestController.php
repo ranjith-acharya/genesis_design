@@ -75,7 +75,7 @@ class DesignRequestController extends Controller
                 break;
             case (Statics::DESIGN_TYPE_ENGINEERING_PERMIT):
                 $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_ENGINEERING_PERMIT)->firstOrFail();
-                $response = view('design.forms.engineering-permit', ["type" => $type, "project_id" => $project_id]);
+                $response = view('design.forms.engineering-permit', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
                 break;
             default:
                 abort(404);

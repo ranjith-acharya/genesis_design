@@ -100,49 +100,87 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s6">
-                                        @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                            <label for="inverterType">Inverter Type</label>
+                                    @if($project_type == 'commercial')
+                                    <div class="row">
+                                        <div class="col s6">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6">
-                                        @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                            <label for="rackingType">Racking Type</label>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6 input-field">
-                                        @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                            <label for="moduleType">Module Type</label>
-                                            
+                                    <div class="row">
+                                        <div class="col s6 input-field">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type</label>                                            
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6">
-                                        @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
-                                            <label for="monitorType">Monitor Type</label>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                                                <label for="monitorType">Monitor Type</label>
+                                            </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if($project_type == 'residential')
+                                    <div class="row">
+                                        <div class="col s6">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6 input-field">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s6">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type</label>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <br><br>
@@ -332,23 +370,22 @@
                                 <div class="row"><br>
                                     <div class="left-align">Describe Access to Attic:</div><br>
                                     <div class="row">
-                                        <div class="input-field col s3">
+                                        <div class="input-field col s4">
                                             <input id="pitch" name="pitch" type="text" class="required" placeholder=" ">
                                             <label for="pitch">Pitch: </label>
-            
                                         </div>
-                                        <div class="input-field col s3">
+                                        <div class="input-field col s4">
                                             <input id="azimuth" name="azimuth" type="text" class="required" placeholder=" ">
                                             <label for="azimuth">Azimuth: </label>
-            
                                         </div>
-                                        <div class="input-field col s3">
+                                        <div class="input-field col s4">
                                             <input id="rafter_size" name="rafter_size" type="text" class="required" placeholder=" ">
                                             <label for="rafter_size">Rafter size: </label>
-            
                                         </div>
-                                        <div class="input-field col s3">
-                                            <select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <select id="roofMaterialOption" onchange="check(this.value);">
                                                 <option value="" disabled selected>Choose your option</option>
                                                 <option value="Asphault">Asphault</option>
                                                 <option value="Metal">Metal</option>
@@ -356,6 +393,10 @@
                                                 <option value="Others">Others</option>
                                             </select>
                                             <label for="roof_material">Roof Material: </label>
+                                        </div>
+                                        <div class="input-field col s4" id="other_roof_material_input" style="display:none;">
+                                            <input id="other_roof_material" name="other_roof_material" type="text" class="required" placeholder=" ">
+                                            <label for="other_roof_material">Other Roof Material: </label>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -928,6 +969,17 @@ function toggleSystemSize(elem) {
             }
             document.getElementById("selectedItem"+id).innerHTML=tableRow;
             //console.log($("#selectItem").val());
+        }
+    </script>
+    <script>
+        function check(val){
+            var otherInput = document.getElementById("other_roof_material_input");
+            //alert(val);
+            if(val == 'Others'){
+                otherInput.style.display = 'block';
+            }else{
+                otherInput.style.display = 'none';
+            }
         }
     </script>
     <script src="{{asset('uppy/uppy.min.js')}}"></script>

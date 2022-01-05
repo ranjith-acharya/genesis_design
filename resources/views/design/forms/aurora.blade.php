@@ -284,6 +284,7 @@
     $monitorSelect = [];
     $inverterSelect = [];
     $moduleSelect = [];
+    $rackingSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
             $inverterSelect[$item->name . " | " . $item->model] = null;
@@ -364,28 +365,84 @@
             </div>
             <div class="row">
                 @if($project_type == 'commercial')
-                <div class="col s3">
-                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6">
+                        @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                            <label for="inverterType">Inverter Type</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s3">
-                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6">
+                        @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                            <label for="rackingType">Racking Type</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s3">
-                    @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6 input-field">
+                        @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                            <label for="moduleType">Module Type</label>                                            
+                        </div>
+                    </div>
                 </div>
-                <div class="col s3">
-                    @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6">
+                        @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                            <label for="monitorType">Monitor Type</label>
+                        </div>
+                    </div>
                 </div>
                 @endif
                 @if($project_type == 'residential')
-                <div class="col s4">
-                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6">
+                        @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                            <label for="inverterType">Inverter Type</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s4">
-                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6">
+                        @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                            <label for="rackingType">Racking Type</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col s4">
-                    @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                <div class="row">
+                    <div class="col s6 input-field">
+                        @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                            <label for="moduleType">Module Type</label>                                            
+                        </div>
+                    </div>
                 </div>
                 @endif
             </div>

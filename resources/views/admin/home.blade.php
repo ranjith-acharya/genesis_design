@@ -146,7 +146,7 @@ Admin Home - Genesis Design
                     <div class="col s12">
                         <h3>List of Projects</h3>
                     </div>
-                    <table id="zero_config" class="responsive-table display black-text">
+                    <table id="" class="responsive-table display black-text">
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
