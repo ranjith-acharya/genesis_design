@@ -16,13 +16,13 @@ class EquipmentSeeder extends Seeder
         $inverters = ['ABB / Fimer', 'AP Systems', 'Chilicon', 'Delta', 'Enphase', 'Fronius', 'Generac', 'Ginlong', 'GroWatt MIN-XH', 'Hoymiles', 'Huawei', 'Lion Energy Sanctuary', 'NEP', 'QHOMEG1', 'Schneider', 'Sol-ARK', 'Solectria', 'Solaredge', 'SMA', 'Solaria', 'Sunbeat Energy', 'Sun Power', 'Titan', 'Others'];
         $rackers = ['EcoFasten Solar', 'Everest', 'Unirac', 'IronRidge', 'IronRidge & Quick Mount PV', 'Pegasus', 'PV Racking', 'Quick Mount PV', 'RoofTech', 'Solar Foundations', 'Solar Warehouse', 'Sola Rack', 'Sun Modo', 'Unirac & Ecolibrium', 'Others'];
 
-        // foreach ($modules as $module){
-        //     \App\Equipment::create([
-        //         'name' => $module,
-        //         'type' => "module",
-        //         'model' => "Module Model One",
-        //     ]);
-        // }
+        foreach ($modules as $module){
+            \App\Equipment::create([
+                'name' => $module,
+                'type' => "module",
+                'model' => "Module Model One",
+            ]);
+        }
         foreach ($inverters as $inverter){
             \App\Equipment::create([
                 'name' => $inverter,

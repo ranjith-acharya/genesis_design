@@ -151,7 +151,7 @@ Admin Home - Genesis Design
                             <tr class="black-text">
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
-                                <th>Assigned Date</th>
+                                <th>Created Date</th>
                                 <th>Status</th>
                             </tr>
                         </thead>

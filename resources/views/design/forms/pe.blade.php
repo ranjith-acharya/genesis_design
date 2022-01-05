@@ -17,7 +17,7 @@
                         <div class="col s6">
                             <div class="input-field">
                                 <div class="col s12">
-                                <h4>Supporting Documents</h4>
+                                <h4>Supporting Documents(Site Survey Pictures)</h4>
                                 <div class="mh-a" id="uppySupportingDocuments"></div>
                                     <div class="">
                                         <span class="helper-text imperial-red-text" id="files_error"></span>
@@ -28,7 +28,7 @@
                         <div class="col s6">
                             <div class="input-field">
                                 <div class="col s12">
-                                <h4>Permit Change</h4>
+                                <h4>Engineering Plan Set</h4>
                                 <div class="mh-a" id="uppyPermitChange"></div>
                                     <div class="">
                                         <span class="helper-text imperial-red-text" id="files_error"></span>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s7">
                             <div class="input-field">
                                 <p>
                                     <label>
@@ -48,21 +48,21 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col s4">
+                        <div class="col s5">
                             <div class="input-field">
                                 <p>
                                     <label>
                                         <input type="checkbox"/>
-                                        <span>Electrical Letter</span>
+                                        <span>Electrical Stamps</span>
                                     </label>
                                 </p>
                             </div>
                         </div>
                         <div class="col s4">
-                            <div class="input-field">
+                            <!-- <div class="input-field">
                                 <input placeholder=" " type="text" class="validate" readonly>
                                 <label for="total_price">Price: </label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

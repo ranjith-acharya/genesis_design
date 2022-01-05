@@ -43,8 +43,8 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="validation-wizard wizard-circle m-t-40">
-                            <h6>Step 1</h6>
+                        <form action="#" class="alidation-wizard wizard-circle m-t-40">
+                            <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
                                     <div class="col m4">
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s6 input-field">
+                                        <div class="col s6">
                                             @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
                                         <div class="col s6">
@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s6 input-field">
+                                        <div class="col s6">
                                             @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
                                         <div class="col s6">
@@ -186,7 +186,7 @@
                                     <br><br>
                                 </div>
                             </section>
-                            <h6>Step 2</h6>
+                            <h6>Roof Information</h6>
                             <section>
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -390,6 +390,7 @@
                                                 <option value="Asphault">Asphault</option>
                                                 <option value="Metal">Metal</option>
                                                 <option value="Shingle">Shingle</option>
+                                                <option value="Tile">Tile</option>
                                                 <option value="Others">Others</option>
                                             </select>
                                             <label for="roof_material">Roof Material: </label>
@@ -513,7 +514,7 @@
                                     </div>
                                 </div>
                             </section>
-                            <h6>Step 3</h6>
+                            <h6>Electrical Information</h6>
                             <section>
                                 <div class="row">
                                     <div class="input-field col s3">
@@ -593,15 +594,15 @@
                                                 <label>Sub Panel</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="manufacturer_model1" type="text" placeholder="(feet)">
+                                                <input id="manufacturer_model1" type="text" placeholder="">
                                                 <label for="manufacturer_model1">Manufacturer and Model: </label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="main_breaker_rating1" type="text" placeholder="(feet)">
+                                                <input id="main_breaker_rating1" type="text" placeholder="">
                                                 <label for="main_breaker_rating1">Main Breaker Rating</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="busbar_rating1" type="text" placeholder="(feet)">
+                                                <input id="busbar_rating1" type="text" placeholder="">
                                                 <label for="busbar_rating1">Busbar Rating</label>
                                             </div>
                                             <div class="input-field col s1">
@@ -612,10 +613,10 @@
                                     <button type="button" data-repeater-create="" class="btn btn-small m-l-10">Add Sub Panel</button>
                                 </div>
                             </section>
-                            <h6>Step 4</h6>
+                            <h6>Utility Bills/Electrical Load</h6>
                             <section>
                                 <div class="row">
-                                    <h4 class="mt-2">Supporting Documents</h4>
+                                    <h4 class="mt-2">Upload Bill</h4>
                                     <div class="col s12">
                                         <div class="mh-a" id="uppyBill"></div>
                                         <div class="center">
@@ -855,19 +856,19 @@
                                     </div>
                                 </div>
                             </section>
-                            <h6>Step 5</h6>
+                            <h6>Upload Supporting Documents</h6>
                             <section>
                             <h4 class="mt-2">Supporting Documents</h4><br>
                                 <div class="row">
-                                    <div class="col s10">
+                                    <div class="col s9">
                                         <div class="mh-a" id="uppy"></div>
                                         <div class="center">
                                             <span class="helper-text imperial-red-text" id="files_error"></span>
                                         </div>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s3">
                                         <a href="{{ asset('assets/document/Site_Survey_Document.pdf') }}" download>
-                                            <button type="button" class="btn btn-small indigo"><i class="ti-cloud-down left"></i>Download</button>
+                                            <button type="button" class="btn btn-small indigo"><i class="ti-cloud-down left"></i>Sample Upload</button>
                                         </a>
                                     </div>
                                 </div>

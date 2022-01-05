@@ -139,5 +139,54 @@ Manager Home - Genesis Design
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="col s12">
+                        <h3>List of Projects</h3>
+                    </div>
+                    <table id="" class="responsive-table display black-text">
+                        <thead>
+                            <tr class="black-text">
+                                <th>Project Name</th>
+                                <th>Assigned To</th>
+                                <th>Created Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($projects as $project)
+                                <tr>
+                                    <td>{{ $project->name }}</td>
+                                    <td>
+                                        @if($project->engineer['first_name'] == "")
+                                            <span class="red-text darken-1">Not yet assigned</span>
+                                        @else
+                                            {{ $project->engineer['first_name'] }} {{ $project->engineer['last_name'] }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($project->engineer['first_name'] == "")
+                                            <span class="red-text darken-1">Not yet assigned</span>
+                                        @else
+                                            {{ \Carbon\Carbon::parse( $project->updated_at)->format('d M, Y') }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($project->status == 'pending')
+                                            <span class="label label-red capitalize">{{ $project->status }}</span>
+                                        @else
+                                            <span class="label label-success capitalize">{{ $project->status }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
