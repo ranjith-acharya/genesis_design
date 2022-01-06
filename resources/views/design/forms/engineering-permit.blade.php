@@ -43,7 +43,7 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="alidation-wizard wizard-circle m-t-40">
+                        <form action="#" class="validation-wizard wizard-circle m-t-40">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
