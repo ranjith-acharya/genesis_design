@@ -14,16 +14,16 @@
     $rackingSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
-            $inverterSelect[$item->name . " | " . $item->model] = null;
+            $inverterSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MODULE)
-            $moduleSelect[$item->name . " | " . $item->model] = null;
+            $moduleSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
-            $monitorSelect[$item->name . " | " . $item->model] = null;
+            $monitorSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_RACKING)
-            $rackingSelect[$item->name . " | " . $item->model] = null;
+            $rackingSelect[$item->name] = null;
     }
 @endphp
-
+<!-- . " | " . $item->model -->
 @section('content')
 <style>
 .uppy-Dashboard-inner{
@@ -43,7 +43,7 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="alidation-wizard wizard-circle m-t-40">
+                        <form id="validate" action="#" class="validation-wizard wizard-circle m-t-40">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
@@ -370,17 +370,20 @@
                                 <div class="row"><br>
                                     <div class="left-align">Describe Access to Attic:</div><br>
                                     <div class="row">
-                                        <div class="input-field col s4">
-                                            <input id="pitch" name="pitch" type="text" class="required" placeholder=" ">
+                                        <div class="col s4 input-field">
+                                            <input id="pitch" name="pitch" validate="pitch" type="number" onblur="checkVal()" value="0">
                                             <label for="pitch">Pitch: </label>
+                                            <span class="helper-text red-text" id="pitch_error"></span>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input id="azimuth" name="azimuth" type="text" class="required" placeholder=" ">
+                                            <input id="azimuth" name="azimuth" validate="azimuth" type="number" onblur="checkVal()" value="0">
                                             <label for="azimuth">Azimuth: </label>
+                                            <span class="helper-text red-text" id="azimuth_error"></span>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input id="rafter_size" name="rafter_size" type="text" class="required" placeholder=" ">
-                                            <label for="rafter_size">Rafter size: </label>
+                                            <input id="rafter_size" name="rafter_size" validate="rafter_size" onblur="checkVal()" type="number" value="0">
+                                            <label for="rafter_size">Rafter Size: </label>
+                                            <span class="helper-text red-text" id="rafter_size_error"></span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -932,33 +935,33 @@ $(".validation-wizard").steps({
     }
 });
 function toggleSystemSize(elem) {
-            if (elem.checked) {
-                document.getElementById('system_size').disabled = false;
-                document.getElementById('system_size').value = "";
-            } else {
-                document.getElementById('system_size').disabled = true;
-                document.getElementById('system_size').value = "maximum";
-            }
-            M.updateTextFields();
+    if (elem.checked) {
+        document.getElementById('system_size').disabled = false;
+        document.getElementById('system_size').value = "";
+    } else {
+        document.getElementById('system_size').disabled = true;
+        document.getElementById('system_size').value = "maximum";
+    }
+        M.updateTextFields();
+    }
+
+    function toggleHOA(elem) {
+        if (elem.checked) {
+            document.getElementById('installation').disabled = false;
+            document.getElementById('installation').value = "none";
+
+            document.getElementById('remarks').disabled = false;
+            document.getElementById('remarks').value = "";
+        } else {
+            document.getElementById('installation').disabled = true;
+            document.getElementById('installation').value = "none";
+
+            document.getElementById('remarks').disabled = true;
+            document.getElementById('remarks').value = "none";
         }
-
-        function toggleHOA(elem) {
-            if (elem.checked) {
-                document.getElementById('installation').disabled = false;
-                document.getElementById('installation').value = "none";
-
-                document.getElementById('remarks').disabled = false;
-                document.getElementById('remarks').value = "";
-            } else {
-                document.getElementById('installation').disabled = true;
-                document.getElementById('installation').value = "none";
-
-                document.getElementById('remarks').disabled = true;
-                document.getElementById('remarks').value = "none";
-            }
             M.FormSelect.init(document.querySelector("#installation"));
             M.updateTextFields();
-        }
+    }
     </script>
     <script>
         function getSelectedValue(id){
@@ -980,6 +983,37 @@ function toggleSystemSize(elem) {
                 otherInput.style.display = 'block';
             }else{
                 otherInput.style.display = 'none';
+            }
+        }
+        function checkVal(){
+            var pitch = document.getElementById("pitch").value;
+            var azimuth = document.getElementById("azimuth").value;
+            var rafter_size = document.getElementById("rafter_size").value;
+            //alert(pitch);
+            if(pitch < 0){
+                //alert("hello");
+                document.getElementById("pitch_error").innerHTML = 'Should be greater than Zero';
+                document.getElementById("pitch").value = " ";
+                document.getElementById("pitch").style.borderColor = "#F44336";
+            }else{
+                document.getElementById("pitch_error").innerHTML = " ";
+                document.getElementById("pitch").style.borderColor = "#4CAF50";
+            }
+            if(azimuth < 0){
+                document.getElementById("azimuth_error").innerHTML = 'Should be greater than Zero';
+                document.getElementById("azimuth").value = " ";
+                document.getElementById("azimuth").style.borderColor = "#F44336";
+            }else{
+                document.getElementById("azimuth_error").innerHTML = " ";
+                document.getElementById("azimuth").style.borderColor = "#4CAF50";
+            }
+            if(rafter_size < 0){
+                document.getElementById("rafter_size_error").innerHTML = 'Should be greater than Zero';
+                document.getElementById("rafter_size").value = " ";
+                document.getElementById("rafter_size").style.borderColor = "#F44336";
+            }else{
+                document.getElementById("rafter_size_error").innerHTML = " ";
+                document.getElementById("rafter_size").style.borderColor = "#4CAF50";
             }
         }
     </script>

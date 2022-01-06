@@ -76,8 +76,14 @@ Roles - Genesis Design
                             </tr>
                            <tr><td>
                             <div class="modal-footer">
-                                <button type="submit" class="btn green">Create</button>
-                                <button type="reset" class="modal-close btn red">Cancel</button>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <button type="submit" class="btn green">Create</button>
+                                    </div>
+                                    <div class="col s6">
+                                        <button type="reset" class="modal-close btn red">Cancel</button>
+                                    </div>
+                                </div>
                             </div></td></tr>
                             </table>
                         </form>

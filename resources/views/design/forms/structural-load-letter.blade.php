@@ -9,11 +9,11 @@
     $moduleSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
-            $inverterSelect[$item->name . " | " . $item->model] = null;
+            $inverterSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MODULE)
-            $moduleSelect[$item->name . " | " . $item->model] = null;
+            $moduleSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
-            $monitorSelect[$item->name . " | " . $item->model] = null;
+            $monitorSelect[$item->name] = null;
     }
 @endphp
 
