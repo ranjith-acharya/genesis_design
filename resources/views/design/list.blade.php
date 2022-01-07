@@ -252,7 +252,7 @@
         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
             <div class="row">
                     <div class="col l4 m6">
-                        <div class="card indigo darken-1">
+                        <div class="card danger-gradient darken-1 card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
@@ -267,7 +267,7 @@
                         </div>
                     </div>
                     <div class="col l4 m6">
-                        <div class="card green darken-1">
+                        <div class="card success-gradient darken-1 card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
@@ -282,7 +282,7 @@
                         </div>
                     </div>
                     <div class="col l4 m6">
-                        <div class="card blue">
+                        <div class="card info-gradient card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
@@ -297,7 +297,7 @@
                         </div>
                     </div>
                     <div class="col l4 m6">
-                        <div class="card yellow darken-1">
+                        <div class="card warning-gradient darken-1 card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
@@ -312,7 +312,7 @@
                         </div>
                     </div>
                     <div class="col l4 m6">
-                        <div class="card red lighten-1">
+                        <div class="card primary-gradient card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
@@ -327,7 +327,7 @@
                         </div>
                     </div>
                     <div class="col l4 m6">
-                        <div class="card blue-grey darken-4">
+                        <div class="card danger-gradient darken-4 card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>

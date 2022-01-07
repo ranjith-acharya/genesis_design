@@ -6,6 +6,7 @@ use App\ChangeRequest;
 use App\ChangeRequestFile;
 use App\Mail\Notification;
 use App\Statics\Statics;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -134,6 +135,13 @@ class ChangeRequestController extends Controller
         $cr->save();
 
         Mail::to($design->project->engineer->email)
+            ->send(new Notification($design->project->engineer->email,
+                "Customer accepted quote for: " . $design->type->name,
+                "",
+                route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
+                "View Change Request"));
+        
+        Mail::to(User::where('role', 'admin')->first()->email)
             ->send(new Notification($design->project->engineer->email,
                 "Customer accepted quote for: " . $design->type->name,
                 "",

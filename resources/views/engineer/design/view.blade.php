@@ -5,6 +5,7 @@
 @section('content')
     <div class="container-fluid">
         {{ Breadcrumbs::render('design', $design) }}
+        <div class="card card-content container-fluid">
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s11 m9">
@@ -21,7 +22,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4 class="capitalize">Project Details</h4>
                 @include('components.simple-project-view', ['project' => $design->project])
             </div>
@@ -44,7 +45,7 @@
             </div>
         </div>
         <div class="row" id="messages">
-            <div class="col s12">
+            <div class="col s12"><br>
                 @if(sizeof($design->files) > 0)
                     <h4 class="capitalize">Attached Files</h4>
                     <x-ListFiles :files="$design->files" path="{{route('design.file')}}?design={{$design->id}}"></x-ListFiles>
@@ -54,12 +55,12 @@
         @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
             <div class="row">
                 <div class="col s12 center">
-                    <a class="btn btn-large imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
+                    <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
                 </div>
             </div>
         @endif
         <div class="row" id="messages">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4>Messages</h4>
                 @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
                     <p class="imperial-red-text center">Start work on this design to enable messaging</p>
@@ -69,7 +70,7 @@
             </div>
         </div>
         <div class="row" id="proposals">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4>Proposals</h4>
                 @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
                     <p class="imperial-red-text center">Start work on this design to submit a proposal</p>
@@ -82,7 +83,7 @@
                         <div class="col s4 left-align center">Created At</div>
                         <div class="col s2 left-align center"></div>
                     </div>
-                    <ul class="collection" style="border: none">
+                    <ul class="collection">
                         @foreach($design->proposals as $proposal)
                             <li class="collection-item mb-xxs">
                                 <div class="row">
@@ -102,9 +103,10 @@
         @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
             <div class="row">
                 <div class="col s12 center">
-                    <a class="btn btn-large imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
+                    <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
                 </div>
             </div>
         @endif
+        </div>
     </div>
 @endsection

@@ -35,6 +35,7 @@ Project Index - Genesis Design
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
+                                <th> Assigned To</th>
                                 <th>Project Status</th>
                                 <th>Project Type</th>
                                 <th>Action</th>
@@ -45,7 +46,13 @@ Project Index - Genesis Design
                             @foreach($projectQuery as $data)
                             <tr>
                                 <td>{{ $data->name }}</td>
-                                <td class="capitalize">{{ $data->status }}</td>
+                                <td>{{ $data->engineer->first_name }} {{ $data->engineer->last_name }}</td>
+                                <td class="capitalize">
+                                @if($data->status == 'pending')
+                                    <span class="label label-red capitalize">{{ $data->status }}</span>
+                                @else
+                                    <span class="label label-success capitalize">{{ $data->status }}</span>
+                                @endif</td>
                                 <td class="capitalize">{{ $data->type->name }}</td>
                                 <td class="center">
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
