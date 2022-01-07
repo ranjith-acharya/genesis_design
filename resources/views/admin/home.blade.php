@@ -156,7 +156,11 @@ Admin Home - Genesis Design
                         <tbody>
                             @foreach($projectsMonthly as $monthly)
                                 <tr>
-                                    <td>{{ $monthly->name }}</td>
+                                    <td>
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $monthly->id) }}@else{{ route('manager.projects.edit', $monthly->id) }}@endif">
+                                            {{ $monthly->name }}
+                                        </a>
+                                    </td>
                                     <td>
                                         @if($monthly->engineer['first_name'] == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
@@ -212,7 +216,11 @@ Admin Home - Genesis Design
                         <tbody>
                             @foreach($projectsWeekly as $weekly)
                                 <tr>
-                                    <td>{{ $weekly->name }}</td>
+                                    <td>
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif">
+                                            {{ $weekly->name }}
+                                        </a>
+                                    </td>
                                     <td>
                                         @if($weekly->engineer['first_name'] == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
