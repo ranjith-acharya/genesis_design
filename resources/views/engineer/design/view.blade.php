@@ -59,6 +59,7 @@
                 </div>
             </div>
         @endif
+        @if(Auth::user()->role == 'admin' || Auth::user()->role =='manager')
         <div class="row" id="messages">
             <div class="col s12"><br>
                 <h4>Messages</h4>
@@ -69,6 +70,7 @@
                 @endif
             </div>
         </div>
+        @endif
         <div class="row" id="proposals">
             <div class="col s12"><br>
                 <h4>Proposals</h4>

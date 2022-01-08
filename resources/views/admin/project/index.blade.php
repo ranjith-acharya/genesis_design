@@ -59,7 +59,13 @@ Project Index - Genesis Design
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
                                         <li><a href="#assign" onclick="setProjectID('{{ $data->name }}',{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li><a href="" class="imperial-red-text">Delete</a></li>
+                                        <li>
+                                            <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
+                                                @csrf
+                                                
+                                            </form>
+                                            <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
+                                        </li>
                                     </ul>
                                 </td>
                                 <!-- <td>
@@ -122,6 +128,9 @@ Project Index - Genesis Design
                     // $("#method").val("PATCH");        
                 }
             });
+    }
+    function archiveProject(id){
+        $("#archiveForm"+id).submit();
     }
 </script>
 @endsection

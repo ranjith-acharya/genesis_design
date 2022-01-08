@@ -127,7 +127,7 @@ class ProjectController extends Controller
     public function archive($id)
     {
 
-        $project = Auth::user()->projects()->with(['type', 'files.type', 'designs'])->findOrFail($id);
+        $project = Project::with(['type', 'files.type', 'designs'])->findOrFail($id);
 
         $closedCount = 0;
         $error = null;
