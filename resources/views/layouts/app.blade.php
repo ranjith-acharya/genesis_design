@@ -40,7 +40,7 @@
         <header class="topbar">
             <nav>
                 <div class="nav-wrapper">
-                    <a href="javascript:void(0)" class="brand-logo">
+                    <a href="@if(Auth::user()->role == 'admin') {{ route('admin.home') }} @else {{ route('home') }} @endif" class="brand-logo">
                         <span class="icon">
                             <img class="light-logo" src="{{ asset('assets/images/logo-icon-white.png') }}" height="30px" width="40px" style="margin-top:4px;">
                         </span>

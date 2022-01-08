@@ -8,6 +8,11 @@ Update Project Details - Genesis Design
 <div class="container-fluid">
     <div class="row">
         <div class="col s12">
+        @if ($project)
+            {{ Breadcrumbs::render('project', $project) }}
+        @else
+            {{ Breadcrumbs::render('project_new') }}
+        @endif
             <div class="card">
                 <div class="card-content">
                     <h3 class="capitalize">Edit {{ $projectType->name }} project</h3>

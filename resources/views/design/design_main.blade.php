@@ -5,6 +5,7 @@
 @section('content')
     <div class="container-fluid">
         {{ Breadcrumbs::render('design', $design) }}
+        <div class="card card-content container-fluid">
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s11 m9">
@@ -21,11 +22,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12"><br>   
                 <h4 class="capitalize">Design Details</h4>
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_AURORA, 'design.partials.aurora', ['design' => $design])
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_STRUCTURAL, 'design.partials.structural', ['design' => $design])
-                <h5>Payment</h5>
+                <br><h4 class="capitalize">Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
                     ${{ $design->price}}
@@ -33,14 +34,14 @@
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Payment Date: </b></span>
                     {{ ($design->payment_date)?$design->payment_date:"Payment Pending"}}
-                </div>
+                </div><br>
                 @if(sizeof($design->files) > 0)
                     <h4 class="capitalize">Attached Files</h4>
                     <x-ListFiles :files="$design->files" path="{{route('design.file')}}?design={{$design->id}}"></x-ListFiles>
                 @endif
             </div>
         </div>
-        <div class="row" id="messages">
+        <div class="row" id="messages"><br>
             <div class="col s12">
                 <h4>Messages</h4>
                 <x-DesignMessages :designID="$design->id" readOnly="{{$design->status === \App\Statics\Statics::DESIGN_STATUS_COMPLETED}}"></x-DesignMessages>
@@ -55,7 +56,7 @@
                     <div class="col s4 left-align center">Created At</div>
                     <div class="col s2 left-align center"></div>
                 </div>
-                <ul class="collection" style="border: none">
+                <ul class="collection">
                     @if (sizeof($design->proposals) > 0)
                         @foreach($design->proposals as $proposal)
                             <li class="collection-item mb-xxs">
@@ -78,6 +79,7 @@
                     @endif
                 </ul>
             </div>
+        </div>
         </div>
     </div>
 @endsection

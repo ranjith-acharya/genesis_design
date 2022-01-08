@@ -25,7 +25,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::namespace('Admin')->group(function () {
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
-                Route::get('/home', 'DashBoardController@index')->name('home');
+                Route::get('/home', 'DashboardController@index')->name('home');
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 

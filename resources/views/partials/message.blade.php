@@ -7,8 +7,8 @@
     {{$message->message}}
     <div class="small imperial-red-text right-align">
         @if($files)
-            <a class="btn steel-blue-outline-button tooltipped  mr-xxs view_files" data-id="{{$message->id}}" data-position="top" data-tooltip="View Attachments"><i class="fal fa-paperclip" style="line-height: 1.6;"
-                                                                                                                                                                     data-id="{{$message->id}}"></i></a>
+            <a class="btn steel-blue-outline-button tooltipped  mr-xxs view_files" data-id="{{$message->id}}" data-position="top" data-tooltip="View Attachments">
+                <i class="fal fa-paperclip" style="line-height: 1.6;" data-id="{{$message->id}}"></i></a>
         @endif
         <span class="extra-small"> {{$message->created_at->format('F dS Y - h:i A')}} (UTC)</span>@if (!$message->read && $message->sender_id !== Auth::id())<span class="new badge imperial-red mt-xxs" data-badge-caption="">new</span>@endif
     </div>

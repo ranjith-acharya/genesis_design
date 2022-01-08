@@ -5,6 +5,7 @@
 @section('content')
     <div class="container-fluid">
         {{ Breadcrumbs::render('proposal', $design) }}
+        <div class="card card-content container-fluid">
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s11">
@@ -21,10 +22,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4 class="capitalize">Design Details</h4>
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_AURORA, 'design.partials.aurora', ['design' => $design])
-                <h5>Payment</h5>
+                <br><h4>Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
                     ${{ $design->price}}
@@ -36,7 +37,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12"><br>
                 <h4 class="capitalize">Proposal</h4>
                 <span class="prussian-blue-text"><b>Note</b></span>
                 <blockquote>{{$design->proposals[0]->note}}</blockquote>
@@ -44,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <h5 class="capitalize">Proposal Files</h5>
+                <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
             </div>
         </div>
@@ -154,5 +155,6 @@
                 </div>
             </div>
         @endif
+        </div>
     </div>
 @endsection

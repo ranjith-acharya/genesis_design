@@ -35,6 +35,7 @@ Project Index - Genesis Design
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
+                                <th> Assigned To</th>
                                 <th>Project Status</th>
                                 <th>Project Type</th>
                                 <th>Action</th>
@@ -45,14 +46,26 @@ Project Index - Genesis Design
                             @foreach($projectQuery as $data)
                             <tr>
                                 <td>{{ $data->name }}</td>
-                                <td class="capitalize">{{ $data->status }}</td>
+                                <td>{{ $data->engineer->first_name }} {{ $data->engineer->last_name }}</td>
+                                <td class="capitalize">
+                                @if($data->status == 'pending')
+                                    <span class="label label-red capitalize">{{ $data->status }}</span>
+                                @else
+                                    <span class="label label-success capitalize">{{ $data->status }}</span>
+                                @endif</td>
                                 <td class="capitalize">{{ $data->type->name }}</td>
                                 <td class="center">
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
                                         <li><a href="#assign" onclick="setProjectID('{{ $data->name }}',{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li><a href="" class="imperial-red-text">Delete</a></li>
+                                        <li>
+                                            <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
+                                                @csrf
+                                                
+                                            </form>
+                                            <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
+                                        </li>
                                     </ul>
                                 </td>
                                 <!-- <td>
@@ -115,6 +128,9 @@ Project Index - Genesis Design
                     // $("#method").val("PATCH");        
                 }
             });
+    }
+    function archiveProject(id){
+        $("#archiveForm"+id).submit();
     }
 </script>
 @endsection

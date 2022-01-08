@@ -1,10 +1,14 @@
 <?php
 
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use Illuminate\Support\Facades\Auth;
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Projects', route('home'));
+    if(Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_ADMIN))
+        $trail->push('Projects', route('admin.home'));
+    else
+        $trail->push('Projects', route('home'));
 });
 
 // designs

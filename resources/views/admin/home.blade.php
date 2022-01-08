@@ -143,8 +143,66 @@ Admin Home - Genesis Design
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <div class="col s12">
-                        <h3>List of Projects</h3>
+                    <h3>Projects Summary - (Monthly)</h3>
+                    <table id="" class="responsive-table display black-text">
+                        <thead>
+                            <tr class="black-text">
+                                <th>Project Name</th>
+                                <th>Assigned To</th>
+                                <th>Created Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($projectsMonthly as $monthly)
+                                <tr>
+                                    <td>
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $monthly->id) }}@else{{ route('manager.projects.edit', $monthly->id) }}@endif">
+                                            {{ $monthly->name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if($monthly->engineer['first_name'] == "")
+                                            <span class="red-text darken-1">Not yet assigned</span>
+                                        @else
+                                            <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $monthly->engineer->id) }}@else{{ route('manager.engineer.edit', $monthly->engineer->id) }}@endif">
+                                                {{ $monthly->engineer['first_name'] }} {{ $monthly->engineer['last_name'] }}
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($monthly->engineer['first_name'] == "")
+                                            <span class="red-text darken-1">Not yet assigned</span>
+                                        @else
+                                            {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($monthly->status == 'pending')
+                                            <span class="label label-red capitalize">{{ $monthly->status }}</span>
+                                        @else
+                                            <span class="label label-success capitalize">{{ $monthly->status }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s6">
+                            <h3>Projects Summary - (Weekly)</h3>
+                        </div>
+                        <div class="col s6 right-align">
+                            
+                        </div>
                     </div>
                     <table id="" class="responsive-table display black-text">
                         <thead>
@@ -156,28 +214,34 @@ Admin Home - Genesis Design
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($projects as $project)
+                            @foreach($projectsWeekly as $weekly)
                                 <tr>
-                                    <td>{{ $project->name }}</td>
                                     <td>
-                                        @if($project->engineer['first_name'] == "")
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif">
+                                            {{ $weekly->name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if($weekly->engineer['first_name'] == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
                                         @else
-                                            {{ $project->engineer['first_name'] }} {{ $project->engineer['last_name'] }}
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $weekly->engineer->id) }}@else{{ route('manager.engineer.edit', $weekly->engineer->id) }}@endif">
+                                                {{ $weekly->engineer['first_name'] }} {{ $weekly->engineer['last_name'] }}
+                                            </a>
                                         @endif
                                     </td>
                                     <td>
-                                        @if($project->engineer['first_name'] == "")
+                                        @if($weekly->engineer['first_name'] == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
                                         @else
-                                            {{ \Carbon\Carbon::parse( $project->updated_at)->format('d M, Y') }}
+                                            {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if($project->status == 'pending')
-                                            <span class="label label-red capitalize">{{ $project->status }}</span>
+                                        @if($weekly->status == 'pending')
+                                            <span class="label label-red capitalize">{{ $weekly->status }}</span>
                                         @else
-                                            <span class="label label-success capitalize">{{ $project->status }}</span>
+                                            <span class="label label-success capitalize">{{ $weekly->status }}</span>
                                         @endif
                                     </td>
                                 </tr>

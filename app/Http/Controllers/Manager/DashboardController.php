@@ -21,8 +21,9 @@ class DashboardController extends Controller
         $engineerCount = User::where('role', 'engineer')->count();
         $projectsActive = Project::where('status', 'active')->count();
         $projectsPending = Project::where('status', 'pending')->count();
-        $projects = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
-        return view('manager.dashboard', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projects'));
+        $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
+        return view('manager.dashboard', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projectsMonthly', 'projectsWeekly'));
     }
 
     /**
