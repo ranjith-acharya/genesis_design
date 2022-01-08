@@ -167,7 +167,9 @@
                 <div class="col s12">
                     <ul class="tabs">
                         <li class="tab col s3"><a class="active" href="#profile">Profile</a></li>
-                        <li class="tab col s3"><a href="#paymentMethods">Payment Methods</a></li>
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                            <li class="tab col s3"><a href="#paymentMethods">Payment Methods</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div id="profile" class="col s12">

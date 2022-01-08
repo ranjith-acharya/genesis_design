@@ -107,6 +107,7 @@
                 <div class="row mb-0 w100">
                     <div class="col s12 center">
                         <div class="valign-wrapper">
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                             <div class="col s4 m2 left-align imperial-red-text bold center capitalize">@{{ this.type.name }}</div>
                             <div class="col s4 m2 left-align center capitalize">@{{ this.status }}</div>
                             <div class="col s1 m1 left-align center">@{{ this.proposals_count }}</div>
@@ -119,6 +120,19 @@
                                     <a class="btn steel-blue-outline-button" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
                                 @endif
                             </div>
+                        @else
+                            <div class="col s4 m2 left-align imperial-red-text bold center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s4 m2 left-align center capitalize">@{{ this.status }}</div>
+                            <div class="col s1 m1 left-align center">@{{ this.proposals_count }}</div>
+                            <div class="col s3 m3 left-align center">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m2 right-align hide-on-med-and-down center">
+                                @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
+                                    <a class="btn steel-blue-outline-button" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
+                                @else
+                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
+                                @endif
+                            </div>
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -365,12 +379,21 @@
                 <div class="pb-xxs mb-0 mt-0" style="flex-direction: column; padding: 1rem">
                     <div class="row mb-0 w100">
                         <div class="col s12 center">
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                             <div class="col s4 m2 left-align imperial-red-text bold center">Design Type</div>
                             <div class="col s4 m2 left-align center">Status</div>
                             <div class="col s1 m1 left-align center">Proposals</div>
                             <div class="col s4 m2 left-align center">Price</div>
                             <div class="col s3 m3 left-align center">Date Created</div>
                             <div class="col m2 left-align center"></div>
+                        @else
+                            <div class="col s4 m3 left-align imperial-red-text bold center">Design Type</div>
+                            <div class="col s4 m2 left-align center">Status</div>
+                            <div class="col s1 m2 left-align center">Proposals</div>
+                            <div class="col s4 left-align center"></div>
+                            <div class="col s3 m3 left-align center">Date Created</div>
+                            <div class="col m2 left-align center"></div>
+                        @endif
                         </div>
                     </div>
                 </div>
