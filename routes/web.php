@@ -27,6 +27,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
                 Route::get('/home', 'DashboardController@index')->name('home');
 
+                Route::get('/export/csv', 'ReportController@exportCSV')->name('export.csv');
+                Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
+
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 
                 Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
