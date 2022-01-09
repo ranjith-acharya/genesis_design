@@ -50,6 +50,7 @@
                             <div class="col s4 m3 left-align prussian-blue-text bold center">@{{ this.name }}</div>
                             <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
                             <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s2 m2 left-align prussian-blue-text center capitalize">@{{ this.created_at }} (UTC)</div>
                             <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn prussian-blue" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
@@ -227,8 +228,9 @@
                     <div class="row mb-0 w100">
                         <div class="col s12 center">
                             <div class="col s4 m3 left-align prussian-blue-text bold center">Name</div>
-                            <div class="col s3 m2 left-align black-text center">Project Status</div>
-                            <div class="col s3 m2 left-align black-text center">Project Type</div>
+                            <div class="col s3 m1 left-align black-text center">Status</div>
+                            <div class="col s3 m2 left-align black-text center">Type</div>
+                            <div class="col s2 m2 left-align black-text center">Created at</div>
                             <div class="col m5 left-align center"></div>
                         </div>
                     </div>
