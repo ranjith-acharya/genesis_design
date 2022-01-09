@@ -339,7 +339,7 @@
             <div class="row valign-wrapper">
                 <div class="input-field col s4">
                     <div class="switch center">
-                        <label>
+                    <label class="tooltipped" data-position="top" data-delay="10" data-tooltip="House Owner Association"> 
                             HOA? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No
                             <input type="checkbox" onclick="toggleHOA(this)">
                             <span class="lever"></span>

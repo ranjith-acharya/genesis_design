@@ -43,7 +43,7 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form id="validate" action="#" class="validation-wizard wizard-circle m-t-40">
+                        <form action="#" class="validation-wizard wizard-circle m-t-40">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
@@ -73,7 +73,7 @@
                                             <div class="switch center">
                                                 <label class="tooltipped" data-position="top" data-delay="10" data-tooltip="House Owner Association">                         
                                                     HOA? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No
-                                                    <input type="checkbox" onclick="oggleHOA(this)" checked>
+                                                    <input type="checkbox" onclick="toggleHOA(this)" checked>
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>

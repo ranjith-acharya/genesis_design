@@ -68,9 +68,11 @@ Admin Home - Genesis Design
             </div>
         </div>
     </div>
+
+    <!-- PIE CHART JS -->
     <div class="row">
-        <div class="col s12 l8">
-            <div class="card">
+                    <div class="col s12 l12">
+                    <div class="card card-hover">
                 <div class="card-content">
                     <div class="d-flex align-items-center">
                         <div>
@@ -92,8 +94,8 @@ Admin Home - Genesis Design
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col s12 l4">
+                    </div>
+                    <!-- <div class="col s12 l4">
             <div class="card card-hover">
                 <div class="card-content">
                     <div class="d-flex align-items-center">
@@ -137,7 +139,9 @@ Admin Home - Genesis Design
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+                    
+
     </div>
     <div class="row">
         <div class="col s12">
@@ -242,17 +246,35 @@ Admin Home - Genesis Design
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div>            </div>
+        </div>
+       
+        <div class="col s12 l4">
+                        <div class="card card-hover">
+                       
+                            <div class="card-content analytics-info">
+                            
+                                <h5 class="card-title">Project Status</h5>
+                                <div id="basic-pie"  style="height: 332px;"></div>
+                            </div>
+                          
+                        </div>
+                    </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card card-hover">
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
-                            <h3>Projects Summary - (Weekly)</h3>
+                        <h5 class="card-title">Projects Summary - (Weekly)</h5>
                         </div>
                         <div class="col s6 right-align">
                             
@@ -346,4 +368,234 @@ Admin Home - Genesis Design
         $("#exportForm").submit();
     });
 </script>
+<script src="{{ asset('assets/libs/echarts/dist/echarts-en.min.js') }}"></script>
+<script>
+
+$(function() {
+    "use strict";
+    // ------------------------------
+    // Basic pie chart
+    // ------------------------------
+    // based on prepared DOM, initialize echarts instance
+        var basicpieChart = echarts.init(document.getElementById('basic-pie'));
+        var option = {
+            // Add title
+               
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+
+                // Add legend
+                legend: {
+                    orient: 'horizontal',
+                    x: 'left',
+                    data: ['Active', 'Pending', 'Complete', 'Archived']
+                },
+
+                // Add custom colors
+                color:["#92DFF3", "#E97452", "#4bc0c0", "#ffcd56"],
+
+                // Display toolbox
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    feature: {
+                        mark: {
+                            show: true,
+                            title: {
+                                mark: 'Markline switch',
+                                markUndo: 'Undo markline',
+                                markClear: 'Clear markline'
+                            }
+                        },
+                        // dataView: {
+                        //     show: true,
+                        //     readOnly: false,
+                        //     title: 'View data',
+                        //     lang: ['View chart data', 'Close', 'Update']
+                        // },
+                //         magicType: {
+                //             show: true,
+                //             title: {
+                //                 pie: 'Switch to pies',
+                //                 funnel: 'Switch to funnel',
+                //             },
+                //             type: ['pie', 'funnel'],
+                //             option: {
+                //                 funnel: {
+                //                     x: '25%',
+                //                     y: '20%',
+                //                     width: '50%',
+                //                     height: '70%',
+                //                     funnelAlign: 'left',
+                //                     max: 1548
+                //                 }
+                //             }
+                //         },
+                //         restore: {
+                //             show: true,
+                //             title: 'Restore'
+                //         },
+                //         saveAsImage: {
+                //             show: true,
+                //             title: 'Same as image',
+                //             lang: ['Save']
+                //         }
+                    }
+                },
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [{
+                    name: 'Status',
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '57.5%'],
+                    data: [
+                        {value: {{$projectsActive }}, name: 'Active'},
+                        {value: {{$projectsPending }}, name: 'Pending'},
+                        {value: 35, name: 'Complete'},
+                        {value: 18, name: 'Archived'}
+                    ]
+                }]
+        };
+    
+    basicpieChart.setOption(option);
+
+      // ------------------------------
+        // nightingale chart
+        // ------------------------------
+        // based on prepared DOM, initialize echarts instance
+        var nightingaleChart = echarts.init(document.getElementById('nightingale-chart'));
+            var option = {
+                 title: {
+                    text: 'Employee\'s salary review',
+                    subtext: 'Senior front end developer',
+                    x: 'center'
+                },
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: +{c}$ ({d}%)"
+                },
+
+                // Add legend
+                legend: {
+                    x: 'left',
+                    y: 'top',
+                    orient: 'vertical',
+                    data: ['January','February','March','April','May','June','July','August','September','October','November','December']
+                },
+
+                color: ['#ffbc34', '#4fc3f7', '#212529', '#f62d51', '#2962FF', '#FFC400', '#006064', '#FF1744', '#1565C0', '#FFC400', '#64FFDA', '#607D8B'],
+
+                // Display toolbox
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    feature: {
+                        mark: {
+                            show: true,
+                            title: {
+                                mark: 'Markline switch',
+                                markUndo: 'Undo markline',
+                                markClear: 'Clear markline'
+                            }
+                        },
+                        dataView: {
+                            show: true,
+                            readOnly: false,
+                            title: 'View data',
+                            lang: ['View chart data', 'Close', 'Update']
+                        },
+                        magicType: {
+                            show: true,
+                            title: {
+                                pie: 'Switch to pies',
+                                funnel: 'Switch to funnel',
+                            },
+                            type: ['pie', 'funnel']
+                        },
+                        restore: {
+                            show: true,
+                            title: 'Restore'
+                        },
+                        saveAsImage: {
+                            show: true,
+                            title: 'Same as image',
+                            lang: ['Save']
+                        }
+                    }
+                },
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [
+                    {
+                        name: 'Increase (brutto)',
+                        type: 'pie',
+                        radius: ['15%', '73%'],
+                        center: ['50%', '57%'],
+                        roseType: 'area',
+
+                        // Funnel
+                        width: '40%',
+                        height: '78%',
+                        x: '30%',
+                        y: '17.5%',
+                        max: 450,
+                        sort: 'ascending',
+
+                        data: [
+                            {value: 440, name: 'January'},
+                            {value: 260, name: 'February'},
+                            {value: 350, name: 'March'},
+                            {value: 250, name: 'April'},
+                            {value: 210, name: 'May'},
+                            {value: 350, name: 'June'},
+                            {value: 300, name: 'July'},
+                            {value: 430, name: 'August'},
+                            {value: 400, name: 'September'},
+                            {value: 450, name: 'October'},
+                            {value: 330, name: 'November'},
+                            {value: 200, name: 'December'}
+                        ]
+                    }
+                ]
+            };
+        nightingaleChart.setOption(option);
+        //------------------------------------------------------
+       // Resize chart on menu width change and window resize
+       //------------------------------------------------------
+        $(function () {
+
+                // Resize chart on menu width change and window resize
+                $(window).on('resize', resize);
+                $(".sidebartoggler").on('click', resize);
+
+                // Resize function
+                function resize() {
+                    setTimeout(function() {
+
+                        // Resize chart
+                        basicpieChart.resize();
+                        basicdoughnutChart.resize();
+                        customizedChart.resize();
+                        nestedChart.resize();
+                        poleChart.resize();
+                    }, 200);
+                }
+            });
+});
+</script>
+
+
 @endsection
