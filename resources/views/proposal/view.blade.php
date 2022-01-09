@@ -9,14 +9,14 @@
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s11">
-                    <h3 class="capitalize">{{$design->type->name}} Proposal</h3>
-                    <h6>For <span class="imperial-red-text bold">{{$design->project->name}}</span></h6>
+                    <h3 class="prussian-blue-text capitalize">{{$design->type->name}} Proposal</h3>
+                    <h6>For <span class="blue-text bold">{{$design->project->name}}</span></h6>
                 </div>
                 <div class="col s1">
                     @if (Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
-                        <a href="{{route('design.view', $design->id)}}" class="tooltipped" data-tooltip="Go back to design"><i class="fal fa-3x fa-arrow-left steel-blue-text"></i></a>
+                        <a href="{{route('design.view', $design->id)}}" class="tooltipped" data-tooltip="Go back to design"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
                     @else
-                        <a href="{{route('engineer.design.view', $design->id)}}" class="tooltipped" data-tooltip="Go back to design"><i class="fal fa-3x fa-arrow-left steel-blue-text"></i></a>
+                        <a href="{{route('engineer.design.view', $design->id)}}" class="tooltipped" data-tooltip="Go back to design"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
                     @endif
                 </div>
             </div>
@@ -25,6 +25,7 @@
             <div class="col s12"><br>
                 <h4 class="capitalize">Design Details</h4>
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_AURORA, 'design.partials.aurora', ['design' => $design])
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                 <br><h4>Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
@@ -34,6 +35,7 @@
                     <span class="prussian-blue-text"><b>Payment Date: </b></span>
                     {{ ($design->payment_date)?$design->payment_date:"Payment Pending"}}
                 </div>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -44,10 +46,12 @@
             </div>
         </div>
         <div class="row">
+            @if(Auth::user()->role == 'engineer')
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
             </div>
+            @endif
         </div>
         @if($design->proposals[0]->changeRequest)
             <div class="row">
@@ -144,13 +148,13 @@
         @elseif($design->status === \App\Statics\Statics::DESIGN_STATUS_IN_PROGRESS && Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
             <div class="row">
                 <div class="col s12 m6 center">
-                    <a class="btn btn-large imperial-red-outline-button" id="start_cr">Start a change request</a>
+                    <a class="btn btn-large prussian-blue" id="start_cr">Start a change request</a>
                     @component('components.change-request-form', ["design"=>$design])@endcomponent
                 </div>
                 <div class="col s12 m6 center">
                     <form method="post" action="{{route('design.close', $design->id)}}">
                         @csrf
-                        <button type="submit" class="btn btn-large  steel-blue-outline-button" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal and close design</button>
+                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal and close design</button>
                     </form>
                 </div>
             </div>

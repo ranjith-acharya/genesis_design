@@ -10,14 +10,14 @@
             <div class="valign-wrapper">
                 <div class="col s11 m9">
                     <h3 class="capitalize">{{$design->type->name}}</h3>
-                    <h6>For <span class="imperial-red-text bold ">{{$design->project->name}}</span></h6>
+                    <h6>For <span class="blue-text bold ">{{$design->project->name}}</span></h6>
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
                     <h6><span class="imperial-red-text bold capitalize">{{$design->status}}</span></h6>
                 </div>
                 <div class="col s1 m1">
-                    <a href="{{route('engineer.design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left steel-blue-text"></i></a>
+                    <a href="{{route('engineer.design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
                 </div>
             </div>
         </div>
@@ -77,13 +77,13 @@
                 @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
                     <p class="imperial-red-text center">Start work on this design to submit a proposal</p>
                 @elseif(sizeof($design->proposals) === 0 && $design->status === \App\Statics\Statics::DESIGN_STATUS_IN_PROGRESS)
-                    <div class="center"><a class="btn btn-large imperial-red-outline-button" href="{{route('engineer.proposal.new', $design->id)}}">Submit&nbsp;a&nbsp;proposal</a></div>
+                    <div class="center"><a class="btn btn-large prussian-blue" href="{{route('engineer.proposal.new', $design->id)}}">Submit&nbsp;a&nbsp;proposal</a></div>
                 @elseif(sizeof($design->proposals) > 0)
                     <div class="row">
-                        <div class="col s4 left-align imperial-red-text bold center">Note</div>
-                        <div class="col s2 left-align center">Change request status</div>
-                        <div class="col s4 left-align center">Created At</div>
-                        <div class="col s2 left-align center"></div>
+                        <div class="col s4 left-align prussian-blue-text bold center">Note</div>
+                        <div class="col s2 left-align black-text center">Change request status</div>
+                        <div class="col s4 left-align black-text center">Created At</div>
+                        <div class="col s2 left-align black-text center"></div>
                     </div>
                     <ul class="collection">
                         @foreach($design->proposals as $proposal)

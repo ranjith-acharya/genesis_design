@@ -26,8 +26,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
                 Route::get('/home', 'DashboardController@index')->name('home');
+                Route::get('/project/monthly', 'DashboardController@projectMonthly')->name('project.monthly');
 
-                Route::get('/export/csv', 'ReportController@exportCSV')->name('export.csv');
+                Route::get('/export/excel', 'ReportController@exportExcel')->name('export.excel');
                 Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
@@ -71,6 +72,11 @@ Route::middleware(['verified', 'auth'])->group(function () {
         Route::prefix('manager')->group(function() {
             Route::name('manager.')->group(function() {
                 Route::resource('/home', 'Manager\DashboardController');
+                Route::get('/project/monthly', 'Manager\DashboardController@projectMonthly')->name('project.monthly');
+                
+                Route::get('/export/excel', 'Manager\ReportController@exportExcel')->name('export.excel');
+                Route::get('/export/pdf', 'Manager\ReportController@exportPDF')->name('export.pdf');
+
                 Route::resource('/customer', 'Admin\CustomerController');
                 Route::resource('/engineer', 'Admin\EngineerController');
                 
@@ -135,6 +141,11 @@ Route::middleware(['verified', 'auth'])->group(function () {
     });
 
     //Route::group(['middleware' => ['role:customer']], function () {
+
+        Route::get('/customer/reports', 'ReportController@reportIndex')->name('customer.export');
+        Route::get('/customer/projects/self', 'ReportController@getProjects')->name('customer.projects.list');
+        Route::get('/customer/export/excel', 'ReportController@exportExcel')->name('customer.export.excel');
+        Route::get('/customer/export/pdf', 'ReportController@exportPDF')->name('customer.export.pdf');
 
         Route::prefix('project')->group(function () {
             Route::name('project.')->group(function () {

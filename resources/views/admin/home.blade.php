@@ -163,29 +163,48 @@ Admin Home - Genesis Design
                         <div class="col s6">
                         <h5 class="card-title">Projects Summary - (Monthly)</h5>
                         </div>
-                        <div class="col s4">
-                            <div class="row">
-                                <div class="col s6">
-                                    <div class="input-field">
-                                        <input type="date">
-                                    </div>
-                                </div>
-                                <div class="col s6">
-                                    <div class="input-field">
-                                        <input type="date">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s2 right-align">
-                            <a class='dropdown-trigger btn btn-small green' href='#' data-target='exportBtn'><i class="ti-download left"></i>EXPORT</a>
+                        <div class="col s6 right-align">
+                            <a class='dropdown-trigger btn btn-small green' href='#' data-target='exportBtn'>EXPORT</a>
                             <ul id='exportBtn' class='dropdown-content'>
-                                <li><a href="{{ route('admin.export.csv') }}">CSV</a></li>
-                                <li><a href="{{ route('admin.export.pdf') }}">PDF</a></li>
+                                <li><a type="submit" id="exportExcel">EXCEL</a></li>
+                                <li><a type="submit" id="exportPdf">PDF</a></li>
                             </ul>
                         </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <form method="get" id="exportForm">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col s3">
+                                            <div class="input-field">
+                                                <input type="date" name="from_date" id="from_date">
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="input-field">
+                                                <input type="date" name="to_date" id="to_date">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col s3">
+                                            <div class="input-field col s12">
+                                                <select id="status" name="status">
+                                                    <option value="" disabled selected>Select Status</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="archived">Archived</option>
+                                                    <option value="pending">Pending</option>
+                                                </select>
+                                                <label>Status</label>
+                                            </div>
+                                        </div> -->
+                                        <div class="col s3" style="margin-top:2%;">
+                                            <button type="button" id="exportSearch" class="btn btn-flat green white-text"><i class="material-icons left">search</i>Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <table id="" class="responsive-table display black-text"><br><br>
+                    <table id="" class="responsive-table display black-text">
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
@@ -196,7 +215,7 @@ Admin Home - Genesis Design
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableContent">
                             @foreach($projectsMonthly as $monthly)
                                 <tr>
                                     <td>
@@ -313,7 +332,44 @@ Admin Home - Genesis Design
     </div>
 </div>
 @endsection
+
 @section('js')
+<script>
+    $("#exportSearch").click(function(){
+        // alert("Hello");
+        $("#exportForm").attr("action", "{{ route('admin.home') }}");
+        var fromDate = $("#from_date").val();
+        var toDate = $("#to_date").val();
+        var statusExport = $("#status").val();
+        //alert(statusExport);
+        //alert(fromDate);
+        $.ajax({
+            url:"{{ route('admin.project.monthly') }}",
+            method:"GET",
+            data: {from_date: fromDate, to_date: toDate, status: statusExport},
+            datatype:"JSON",
+            success:function(data){
+                console.log(data);
+                tableRow = "";
+
+                for(i=0;i<data.length;i++){
+                    tableRow += "<tr><td>"+data[i]['name']+"</a></td><td>"+data[i]['city']+"</td><td>"+data[i]['state']+"</td><td>"+data[i]['engineer_id']+"</td><td>"+data[i]['created_at']+"</td><td> @if ("+data[i]['status']+" == 'pending')  <span class='label label-red capitalize'>"+data[i]['status']+"</span>  @elseif("+data[i]['status']+" == 'archived')  <span class='label label-primary capitalize'>"+data[i]['status']+"</span>  @else <span class='label label-success capitalize'>"+data[i]['status']+"</span> @endif </td></tr>";
+                }
+                $("#tableContent").html(tableRow);
+            }
+        });
+    });
+
+    $("#exportExcel").click(function(){
+        $("#exportForm").attr("action", "{{ route('admin.export.excel') }}");
+        $("#exportForm").submit();
+    });
+
+    $("#exportPdf").click(function(){
+        $("#exportForm").attr("action", "{{ route('admin.export.pdf') }}");
+        $("#exportForm").submit();
+    });
+</script>
 <script src="{{ asset('assets/libs/echarts/dist/echarts-en.min.js') }}"></script>
 <script>
 

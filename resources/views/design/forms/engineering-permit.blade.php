@@ -37,7 +37,7 @@
         <form id="structural_form"></form>
         <div class="row">
             <div class="col s12">
-                <h3 class="imperial-red-text capitalize">{{$type->name}}</h3>
+                <h3 class="prussian-blue-text capitalize">{{$type->name}}</h3>
                 <h5>Design Request</h5>
             </div>
             <div class="col s12">
@@ -390,7 +390,7 @@
                                         <div class="input-field col s4">
                                             <select id="roofMaterialOption" onchange="check(this.value);">
                                                 <option value="" disabled selected>Choose your option</option>
-                                                <option value="Asphault">Asphault</option>
+                                                <option value="Asphalt">Asphalt</option>
                                                 <option value="Metal">Metal</option>
                                                 <option value="Shingle">Shingle</option>
                                                 <option value="Tile">Tile</option>
@@ -897,8 +897,8 @@
                                         </div>
                                     </div>
                                     <div class="col s3">
-                                        <a href="{{ asset('assets/document/Site_Survey_Document.pdf') }}" download>
-                                            <button type="button" class="btn btn-small indigo"><i class="ti-cloud-down left"></i>Sample Upload</button>
+                                        <a href="{{ asset('assets/document/Site_Survey_Document.pdf') }}" target="_blank">
+                                            <button type="button" class="btn btn-small indigo tooltipped" data-position="bottom" data-tooltip="Click here to view Sample Upload"><i class="ti-cloud-down left"></i>Sample Upload</button>
                                         </a>
                                     </div>
                                 </div>
@@ -1045,28 +1045,33 @@ function toggleSystemSize(elem) {
             var pitch = document.getElementById("pitch").value;
             var azimuth = document.getElementById("azimuth").value;
             var rafter_size = document.getElementById("rafter_size").value;
-            //alert(pitch);
+            //alert(azimuth);
             if(pitch < 0){
                 //alert("hello");
                 document.getElementById("pitch_error").innerHTML = 'Should be greater than Zero';
-                document.getElementById("pitch").value = " ";
                 document.getElementById("pitch").style.borderColor = "#F44336";
+                document.getElementById("pitch").value = " ";
             }else{
                 document.getElementById("pitch_error").innerHTML = " ";
                 document.getElementById("pitch").style.borderColor = "#4CAF50";
             }
             if(azimuth < 0){
-                document.getElementById("azimuth_error").innerHTML = 'Should be greater than Zero';
-                document.getElementById("azimuth").value = " ";
+                //alert(azimuth);
+                document.getElementById("azimuth_error").innerHTML = 'Range 0 - 360';
                 document.getElementById("azimuth").style.borderColor = "#F44336";
+                document.getElementById("azimuth").value = " ";
+            }else if(azimuth > 360){
+                document.getElementById("azimuth_error").innerHTML = 'Range 0 - 360';
+                document.getElementById("azimuth").style.borderColor = "#F44336";
+                document.getElementById("azimuth").value = " ";
             }else{
                 document.getElementById("azimuth_error").innerHTML = " ";
                 document.getElementById("azimuth").style.borderColor = "#4CAF50";
             }
             if(rafter_size < 0){
                 document.getElementById("rafter_size_error").innerHTML = 'Should be greater than Zero';
-                document.getElementById("rafter_size").value = " ";
                 document.getElementById("rafter_size").style.borderColor = "#F44336";
+                document.getElementById("rafter_size").value = " ";
             }else{
                 document.getElementById("rafter_size_error").innerHTML = " ";
                 document.getElementById("rafter_size").style.borderColor = "#4CAF50";

@@ -283,7 +283,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col s12">
-                <h3 class="imperial-red-text capitalize">{{$type->name}}</h3>
+                <h3 class="prussian-blue-text capitalize">{{$type->name}}</h3>
                 <h5>Design Request</h5>
             </div>
         </div>

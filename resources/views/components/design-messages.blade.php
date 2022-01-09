@@ -240,8 +240,8 @@
                 <label for="message">Message</label>
             </div>
             <div class="col s3 center">
-                <a class="btn steel-blue-outline-button tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" style="line-height: 1.6;"></i></a>
-                <a class="btn steel-blue-outline-button tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip" style="line-height: 1.6;"></i></a>
+                <a class="btn prussian-blue tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" ></i></a>
+                <a class="btn prussian-blue tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip"></i></a>
             </div>
         </div>
         <div id="message_loader" style="display: none">

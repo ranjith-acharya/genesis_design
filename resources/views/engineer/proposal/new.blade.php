@@ -203,10 +203,12 @@
         @else
             {{ Breadcrumbs::render('proposal_new', $design) }}
         @endif
+        <div class="card card-content">
+            <div class="container-fluid">
         <div class="row">
             <div class="col s12 m10">
                 <h3>New Proposal</h3>
-                <h6 class="capitalize">For <span class="bold imperial-red-text">{{$design->type->name}}</span> Project <span class="bold imperial-red-text">{{$design->project->name}}</span></h6>
+                <h6 class="capitalize">For <span class="bold blue-text">{{$design->type->name}}</span> Project <span class="bold blue-text">{{$design->project->name}}</span></h6>
             </div>
         </div>
         @if((sizeof($design->changeRequests)>0))
@@ -243,7 +245,9 @@
         </div>
         <div class="row"><br>
             <div class="col s12 center">
-                <button class="btn imperial-red-outline-button" onclick="send(this)">Send Proposal</button>
+                <button class="btn prussian-blue" onclick="send(this)">Send Proposal</button>
+            </div>
+        </div>
             </div>
         </div>
     </div>

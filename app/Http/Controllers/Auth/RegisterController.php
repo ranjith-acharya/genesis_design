@@ -119,7 +119,7 @@ class RegisterController extends Controller
                     "default_payment_method" => $data['payment_id']]
             ]);
 
-        return User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'phone' => $data['phone'],
@@ -130,6 +130,9 @@ class RegisterController extends Controller
             'company_id' => $company->id,
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->assignRole('customer');
+        return $user;
     }
 
     public function register(Request $request)
@@ -139,7 +142,9 @@ class RegisterController extends Controller
 
         $userData = $request->all();
         $userData['password'] = Hash::make($userData['password']);
-        event(new Registered(User::create($userData)));
+        $user = User::create($userData);
+        $user->assignRole('customer');
+        event(new Registered($user));
 
         return new Response(["status" => "registered"], 201);
 

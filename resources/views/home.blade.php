@@ -47,16 +47,17 @@
                 <div class="row mb-0 w100">
                     <div class="col s12 center">
                         <div class="valign-wrapper">
-                            <div class="col s4 m3 left-align imperial-red-text bold center">@{{ this.name }}</div>
-                            <div class="col s3 m2 left-align center capitalize">@{{ this.status }}</div>
-                            <div class="col s3 m2 left-align center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s12 m5 right-align hide-on-med-and-down center">
+                            <div class="col s4 m3 left-align prussian-blue-text bold center">@{{ this.name }}</div>
+                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s2 m2 left-align prussian-blue-text center capitalize">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                                    <a class="btn steel-blue-outline-button" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
-                                    <a class="btn steel-blue-outline-button ml-xxxs" href="{{route('design.list')}}/@{{ this.id  }}">Designs</a>
+                                    <a class="btn prussian-blue" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
+                                    <a class="btn prussian-blue ml-xxxs" href="{{route('design.list')}}/@{{ this.id  }}">Designs</a>
                                 @else
-                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
-                                    <a class="btn steel-blue-outline-button ml-xxxs" href="{{route('engineer.design.list')}}/@{{ this.id  }}">Designs</a>
+                                    <a class="btn prussian-blue" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
+                                    <a class="btn prussian-blue ml-xxxs" href="{{route('engineer.design.list')}}/@{{ this.id  }}">Designs</a>
                                 @endif
                             </div>
                         </div>
@@ -65,11 +66,11 @@
                 <div class="row hide-on-med-and-up mt-s">
                     <div class="col s12 center">
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                            <a class="btn steel-blue-outline-button" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
-                            <a class="btn steel-blue-outline-button" href="{{route('design.list')}}">Designs</a>
+                            <a class="btn prussian-blue" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
+                            <a class="btn prussian-blue" href="{{route('design.list')}}">Designs</a>
                         @else
-                            <a class="btn steel-blue-outline-button" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
-                            <a class="btn steel-blue-outline-button" href="{{route('engineer.design.list')}}">Designs</a>
+                            <a class="btn prussian-blue" href="{{route('engineer.project.view', '')}}/@{{ this.id }}">View</a>
+                            <a class="btn prussian-blue" href="{{route('engineer.design.list')}}">Designs</a>
                         @endif
                     </div>
                 </div>
@@ -168,9 +169,9 @@
             </div>
             <div class="col s12 m3 pt-s hide-on-med-and-down right-align">
                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                    <a class="btn imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
+                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
                     <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
+                    <ul id='dropdown1' class='dropdown-content prussian-blue-text'>
                         @foreach($projectTypes as $projectType)
                             <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{Str::ucfirst($projectType->name)}}</a></li>
                             <li class="divider" tabindex="-1"></li>
@@ -226,9 +227,10 @@
                 <div class="card-panel z-depth-0 transparent pb-xxs mb-0 mt-0" style="flex-direction: column; padding: 1rem">
                     <div class="row mb-0 w100">
                         <div class="col s12 center">
-                            <div class="col s4 m3 left-align imperial-red-text bold center">Name</div>
-                            <div class="col s3 m2 left-align center">Project Status</div>
-                            <div class="col s3 m2 left-align center">Project Type</div>
+                            <div class="col s4 m3 left-align prussian-blue-text bold center">Name</div>
+                            <div class="col s3 m1 left-align black-text center">Status</div>
+                            <div class="col s3 m2 left-align black-text center">Type</div>
+                            <div class="col s2 m2 left-align black-text center">Created at</div>
                             <div class="col m5 left-align center"></div>
                         </div>
                     </div>

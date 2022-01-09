@@ -59,11 +59,11 @@
                     @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                         <form action="{{route('project.archive', $project->id)}}" method="post">
                             @csrf
-                            <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                            <button type="submit" class="btn prussian-blue m-xxxs">Archive Project</button>
                         </form>
                     @endif
                     @if($project)
-                        <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                        <a class="btn prussian-blue m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                     @endif
                 </div>
             </div>
@@ -71,11 +71,11 @@
                 @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                     <form action="{{route('project.archive', $project->id)}}" method="post">
                         @csrf
-                        <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                        <button type="submit" class="btn prussian-blue-text m-xxxs">Archive Project</button>
                     </form>
                 @endif
                 @if($project)
-                    <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                    <a class="btn prussian-blue-text m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                 @endif
             </div>
         </div>
@@ -180,16 +180,16 @@
         <div class="row">
             <div class="col s12 center">
                 @unless($project)
-                    <button type="button" class="btn imperial-red-outline-button" onclick="insert()">Create&nbsp;project</button>
+                    <button type="button" class="btn prussian-blue" onclick="insert()">Create&nbsp;project</button>
                 @endunless
                 @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                     <form action="{{route('project.archive', $project->id)}}" method="post">
                         @csrf
-                        <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                        <button type="submit" class="btn prussian-blue m-xxxs">Archive Project</button>
                     </form>
                 @endif
                 @if($project)
-                    <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                    <a class="btn prussian-blue m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                 @endif
             </div>
         </div>
