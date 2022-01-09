@@ -26,6 +26,16 @@ class DashboardController extends Controller
         return view('manager.dashboard', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projectsMonthly', 'projectsWeekly'));
     }
 
+    public function projectMonthly(Request $request){
+        $startDate = $request->get('from_date');
+        $endDate = $request->get('to_date');
+        if($startDate == "" && $endDate == ""){
+            return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }else{
+            return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
+        }
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

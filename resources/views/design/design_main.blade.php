@@ -10,14 +10,14 @@
             <div class="valign-wrapper">
                 <div class="col s11 m9">
                     <h3 class="capitalize">{{$design->type->name}}</h3>
-                    <h6>For <span class="imperial-red-text bold ">{{$design->project->name}}</span></h6>
+                    <h6>For <span class="blue-text bold ">{{$design->project->name}}</span></h6>
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
                     <h6><span class="imperial-red-text bold capitalize">{{$design->status}}</span></h6>
                 </div>
                 <div class="col s1 m1">
-                    <a href="{{route('design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left steel-blue-text"></i></a>
+                    <a href="{{route('design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
                 </div>
             </div>
         </div>
@@ -51,9 +51,9 @@
             <div class="col s12">
                 <h4>Proposals</h4>
                 <div class="row">
-                    <div class="col s4 left-align imperial-red-text bold center">Note</div>
-                    <div class="col s2 left-align center">Has Change Request?</div>
-                    <div class="col s4 left-align center">Created At</div>
+                    <div class="col s4 left-align prussian-blue-text bold center">Note</div>
+                    <div class="col s2 left-align black-text center">Has Change Request?</div>
+                    <div class="col s4 left-align black-text center">Created At</div>
                     <div class="col s2 left-align center"></div>
                 </div>
                 <ul class="collection">

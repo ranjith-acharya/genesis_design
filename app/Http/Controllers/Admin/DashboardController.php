@@ -15,17 +15,33 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $customerCount = User::where('role', 'customer')->count();
         $engineerCount = User::where('role', 'engineer')->count();
         $projectsActive = Project::where('status', 'active')->count();
         $projectsPending = Project::where('status', 'pending')->count();
-        $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        $startDate = $request->get('from_date');
+        $endDate = $request->get('to_date');
+        if($startDate == "" && $endDate == ""){
+            $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }else{
+            $projectsMonthly = Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
+        }
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         //return $projects;
         //return Carbon::now()->subWeek()->endOfWeek();
         return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projectsMonthly', 'projectsWeekly'));
+    }
+
+    public function projectMonthly(Request $request){
+        $startDate = $request->get('from_date');
+        $endDate = $request->get('to_date');
+        if($startDate == "" && $endDate == ""){
+            return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }else{
+            return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
+        }
     }
 
     /**

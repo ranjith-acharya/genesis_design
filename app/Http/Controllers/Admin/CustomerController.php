@@ -56,7 +56,7 @@ class CustomerController extends Controller
         $userData['role'] = 'customer';
         $userData['password'] = Hash::make($userData['password']);
         $user = User::create($userData);
-        //$user->assignRole('customer');
+        $user->assignRole('customer');
 
         return back()->with('success', 'Customer  created successfully!');
     }

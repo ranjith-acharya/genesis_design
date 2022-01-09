@@ -6,25 +6,29 @@ use App\Project;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Carbon;
 
-class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
+class CustomerProjectExport implements FromCollection, WithStyles, WithHeadings, ShouldAutoSize, WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection(){
+    public function collection()
+    {
+        $user_id =  Auth::user()->id;
         $startDate = request()->input('from_date') ;
         $endDate   = Carbon::parse(request()->input('to_date'))->addDay();
-        //return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
         if($startDate == "" && $endDate == ""){
-            return Project::all();
+            return Project::where('customer_id', $user_id)->get();
             //return $project;
         }else{
-            return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
-            //return $project;
+            return Project::where('customer_id', $user_id)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
         }
     }
     public function headings(): array{
@@ -38,17 +42,27 @@ class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, Sh
             'State',
             'Zip',
             'Country',
-            'Latitude',
-            'Longitude',
             'Status',
-            'Customer_ID',
-            'Engineer_ID',
-            'Company_ID',
-            'Project_ID',
             'Created_at',
-            'Updated_at',
         ];
     }
+    
+    public function map($row): array{
+        return [
+            $row->id,
+            $row->name,
+            $row->description,
+            $row->street_1,
+            $row->street_2,
+            $row->city,
+            $row->state,
+            $row->zip,
+            $row->country,
+            $row->status,
+            $row->created_at,
+        ];
+    }
+
     public function styles(Worksheet $sheet){
         return [
             1 => ['font' => ['bold' => true],

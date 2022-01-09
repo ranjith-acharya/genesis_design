@@ -94,7 +94,6 @@
             <th>Project Name</th>
             <th>Customer City</th>
             <th>Customer State</th>
-            <th>Assigned to</th>
             <th>Assigned Date</th>
             <th>Status</th>
         </tr>
@@ -105,20 +104,7 @@
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->city }}</td>
                 <td>{{ $data->state }}</td>
-                <td>
-                    @if($data->engineer['first_name'] == "")
-                        <span class="red-text">Not yet assigned</span>
-                    @else
-                        {{ $data->engineer['first_name'] }} {{ $data->engineer['last_name'] }}
-                    @endif
-                </td>
-                <td>
-                    @if($data->engineer['first_name'] == "")
-                        <span class="red-text">Not yet assigned</span>
-                    @else
-                        {{ \Carbon\Carbon::parse( $data->updated_at)->format('d M, Y') }}
-                    @endif
-                </td>
+                <td>{{ Carbon\Carbon::parse($data->created_at)->format('d M, Y') }}</td>
                 <td>
                     @if($data->status == 'pending')
                         <span class="label label-red capitalize">{{ $data->status }}</span>

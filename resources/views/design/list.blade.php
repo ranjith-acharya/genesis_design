@@ -108,28 +108,28 @@
                     <div class="col s12 center">
                         <div class="valign-wrapper">
                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
-                            <div class="col s4 m2 left-align imperial-red-text bold center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s4 m2 left-align center capitalize">@{{ this.status }}</div>
-                            <div class="col s1 m1 left-align center">@{{ this.proposals_count }}</div>
-                            <div class="col s4 m2 left-align center">$ @{{ this.price }}</div>
-                            <div class="col s3 m3 left-align center">@{{ this.created_at }} (UTC)</div>
-                            <div class="col s12 m2 right-align hide-on-med-and-down center">
+                            <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">$ @{{ this.price }}</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m2 right-align prussian-blue-text hide-on-med-and-down center">
                                 @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
-                                    <a class="btn steel-blue-outline-button" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
                                 @else
-                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
                                 @endif
                             </div>
                         @else
-                            <div class="col s4 m2 left-align imperial-red-text bold center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s4 m2 left-align center capitalize">@{{ this.status }}</div>
-                            <div class="col s1 m1 left-align center">@{{ this.proposals_count }}</div>
-                            <div class="col s3 m3 left-align center">@{{ this.created_at }} (UTC)</div>
-                            <div class="col s12 m2 right-align hide-on-med-and-down center">
+                            <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m2 right-align prussian-blue-text hide-on-med-and-down center">
                                 @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
-                                    <a class="btn steel-blue-outline-button" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
                                 @else
-                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
                                 @endif
                             </div>
                         @endif
@@ -235,11 +235,11 @@
             {{ Breadcrumbs::render('design_list', $project) }}
             <div class="col s12 m9">
                 <h3>Requested Designs</h3>
-                <h6>For <span class="imperial-red-text bold ">{{$project->name}}</span></h6>
+                <h6>For <span class="blue-text bold ">{{$project->name}}</span></h6>
             </div>
             @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                 <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
-                    <a class="btn imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
+                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
                     @foreach($types as $designType)
@@ -380,18 +380,18 @@
                     <div class="row mb-0 w100">
                         <div class="col s12 center">
                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
-                            <div class="col s4 m2 left-align imperial-red-text bold center">Design Type</div>
-                            <div class="col s4 m2 left-align center">Status</div>
-                            <div class="col s1 m1 left-align center">Proposals</div>
-                            <div class="col s4 m2 left-align center">Price</div>
-                            <div class="col s3 m3 left-align center">Date Created</div>
+                            <div class="col s4 m2 left-align prussian-blue-text bold center">Design Type</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Status</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">Proposals</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Price</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">Date Created</div>
                             <div class="col m2 left-align center"></div>
                         @else
-                            <div class="col s4 m3 left-align imperial-red-text bold center">Design Type</div>
-                            <div class="col s4 m2 left-align center">Status</div>
-                            <div class="col s1 m2 left-align center">Proposals</div>
-                            <div class="col s4 left-align center"></div>
-                            <div class="col s3 m3 left-align center">Date Created</div>
+                            <div class="col s4 m3 left-align prussian-blue-text bold center">Design Type</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Status</div>
+                            <div class="col s1 m2 left-align prussian-blue-text center">Proposals</div>
+                            <div class="col s4 left-align prussian-blue-text center"></div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">Date Created</div>
                             <div class="col m2 left-align center"></div>
                         @endif
                         </div>

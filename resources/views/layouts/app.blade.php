@@ -40,7 +40,7 @@
         <header class="topbar">
             <nav>
                 <div class="nav-wrapper">
-                    <a href="@if(Auth::user()->role == 'admin') {{ route('admin.home') }} @else {{ route('home') }} @endif" class="brand-logo">
+                    <a href="@if(Auth::user()->role == 'admin') {{ route('admin.home') }} @elseif(Auth::user()->role == 'manager') {{ route('manager.home.index') }} @else {{ route('home') }} @endif" class="brand-logo">
                         <span class="icon">
                             <img class="light-logo" src="{{ asset('assets/images/logo-icon-white.png') }}" height="30px" width="40px" style="margin-top:4px;">
                         </span>
@@ -259,6 +259,7 @@
                             <li class="small-cap"><span class="hide-menu white-text">CUSTOMER PANEL</span></li>
                             <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text" style="font-size:16px;">Home</span></a></li>
                             <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Profile</span></a></li>
+                            <li><a href="{{route('customer.export')}}"><i class="material-icons white-text" style="font-size:26px;">assignment</i><span class="hide-menu white-text" style="font-size:16px;">Reports</span></a></li>
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:26px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
