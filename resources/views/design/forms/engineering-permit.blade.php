@@ -43,7 +43,7 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="validation-wizard wizard-circle m-t-40">
+                        <form action="#" class="alidation-wizard wizard-circle m-t-40">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
@@ -640,17 +640,17 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem1" multiple onchange="getSelectedValue('1')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Refrigerator w/freezer">Refrigerator w/freezer</option>
-                                                <option value="Freezer - Chest">Freezer - Chest</option>
-                                                <option value="Freezer - Upright">Freezer - Upright</option>
+                                                <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
+                                                <option value="Freezer-Chest">Freezer - Chest</option>
+                                                <option value="Freezer-Upright">Freezer - Upright</option>
                                                 <option value="Dishwasher">Dishwasher</option>
                                                 <option value="Range">Range</option>
                                                 <option value="Oven">Oven</option>
                                                 <option value="Microwave">Microwave</option>
-                                                <option value="Toaster oven">Toaster oven</option>
-                                                <option value="Coffee maker">Coffee maker</option>
-                                                <option value="Garbage disposal">Garbage disposal</option>
-                                                <option value="Well pump 1/2 HP">Well pump 1/2 HP</option>
+                                                <option value="Toaster_oven">Toaster oven</option>
+                                                <option value="Coffee_maker">Coffee maker</option>
+                                                <option value="Garbage_disposal">Garbage disposal</option>
+                                                <option value="Well_pump_1/2_HP">Well pump 1/2 HP</option>
                                             </select>
                                             <label>Kitchen</label>
                                         </div>
@@ -666,6 +666,9 @@
                                                         <td>
                                                             Quantity
                                                         </td>
+                                                        <td>
+                                                            Monthly kWh
+                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="selectedItem1">                                                
@@ -680,15 +683,15 @@
                                             <select id="selectItem2" multiple onchange="getSelectedValue('2')">
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Stereo">Stereo</option>
-                                                <option value="TV - small (up to 19)">TV - small (up to 19)</option>
-                                                <option value="TV - medium (up to 27)">TV - medium (up to 27)</option>
-                                                <option value="TV - large (greater than 27)">TV - large (greater than 27)</option>
-                                                <option value="TV - 27 LCD Flat Screen">TV - 27 LCD Flat Screen</option>
+                                                <option value="TV-small(up_to_19)">TV - small (up to 19)</option>
+                                                <option value="TV-medium(up_to_27)">TV - medium (up to 27)</option>
+                                                <option value="TV-large(greater_than_27)">TV - large (greater than 27)</option>
+                                                <option value="TV-27 LCD Flat Screen">TV - 27 LCD Flat Screen</option>
                                                 <option value="TV - 42 Plasma">TV - 42 Plasma</option>
                                                 <option value="VCR/DVD">VCR/DVD</option>
-                                                <option value="Cable box">Cable box</option>
-                                                <option value="Satellite dish">Satellite dish</option>
-                                                <option value="Computer and printer">Computer and printer</option>
+                                                <option value="Cable_box">Cable box</option>
+                                                <option value="Satellite_dish">Satellite dish</option>
+                                                <option value="Computer_and_printer">Computer and printer</option>
                                             </select>
                                             <label>Entertainment</label>
                                         </div>
@@ -704,6 +707,9 @@
                                                         <td>
                                                             Quantity
                                                         </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="selectedItem2">                                                
@@ -717,9 +723,9 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem3" multiple onchange="getSelectedValue('3')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Lighting # of rooms">Lighting # of rooms</option>
-                                                <option value="Outdoor lighting 175W">Outdoor lighting 175W</option>
-                                                <option value="Outdoor lighting 250W">Outdoor lighting 250W</option>
+                                                <option value="Lighting_of_rooms">Lighting # of rooms</option>
+                                                <option value="Outdoor_lighting_175W">Outdoor lighting 175W</option>
+                                                <option value="Outdoor_lighting_250W">Outdoor lighting 250W</option>
                                             </select>
                                             <label>Lighting</label>
                                         </div>
@@ -735,6 +741,9 @@
                                                         <td>
                                                             Quantity
                                                         </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="selectedItem3">
@@ -748,9 +757,9 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem4" multiple onchange="getSelectedValue('4')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Water Heater (# of bedrooms)">Water Heater (# of bedrooms)</option>
-                                                <option value="Electric Dryer # of loads per week">Electric Dryer # of loads per week</option>
-                                                <option value="Washing # of loads">Washing # of loads</option>
+                                                <option value="Water_Heater">Water Heater (# of bedrooms)</option>
+                                                <option value="Electric_Dryer_of_loads_per_week">Electric Dryer # of loads per week</option>
+                                                <option value="Washing_of_loads">Washing # of loads</option>
                                             </select>
                                             <label>Laundry</label>
                                         </div>
@@ -766,6 +775,9 @@
                                                         <td>
                                                             Quantity
                                                         </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="selectedItem4">
@@ -779,8 +791,8 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem5" multiple onchange="getSelectedValue('5')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Hot Tub">Hot Tub</option>
-                                                <option value="Pool filter / pump">Pool filter / pump</option>
+                                                <option value="Hot_Tub">Hot Tub</option>
+                                                <option value="Pool_filter_pump">Pool filter / pump</option>
                                             </select>
                                             <label>Outdoor Equipment</label>
                                         </div>
@@ -795,6 +807,9 @@
                                                         </td>
                                                         <td>
                                                             Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -811,30 +826,30 @@
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Dehumidifier">Dehumidifier</option>
                                                 <option value="Humidifier">Humidifier</option>
-                                                <option value="Air Purifier">Air Purifier</option>
-                                                <option value="Evaporative Cooler">Evaporative Cooler</option>
-                                                <option value="Window Air Conditioner">Window Air Conditioner</option>
-                                                <option value="Ceiling Fan">Ceiling Fan</option>
-                                                <option value="Box Fan">Box Fan</option>
-                                                <option value="Electric Blanket">Electric Blanket</option>
-                                                <option value="Water Bed Heater">Water Bed Heater</option>
-                                                <option value="Furnace Fan">Furnace Fan</option>
-                                                <option value="Furn 15KW ~ 1100sq.ft">Furn 15KW ~ 1100sq.ft</option>
-                                                <option value="Furn 20KW ~ 2000sq.ft">Furn 20KW ~ 2000sq.ft</option>
-                                                <option value="Furn 25KW ~ 3000sq.ft">Furn 25KW ~ 3000sq.ft</option>
-                                                <option value="Bassboard Lin. Feet">Bassboard Lin. Feet</option>
-                                                <option value="Wall Heaters @ 2000w">Wall Heaters @ 2000w</option>
-                                                <option value="1500 W Portable">1500 W Portable</option>
-                                                <option value="Heat pump fan">Heat pump fan</option>
-                                                <option value="Heat pump 800 ~ 1100sq.ft">Heat pump 800 ~ 1100sq.ft</option>
-                                                <option value="Heat pump 1100 ~ 2000sq.ft">Heat pump 1100 ~ 2000sq.ft</option>
-                                                <option value="Heat pump 2000 ~ 3000sq.ft">Heat pump 2000 ~ 3000sq.ft</option>
-                                                <option value="Air Conditioner 1/2 ton">Air Conditioner 1/2 ton</option>
-                                                <option value="Air Conditioner 1.5 ton">Air Conditioner 1.5 ton</option>
-                                                <option value="Air Conditioner 2 ton">Air Conditioner 2 ton</option>
-                                                <option value="Air Conditioner 3 ton">Air Conditioner 3 ton</option>
-                                                <option value="Air Conditioner 4 ton">Air Conditioner 4 ton</option>
-                                                <option value="Air Conditioner 5 ton">Air Conditioner 5 ton</option>
+                                                <option value="Air_Purifier">Air Purifier</option>
+                                                <option value="Evaporative_Cooler">Evaporative Cooler</option>
+                                                <option value="Window_Air_Conditioner">Window Air Conditioner</option>
+                                                <option value="Ceiling_Fan">Ceiling Fan</option>
+                                                <option value="Box_Fan">Box Fan</option>
+                                                <option value="Electric_Blanket">Electric Blanket</option>
+                                                <option value="Water_Bed_Heater">Water Bed Heater</option>
+                                                <option value="Furnace_Fan">Furnace Fan</option>
+                                                <option value="Furn_15KW_1100">Furn 15KW ~ 1100sq.ft</option>
+                                                <option value="Furn_20KW_2000">Furn 20KW ~ 2000sq.ft</option>
+                                                <option value="Furn_25KW_3000">Furn 25KW ~ 3000sq.ft</option>
+                                                <option value="Bassboard_Lin_Feet">Bassboard Lin. Feet</option>
+                                                <option value="Wall_Heaters_2000w">Wall Heaters @ 2000w</option>
+                                                <option value="1500W_Portable">1500 W Portable</option>
+                                                <option value="Heat_pump_fan">Heat pump fan</option>
+                                                <option value="Heat_pump_800_1100">Heat pump 800 ~ 1100sq.ft</option>
+                                                <option value="Heat_pump_1100_2000">Heat pump 1100 ~ 2000sq.ft</option>
+                                                <option value="Heat_pump_2000_3000">Heat pump 2000 ~ 3000sq.ft</option>
+                                                <option value="Air_Conditioner">Air Conditioner 1/2 ton</option>
+                                                <option value="Air_Conditioner1.5_ton">Air Conditioner 1.5 ton</option>
+                                                <option value="Air_Conditioner2_ton">Air Conditioner 2 ton</option>
+                                                <option value="Air_Conditioner3_ton">Air Conditioner 3 ton</option>
+                                                <option value="Air_Conditioner4_ton">Air Conditioner 4 ton</option>
+                                                <option value="Air_Conditioner5_ton">Air Conditioner 5 ton</option>
                                             </select>
                                             <label>Comfort controls</label>
                                         </div>
@@ -850,6 +865,9 @@
                                                         <td>
                                                             Quantity
                                                         </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="selectedItem6">                                                
@@ -857,6 +875,15 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="average_bill1" name="average_bill" type="text" placeholder=" ">
+                                        <label for="average_bill">Yearly usage: </label>
+                                        <input type="button" onclick="getTotal()" value="Total">
+                                    </div>
+                                </div><br>
                                 </div>
                             </section>
                             <h6>Upload Supporting Documents</h6>
@@ -964,12 +991,41 @@ function toggleSystemSize(elem) {
     }
     </script>
     <script>
+        //Total Voltages
+        
+        
+        function getTotal()
+        {
+            total=0;
+            itemList=[];
+            itemList.push($("#selectItem1").val());
+            itemList.push($("#selectItem2").val());
+            itemList.push($("#selectItem3").val());
+            itemList.push($("#selectItem4").val());
+            itemList.push($("#selectItem5").val());
+            console.log(itemList);
+            console.log(itemList[0][0]);
+            
+            for(let i=0;i<itemList.length;i++)
+            {
+                if(itemList[i].length>0)
+                {
+                    for(let j=0;j<itemList[i].length;j++)
+                    {
+                        total+=parseInt($("#item"+itemList[i][j]).val())*parseInt($("#vol"+itemList[i][j]).val())*12;
+                    }
+                }
+            }
+            console.log("Total : ",total);
+            $("#average_bill1").val(total);
+
+        }
         function getSelectedValue(id){
             //alert("hello");
             var items = $("#selectItem"+id).val();
             var tableRow = "";
             for(let i = 0; i < items.length; i++){
-                tableRow += "<tr><td><input type='text' name='"+items[i]+"' value='"+items[i]+"' readonly></td></td><td><input type='text' name='quantity[]' value='1'></td></tr>";
+                tableRow += "<tr><td><input type='text' name='"+items[i]+"' value='"+items[i]+"' readonly></td></td><td><input type='text' id='item"+items[i]+"' name='quantity[]' value='1'></td><td><input type='text' id='vol"+items[i]+"' name='voltage[]' value=''></td></tr>";
             }
             document.getElementById("selectedItem"+id).innerHTML=tableRow;
             //console.log($("#selectItem").val());

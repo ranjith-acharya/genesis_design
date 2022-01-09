@@ -71,29 +71,41 @@ Admin Home - Genesis Design
 
     <!-- PIE CHART JS -->
     <div class="row">
-                    <div class="col s12 l12">
+                    <div class="col s12 l8">
                     <div class="card card-hover">
-                <div class="card-content">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h5 class="card-title">Yearly Sales</h5>
+                        <div class="card-content">
+                            <div class="d-flex align-items-center">
+                            <div>
+                                <h5 class="card-title">Yearly Sales</h5>
+                            </div>
+                            <div class="ml-auto">
+                                <ul class="list-inline font-12 dl m-r-10">
+                                    <li class="cyan-text"><i class="fa fa-circle"></i> Earnings</li>
+                                    <li class="blue-text text-accent-4"><i class="fa fa-circle"></i> Sales</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="ml-auto">
-                            <ul class="list-inline font-12 dl m-r-10">
-                                <li class="cyan-text"><i class="fa fa-circle"></i> Earnings</li>
-                                <li class="blue-text text-accent-4"><i class="fa fa-circle"></i> Sales</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="p-t-20">
-                        <div class="row">
-                            <div class="col s12">
-                                <div id="sales" style="height: 332px;"></div>
+                        <div class="p-t-20">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div id="sales" style="height: 332px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="col s12 l4">
+                        <div class="card card-hover">
+                       
+                            <div class="card-content analytics-info">
+                            
+                                <h5 class="card-title">Project Status</h5>
+                                <div id="basic-pie"  style="height: 350px;"></div>
+                            </div>
+                          
+                        </div>
                     </div>
                     <!-- <div class="col s12 l4">
             <div class="card card-hover">
@@ -145,11 +157,11 @@ Admin Home - Genesis Design
     </div>
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card card-hover">
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
-                            <h3>Projects Summary - (Monthly)</h3>
+                        <h5 class="card-title">Projects Summary - (Monthly)</h5>
                         </div>
                         <div class="col s4">
                             <div class="row">
@@ -230,17 +242,7 @@ Admin Home - Genesis Design
                 </div>            </div>
         </div>
        
-        <div class="col s12 l4">
-                        <div class="card card-hover">
-                       
-                            <div class="card-content analytics-info">
-                            
-                                <h5 class="card-title">Project Status</h5>
-                                <div id="basic-pie"  style="height: 332px;"></div>
-                            </div>
-                          
-                        </div>
-                    </div>
+       
     </div>
     <div class="row">
         <div class="col s12">
@@ -399,7 +401,7 @@ $(function() {
                     name: 'Status',
                     type: 'pie',
                     radius: '70%',
-                    center: ['50%', '57.5%'],
+                    center: ['45%', '57.5%'],
                     data: [
                         {value: {{$projectsActive }}, name: 'Active'},
                         {value: {{$projectsPending }}, name: 'Pending'},
