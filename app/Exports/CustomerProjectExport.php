@@ -21,7 +21,7 @@ class CustomerProjectExport implements FromCollection, WithStyles, WithHeadings,
     {
         $user_id =  Auth::user()->id;
         $startDate = request()->input('from_date') ;
-        $endDate   = Carbon::parse(request()->input('to_date'))->addDay();
+        $endDate   = request()->input('to_date');
         if($startDate == "" && $endDate == ""){
             return Project::where('customer_id', $user_id)->get();
             //return $project;
