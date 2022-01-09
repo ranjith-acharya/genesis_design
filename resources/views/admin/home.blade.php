@@ -144,14 +144,41 @@ Admin Home - Genesis Design
 
     </div>
     <div class="row">
-        <div class="col s12 l8">
-            <div class="card card-hover">
-            <div class="card-content">
-                    <h5 class="card-title">Projects Summary - (Monthly)</h5>
-                    <table id="" class="responsive-table display black-text">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s6">
+                            <h3>Projects Summary - (Monthly)</h3>
+                        </div>
+                        <div class="col s4">
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="input-field">
+                                        <input type="date">
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="input-field">
+                                        <input type="date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s2 right-align">
+                            <a class='dropdown-trigger btn btn-small green' href='#' data-target='exportBtn'><i class="ti-download left"></i>EXPORT</a>
+                            <ul id='exportBtn' class='dropdown-content'>
+                                <li><a href="{{ route('admin.export.csv') }}">CSV</a></li>
+                                <li><a href="{{ route('admin.export.pdf') }}">PDF</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table id="" class="responsive-table display black-text"><br><br>
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
+                                <th>Customer City</th>
+                                <th>Customer State</th>
                                 <th>Assigned To</th>
                                 <th>Created Date</th>
                                 <th>Status</th>
@@ -164,6 +191,12 @@ Admin Home - Genesis Design
                                         <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $monthly->id) }}@else{{ route('manager.projects.edit', $monthly->id) }}@endif">
                                             {{ $monthly->name }}
                                         </a>
+                                    </td>
+                                    <td>
+                                        {{ $monthly->city }}
+                                    </td>
+                                    <td>
+                                        {{ $monthly->state }}
                                     </td>
                                     <td>
                                         @if($monthly->engineer['first_name'] == "")
@@ -184,6 +217,8 @@ Admin Home - Genesis Design
                                     <td>
                                         @if($monthly->status == 'pending')
                                             <span class="label label-red capitalize">{{ $monthly->status }}</span>
+                                        @elseif($monthly->status == 'archived')
+                                            <span class="label label-primary capitalize">{{ $monthly->status }}</span>
                                         @else
                                             <span class="label label-success capitalize">{{ $monthly->status }}</span>
                                         @endif

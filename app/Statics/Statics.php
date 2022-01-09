@@ -39,8 +39,9 @@ class Statics
     const PROJECT_STATUS_PENDING = "pending";
     const PROJECT_STATUS_ACTIVE = "active";
     const PROJECT_STATUS_ARCHIVED = "archived";
+    const PROJECT_STATUS_COMPLETED = "completed";
 
-    const PROJECT_STATUSES = [self::PROJECT_STATUS_PENDING, self::PROJECT_STATUS_ACTIVE, self::PROJECT_STATUS_ARCHIVED];
+    const PROJECT_STATUSES = [self::PROJECT_STATUS_PENDING, self::PROJECT_STATUS_ACTIVE, self::PROJECT_STATUS_ARCHIVED, self::PROJECT_STATUS_COMPLETED];
 
 //    ProjectFile categories
     const FILE_CATEGORY_ROOF = "roof";

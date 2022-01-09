@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProjectExportExcel;
+use PDF;
+use App\Project;
 
 class ReportController extends Controller
 {
@@ -12,6 +16,18 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function exportCSV(){
+        return Excel::download(new ProjectExportExcel, 'Projects_Monthly.xlsx');
+    }
+
+    public function exportPDF(){
+        $projects = Project::all();
+          
+        $pdf = PDF::loadView('admin.reports.projectMonthly', compact('projects'));
+    
+        return $pdf->download('Project_Monthly.pdf');
+    }
+    
     public function index()
     {
         //
