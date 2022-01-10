@@ -25,10 +25,16 @@ class ReportController extends Controller
     public function exportPDF(Request $request){
         $startDate =  $request->get('from_date');
         $endDate   = $request->get('to_date');
-        if($startDate == "" && $endDate == ""){
-            $projects = Project::all();
+        $status = $request->get('status');
+        if($startDate == "" && $endDate == "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }elseif($startDate == "" || $endDate == ""){
+            $projects = Project::where('status', $status)->get();
+        }elseif($status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
         }else{
-            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
+            $projects = Project::where('status', $status)
+                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
         }
         
         //$projects = Project::all();
