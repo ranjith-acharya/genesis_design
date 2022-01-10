@@ -29,7 +29,6 @@ class DashboardController extends Controller
             $projectsMonthly = Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
         }
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
-        //return $projects;
         //return Carbon::now()->subWeek()->endOfWeek();
         return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projectsMonthly', 'projectsWeekly'));
     }

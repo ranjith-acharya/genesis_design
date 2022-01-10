@@ -43,7 +43,7 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="alidation-wizard wizard-circle m-t-40">
+                        <form action="#" class="validation-wizard wizard-circle m-t-40">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
@@ -686,8 +686,8 @@
                                                 <option value="TV-small(up_to_19)">TV - small (up to 19)</option>
                                                 <option value="TV-medium(up_to_27)">TV - medium (up to 27)</option>
                                                 <option value="TV-large(greater_than_27)">TV - large (greater than 27)</option>
-                                                <option value="TV-27 LCD Flat Screen">TV - 27 LCD Flat Screen</option>
-                                                <option value="TV - 42 Plasma">TV - 42 Plasma</option>
+                                                <option value="TV-27_LCD_Flat_Screen">TV - 27 LCD Flat Screen</option>
+                                                <option value="TV-42Plasma">TV - 42 Plasma</option>
                                                 <option value="VCR/DVD">VCR/DVD</option>
                                                 <option value="Cable_box">Cable box</option>
                                                 <option value="Satellite_dish">Satellite dish</option>
@@ -881,7 +881,7 @@
                                     <div class="input-field col s12">
                                         <input id="average_bill1" name="average_bill" type="text" placeholder=" ">
                                         <label for="average_bill">Yearly usage: </label>
-                                        <input type="button" onclick="getTotal()" value="Total">
+                                        <input type="button" class="btn btn-primary" onclick="getTotal()" value="Total">
                                     </div>
                                 </div><br>
                                 </div>
@@ -1003,6 +1003,7 @@ function toggleSystemSize(elem) {
             itemList.push($("#selectItem3").val());
             itemList.push($("#selectItem4").val());
             itemList.push($("#selectItem5").val());
+            itemList.push($("#selectItem6").val());
             console.log(itemList);
             console.log(itemList[0][0]);
             

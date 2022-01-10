@@ -292,6 +292,7 @@ Admin Home - Genesis Design
                             </tr>
                         </thead>
                         <tbody>
+                            @if(count($projectsWeekly)>0)
                             @foreach($projectsWeekly as $weekly)
                                 <tr>
                                     <td>
@@ -324,6 +325,9 @@ Admin Home - Genesis Design
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                            <tr><td></td><td></td><td></td><td></td></tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -341,8 +345,6 @@ Admin Home - Genesis Design
         var fromDate = $("#from_date").val();
         var toDate = $("#to_date").val();
         var statusExport = $("#status").val();
-        //alert(statusExport);
-        //alert(fromDate);
         $.ajax({
             url:"{{ route('admin.project.monthly') }}",
             method:"GET",

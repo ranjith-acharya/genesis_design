@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="row">
-            @if(Auth::user()->role == 'engineer')
+            @if(Auth::user()->role == 'engineer'|| $design->status=="completed")
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
@@ -148,13 +148,13 @@
         @elseif($design->status === \App\Statics\Statics::DESIGN_STATUS_IN_PROGRESS && Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
             <div class="row">
                 <div class="col s12 m6 center">
-                    <a class="btn btn-large prussian-blue" id="start_cr">Start a change request</a>
+                    <a class="btn btn-large prussian-blue" id="start_cr"> Change request</a>
                     @component('components.change-request-form', ["design"=>$design])@endcomponent
                 </div>
                 <div class="col s12 m6 center">
                     <form method="post" action="{{route('design.close', $design->id)}}">
                         @csrf
-                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal and close design</button>
+                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal and View design</button>
                     </form>
                 </div>
             </div>
