@@ -106,7 +106,7 @@ Admin Home - Genesis Design
                             </div>
                           
                         </div>
-                    </div>
+                </div>
                     <!-- <div class="col s12 l4">
             <div class="card card-hover">
                 <div class="card-content">
@@ -230,7 +230,7 @@ Admin Home - Genesis Design
                                         {{ $monthly->state }}
                                     </td>
                                     <td>
-                                        @if($monthly->engineer['first_name'] == "")
+                                        @if($monthly->engineer_id == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
                                         @else
                                             <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $monthly->engineer->id) }}@else{{ route('manager.engineer.edit', $monthly->engineer->id) }}@endif">
@@ -239,11 +239,7 @@ Admin Home - Genesis Design
                                         @endif
                                     </td>
                                     <td>
-                                        @if($monthly->engineer['first_name'] == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
-                                        @else
-                                            {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
-                                        @endif
+                                        {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
                                         @if($monthly->status == 'pending')
@@ -301,20 +297,14 @@ Admin Home - Genesis Design
                                         </a>
                                     </td>
                                     <td>
-                                        @if($weekly->engineer['first_name'] == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
+                                        @if($weekly->engineer_id == "")
+                                            <span class="helper-text red-text">Not Assigned</span>
                                         @else
-                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $weekly->engineer->id) }}@else{{ route('manager.engineer.edit', $weekly->engineer->id) }}@endif">
-                                                {{ $weekly->engineer['first_name'] }} {{ $weekly->engineer['last_name'] }}
-                                            </a>
+                                            {{ $weekly->engineer->first_name }} {{ $weekly->engineer->last_name }}
                                         @endif
                                     </td>
                                     <td>
-                                        @if($weekly->engineer['first_name'] == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
-                                        @else
-                                            {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
-                                        @endif
+                                        {{ Carbon\Carbon::parse($weekly->created_at)->format('d M, Y') }}
                                     </td>
                                     <td>
                                         @if($weekly->status == 'pending')

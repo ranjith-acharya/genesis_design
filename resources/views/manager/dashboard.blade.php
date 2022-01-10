@@ -70,7 +70,7 @@ Manager Home - Genesis Design
     </div>
     <div class="row">
         <div class="col s12 l8">
-            <div class="card">
+            <div class="card card-hover">
                 <div class="card-content">
                     <div class="d-flex align-items-center">
                         <div>
@@ -91,57 +91,20 @@ Manager Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col s12 l4">
-            <div class="card card-hover">
-                <div class="card-content">
-                    <div class="d-flex align-items-center">
-                        <div class="m-r-20">
-                            <h1 class=""><i class="ti-light-bulb"></i></h1></div>
-                        <div>
-                            <h3 class="card-title">Sales Analytics</h3>
-                            <h6 class="card-subtitle">March  2017</h6> </div>
-                    </div>
-                    <div class="row d-flex align-items-center">
-                        <div class="col s6">
-                            <h3 class="font-light m-t-10"><sup><small><i class="ti-arrow-up"></i></small></sup>35487</h3>
-                        </div>
-                        <div class="col s6 right-align">
-                            <div class="p-t-10 p-b-10">
-                                <div class="spark-count" style="height:65px"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="card card-hover">
-                <div class="card-content">
-                    <div class="d-flex align-items-center">
-                        <div class="m-r-20">
-                            <h1 class=""><i class="ti-pie-chart"></i></h1></div>
-                        <div>
-                            <h3 class="card-title">Bandwidth usage</h3>
-                            <h6 class="card-subtitle">March  2017</h6> 
-                        </div>
-                    </div>
-                    <div class="row d-flex align-items-center">
-                        <div class="col s6">
-                            <h3 class="font-light m-t-10">50 GB</h3>
-                        </div>
-                        <div class="col s6 p-t-10 p-b-20 right-align">
-                            <div class="p-t-10 p-b-10 m-r-20">
-                                <div class="spark-count2" style="height:65px"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col s12 l4">
+                <div class="card card-hover">                       
+                    <div class="card-content analytics-info">                            
+                        <h5 class="card-title">Project Status</h5>
+                        <div id="basic-pie"  style="height: 350px;"></div>
+                    </div>                      
                 </div>
             </div>
-        </div>
     </div>
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card card-hover">
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
@@ -214,7 +177,7 @@ Manager Home - Genesis Design
                                         {{ $monthly->state }}
                                     </td>
                                     <td>
-                                        @if($monthly->engineer['first_name'] == "")
+                                        @if($monthly->engineer_id == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
                                         @else
                                             <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $monthly->engineer->id) }}@else{{ route('manager.engineer.edit', $monthly->engineer->id) }}@endif">
@@ -223,11 +186,7 @@ Manager Home - Genesis Design
                                         @endif
                                     </td>
                                     <td>
-                                        @if($monthly->engineer['first_name'] == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
-                                        @else
-                                            {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
-                                        @endif
+                                        {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
                                         @if($monthly->status == 'pending')
@@ -248,11 +207,11 @@ Manager Home - Genesis Design
     </div>
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="card card-hover">
                 <div class="card-content">
                     <div class="row">
                         <div class="col s6">
-                            <h3>Projects Summary - (Weekly)</h3>
+                            <h3 class="card-title">Projects Summary - (Weekly)</h3>
                         </div>
                         <div class="col s6 right-align">
                             
@@ -276,7 +235,7 @@ Manager Home - Genesis Design
                                         </a>
                                     </td>
                                     <td>
-                                        @if($weekly->engineer['first_name'] == "")
+                                        @if($weekly->engineer_id == "")
                                             <span class="red-text darken-1">Not yet assigned</span>
                                         @else
                                         <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $weekly->engineer->id) }}@else{{ route('manager.engineer.edit', $weekly->engineer->id) }}@endif">
@@ -285,11 +244,7 @@ Manager Home - Genesis Design
                                         @endif
                                     </td>
                                     <td>
-                                        @if($weekly->engineer['first_name'] == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
-                                        @else
-                                            {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
-                                        @endif
+                                        {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
                                         @if($weekly->status == 'pending')
@@ -345,5 +300,234 @@ Manager Home - Genesis Design
         $("#exportForm").attr("action", "{{ route('manager.export.pdf') }}");
         $("#exportForm").submit();
     });
+</script><script src="{{ asset('assets/libs/echarts/dist/echarts-en.min.js') }}"></script>
+<script>
+
+$(function() {
+    "use strict";
+    // ------------------------------
+    // Basic pie chart
+    // ------------------------------
+    // based on prepared DOM, initialize echarts instance
+        var basicpieChart = echarts.init(document.getElementById('basic-pie'));
+        var option = {
+            // Add title
+               
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+
+                // Add legend
+                legend: {
+                    orient: 'horizontal',
+                    x: 'left',
+                    data: ['Active', 'Pending', 'Complete', 'Archived']
+                },
+
+                // Add custom colors
+                color:["#92DFF3", "#E97452", "#4bc0c0", "#ffcd56"],
+
+                // Display toolbox
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    feature: {
+                        mark: {
+                            show: true,
+                            title: {
+                                mark: 'Markline switch',
+                                markUndo: 'Undo markline',
+                                markClear: 'Clear markline'
+                            }
+                        },
+                        // dataView: {
+                        //     show: true,
+                        //     readOnly: false,
+                        //     title: 'View data',
+                        //     lang: ['View chart data', 'Close', 'Update']
+                        // },
+                //         magicType: {
+                //             show: true,
+                //             title: {
+                //                 pie: 'Switch to pies',
+                //                 funnel: 'Switch to funnel',
+                //             },
+                //             type: ['pie', 'funnel'],
+                //             option: {
+                //                 funnel: {
+                //                     x: '25%',
+                //                     y: '20%',
+                //                     width: '50%',
+                //                     height: '70%',
+                //                     funnelAlign: 'left',
+                //                     max: 1548
+                //                 }
+                //             }
+                //         },
+                //         restore: {
+                //             show: true,
+                //             title: 'Restore'
+                //         },
+                //         saveAsImage: {
+                //             show: true,
+                //             title: 'Same as image',
+                //             lang: ['Save']
+                //         }
+                    }
+                },
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [{
+                    name: 'Status',
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['45%', '57.5%'],
+                    data: [
+                        {value: {{$projectsActive }}, name: 'Active'},
+                        {value: {{$projectsPending }}, name: 'Pending'},
+                        {value: 35, name: 'Complete'},
+                        {value: 18, name: 'Archived'}
+                    ]
+                }]
+        };
+    
+    basicpieChart.setOption(option);
+
+      // ------------------------------
+        // nightingale chart
+        // ------------------------------
+        // based on prepared DOM, initialize echarts instance
+        var nightingaleChart = echarts.init(document.getElementById('nightingale-chart'));
+            var option = {
+                 title: {
+                    text: 'Employee\'s salary review',
+                    subtext: 'Senior front end developer',
+                    x: 'center'
+                },
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: +{c}$ ({d}%)"
+                },
+
+                // Add legend
+                legend: {
+                    x: 'left',
+                    y: 'top',
+                    orient: 'vertical',
+                    data: ['January','February','March','April','May','June','July','August','September','October','November','December']
+                },
+
+                color: ['#ffbc34', '#4fc3f7', '#212529', '#f62d51', '#2962FF', '#FFC400', '#006064', '#FF1744', '#1565C0', '#FFC400', '#64FFDA', '#607D8B'],
+
+                // Display toolbox
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    feature: {
+                        mark: {
+                            show: true,
+                            title: {
+                                mark: 'Markline switch',
+                                markUndo: 'Undo markline',
+                                markClear: 'Clear markline'
+                            }
+                        },
+                        dataView: {
+                            show: true,
+                            readOnly: false,
+                            title: 'View data',
+                            lang: ['View chart data', 'Close', 'Update']
+                        },
+                        magicType: {
+                            show: true,
+                            title: {
+                                pie: 'Switch to pies',
+                                funnel: 'Switch to funnel',
+                            },
+                            type: ['pie', 'funnel']
+                        },
+                        restore: {
+                            show: true,
+                            title: 'Restore'
+                        },
+                        saveAsImage: {
+                            show: true,
+                            title: 'Same as image',
+                            lang: ['Save']
+                        }
+                    }
+                },
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [
+                    {
+                        name: 'Increase (brutto)',
+                        type: 'pie',
+                        radius: ['15%', '73%'],
+                        center: ['50%', '57%'],
+                        roseType: 'area',
+
+                        // Funnel
+                        width: '40%',
+                        height: '78%',
+                        x: '30%',
+                        y: '17.5%',
+                        max: 450,
+                        sort: 'ascending',
+
+                        data: [
+                            {value: 440, name: 'January'},
+                            {value: 260, name: 'February'},
+                            {value: 350, name: 'March'},
+                            {value: 250, name: 'April'},
+                            {value: 210, name: 'May'},
+                            {value: 350, name: 'June'},
+                            {value: 300, name: 'July'},
+                            {value: 430, name: 'August'},
+                            {value: 400, name: 'September'},
+                            {value: 450, name: 'October'},
+                            {value: 330, name: 'November'},
+                            {value: 200, name: 'December'}
+                        ]
+                    }
+                ]
+            };
+        nightingaleChart.setOption(option);
+        //------------------------------------------------------
+       // Resize chart on menu width change and window resize
+       //------------------------------------------------------
+        $(function () {
+
+                // Resize chart on menu width change and window resize
+                $(window).on('resize', resize);
+                $(".sidebartoggler").on('click', resize);
+
+                // Resize function
+                function resize() {
+                    setTimeout(function() {
+
+                        // Resize chart
+                        basicpieChart.resize();
+                        basicdoughnutChart.resize();
+                        customizedChart.resize();
+                        nestedChart.resize();
+                        poleChart.resize();
+                    }, 200);
+                }
+            });
+});
 </script>
+
+
 @endsection

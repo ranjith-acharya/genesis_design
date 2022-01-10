@@ -46,7 +46,13 @@ Project Index - Genesis Design
                             @foreach($projectQuery as $data)
                             <tr>
                                 <td>{{ $data->name }}</td>
-                                <td>{{ $data->engineer->first_name }} {{ $data->engineer->last_name }}</td>
+                                <td>
+                                    @if($data->engineer_id == "")
+                                        <spa class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
+                                    @endif
+                                </td>
                                 <td class="capitalize">
                                 @if($data->status == 'pending')
                                     <span class="label label-red capitalize">{{ $data->status }}</span>

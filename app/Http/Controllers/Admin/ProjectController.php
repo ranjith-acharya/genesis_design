@@ -30,7 +30,7 @@ class ProjectController extends Controller
     }
 
     public function indexProject(){
-        $projectQuery = Project::all();
+        $projectQuery = Project::latest()->get();
         $engineers = User::where('role', 'engineer')->get();
         return view('admin.project.index', compact('projectQuery', 'engineers'));
     }

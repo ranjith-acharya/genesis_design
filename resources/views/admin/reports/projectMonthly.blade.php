@@ -106,18 +106,14 @@
                 <td>{{ $data->city }}</td>
                 <td>{{ $data->state }}</td>
                 <td>
-                    @if($data->engineer['first_name'] == "")
+                    @if($data->engineer_id == "")
                         <span class="red-text">Not yet assigned</span>
                     @else
                         {{ $data->engineer['first_name'] }} {{ $data->engineer['last_name'] }}
                     @endif
                 </td>
                 <td>
-                    @if($data->engineer['first_name'] == "")
-                        <span class="red-text">Not yet assigned</span>
-                    @else
-                        {{ \Carbon\Carbon::parse( $data->updated_at)->format('d M, Y') }}
-                    @endif
+                    {{ \Carbon\Carbon::parse( $data->updated_at)->format('d M, Y') }}
                 </td>
                 <td>
                     @if($data->status == 'pending')
