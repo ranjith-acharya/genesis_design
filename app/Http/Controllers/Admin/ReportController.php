@@ -24,7 +24,7 @@ class ReportController extends Controller
 
     public function exportPDF(Request $request){
         $startDate =  $request->get('from_date');
-        $endDate   = Carbon::parse(request()->input('to_date'))->addDay();
+        $endDate   = $request->get('to_date');
         if($startDate == "" && $endDate == ""){
             $projects = Project::all();
         }else{
