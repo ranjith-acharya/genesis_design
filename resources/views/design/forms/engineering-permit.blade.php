@@ -52,7 +52,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Max System Size
-                                                    <input type="checkbox" id="hoa" onclick="oggleSystemSize(this)">
+                                                    <input type="checkbox" id="hoa" onclick="toggleSystemSize(this)">
                                                     <span class="lever"></span>
                                                     Limited System Size
                                                 </label>
