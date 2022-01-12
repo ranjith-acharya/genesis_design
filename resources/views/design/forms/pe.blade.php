@@ -86,8 +86,8 @@
         let filesUploaded = 0;
 
         // Payment stuff
-        const paymentHoldUrl = '{{route('payment.hold')}}';
-        const stripePublicKey = '{{env('STRIPE_KEY')}}';
+        const paymentHoldUrl = "{{route('payment.hold')}}";
+        const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -115,7 +115,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -157,7 +157,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -198,7 +198,7 @@
                     });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
-                        window.location = '{{route('design.list', $project_id)}}';
+                        window.location = "{{route('design.list', $project_id)}}";
                 } else {
                     M.toast({
                         html: "There was a error uploading images. Please try again.",
