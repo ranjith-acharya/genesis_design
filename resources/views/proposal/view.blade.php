@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="row">
-            @if(Auth::user()->role == 'engineer'|| $design->status=="completed")
+            @if(Auth::user()->role == 'engineer' || Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>

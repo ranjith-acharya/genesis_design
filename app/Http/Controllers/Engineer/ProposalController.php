@@ -7,6 +7,7 @@ use App\Mail\Notification;
 use App\Proposal;
 use App\ProposalFile;
 use App\Statics\Statics;
+use App\SystemDesign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -110,11 +111,13 @@ class ProposalController extends Controller
 
     public function view(Request $request, $design)
     {
-
-        $design = Auth::user()->designs()->with(['proposals' => function ($query) use ($request) {
+        $user = SystemDesign::findOrFail($design)->project->engineer;
+        //return $user;
+        $design = $user->designs()->with(['proposals' => function ($query) use ($request) {
             $query->with('changeRequest.files')->findOrFail($request->proposal);
         }, 'type.latestPrice'])->where('system_designs.id', $design)->firstOrFail();
 
+        //return $design;
         return view('proposal.view', ["design" => $design]);
     }
 
@@ -129,7 +132,6 @@ class ProposalController extends Controller
         $design = Auth::user()->designs()->with(['proposals' => function ($query) use ($request) {
             $query->findOrFail($request->proposal);
         }])->where('system_designs.id', $request->design)->firstOrFail();
-
         $file = $design->proposals[0]->files->firstWhere('id', $request->file);
         if ($file) {
             $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();

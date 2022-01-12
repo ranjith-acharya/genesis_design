@@ -164,12 +164,13 @@
             </div>
         @endif
         <div class="row">
-            <div class="col s12 m9">
+            <div class="col s6">
                 <h3>Your Projects</h3>
             </div>
-            <div class="col s12 m3 pt-s hide-on-med-and-down right-align">
+            <div class="col s6 right-align">
                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Create&nbsp;a&nbsp;project</a>
+                    <button class="btn prussian-blue">Create Bulk Project</button>
+                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>   Single Project</a>
                     <!-- Dropdown Structure -->
                     <ul id='dropdown1' class='dropdown-content prussian-blue-text'>
                         @foreach($projectTypes as $projectType)
@@ -181,7 +182,7 @@
                     <!-- <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a> -->
                 @endif
             </div>
-        </div>
+        </div><br><br>
         <div class="row mb-0">
             <div class="col s12 m9 center-on-small-only">
                 <div class="input-field inline w100-on-small-only" style="min-width: 33%">
