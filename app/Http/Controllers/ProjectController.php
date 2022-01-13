@@ -144,4 +144,8 @@ class ProjectController extends Controller
         return view('project.form', ["projectType" => $project->type, "project" => $project, 'fileTypes' => $project->files->groupBy('type.name'), "archive_error" => $error]);
 
     }
+
+    public function bulkProject(){
+        return view('project.bulkproject');
+    }
 }

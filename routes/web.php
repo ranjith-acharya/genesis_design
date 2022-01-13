@@ -156,6 +156,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('new/{type}', 'ProjectController@form')->name('form');
                 Route::get('update/{id?}', 'ProjectController@edit')->name('edit');
 
+                Route::get('/bulk', 'ProjectController@bulkProject')->name('bulk');
+
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
 //            Route::post('update','ProjectController@update')->name('update');

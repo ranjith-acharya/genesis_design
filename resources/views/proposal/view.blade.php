@@ -46,12 +46,12 @@
             </div>
         </div>
         <div class="row">
-            @if(Auth::user()->role == 'engineer' || Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
+            
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
             </div>
-            @endif
+            
         </div>
         @if($design->proposals[0]->changeRequest)
             <div class="row">
@@ -59,13 +59,16 @@
                     <h4 class="capitalize">Change Request</h4>
                     <span class="prussian-blue-text"><b>Description</b></span>
                     <blockquote>{{$design->proposals[0]->changeRequest->description}}</blockquote>
+                    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'manager' || AUth::user()->role == 'customer')
                     <h5>Payment And Status</h5>
                     <div class="row">
                         <div class="col s6">
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                             <div class="mb-xxxs capitalize">
                                 <span class="prussian-blue-text"><b>Quoted Price Cost: </b></span>
                                 {{ ($design->proposals[0]->changeRequest->price !== null)?"$" . $design->proposals[0]->changeRequest->price: "Waiting for quote"}}
                             </div>
+                            @endif
                             <div class="mb-xxxs">
                                 <span class="prussian-blue-text"><b>Payment Date: </b></span>
                                 {{ ($design->proposals[0]->changeRequest->payment_date)?$design->proposals[0]->changeRequest->payment_date:"Payment Pending"}}
@@ -81,7 +84,7 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="mb-xxxs capitalize">
-                                <span class="prussian-blue-text"><b>Engineer Note: </b></span>
+                                <span class="prussian-blue-text"><b>Admin Note: </b></span>
                                 <blockquote>{{ ($design->proposals[0]->changeRequest->engineer_note)?$design->proposals[0]->changeRequest->engineer_note:"-"}}</blockquote>
                             </div>
                         </div>
@@ -95,12 +98,17 @@
                             </div>
                         </div>
                     @endif
+                @endif
                     <h5>Actions</h5>
                     <div class="center">
-                        @if (Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_ENGINEER))
+                        @if (Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_ENGINEER) || Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_MANAGER) || Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_ADMIN))
                             @switch($design->proposals[0]->changeRequest->status)
                                 @case(\App\Statics\Statics::CHANGE_REQUEST_STATUS_REQUESTED)
-                                <a class="btn btn-large imperial-red-outline-button" id="quote_price">Quote price for the change request</a>
+                                @if(Auth::user()->role == 'admin')
+                                    <a class="btn btn-large imperial-red-outline-button" id="quote_price">Quote price for the change request</a>
+                                @else
+                                    <span class="imperial-red">Waiting for Approval!</span>
+                                @endif
                                 @component('components.quote-change-request', ["design"=>$design])@endcomponent
                                 @break
                                 @case(\App\Statics\Statics::CHANGE_REQUEST_STATUS_APPROVED)
@@ -119,12 +127,12 @@
                                             @csrf
                                             <input type="hidden" name="design_id" value="{{$design->id}}">
                                             <input type="hidden" name="change_request_id" value="{{$design->proposals[0]->changeRequest->id}}">
-                                            <button type="submit" class="btn btn-large imperial-red-outline-button">Reject Quote and close design</button>
+                                            <button type="submit" class="btn btn-large prussian-blue">Reject Quote and close design</button>
                                         </form>
                                     </div>
                                     <div class="col s12 m6 center">
-                                        <button type="button" class="btn btn-large steel-blue-outline-button" id="accept_quote">Accept Quote of ${{$design->proposals[0]->changeRequest->price}}</button>
-                                        @component('components.accept-quote', ["design"=>$design])@endcomponent
+                                        <button type="button" class="btn btn-large prussian-blue" id="accept_quote">Accept Quote of ${{$design->proposals[0]->changeRequest->price}}</button>
+                                        <br><br>@component('components.accept-quote', ["design"=>$design])@endcomponent
                                         <div class="row">
                                             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
                                                 <div class="card-panel center imperial-red honeydew-text">

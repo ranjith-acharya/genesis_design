@@ -18,7 +18,9 @@ class ProposalController extends Controller
 {
     public function from(Request $request, $design)
     {
-        $design = Auth::user()->assignedDesigns()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->assignedDesigns()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
             if ($request->changeRequest)
                 $query->findOrFail($request->changeRequest);
         }])->withCount('proposals')->where('system_designs.id', $design)->firstOrFail();
@@ -32,7 +34,7 @@ class ProposalController extends Controller
 
     private function capture($payment_id)
     {
-        \Stripe\Stripe::setApiKey('sk_test_QRlgi66jX7UyI2ZABx7tX96s00mVjwISwc');
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $intent = \Stripe\PaymentIntent::retrieve($payment_id);
         $response = $intent->capture();
         Log::info("captured $payment_id", $response->toArray());
@@ -48,7 +50,9 @@ class ProposalController extends Controller
         ]);
 
         $cr = null;
-        $design = Auth::user()->assignedDesigns()->with(['project.customer', 'type', 'proposals', 'changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->assignedDesigns()->with(['project.customer', 'type', 'proposals', 'changeRequests' => function ($query) use ($request) {
             $query->find($request->change_request);
         }])->where('system_designs.id', $request->design)->firstOrFail();
 

@@ -29,13 +29,23 @@ class SystemDesignController extends Controller
 
     public function view($id)
     {
-        $engineer_id = SystemDesign::findOrFail($id)->project->engineer;
-        $design = $engineer_id->assignedDesigns()->with(['project.files.type', 'type', 'files', 'changeRequests', 'proposals' => function($query){
-            $query->with(['changeRequest' => function($query){
-                $query->select('id', 'proposal_id', 'status', 'created_at');
-            }])->latest();
-        }])->where('system_designs.id', $id)->firstOrFail();
+        $design = SystemDesign::findOrFail($id);
+        //return $project->engineer_id;
+        if($design->project->engineer_id){
+            $design = $design->project->engineer->assignedDesigns()->with(['project.files.type', 'type', 'files', 'changeRequests', 'proposals' => function($query){
+                $query->with(['changeRequest' => function($query){
+                    $query->select('id', 'proposal_id', 'status', 'created_at');
+                }])->latest();
+            }])->where('system_designs.id', $id)->firstOrFail();
+        }
+        //return $design->project->files;
+        //else{
+        //     //$design = $project->designs;
+        //     $filetype = $design->project->files->groupBy('type.name');
+        //     return $filetype;
 
+        //     //return $design;
+        // }
         return view('engineer.design.view', ["design" => $design, 'fileTypes' => $design->project->files->groupBy('type.name')]);
     }
 

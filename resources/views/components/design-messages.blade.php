@@ -236,12 +236,12 @@
     <div class="row m-0">
         <div class="valign-wrapper">
             <div class="input-field col s9">
-                <textarea id="message" class="materialize-textarea"></textarea>
+                <textarea id="message" class="materialize-textarea" placeholder="Type your message"></textarea>
                 <label for="message">Message</label>
             </div>
             <div class="col s3 center">
-                <a class="btn prussian-blue tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" ></i></a>
-                <a class="btn prussian-blue tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip"></i></a>
+                <a class="btn btn-large btn-floating pulse cyan tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" ></i></a>
+                <a class="btn btn-large btn-floating prussian-blue tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip"></i></a>
             </div>
         </div>
         <div id="message_loader" style="display: none">
