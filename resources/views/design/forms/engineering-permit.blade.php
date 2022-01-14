@@ -102,81 +102,123 @@
                                 <div class="row">
                                     @if($project_type == 'commercial')
                                     <div class="row">
-                                        <div class="col s6">
-                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="input-field col s12">
-                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                <label for="inverterType">Inverter Type</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6">
-                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="input-field col s12">
-                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                <label for="rackingType">Racking Type</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
                                                 <label for="moduleType">Module Type</label>                                            
                                             </div>
                                         </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther">
+                                                <label for="moduleOther">Other: </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther">
+                                                <label for="inverterOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther">
+                                                <label for="rackingOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
                                             @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
                                         </div>
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
                                                 <label for="monitorType">Monitor Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;">
+                                                <input type="text" name="monitorOther" id="monitorOther">
+                                                <label for="monitorOther">Other: </label>
                                             </div>
                                         </div>
                                     </div>
                                     @endif
                                     @if($project_type == 'residential')
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type</label>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther">
+                                                <label for="moduleOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
                                             @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                         </div>
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
                                                 <label for="inverterType">Inverter Type</label>
                                             </div>
                                         </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther">
+                                                <label for="inverterOther">Other: </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                                         </div>
-                                        <div class="col s6">
+                                        <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
                                                 <label for="rackingType">Racking Type</label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6">
-                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
-                                        </div>
-                                        <div class="col s6">
-                                            <div class="input-field col s12">
-                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                <label for="moduleType">Module Type</label>                                            
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther">
+                                                <label for="rackingOther">Other: </label>
                                             </div>
                                         </div>
                                     </div>
@@ -291,19 +333,19 @@
                                     <div data-repeater-list="repeater-group">
                                         <div data-repeater-item class="row">
                                             <div class="input-field col s4">
-                                                <img src="{{ asset('assets/images/big/roof.jpg') }}" width="320px" height="150px" >
+                                                <img src="{{ asset('assets/images/big/roof.jpg') }}" class="materialboxed" width="320px" height="150px" >
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
-                                                <input id="height" name="height" type="text" class="required" placeholder="(feet)">
-                                                <label for="height">Height</label>
-                                            </div>
-                                            <div class="input-field col s2" style="margin-top:5%;">
-                                                <input id="height1" name="height1" type="text" class="required" placeholder="(feet)">
-                                                <label for="height1">Height1</label>
+                                                <input id="overhang" name="overhang" type="text" class="required" placeholder="(feet)">
+                                                <label for="overhang">Overhang (A): </label>
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
                                                 <input id="width" name="width" type="text" class="required" placeholder="(feet)">
-                                                <label for="width">Width</label>
+                                                <label for="width">Width (B): </label>
+                                            </div>
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="height" name="height" type="text" class="required" placeholder="(feet)">
+                                                <label for="height">Height (C): </label>
                                             </div>
                                             <div class="input-field col s1" style="margin-top:5%;">
                                                 <button data-repeater-delete="" class="btn btn-small red" type="button"><i class="material-icons">clear</i></button>
@@ -543,8 +585,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s3">
-                                        <input id="meter_reading" name="meter_reading" type="text" placeholder=" ">
-                                        <label for="meter_reading">Meter Reading: </label>
+                                        <input id="meter_no" name="meter_no" type="text" placeholder=" ">
+                                        <label for="meter_no">Meter No: </label>
         
                                     </div>
                                     <div class="input-field col s3">
@@ -1033,6 +1075,36 @@ function toggleSystemSize(elem) {
         }
     </script>
     <script>
+        function equipment(val, name){
+            //alert(val);
+            //console.log(name.id);
+            var name = name.id;
+            if(name == 'inverter'){
+                if(val == 'Others'){
+                    document.getElementById('inverterOther_input').style.display = "block";
+                }else{
+                    document.getElementById('inverterOther_input').style.display = "none";
+                }
+            }else if(name == 'monitor'){
+                if(val == 'Others'){
+                    document.getElementById('monitorOther_input').style.display = "block";
+                }else{
+                    document.getElementById('monitorOther_input').style.display = "none";
+                }
+            }else if(name == 'racking'){
+                if(val == 'Others'){
+                    document.getElementById('rackingOther_input').style.display = "block";
+                }else{
+                    document.getElementById('rackingOther_input').style.display = "none";
+                }
+            }else if(name == 'module'){
+                if(val == 'Others'){
+                    document.getElementById('moduleOther_input').style.display = "block";
+                }else{
+                    document.getElementById('moduleOther_input').style.display = "none";
+                }
+            }
+        }
         function check(val){
             var otherInput = document.getElementById("other_roof_material_input");
             //alert(val);
@@ -1091,8 +1163,8 @@ function toggleSystemSize(elem) {
         let filesUploaded = 0;
 
         // Payment stuff
-        const paymentHoldUrl = '{{route('payment.hold')}}';
-        const stripePublicKey = '{{env('STRIPE_KEY')}}';
+        const paymentHoldUrl = "{{route('payment.hold')}}";
+        const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -1120,7 +1192,7 @@ function toggleSystemSize(elem) {
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -1162,7 +1234,7 @@ function toggleSystemSize(elem) {
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -1203,7 +1275,7 @@ function toggleSystemSize(elem) {
                     });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
-                        window.location = '{{route('design.list', $project_id)}}';
+                        window.location = "{{route('design.list', $project_id)}}";
                 } else {
                     M.toast({
                         html: "There was a error uploading images. Please try again.",
@@ -1354,7 +1426,7 @@ function toggleSystemSize(elem) {
                                     console.log(response.db_response)
                                     uploadFiles(response.db_response.id);
                                     if (fileCount === 0)
-                                        window.location = '{{route('design.list', $project_id)}}';
+                                        window.location = "{{route('design.list', $project_id)}}";
                                     M.toast({
                                         html: "Design inserted",
                                         classes: "steel-blue"

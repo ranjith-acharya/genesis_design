@@ -15,19 +15,14 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $customerCount = User::where('role', 'customer')->count();
         $engineerCount = User::where('role', 'engineer')->count();
         $projectsActive = Project::where('status', 'active')->count();
         $projectsPending = Project::where('status', 'pending')->count();
-        $startDate = $request->get('from_date');
-        $endDate = $request->get('to_date');
-        if($startDate == "" && $endDate == ""){
-            $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
-        }else{
-            $projectsMonthly = Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
-        }
+        
+        $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         //return Carbon::now()->subWeek()->endOfWeek();
         return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsPending', 'projectsMonthly', 'projectsWeekly'));
@@ -36,10 +31,16 @@ class DashboardController extends Controller
     public function projectMonthly(Request $request){
         $startDate = $request->get('from_date');
         $endDate = $request->get('to_date');
-        if($startDate == "" && $endDate == ""){
+        $status = $request->get('status');
+        if($startDate == "" && $endDate == "" && $status == ""){
             return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }elseif($startDate == "" || $endDate == ""){
+            return Project::where('status', $status)->get();
+        }elseif($status == ""){
+            return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
         }else{
-            return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
+            return Project::where('status', $status)
+                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
         }
     }
 

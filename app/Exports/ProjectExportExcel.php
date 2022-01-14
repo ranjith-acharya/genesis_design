@@ -18,13 +18,17 @@ class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, Sh
     public function collection(){
         $startDate = request()->input('from_date') ;
         $endDate   = request()->input('to_date');
+        $status = request()->input('status');
         //return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
-        if($startDate == "" && $endDate == ""){
-            return Project::all();
-            //return $project;
+        if($startDate == "" && $endDate == "" && $status == ""){
+            return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+        }elseif($startDate == "" || $endDate == ""){
+            return Project::where('status', $status)->get();
+        }elseif($status == ""){
+            return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
         }else{
-            return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
-            //return $project;
+            return Project::where('status', $status)
+                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
         }
     }
     public function headings(): array{

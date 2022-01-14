@@ -16,7 +16,7 @@
             lastPage: 1,
             searchTerm: "",
             filers: null,
-            url: '@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('design.get')}}@else{{route('engineer.design.get')}}@endif?id={{$project->id}}'
+            url: "@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('design.get')}}@elseif(Auth::user()->role === 'admin' || Auth::user()->role === 'manager' || Auth::user()->role === 'engineer'){{route('engineer.design.get')}}@endif?id={{$project->id}}"
         };
 
         document.addEventListener('DOMContentLoaded', function () {

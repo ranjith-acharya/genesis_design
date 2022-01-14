@@ -70,4 +70,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasManyThrough('App\SystemDesign', 'App\Project', 'engineer_id');
     }
+
+    public function getDesigns(){
+        return $this->hasMany('App\Project', 'App\SystemDesign');
+    }
 }

@@ -5,7 +5,7 @@ $(function() {
     $('.repeater-default').repeater();
 
     // Custom Show / Hide Configurations
-    $('.file-repeater, .email-repeater, .image-repeater, .panel-repeater').repeater({
+    $('.file-repeater, .email-repeater, .image-repeater, .panel-repeater, .bulk-repeater').repeater({
         show: function() {
             $(this).slideDown();
         },

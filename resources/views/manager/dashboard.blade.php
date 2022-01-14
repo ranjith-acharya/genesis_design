@@ -132,7 +132,7 @@ Manager Home - Genesis Design
                                                 <input type="date" name="to_date" id="to_date">
                                             </div>
                                         </div>
-                                        <!-- <div class="col s3">
+                                        <div class="col s3">
                                             <div class="input-field col s12">
                                                 <select id="status" name="status">
                                                     <option value="" disabled selected>Select Status</option>
@@ -142,7 +142,7 @@ Manager Home - Genesis Design
                                                 </select>
                                                 <label>Status</label>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="col s3" style="margin-top:2%;">
                                             <button type="button" id="exportSearch" class="btn btn-flat green white-text"><i class="material-icons left">search</i>Search</button>
                                         </div>

@@ -7,6 +7,7 @@ use App\Mail\Notification;
 use App\Proposal;
 use App\ProposalFile;
 use App\Statics\Statics;
+use App\SystemDesign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -17,7 +18,9 @@ class ProposalController extends Controller
 {
     public function from(Request $request, $design)
     {
-        $design = Auth::user()->assignedDesigns()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->assignedDesigns()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
             if ($request->changeRequest)
                 $query->findOrFail($request->changeRequest);
         }])->withCount('proposals')->where('system_designs.id', $design)->firstOrFail();
@@ -31,7 +34,7 @@ class ProposalController extends Controller
 
     private function capture($payment_id)
     {
-        \Stripe\Stripe::setApiKey('sk_test_QRlgi66jX7UyI2ZABx7tX96s00mVjwISwc');
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $intent = \Stripe\PaymentIntent::retrieve($payment_id);
         $response = $intent->capture();
         Log::info("captured $payment_id", $response->toArray());
@@ -47,7 +50,9 @@ class ProposalController extends Controller
         ]);
 
         $cr = null;
-        $design = Auth::user()->assignedDesigns()->with(['project.customer', 'type', 'proposals', 'changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->assignedDesigns()->with(['project.customer', 'type', 'proposals', 'changeRequests' => function ($query) use ($request) {
             $query->find($request->change_request);
         }])->where('system_designs.id', $request->design)->firstOrFail();
 
@@ -110,11 +115,13 @@ class ProposalController extends Controller
 
     public function view(Request $request, $design)
     {
-
-        $design = Auth::user()->designs()->with(['proposals' => function ($query) use ($request) {
+        $user = SystemDesign::findOrFail($design)->project->engineer;
+        //return $user;
+        $design = $user->designs()->with(['proposals' => function ($query) use ($request) {
             $query->with('changeRequest.files')->findOrFail($request->proposal);
         }, 'type.latestPrice'])->where('system_designs.id', $design)->firstOrFail();
 
+        //return $design;
         return view('proposal.view', ["design" => $design]);
     }
 
@@ -129,7 +136,6 @@ class ProposalController extends Controller
         $design = Auth::user()->designs()->with(['proposals' => function ($query) use ($request) {
             $query->findOrFail($request->proposal);
         }])->where('system_designs.id', $request->design)->firstOrFail();
-
         $file = $design->proposals[0]->files->firstWhere('id', $request->file);
         if ($file) {
             $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();

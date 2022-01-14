@@ -33,7 +33,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 
-                Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
+                //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
 
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
@@ -87,11 +87,13 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');
                 Route::post('/projects/assign', 'Admin\ProjectController@assign')->name('assign');
                 Route::get('/projects/{id}/assign', 'Admin\ProjectController@getAssignEngineer')->name('assignValue');
+
+                //Route::get('view/{id?}', 'Engineer\SystemDesignController@view')->name('design.view');
             });
         });
     });
 
-    Route::group(['middleware' => ['role:engineer']], function () {
+    Route::group(['middleware' => ['role:engineer|manager|admin']], function () {
         Route::prefix('engineer')->group(function () {
             Route::name('engineer.')->group(function () {
                 Route::namespace('Engineer')->group(function () {
@@ -154,6 +156,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('new/{type}', 'ProjectController@form')->name('form');
                 Route::get('update/{id?}', 'ProjectController@edit')->name('edit');
 
+                Route::get('/bulk', 'ProjectController@bulkProject')->name('bulk');
+
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
 //            Route::post('update','ProjectController@update')->name('update');
@@ -206,7 +210,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
         });
     //});
 
-    Route::group(['middleware' => ['role:engineer|customer']], function () {
+    Route::group(['middleware' => ['role:engineer|customer|manager|admin']], function () {
         Route::prefix('messages')->group(function () {
             Route::name('messages.')->group(function () {
                 Route::post('/insert', 'MessageController@insert')->name('insert');

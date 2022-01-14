@@ -6,6 +6,7 @@ use App\ChangeRequest;
 use App\ChangeRequestFile;
 use App\Mail\Notification;
 use App\Statics\Statics;
+use App\SystemDesign;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,11 +87,11 @@ class ChangeRequestController extends Controller
             "design" => "required",
             "approve" => 'required|boolean'
         ]);
-
-        $design = Auth::user()->designs()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findorFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->designs()->with(['project.customer', 'type', 'changeRequests' => function ($query) use ($request) {
             $query->findOrFail($request->change_request_id);
         }])->where('system_designs.id', $request->design)->firstOrFail();
-
         $cr = $design->changeRequests[0];
         if ($request->approve){
             $cr->price = $request->quote;

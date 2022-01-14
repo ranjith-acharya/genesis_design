@@ -28,6 +28,7 @@
                         'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                     }
                 }).then(response => {
+                    console.log(response);
                     if (response.status === 200 || response.status === 201) {
                         M.toast({
                             html: "Quote sent!",
