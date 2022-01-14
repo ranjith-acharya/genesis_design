@@ -13,7 +13,7 @@ class Statics
 
     const DESIGN_TYPE_AURORA = "aurora design";
     const DESIGN_TYPE_STRUCTURAL = "structural load letter and calculations";
-    const DESIGN_TYPE_PE = "PE stamping";
+    const DESIGN_TYPE_PE = "pe stamping";
     const DESIGN_TYPE_ELECTRICAL = "electrical load calculations";
     const DESIGN_TYPE_SITE_SURVEY = "site survey";
     const DESIGN_TYPE_ENGINEERING_PERMIT = "engineering permit package";

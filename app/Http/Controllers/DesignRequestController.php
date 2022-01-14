@@ -59,9 +59,10 @@ class DesignRequestController extends Controller
                 break;
             case (Statics::DESIGN_TYPE_STRUCTURAL):
                 $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_STRUCTURAL)->firstOrFail();
-                $response = view('design.forms.structural-load-letter', ["type" => $type, "project_id" => $project_id]);
+                $response = view('design.forms.structural-load-letter', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
                 break;
             case (Statics::DESIGN_TYPE_PE):
+                //return Statics::DESIGN_TYPE_PE;
                 $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_PE)->firstOrFail();
                 $response = view('design.forms.pe', ["type" => $type, "project_id" => $project_id]);
                 break;
@@ -121,7 +122,7 @@ class DesignRequestController extends Controller
             $sd->project_id = $project->id;
             $sd->status = Statics::DESIGN_STATUS_REQUESTED;
             $sd->price = $type->latestPrice->price;
-            $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "racking", "inverter", "monitor"]);
+            $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "moduleType", "moduleOther", "racking", "rackingType", "rackingOther", "inverter", "inverterType", "inverterOther", "monitor", "monitorType", "monitorOther"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
 

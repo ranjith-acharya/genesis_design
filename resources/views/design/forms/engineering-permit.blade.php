@@ -920,12 +920,12 @@
                                     <br>
                                     <br>
                                     <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="average_bill1" name="average_bill" type="text" placeholder=" ">
-                                        <label for="average_bill">Yearly usage: </label>
-                                        <input type="button" class="btn btn-primary" onclick="getTotal()" value="Total">
-                                    </div>
-                                </div><br>
+                                        <div class="input-field col s12">
+                                            <input id="average_bill1" name="average_bill" type="text" placeholder=" ">
+                                            <label for="average_bill">Yearly usage: </label>
+                                            <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
+                                        </div>
+                                    </div><br>
                                 </div>
                             </section>
                             <h6>Upload Supporting Documents</h6>
