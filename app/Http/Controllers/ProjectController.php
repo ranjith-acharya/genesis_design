@@ -90,9 +90,7 @@ class ProjectController extends Controller
 
     public function getProjects(Request $request)
     {
-        $query = Auth::user()->projects()->with('type');
-        //return $query->latest()->paginate(5);
-
+        $query = Auth::user()->projects()->with('type');  
         $term = trim($request->search);
         if ($term)
             $query->where('name', 'LIKE', '%' . $term . "%");
