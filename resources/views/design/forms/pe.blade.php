@@ -40,21 +40,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s7">
+                        <div class="col s6">
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" name="structural_letter"/>
                                         <span>Structural Letter</span>
                                     </label>
                                 </p>
                             </div>
                         </div>
-                        <div class="col s5">
+                        <div class="col s6">
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox"/>
+                                        <input type="checkbox" name="electrical_stamps"/>
                                         <span>Electrical Stamps</span>
                                     </label>
                                 </p>
@@ -68,7 +68,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button class="btn btn-large green" type="button" onclick="insert(this)">Submit</button>
+                        <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                    </div>
+                    <div class="row center">
+                        <button class="btn green" type="button" onclick="insert(this)">Submit</button>
                         <div class="row">
                             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
                                 <div class="card-panel center imperial-red honeydew-text">
@@ -81,8 +84,6 @@
                 </div>
             </div>
         </form>
-
-        <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
     </div>
 @endsection
 
@@ -226,9 +227,26 @@
 
         };
 
+        function validateFields() {
+            let form = document.forms["pe_stamping"].getElementsByTagName("input");
+            let errors = 0;
+            let jsonData = {};
+
+            for (let item of form) {
+                if (item.getAttribute("name"))
+                    jsonData[item.getAttribute("name")] = item.value;
+            }
+            jsonData["project_id"] = "{{$project_id}}";
+            return {
+                errors: errors,
+                columns: jsonData
+            };
+        }
+
         function insert(elem) {
 
             elem.disabled = true;
+            const validationResult = validateFields();
             document.getElementById('stripe_card').style.display = 'none'
 
             function uploadFiles(system_design_id) {
@@ -238,56 +256,65 @@
                 uppy2.upload();
             }
 
-            holdPayment('{{$type->name}}').then(resp => {
-                console.log(resp)
-                if (resp) {
-                    if (resp.error) {
-                        document.getElementById('stripe_error').innerText = resp.error.message;
-                        elem.disabled = false;
-                        document.getElementById('stripe_card').style.display = 'block'
-                    } else {
-                        validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
-                        fetch("{{ route('design.engineering_permit_package') }}", {
-                            method: 'post',
-                            body: JSON.stringify(validationResult.columns),
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
-                            }
-                        }).then(async response => {
-                            return {db_response: await response.json(), "status": response.status};
-                        }).then(response => {
-                            if (response.status === 200 || response.status === 201) {
-                                console.log(response.db_response)
-                                uploadFiles(response.db_response.id);
-                                if (fileCount === 0)
-                                    window.location = "{{route('design.list', $project_id)}}";
+            if (validationResult.errors === 0) {
+                holdPayment('{{$type->name}}').then(resp => {
+                    console.log(resp)
+                    if (resp) {
+                        if (resp.error) {
+                            document.getElementById('stripe_error').innerText = resp.error.message;
+                            elem.disabled = false;
+                            document.getElementById('stripe_card').style.display = 'block'
+                        } else {
+
+                            validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
+                            fetch("{{ route('design.pe_stamping') }}", {
+                                method: 'post',
+                                body: JSON.stringify(validationResult.columns),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                                }
+                            }).then(async response => {
+                                return {db_response: await response.json(), "status": response.status};
+                            }).then(response => {
+                                if (response.status === 200 || response.status === 201) {
+                                    console.log(response.db_response)
+                                    uploadFiles(response.db_response.id);
+                                    if (fileCount === 0)
+                                        window.location = "{{route('design.list', $project_id)}}";
+                                    M.toast({
+                                        html: "Design inserted",
+                                        classes: "green"
+                                    });
+                                } else {
+                                    M.toast({
+                                        html: "There was a error inserting the design. Please try again.",
+                                        classes: "imperial-red"
+                                    });
+                                    console.error(response);
+                                    elem.disabled = false;
+                                }
+                            }).catch(err => {
                                 M.toast({
-                                    html: "Design inserted",
-                                    classes: "green"
-                                });
-                            } else {
-                                M.toast({
-                                    html: "There was a error inserting the design. Please try again.",
+                                    html: "There was a network error. Please try again.",
                                     classes: "imperial-red"
                                 });
-                                console.error(response);
+                                console.error(err);
                                 elem.disabled = false;
-                            }
-                        }).catch(err => {
-                            M.toast({
-                                html: "There was a network error. Please try again.",
-                                classes: "imperial-red"
                             });
-                            console.error(err);
-                            elem.disabled = false;
-                        });
-                    }
-                } else {
-                    console.log("error")
+                        }
+                    } else {
+                        console.log("error")
                         elem.disabled = false;
-                }
-            })
+                    }
+                })
+            } else {
+                M.toast({
+                    html: "There are some errors in your form, please fix them and try again",
+                    classes: "imperial-red"
+                });
+                elem.disabled = false;
+            }
         }
 </script>
 @endsection

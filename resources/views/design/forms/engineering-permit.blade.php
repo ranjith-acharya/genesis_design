@@ -1362,7 +1362,7 @@ function toggleSystemSize(elem) {
                 jsonData["comp_shingle_layers"] = comp_shingle_layers.getSelectedValues()[0];
 
 
-            alert(installation.getSelectedValues()[0]);
+            //alert(installation.getSelectedValues()[0]);
             jsonData["hoa"] = document.getElementById('hoa').checked;
             jsonData["project_id"] = "{{$project_id}}";
             return {
@@ -1387,7 +1387,6 @@ function toggleSystemSize(elem) {
             }
 
             if (validationResult.errors === 0) {
-
                 holdPayment('{{$type->name}}').then(resp => {
                     console.log(resp)
                     if (resp) {
