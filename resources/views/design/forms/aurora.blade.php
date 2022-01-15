@@ -205,7 +205,7 @@
             //     jsonData[monitorOther.getAttribute("name")] = "No monitor";
 
             if(moduleOther.value !== ""){
-                alert("Module");
+                //alert("Module");
                 right(moduleOther);
             }else{
                 moduleOther.classList.value = "valid";
