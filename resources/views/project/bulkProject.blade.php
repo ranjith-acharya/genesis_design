@@ -14,47 +14,7 @@ Create Bulk Project
     <script src="{{asset('uppy/uppy.min.js')}}"></script>
     <script src="{{asset('js/validate/validate.min.js')}}"></script>
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            uppy = Uppy.Core({
-                id: "files",
-                debug: true,
-                meta: {
-                    save_as: ''
-                },
-                restrictions: {
-                    maxFileSize: 21000000,
-                    maxNumberOfFiles: 20
-                },
-                onBeforeUpload: (files) => {
-                    const updatedFiles = {}
-                    Object.keys(files).forEach(fileID => {
-                        updatedFiles[fileID] = files[fileID];
-                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
-                    })
-                    return updatedFiles
-                }
-            }).use(Uppy.Dashboard, {
-                target: `#uppyBulk`,
-                inline: true,
-                hideUploadButton: true,
-                note: "Upto 20 files of 20 MBs each"
-            }).use(Uppy.XHRUpload, {
-                endpoint: "{{ env('SUN_STORAGE') }}/file",
-                headers: {
-                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
-                },
-                fieldName: "file"
-            });
-            uppy.on('upload-success', sendFileToDb);
-
-            uppy.on('file-added', (file) => {
-                fileCount++;
-            });
-
-            uppy.on('file-removed', (file) => {
-                fileCount--;
-            });
-        });
+       
     </script>
 @endsection
 
@@ -119,18 +79,21 @@ Create Bulk Project
 </div>
 <script>
     count=0;
-    uppiesArray=[];
-    var uppies=[];
+    uppiesArray=[0];
+    var uppies=[0];
+    var uppy="";
     let whichUppyIsRequired = [];
+    const redirect = '{{route('home')}}';
 let redirectEnabled = true;
 let fileCount = 0;
 let filesUploaded = 0;
 const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-    const post = '{{route('project.insert')}}';
+    const post = '{{route('project.bulkinsert')}}';
     const postUpdate = '';
     const fileInsert = '{{route('project.file.attach')}}';
 const sendFileToDb = function (file, response) {
-
+console.log("FILETODB ----> ",file);
+console.log("FILETo RESPONSE ----> ",response);
 axios(fileInsert, {
     method: 'POST',
     headers: {
@@ -170,7 +133,7 @@ axios(fileInsert, {
 }
     function repeatForm()
     {
-       
+        count++;
         uppiesArray.push(count);
         var div="<div id='repeat"+count+"'><div class='col s10'><div ><div data-repeater-item><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]' placeholder=' value=' class='required'><label for='customer_name'>Customer Name: </label></div>";
         div+="<div class='input-field col s5'><select class='browser-default' name='customer_project_type[]'><option value=''  selected>Choose your option</option><option value='residential'>Residential</option><option value='commercial'>Commercial</option></select></div>";
@@ -179,7 +142,7 @@ axios(fileInsert, {
         div+="<div class='row'><div class='col s2'><label for='uppyBulk"+count+"'>Upload Documents</label></div><div class='col s9'><div class='mh-a' id='uppyBulk"+count+"'></div><div class='><span class='helper-text imperial-red-text' id='files_error"+count+"'></span></div></div></div><br></div></div></div>";
         document.getElementById('formRepetation').innerHTML+=div;
         loadUppies(count);
-        count++;
+       
        
     }
   
@@ -189,6 +152,7 @@ axios(fileInsert, {
                 id: "files"+uppiesArray[count],
                 debug: true,
                 meta: {
+                    file_type_id:3,
                     save_as: ''
                 },
                 restrictions: {
@@ -227,13 +191,58 @@ axios(fileInsert, {
 
     }
 
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+            uppy = Uppy.Core({
+                id: "files",
+                debug: true,
+                meta: {
+                    file_type_id:3,
+                    save_as: ''
+                },
+                restrictions: {
+                    maxFileSize: 21000000,
+                    maxNumberOfFiles: 20
+                },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = files[fileID];
+                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
+                    })
+                    return updatedFiles
+                }
+            }).use(Uppy.Dashboard, {
+                target: `#uppyBulk`,
+                inline: true,
+                hideUploadButton: true,
+                note: "Upto 20 files of 20 MBs each"
+            }).use(Uppy.XHRUpload, {
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
+                headers: {
+                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
+                },
+                fieldName: "file"
+            });
+            uppy.on('upload-success', sendFileToDb);
+
+            uppy.on('file-added', (file) => {
+                fileCount++;
+            });
+
+            uppy.on('file-removed', (file) => {
+                fileCount--;
+            });
+        });
+
 //Validate Form Fields
 function validateFields(skipUppies = false) {
     let form = document.forms["bulk_projects"].getElementsByTagName("input");
    
    let errors = 0;
     let jsonData = {};
-    console.log("Forms Data : ",form);
+    
    
     //Make the thing green
     function right(item) {
@@ -259,7 +268,7 @@ function validateFields(skipUppies = false) {
         string = string.replace(/\s+/g, "").trim();
         return string.toLowerCase();
     }
-    console.log("Json Data1 :",jsonData);
+    
     // All the non-select inputs
     for (let item of form) {
 
@@ -280,7 +289,6 @@ function validateFields(skipUppies = false) {
             }
         }
     }
-    console.log("Json Data2 :",jsonData);
     const project_types=document.getElementsByName("customer_project_type[]");
     for(let i=0;i<project_types.length;i++)
     {
@@ -317,17 +325,7 @@ function validateFields(skipUppies = false) {
         }
         
     }
-    // const project_type = document.querySelector("#project_type");
-
-    // if (project_type.selectedIndex === 0) wrong(project_type);
-    // else {
-    //     right(project_type);
-    //     if(project_type.selectedIndex===1)
-    //     jsonData["customer_project_type[]"] = ['residential'];
-    //     else if(project_type.selectedIndex===2)
-    //     jsonData["customer_project_type[]"] = ['commercial'];
-       
-    // }
+    
 
    
 
@@ -351,15 +349,23 @@ function validateFields(skipUppies = false) {
 
 //insert Bulk Project
 function insert() {
-
-
 const validationResult = validateFields();
 console.log("Rules ---> ",validationResult);
-function uploadFiles(project_id) {
-        uppies.forEach(uppy => {
+function uploadFiles(project_id,uppyid) {
+    console.log("Project : ",project_id,"ID : ",uppyid);
+       if(uppyid==0)
+       {
             uppy.setMeta({project_id: project_id, path: `genesis/${company}/projects/${project_id}/${uppy.getID()}`})
             uppy.upload();
-        })
+           console.log("ID: ",uppy.getID());
+       }
+       else
+       {
+            uppies[uppyid].setMeta({project_id: project_id, path: `genesis/${company}/projects/${project_id}/${uppies[uppyid].getID()}`})
+            uppies[uppyid].upload();
+            console.log("ID 2: ",uppies[uppyid].getID());
+       }
+       
     }
 
     if (validationResult.errors === 0) {
@@ -372,8 +378,11 @@ function uploadFiles(project_id) {
             }
         }).then(response => {
             if (response.status === 200 || response.status === 201) {
-                console.log("Data Resposne -----> ",response)
-                uploadFiles(response.data.id);
+                console.log("Data Resposne -----> ",response.data)
+                for(let i=0;i<response.data.length;i++)
+                { 
+                uploadFiles(response.data[i],i);
+                }
             } else {
                 M.toast({
                     html: "There was a error inserting the project. Please try again.",

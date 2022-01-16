@@ -160,6 +160,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
+
+                Route::post('/bulk', 'ProjectController@Bulkinsert')->name('bulkinsert');
 //            Route::post('update','ProjectController@update')->name('update');
                 Route::post('/file', 'ProjectController@attachFile')->name('file.attach');
                 Route::post('/archive/{id}', 'ProjectController@archive')->name('archive');

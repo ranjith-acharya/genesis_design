@@ -48,12 +48,21 @@ class ProjectController extends Controller
 
     public function Bulkinsert(Request $request)
     {
+        $project_ids=[];
+        foreach($request['customer_project_type[]'] as $k=>$type)
+        {
+            $project=new Project;
+            $project->name=$request['customer_name[]'][$k];
+            $project->description="Bulk Project";
+            $project->street_1=$request['customer_address[]'][$k];
+            $project->customer_id=Auth::id();
+            $project->company_id=(Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
+            $project->project_type_id=ProjectType::where('name',$type)->first()->id;
+            $project->save();
+            array_push($project_ids,$project->id);
+        }
         
-        $fields = $request->all();
-        $fields['customer_id'] = Auth::id();
-        $fields['company_id'] = (Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
-
-        return Project::create($fields);
+        return $project_ids;
     }
 
     public function update(Request $request)
