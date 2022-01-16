@@ -44,7 +44,7 @@
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="structural_letter"/>
+                                        <input type="checkbox" name="structural_letter" value="structural_letter"/>
                                         <span>Structural Letter</span>
                                     </label>
                                 </p>
@@ -54,7 +54,7 @@
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="electrical_stamps"/>
+                                        <input type="checkbox" name="electrical_stamps" value="electrical_stamps"/>
                                         <span>Electrical Stamps</span>
                                     </label>
                                 </p>

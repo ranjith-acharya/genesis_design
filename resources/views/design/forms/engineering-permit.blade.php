@@ -257,7 +257,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Service Upgrade&emsp;&emsp;No
-                                                    <input type="checkbox" name="service_upgrade">
+                                                    <input type="checkbox" name="service_upgrade" value="service_upgrade">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -361,7 +361,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="plywood"/>
+                                                    <input type="checkbox" class="filled-in" name="plywood" value="plywood"/>
                                                     <span>Plywood</span>
                                                 </label>
                                             </p>
@@ -369,7 +369,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="osb"/>
+                                                    <input type="checkbox" class="filled-in" name="osb" value="osb"/>
                                                     <span>OSB</span>
                                                 </label>
                                             </p>
@@ -377,7 +377,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="skip_sheating"/>
+                                                    <input type="checkbox" class="filled-in" name="skip_sheating" value="skip_sheating"/>
                                                     <span>Skip Sheating</span>
                                                 </label>
                                             </p>
@@ -385,7 +385,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="plank"/>
+                                                    <input type="checkbox" class="filled-in" name="plank" value="plank"/>
                                                     <span>Plank</span>
                                                 </label>
                                             </p>
@@ -451,7 +451,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Soft Spots&emsp;&emsp;No
-                                                    <input type="checkbox" name="soft_spots">
+                                                    <input type="checkbox" name="soft_spots" value="soft_spots">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -461,7 +461,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Bouncy&emsp;&emsp;No
-                                                    <input type="checkbox" name="bouncy">
+                                                    <input type="checkbox" name="bouncy" value="bouncy">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -471,7 +471,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Existing Leaks&emsp;&emsp;No
-                                                    <input type="checkbox" name="existing_leaks">
+                                                    <input type="checkbox" name="existing_leaks" value="existing_leaks">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -481,7 +481,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Vaulted Ceiling&emsp;&emsp;No
-                                                    <input type="checkbox" name="valuted_ceiling">
+                                                    <input type="checkbox" name="valuted_ceiling" value="valuted_ceiling">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -511,7 +511,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Roof Condition&emsp;&emsp;Bad
-                                                    <input type="checkbox" name="roof_condition">
+                                                    <input type="checkbox" name="roof_condition" value="roof_condition">
                                                     <span class="lever"></span>
                                                     Good
                                                 </label>
@@ -526,13 +526,13 @@
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" name="access_attic_vent"/>
+                                                        <input type="checkbox" class="filled-in" name="access_attic_vent" value="access_attic_vent"/>
                                                         <span>Access from attic vent?</span>
                                                     </label>
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" name="stud_finder"/>
+                                                        <input type="checkbox" class="filled-in" name="stud_finder" value="stud_finder"/>
                                                         <span>Stud finder</span>
                                                     </label>
                                                 </p>
@@ -604,7 +604,7 @@
                                         <div class="switch center">
                                             <label>
                                                 Tap Possible&emsp;&emsp;No
-                                                <input type="checkbox" name="tap_possible">
+                                                <input type="checkbox" name="tap_possible" value="tap_possible">
                                                 <span class="lever"></span>
                                                 Yes
                                             </label>
