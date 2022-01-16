@@ -5228,7 +5228,10 @@ select {
   display: none; }
 
 select.browser-default {
-  display: block; }
+  display: block;
+  border: none;
+  border-bottom: 1px solid grey; 
+}
 
 select {
   background-color: rgba(255, 255, 255, 0.9);

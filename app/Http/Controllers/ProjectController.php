@@ -46,6 +46,16 @@ class ProjectController extends Controller
         return Project::create($fields);
     }
 
+    public function Bulkinsert(Request $request)
+    {
+        
+        $fields = $request->all();
+        $fields['customer_id'] = Auth::id();
+        $fields['company_id'] = (Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
+
+        return Project::create($fields);
+    }
+
     public function update(Request $request)
     {
         $this->validate($request, [
