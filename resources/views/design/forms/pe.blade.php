@@ -44,7 +44,7 @@
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="structural_letter" value="structural_letter"/>
+                                        <input type="checkbox" name="structural_letter" id="structural_letter"/>
                                         <span>Structural Letter</span>
                                     </label>
                                 </p>
@@ -54,7 +54,7 @@
                             <div class="input-field">
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="electrical_stamps" value="electrical_stamps"/>
+                                        <input type="checkbox" name="electrical_stamps" id="electrical_stamps"/>
                                         <span>Electrical Stamps</span>
                                     </label>
                                 </p>
@@ -236,6 +236,8 @@
                 if (item.getAttribute("name"))
                     jsonData[item.getAttribute("name")] = item.value;
             }
+            jsonData["structural_letter"] = document.getElementById('structural_letter').checked;
+            jsonData["electrical_stamps"] = document.getElementById('electrical_stamps').checked;
             jsonData["project_id"] = "{{$project_id}}";
             return {
                 errors: errors,

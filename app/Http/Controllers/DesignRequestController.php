@@ -186,7 +186,7 @@ class DesignRequestController extends Controller
             $sd->project_id = $project->id;
             $sd->status = Statics::DESIGN_STATUS_REQUESTED;
             $sd->price = $type->latestPrice->price;
-            $sd->fields = $request->only(["system_size", "installation", "remarks", "module", "moduleType", "moduleOther", "inverter", "inverterType", "inverterOther", "racking", "rackingType", "rackingOther", "monitor", "monitorType", "monitorOther", "utility", "tree_cutting", "re_roofing", "service_upgrade", "others", "overhang[]", "width[]", "height[]", "plywood", "osb", "skip_sheating", "plank", "roofDecking_LayerThickness", "center_spacing", "purlin", "pitch", "azimuth", "rafter_size", "roofMaterialOption", "other_roof_material", "soft_spots", "bouncy", "existing_leaks", "valuted_ceiling", "comp_shingle_layers", "age_of_shingles", "roof_condition", "access_attic_vent", "stud_finder", "supply_side_voltage", "manufacturer_model", "main_breaker_rating", "busbar_rating", "meter_no", "proposed_point_connection", "meter_location", "tap_possible", "breaker_space", "grounding_method", "disconnect_type", "panel_location", "manufacturer_model1[]", "main_breaker_rating1[]", "busbar_rating1[]", "average_bill", "average_bill1"]);
+            $sd->fields = $request->only(["system_size", "hoa", "installation", "remarks", "module", "moduleType", "moduleOther", "inverter", "inverterType", "inverterOther", "racking", "rackingType", "rackingOther", "monitor", "monitorType", "monitorOther", "utility", "tree_cutting", "re_roofing", "service_upgrade", "others", "array", "plywood", "osb", "skip_sheating", "plank", "roofDecking_LayerThickness", "center_spacing", "purlin", "pitch", "azimuth", "rafter_size", "roofMaterialOption", "other_roof_material", "soft_spots", "bouncy", "existing_leaks", "vaulted_ceiling", "comp_shingle_layers", "age_of_shingles", "roof_condition", "access_attic_vent", "stud_finder", "supply_side_voltage", "manufacturer_model", "main_breaker_rating", "busbar_rating", "meter_no", "proposed_point_connection", "meter_location", "tap_possible", "breaker_space", "grounding_method", "disconnect_type", "panel_location", "manufacturer_model1[]", "main_breaker_rating1[]", "busbar_rating1[]", "average_bill", "average_bill1"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
 
@@ -229,7 +229,6 @@ class DesignRequestController extends Controller
     }
 
     public function savePEStamping(Request $request){
-        
         $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();  
         //return $project;
         if ($project && $project->status !== Statics::PROJECT_STATUS_ARCHIVED) {

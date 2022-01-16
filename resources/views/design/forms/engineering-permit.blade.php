@@ -257,7 +257,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Service Upgrade&emsp;&emsp;No
-                                                    <input type="checkbox" name="service_upgrade" value="service_upgrade">
+                                                    <input type="checkbox" id="service_upgrade">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -331,7 +331,7 @@
                                     </div>
                                 </div> -->
                                 <div class="row image-repeater">
-                                    <div data-repeater-list="repeater-group">
+                                    <div data-repeater-list="repeater-group" id="repeater-group">
                                         <div data-repeater-item class="row">
                                             <div class="input-field col s4">
                                                 <img src="{{ asset('assets/images/big/roof.jpg') }}" class="materialboxed" width="320px" height="150px" >
@@ -361,7 +361,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="plywood" value="plywood"/>
+                                                    <input type="checkbox" class="filled-in" id="plywood"/>
                                                     <span>Plywood</span>
                                                 </label>
                                             </p>
@@ -369,7 +369,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="osb" value="osb"/>
+                                                    <input type="checkbox" class="filled-in" id="osb"/>
                                                     <span>OSB</span>
                                                 </label>
                                             </p>
@@ -377,7 +377,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="skip_sheating" value="skip_sheating"/>
+                                                    <input type="checkbox" class="filled-in" id="skip_sheating"/>
                                                     <span>Skip Sheating</span>
                                                 </label>
                                             </p>
@@ -385,7 +385,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" name="plank" value="plank"/>
+                                                    <input type="checkbox" class="filled-in" id="plank"/>
                                                     <span>Plank</span>
                                                 </label>
                                             </p>
@@ -451,7 +451,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Soft Spots&emsp;&emsp;No
-                                                    <input type="checkbox" name="soft_spots" value="soft_spots">
+                                                    <input type="checkbox" id="soft_spots">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -461,7 +461,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Bouncy&emsp;&emsp;No
-                                                    <input type="checkbox" name="bouncy" value="bouncy">
+                                                    <input type="checkbox" id="bouncy">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -471,7 +471,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Existing Leaks&emsp;&emsp;No
-                                                    <input type="checkbox" name="existing_leaks" value="existing_leaks">
+                                                    <input type="checkbox" id="existing_leaks">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -481,7 +481,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Vaulted Ceiling&emsp;&emsp;No
-                                                    <input type="checkbox" name="valuted_ceiling" value="valuted_ceiling">
+                                                    <input type="checkbox" id="vaulted_ceiling">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -511,7 +511,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Roof Condition&emsp;&emsp;Bad
-                                                    <input type="checkbox" name="roof_condition" value="roof_condition">
+                                                    <input type="checkbox" id="roof_condition">
                                                     <span class="lever"></span>
                                                     Good
                                                 </label>
@@ -526,13 +526,13 @@
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" name="access_attic_vent" value="access_attic_vent"/>
+                                                        <input type="checkbox" class="filled-in" id="access_attic_vent"/>
                                                         <span>Access from attic vent?</span>
                                                     </label>
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" name="stud_finder" value="stud_finder"/>
+                                                        <input type="checkbox" class="filled-in" id="stud_finder"/>
                                                         <span>Stud finder</span>
                                                     </label>
                                                 </p>
@@ -604,7 +604,7 @@
                                         <div class="switch center">
                                             <label>
                                                 Tap Possible&emsp;&emsp;No
-                                                <input type="checkbox" name="tap_possible" value="tap_possible">
+                                                <input type="checkbox" id="tap_possible">
                                                 <span class="lever"></span>
                                                 Yes
                                             </label>
@@ -1181,7 +1181,7 @@ function toggleSystemSize(elem) {
         const paymentHoldUrl = "{{route('payment.hold')}}";
         const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
-
+        let arrays = {};
         document.addEventListener("DOMContentLoaded", function () {
             uppy1 = Uppy.Core({
                 id: "files",
@@ -1364,7 +1364,21 @@ function toggleSystemSize(elem) {
 
             //alert(installation.getSelectedValues()[0]);
             jsonData["hoa"] = document.getElementById('hoa').checked;
+            jsonData["service_upgrade"] = document.getElementById('service_upgrade').checked;
+            jsonData["plywood"] = document.getElementById('plywood').checked;
+            jsonData["osb"] = document.getElementById('osb').checked;
+            jsonData["skip_sheating"] = document.getElementById('skip_sheating').checked;
+            jsonData["plank"] = document.getElementById('plank').checked;
+            jsonData["soft_spots"] = document.getElementById('soft_spots').checked;
+            jsonData["bouncy"] = document.getElementById('bouncy').checked;
+            jsonData["existing_leaks"] = document.getElementById('existing_leaks').checked;
+            jsonData["vaulted_ceiling"] = document.getElementById('vaulted_ceiling').checked;
+            jsonData["roof_condition"] = document.getElementById('roof_condition').checked;
+            jsonData["access_attic_vent"] = document.getElementById('access_attic_vent').checked;
+            jsonData["stud_finder"] = document.getElementById('stud_finder').checked;
+            jsonData["tap_possible"] = document.getElementById('tap_possible').checked;
             jsonData["project_id"] = "{{$project_id}}";
+            jsonData["array"];
             return {
                 errors: errors,
                 columns: jsonData
@@ -1372,11 +1386,25 @@ function toggleSystemSize(elem) {
         }
         // insert files and project
         function insert(elem) {
+            
+            const overhang = document.getElementById('overhang').value;
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            const fields = {arrays: [], overhang: overhang[0], width: width[0], height: height[0]};
+
+            for (const key in arrays) {
+                fields.arrays.push(arrays[key]);
+            }
 
             elem.disabled = true;
             const validationResult = validateFields();
-            console.log(validationResult);
+            validationResult.columns["array"] = fields;
+
+            console.log("data", validationResult);
             //alert(validationResult);
+            
+            console.log(fields);
+            //alert(fields.arrays.length);
             document.getElementById('stripe_card').style.display = 'none'
 
             function uploadFiles(system_design_id) {
@@ -1411,7 +1439,7 @@ function toggleSystemSize(elem) {
                                     console.log(response.db_response)
                                     uploadFiles(response.db_response.id);
                                     if (fileCount === 0)
-                                        window.location = "{{route('design.list', $project_id)}}";
+                                        //window.location = "{{route('design.list', $project_id)}}";
                                     M.toast({
                                         html: "Design inserted",
                                         classes: "green"
