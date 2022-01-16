@@ -156,7 +156,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('new/{type}', 'ProjectController@form')->name('form');
                 Route::get('update/{id?}', 'ProjectController@edit')->name('edit');
 
-                Route::get('/bulk', 'ProjectController@bulkProject')->name('bulk');
+                Route::get('/multiple', 'ProjectController@bulkProject')->name('bulk');
 
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
@@ -183,6 +183,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/file', 'DesignRequestController@attachFile')->name('file.attach');
                 Route::post('/aurora', 'DesignRequestController@saveAurora')->name('aurora');
                 Route::post('/structural_load', 'DesignRequestController@saveStructuralLoad')->name('structural_load');
+                Route::post('/electrical_load', 'DesignRequestController@saveElectricalLoad')->name('electrical_load');
+                Route::post('/pe_stamping', 'DesignRequestController@savePEStamping')->name('pe_stamping');
+                Route::post('/engineering_permit_package', 'DesignRequestController@saveEngPermitPackage')->name('engineering_permit_package');
             });
         });
 

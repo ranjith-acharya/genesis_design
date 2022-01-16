@@ -243,7 +243,7 @@
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
                     @foreach($types as $designType)
-                        <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::ucfirst($designType->name)}}</a></li>
+                        <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::upper($designType->name)}}</a></li>
                         <li class="divider" tabindex="-1"></li>
                     @endforeach
                 </ul>

@@ -26,7 +26,10 @@
                 <h4 class="capitalize">Design Details</h4>
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_AURORA, 'design.partials.aurora', ['design' => $design])
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_STRUCTURAL, 'design.partials.structural', ['design' => $design])
-                <br><h4 class="capitalize">Payment</h4>
+                @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_ELECTRICAL, 'design.partials.electrical_load', ['design' => $design])
+                @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_PE, 'design.partials.pe_stamping', ['design' => $design])
+                @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_ENGINEERING_PERMIT, 'design.partials.engineering_permit', ['design' => $design])
+                <h4 class="capitalize">Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
                     ${{ $design->price}}

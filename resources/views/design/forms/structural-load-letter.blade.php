@@ -3,10 +3,11 @@
 @section('title', "New $type->name design")
 
 @php
-    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR ])->get(['name', 'model', 'type']);
+    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR, \App\Statics\Statics::EQUIPMENT_TYPE_RACKING ])->get(['name', 'model', 'type']);
     $monitorSelect = [];
     $inverterSelect = [];
     $moduleSelect = [];
+    $rackingSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
             $inverterSelect[$item->name] = null;
@@ -14,6 +15,8 @@
             $moduleSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
             $monitorSelect[$item->name] = null;
+        elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_RACKING)
+            $rackingSelect[$item->name] = null;
     }
 @endphp
 
@@ -170,6 +173,38 @@
                 }
             }
 
+            const inverterOther = document.getElementById('inverterOther');
+            // const monitorOther = document.getElementById('monitorOther');
+            const moduleOther = document.getElementById('moduleOther');
+            const rackingOther = document.getElementById('rackingOther');
+           
+            if(inverterOther.value !== "")
+                right(inverterOther);
+            else{
+                inverterOther.classList.value = "valid";
+                jsonData[inverterOther.getAttribute("name")] = "No inverter";
+            }
+            
+            // if(monitorOther.value !== "")
+            //     right(monitorOther);
+            // else
+            //     jsonData[monitorOther.getAttribute("name")] = "No monitor";
+
+            if(moduleOther.value !== ""){
+                //alert("Module");
+                right(moduleOther);
+            }else{
+                moduleOther.classList.value = "valid";
+                jsonData[moduleOther.getAttribute("name")] = "No module";
+            }
+
+            if(rackingOther.value !== "")
+                right(rackingOther);
+            else{
+                rackingOther.classList.value = "valid";
+                jsonData[rackingOther.getAttribute("name")] = "No racking";
+            }
+
             return {
                 errors: errors,
                 columns: jsonData
@@ -182,9 +217,14 @@
                 let row = document.createElement('tr');
                 row.id = Date.now();
                 arrays[row.id] = result.columns;
-                row.innerHTML = `<td class="center" data-name="inverter">${result.columns.inverter}</td>
-                                 <td class="center" data-name="monitor">${result.columns.monitor}</td>
-                                 <td class="center" data-name="module">${result.columns.module}</td>
+                row.innerHTML = `<td class="center" data-name="module">${result.columns.module}</td>
+                                 <td class="center" data-name="inverter">${result.columns.inverter}</td> 
+                            @if($project_type == 'commercial')
+                                <td class="center" data-name="racking">${result.columns.racking}</td>
+                                <td class="center" data-name="monitor">${result.columns.monitor}</td>
+                            @else
+                                <td class="center" data-name="racking">${result.columns.racking}</td>
+                            @endif
                                  <td class="center" data-name="panels">${result.columns.panels}</td>
                                  <td class="center" data-name="tilt">${result.columns.tilt}</td>
                                  <td class="center" data-name="azimuth">${result.columns.azimuth}</td>
@@ -277,6 +317,42 @@
             }
         }
     </script>
+    <script>
+    function equipment(val, name){
+        //alert(val);
+        //console.log(name.id);
+        var name = name.id;
+            if(name == 'inverter'){
+                if(val == 'Others'){
+                    document.getElementById('inverterOther_input').style.display = "block";
+                    document.getElementById('inverterOther').value = "";
+                }else{
+                    document.getElementById('inverterOther_input').style.display = "none";
+                }
+            }else if(name == 'monitor'){
+                if(val == 'Others'){
+                    document.getElementById('monitorOther_input').style.display = "block";
+                    document.getElementById('monitorOther').value = "";
+                }else{
+                    document.getElementById('monitorOther_input').style.display = "none";
+                }
+            }else if(name == 'racking'){
+                if(val == 'Others'){
+                    document.getElementById('rackingOther_input').style.display = "block";
+                    document.getElementById('rackingOther').value = "";
+                }else{
+                    document.getElementById('rackingOther_input').style.display = "none";
+                }
+            }else if(name == 'module'){
+                if(val == 'Others'){
+                    document.getElementById('moduleOther_input').style.display = "block";
+                    document.getElementById('moduleOther').value = "";
+                }else{
+                    document.getElementById('moduleOther_input').style.display = "none";
+            }
+        }
+    }
+</script>
 @endsection
 
 @section('content')
@@ -303,16 +379,132 @@
                 </div>
                 <div class="col s12">
                     <h5>Arrays</h5>
+                    <div class="row col s12">
+                    @if($project_type == 'commercial')
+                        <div class="row">
+                            <div class="col s4">
+                                @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field col s12">
+                                    <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                    <label for="moduleType">Module Type</label>                                            
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                        <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                        <label for="moduleOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                        <label for="inverterType">Inverter Type</label>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                        <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                        <label for="inverterOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                        <label for="rackingType">Racking Type</label>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                        <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                        <label for="rackingOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                                        <label for="monitorType">Monitor Type</label>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
+                                        <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
+                                        <label for="monitorOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @if($project_type == 'residential')
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                        <label for="moduleType">Module Type</label>                                            
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                        <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                        <label for="moduleOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                        <label for="inverterType">Inverter Type</label>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                        <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                        <label for="inverterOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s4">
+                                    @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12">
+                                        <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                        <label for="rackingType">Racking Type</label>
+                                    </div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                        <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                        <label for="rackingOther">Other: </label>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
                     <div class="row">
-                        <div class="col s12 m4">
-                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
-                        </div>
-                        <div class="col s12 m4">
-                            @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
-                        </div>
-                        <div class="col s12 m4">
-                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
-                        </div>
                         <div class="col s12 m4 input-field">
                             <input id="panels" name="panels" validate="panels" type="number" value="1">
                             <label for="panels"># of Panels</label>
@@ -340,9 +532,14 @@
                 <table class="striped table responsive-table white black-text">
                     <thead>
                     <tr>
-                        <th class="center">Inverter</th>
-                        <th class="center">Monitor</th>
                         <th class="center">Module</th>
+                        <th class="center">Inverter</th>
+                    @if($project_type == 'commercial')
+                        <th class="center">Racking</th>
+                        <th class="center">Monitor</th>
+                    @else
+                        <th class="center">Racking</th>
+                    @endif
                         <th class="center"># Panels</th>
                         <th class="center">Tilt</th>
                         <th class="center">Azimuth</th>

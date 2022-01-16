@@ -34,7 +34,6 @@
 }    
 </style>
 <div class="container-fluid black-text">
-        <form id="structural_form"></form>
         <div class="row">
             <div class="col s12">
                 <h3 class="prussian-blue-text capitalize">{{$type->name}}</h3>
@@ -43,7 +42,9 @@
             <div class="col s12">
                 <div class="card" style="margin-top:-2%;">
                     <div class="wizard-content" style="padding-bottom:2%;">
-                        <form action="#" class="validation-wizard wizard-circle m-t-40">
+                        <form id="engineering_permit_package" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
+                            @csrf
+                            <input type="hidden" value="{{ $project_id }}" name="project_id">
                             <h6>Basic Information</h6>
                             <section>
                                 <div class="row">
@@ -113,7 +114,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                <input type="text" name="moduleOther" id="moduleOther">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
                                                 <label for="moduleOther">Other: </label>
                                             </div>
                                         </div>
@@ -130,7 +131,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                <input type="text" name="inverterOther" id="inverterOther">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
                                                 <label for="inverterOther">Other: </label>
                                             </div>
                                         </div>
@@ -147,7 +148,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                <input type="text" name="rackingOther" id="rackingOther">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
                                                 <label for="rackingOther">Other: </label>
                                             </div>
                                         </div>
@@ -163,8 +164,8 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;">
-                                                <input type="text" name="monitorOther" id="monitorOther">
+                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
+                                                <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
                                                 <label for="monitorOther">Other: </label>
                                             </div>
                                         </div>
@@ -183,7 +184,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                <input type="text" name="moduleOther" id="moduleOther">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
                                                 <label for="moduleOther">Other: </label>
                                             </div>
                                         </div>
@@ -200,7 +201,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                <input type="text" name="inverterOther" id="inverterOther">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
                                                 <label for="inverterOther">Other: </label>
                                             </div>
                                         </div>
@@ -217,7 +218,7 @@
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                <input type="text" name="rackingOther" id="rackingOther">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
                                                 <label for="rackingOther">Other: </label>
                                             </div>
                                         </div>
@@ -256,7 +257,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Service Upgrade&emsp;&emsp;No
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="service_upgrade">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -330,21 +331,21 @@
                                     </div>
                                 </div> -->
                                 <div class="row image-repeater">
-                                    <div data-repeater-list="repeater-group">
+                                    <div data-repeater-list="repeater-group" id="repeater-group">
                                         <div data-repeater-item class="row">
                                             <div class="input-field col s4">
                                                 <img src="{{ asset('assets/images/big/roof.jpg') }}" class="materialboxed" width="320px" height="150px" >
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
-                                                <input id="overhang" name="overhang" type="text" class="required" placeholder="(feet)">
+                                                <input id="overhang" name="overhang[]" type="text" class="required" placeholder="(feet)">
                                                 <label for="overhang">Overhang (A): </label>
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
-                                                <input id="width" name="width" type="text" class="required" placeholder="(feet)">
+                                                <input id="width" name="width[]" type="text" class="required" placeholder="(feet)">
                                                 <label for="width">Width (B): </label>
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
-                                                <input id="height" name="height" type="text" class="required" placeholder="(feet)">
+                                                <input id="height" name="height[]" type="text" class="required" placeholder="(feet)">
                                                 <label for="height">Height (C): </label>
                                             </div>
                                             <div class="input-field col s1" style="margin-top:5%;">
@@ -360,7 +361,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" />
+                                                    <input type="checkbox" class="filled-in" id="plywood"/>
                                                     <span>Plywood</span>
                                                 </label>
                                             </p>
@@ -368,7 +369,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" />
+                                                    <input type="checkbox" class="filled-in" id="osb"/>
                                                     <span>OSB</span>
                                                 </label>
                                             </p>
@@ -376,7 +377,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" />
+                                                    <input type="checkbox" class="filled-in" id="skip_sheating"/>
                                                     <span>Skip Sheating</span>
                                                 </label>
                                             </p>
@@ -384,7 +385,7 @@
                                         <div class="input-field col s3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" class="filled-in" />
+                                                    <input type="checkbox" class="filled-in" id="plank"/>
                                                     <span>Plank</span>
                                                 </label>
                                             </p>
@@ -430,7 +431,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s4">
-                                            <select id="roofMaterialOption" onchange="check(this.value);">
+                                            <select id="roofMaterialOption" name="roofMaterialOption" onchange="check(this.value);">
                                                 <option value="" disabled selected>Choose your option</option>
                                                 <option value="Asphalt">Asphalt</option>
                                                 <option value="Metal">Metal</option>
@@ -450,7 +451,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Soft Spots&emsp;&emsp;No
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="soft_spots">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -460,7 +461,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Bouncy&emsp;&emsp;No
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="bouncy">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -470,7 +471,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Existing Leaks&emsp;&emsp;No
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="existing_leaks">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -480,7 +481,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Vaulted Ceiling&emsp;&emsp;No
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="vaulted_ceiling">
                                                     <span class="lever"></span>
                                                     Yes
                                                 </label>
@@ -490,7 +491,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select>
+                                        <select name="comp_shingle_layers" id="comp_shingle_layers">
                                             <option value="" disabled selected>Choose your option</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -510,7 +511,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Roof Condition&emsp;&emsp;Bad
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" id="roof_condition">
                                                     <span class="lever"></span>
                                                     Good
                                                 </label>
@@ -525,13 +526,13 @@
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" />
+                                                        <input type="checkbox" class="filled-in" id="access_attic_vent"/>
                                                         <span>Access from attic vent?</span>
                                                     </label>
                                                 </p>
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" class="filled-in" />
+                                                        <input type="checkbox" class="filled-in" id="stud_finder"/>
                                                         <span>Stud finder</span>
                                                     </label>
                                                 </p>
@@ -603,7 +604,7 @@
                                         <div class="switch center">
                                             <label>
                                                 Tap Possible&emsp;&emsp;No
-                                                <input type="checkbox">
+                                                <input type="checkbox" id="tap_possible">
                                                 <span class="lever"></span>
                                                 Yes
                                             </label>
@@ -639,15 +640,15 @@
                                                 <label>Sub Panel</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="manufacturer_model1" type="text" placeholder="">
+                                                <input id="manufacturer_model1" name="manufacturer_model1[]" type="text" placeholder="">
                                                 <label for="manufacturer_model1">Manufacturer and Model: </label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="main_breaker_rating1" type="text" placeholder="">
+                                                <input id="main_breaker_rating1" name="main_breaker_rating1[]" type="text" placeholder="">
                                                 <label for="main_breaker_rating1">Main Breaker Rating</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="busbar_rating1" type="text" placeholder="">
+                                                <input id="busbar_rating1" name="busbar_rating1[]" type="text" placeholder="">
                                                 <label for="busbar_rating1">Busbar Rating</label>
                                             </div>
                                             <div class="input-field col s1">
@@ -920,12 +921,12 @@
                                     <br>
                                     <br>
                                     <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="average_bill1" name="average_bill" type="text" placeholder=" ">
-                                        <label for="average_bill">Yearly usage: </label>
-                                        <input type="button" class="btn btn-primary" onclick="getTotal()" value="Total">
-                                    </div>
-                                </div><br>
+                                        <div class="input-field col s12">
+                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" ">
+                                            <label for="average_bill1">Yearly usage: </label>
+                                            <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
+                                        </div>
+                                    </div><br>
                                 </div>
                             </section>
                             <h6>Upload Supporting Documents</h6>
@@ -949,6 +950,15 @@
                                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                                             <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
                                         @endif
+                                    </div>
+                                </div>
+                                <button class="btn btn-large green right" type="button" onclick="insert(this)">Submit</button>
+                                <div class="row">
+                                    <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                        <div class="card-panel center imperial-red honeydew-text">
+                                            <h5 id="stripe_error"></h5>
+                                            <h6>Try again later or add / change your default payment method</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </section>
@@ -982,7 +992,7 @@ $(".validation-wizard").steps({
         return form.validate().settings.ignore = ":disabled", form.valid()
     },
     onFinished: function(event, currentIndex) {
-        swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+        //
     }
 }), $(".validation-wizard").validate({
     ignore: "input[type=hidden]",
@@ -1076,35 +1086,39 @@ function toggleSystemSize(elem) {
     </script>
     <script>
         function equipment(val, name){
-            //alert(val);
-            //console.log(name.id);
-            var name = name.id;
+        //alert(val);
+        //console.log(name.id);
+        var name = name.id;
             if(name == 'inverter'){
                 if(val == 'Others'){
                     document.getElementById('inverterOther_input').style.display = "block";
+                    document.getElementById('inverterOther').value = "";
                 }else{
                     document.getElementById('inverterOther_input').style.display = "none";
                 }
             }else if(name == 'monitor'){
                 if(val == 'Others'){
                     document.getElementById('monitorOther_input').style.display = "block";
+                    document.getElementById('monitorOther').value = "";
                 }else{
                     document.getElementById('monitorOther_input').style.display = "none";
                 }
             }else if(name == 'racking'){
                 if(val == 'Others'){
                     document.getElementById('rackingOther_input').style.display = "block";
+                    document.getElementById('rackingOther').value = "";
                 }else{
                     document.getElementById('rackingOther_input').style.display = "none";
                 }
             }else if(name == 'module'){
                 if(val == 'Others'){
                     document.getElementById('moduleOther_input').style.display = "block";
+                    document.getElementById('moduleOther').value = "";
                 }else{
                     document.getElementById('moduleOther_input').style.display = "none";
-                }
             }
         }
+    }
         function check(val){
             var otherInput = document.getElementById("other_roof_material_input");
             //alert(val);
@@ -1158,7 +1172,8 @@ function toggleSystemSize(elem) {
 
     <script type="text/javascript">
         const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-        let uppy = null;
+        let uppy1 = null;
+        let uppy2 = null;
         let fileCount = 0;
         let filesUploaded = 0;
 
@@ -1166,9 +1181,9 @@ function toggleSystemSize(elem) {
         const paymentHoldUrl = "{{route('payment.hold')}}";
         const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
-
+        let arrays = {};
         document.addEventListener("DOMContentLoaded", function () {
-            uppy = Uppy.Core({
+            uppy1 = Uppy.Core({
                 id: "files",
                 debug: true,
                 meta: {
@@ -1198,19 +1213,19 @@ function toggleSystemSize(elem) {
                 },
                 fieldName: "file"
             });
-            uppy.on('upload-success', sendFileToDb);
+            uppy1.on('upload-success', sendFileToDb);
 
-            uppy.on('file-added', (file) => {
+            uppy1.on('file-added', (file) => {
                 fileCount++;
             });
 
-            uppy.on('file-removed', (file) => {
+            uppy1.on('file-removed', (file) => {
                 fileCount--;
             });
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            uppy = Uppy.Core({
+            uppy2 = Uppy.Core({
                 id: "files",
                 debug: true,
                 meta: {
@@ -1240,13 +1255,13 @@ function toggleSystemSize(elem) {
                 },
                 fieldName: "file"
             });
-            uppy.on('upload-success', sendFileToDb);
+            uppy2.on('upload-success', sendFileToDb);
 
-            uppy.on('file-added', (file) => {
+            uppy2.on('file-added', (file) => {
                 fileCount++;
             });
 
-            uppy.on('file-removed', (file) => {
+            uppy2.on('file-removed', (file) => {
                 fileCount--;
             });
         });
@@ -1271,7 +1286,7 @@ function toggleSystemSize(elem) {
                     console.log(response.db_response);
                     M.toast({
                         html: "Images uploaded",
-                        classes: "steel-blue"
+                        classes: "green"
                     });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
@@ -1323,85 +1338,83 @@ function toggleSystemSize(elem) {
         }
 
         function validateFields() {
-
+            
             M.FormSelect.init(document.querySelector("#installation"));
-            let form = document.forms["aurora_form"].getElementsByTagName("input");
+            M.FormSelect.init(document.querySelector("#roofMaterialOption"));
+            M.FormSelect.init(document.querySelector("#comp_shingle_layers"));
+            
+            let form = document.forms["engineering_permit_package"].getElementsByTagName("input");
             let errors = 0;
             let jsonData = {};
 
-            //Make the thing green
-            function right(item) {
-                item.classList.remove("invalid");
-                item.classList.add("valid");
-
+            for (let item of form) {
                 if (item.getAttribute("name"))
                     jsonData[item.getAttribute("name")] = item.value;
             }
 
-            //Make the thing red
-            function wrong(item) {
-                item.classList.remove("valid");
-                item.classList.add("invalid");
-                errors++;
-            }
-
-            // All the non-select inputs
-            for (let item of form) {
-                if (item.getAttribute('validate') === 'offset') {
-                    if (item.value >= 1 && item.value <= 200)
-                        right(item)
-                    else
-                        wrong(item)
-                } else if (item.getAttribute('validate') === 'annual_usage') {
-                    if (item.value >= 1)
-                        right(item)
-                    else
-                        wrong(item)
-                } else {
-                    if (!validate.single(item.value, {presence: {allowEmpty: false}}))
-                        right(item);
-                    else
-                        wrong(item);
-                }
-            }
-
-            const notes = document.getElementById('notes');
-            if (notes.value !== "")
-                right(notes);
-            else
-                jsonData[notes.getAttribute("name")] = "No notes";
-
-
             const installation = M.FormSelect.getInstance(document.querySelector("#installation"));
-            if (installation.getSelectedValues()[0] === "") wrong(installation.wrapper);
-            else {
-                right(installation.wrapper);
                 jsonData["installation"] = installation.getSelectedValues()[0];
-            }
+            
+            const roofMaterialOption = M.FormSelect.getInstance(document.querySelector("#roofMaterialOption"));
+                jsonData["roofMaterialOption"] = roofMaterialOption.getSelectedValues()[0];
+            
+            const comp_shingle_layers = M.FormSelect.getInstance(document.querySelector("#comp_shingle_layers"));
+                jsonData["comp_shingle_layers"] = comp_shingle_layers.getSelectedValues()[0];
 
+
+            //alert(installation.getSelectedValues()[0]);
             jsonData["hoa"] = document.getElementById('hoa').checked;
+            jsonData["service_upgrade"] = document.getElementById('service_upgrade').checked;
+            jsonData["plywood"] = document.getElementById('plywood').checked;
+            jsonData["osb"] = document.getElementById('osb').checked;
+            jsonData["skip_sheating"] = document.getElementById('skip_sheating').checked;
+            jsonData["plank"] = document.getElementById('plank').checked;
+            jsonData["soft_spots"] = document.getElementById('soft_spots').checked;
+            jsonData["bouncy"] = document.getElementById('bouncy').checked;
+            jsonData["existing_leaks"] = document.getElementById('existing_leaks').checked;
+            jsonData["vaulted_ceiling"] = document.getElementById('vaulted_ceiling').checked;
+            jsonData["roof_condition"] = document.getElementById('roof_condition').checked;
+            jsonData["access_attic_vent"] = document.getElementById('access_attic_vent').checked;
+            jsonData["stud_finder"] = document.getElementById('stud_finder').checked;
+            jsonData["tap_possible"] = document.getElementById('tap_possible').checked;
             jsonData["project_id"] = "{{$project_id}}";
-
+            jsonData["array"];
             return {
                 errors: errors,
                 columns: jsonData
             };
         }
-
         // insert files and project
         function insert(elem) {
+            
+            const overhang = document.getElementById('overhang').value;
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            const fields = {arrays: [], overhang: overhang[0], width: width[0], height: height[0]};
+
+            for (const key in arrays) {
+                fields.arrays.push(arrays[key]);
+            }
 
             elem.disabled = true;
             const validationResult = validateFields();
+            validationResult.columns["array"] = fields;
+
+            console.log("data", validationResult);
+            //alert(validationResult);
+            
+            console.log(fields);
+            //alert(fields.arrays.length);
             document.getElementById('stripe_card').style.display = 'none'
 
             function uploadFiles(system_design_id) {
-                uppy.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                uppy.upload();
+                uppy1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy1.upload();
+                uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy2.upload();
             }
 
             if (validationResult.errors === 0) {
-
                 holdPayment('{{$type->name}}').then(resp => {
                     console.log(resp)
                     if (resp) {
@@ -1412,7 +1425,7 @@ function toggleSystemSize(elem) {
                         } else {
 
                             validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
-                            fetch("{{route('design.aurora')}}", {
+                            fetch("{{ route('design.engineering_permit_package') }}", {
                                 method: 'post',
                                 body: JSON.stringify(validationResult.columns),
                                 headers: {
@@ -1426,10 +1439,10 @@ function toggleSystemSize(elem) {
                                     console.log(response.db_response)
                                     uploadFiles(response.db_response.id);
                                     if (fileCount === 0)
-                                        window.location = "{{route('design.list', $project_id)}}";
+                                        //window.location = "{{route('design.list', $project_id)}}";
                                     M.toast({
                                         html: "Design inserted",
-                                        classes: "steel-blue"
+                                        classes: "green"
                                     });
                                 } else {
                                     M.toast({

@@ -42,15 +42,19 @@
     <div class="col s12">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Inverter: </b></span>
-            {{ (isset($design->fields['inverter']))?$design->fields['inverter']:"-" }}
+            {{ (isset($design->fields['inverter']))?$design->fields['inverter']=="Others"?$design->fields['inverterOther']:$design->fields['inverter']:"-" }}
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Monitor: </b></span>
-            {{ (isset($design->fields['monitor']))?$design->fields['monitor']:"-" }}
+            {{ (isset($design->fields['monitor']))?$design->fields['monitor']=="Others"?$design->fields['monitorOther']:$design->fields['monitor']:"-" }}
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Module: </b></span>
-            {{(isset($design->fields['module']))?$design->fields['module']:"-"}}
+            {{(isset($design->fields['module']))?$design->fields['module']=="Others"?$design->fields['moduleOther']:$design->fields['module']:"-" }}
+        </div>
+        <div class="mb-xxxs">
+            <span class="prussian-blue-text"><b>Racking: </b></span>
+            {{(isset($design->fields['racking']))?$design->fields['racking']=="Others"?$design->fields['rackingOther']:$design->fields['racking']:"-" }}
         </div>
     </div>
 </div>

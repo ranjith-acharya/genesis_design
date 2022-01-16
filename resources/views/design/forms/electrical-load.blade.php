@@ -4,7 +4,9 @@
 
 @section('content')
     <div class="container-fluid">
-        <form id="structural_form">
+        <form id="electrical_form">
+        @csrf
+            <input type="hidden" value="{{ $project_id }}" name="project_id">
             <div class="row">
                 <div class="col s12">
                     <h3 class="prussian-blue-text capitalize">{{$type->name}}</h3>
@@ -35,17 +37,17 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem1" multiple onchange="getSelectedValue('1')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Refrigerator w/freezer">Refrigerator w/freezer</option>
-                                                <option value="Freezer - Chest">Freezer - Chest</option>
-                                                <option value="Freezer - Upright">Freezer - Upright</option>
+                                                <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
+                                                <option value="Freezer-Chest">Freezer - Chest</option>
+                                                <option value="Freezer-Upright">Freezer - Upright</option>
                                                 <option value="Dishwasher">Dishwasher</option>
                                                 <option value="Range">Range</option>
                                                 <option value="Oven">Oven</option>
                                                 <option value="Microwave">Microwave</option>
-                                                <option value="Toaster oven">Toaster oven</option>
-                                                <option value="Coffee maker">Coffee maker</option>
-                                                <option value="Garbage disposal">Garbage disposal</option>
-                                                <option value="Well pump 1/2 HP">Well pump 1/2 HP</option>
+                                                <option value="Toaster_oven">Toaster oven</option>
+                                                <option value="Coffee_maker">Coffee maker</option>
+                                                <option value="Garbage_disposal">Garbage disposal</option>
+                                                <option value="Well_pump_1/2_HP">Well pump 1/2 HP</option>
                                             </select>
                                             <label>Kitchen</label>
                                         </div>
@@ -78,15 +80,15 @@
                                             <select id="selectItem2" multiple onchange="getSelectedValue('2')">
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Stereo">Stereo</option>
-                                                <option value="TV - small (up to 19)">TV - small (up to 19)</option>
-                                                <option value="TV - medium (up to 27)">TV - medium (up to 27)</option>
-                                                <option value="TV - large (greater than 27)">TV - large (greater than 27)</option>
-                                                <option value="TV - 27 LCD Flat Screen">TV - 27 LCD Flat Screen</option>
-                                                <option value="TV - 42 Plasma">TV - 42 Plasma</option>
+                                                <option value="TV-small(up_to_19)">TV - small (up to 19)</option>
+                                                <option value="TV-medium(up_to_27)">TV - medium (up to 27)</option>
+                                                <option value="TV-large(greater_than_27)">TV - large (greater than 27)</option>
+                                                <option value="TV-27_LCD_Flat_Screen">TV - 27 LCD Flat Screen</option>
+                                                <option value="TV-42Plasma">TV - 42 Plasma</option>
                                                 <option value="VCR/DVD">VCR/DVD</option>
-                                                <option value="Cable box">Cable box</option>
-                                                <option value="Satellite dish">Satellite dish</option>
-                                                <option value="Computer and printer">Computer and printer</option>
+                                                <option value="Cable_box">Cable box</option>
+                                                <option value="Satellite_dish">Satellite dish</option>
+                                                <option value="Computer_and_printer">Computer and printer</option>
                                             </select>
                                             <label>Entertainment</label>
                                         </div>
@@ -103,7 +105,7 @@
                                                             Quantity
                                                         </td>
                                                         <td>
-                                                            Monthly kWh
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -118,9 +120,9 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem3" multiple onchange="getSelectedValue('3')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Lighting # of rooms">Lighting # of rooms</option>
-                                                <option value="Outdoor lighting 175W">Outdoor lighting 175W</option>
-                                                <option value="Outdoor lighting 250W">Outdoor lighting 250W</option>
+                                                <option value="Lighting_of_rooms">Lighting # of rooms</option>
+                                                <option value="Outdoor_lighting_175W">Outdoor lighting 175W</option>
+                                                <option value="Outdoor_lighting_250W">Outdoor lighting 250W</option>
                                             </select>
                                             <label>Lighting</label>
                                         </div>
@@ -137,7 +139,7 @@
                                                             Quantity
                                                         </td>
                                                         <td>
-                                                            Monthly kWh
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -152,9 +154,9 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem4" multiple onchange="getSelectedValue('4')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Water Heater (# of bedrooms)">Water Heater (# of bedrooms)</option>
-                                                <option value="Electric Dryer # of loads per week">Electric Dryer # of loads per week</option>
-                                                <option value="Washing # of loads">Washing # of loads</option>
+                                                <option value="Water_Heater">Water Heater (# of bedrooms)</option>
+                                                <option value="Electric_Dryer_of_loads_per_week">Electric Dryer # of loads per week</option>
+                                                <option value="Washing_of_loads">Washing # of loads</option>
                                             </select>
                                             <label>Laundry</label>
                                         </div>
@@ -171,7 +173,7 @@
                                                             Quantity
                                                         </td>
                                                         <td>
-                                                            Monthly kWh
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -186,8 +188,8 @@
                                         <div class="input-field col s12">
                                             <select id="selectItem5" multiple onchange="getSelectedValue('5')">
                                                 <option value="" disabled>Choose your option</option>
-                                                <option value="Hot Tub">Hot Tub</option>
-                                                <option value="Pool filter / pump">Pool filter / pump</option>
+                                                <option value="Hot_Tub">Hot Tub</option>
+                                                <option value="Pool_filter_pump">Pool filter / pump</option>
                                             </select>
                                             <label>Outdoor Equipment</label>
                                         </div>
@@ -204,7 +206,7 @@
                                                             Quantity
                                                         </td>
                                                         <td>
-                                                            Monthly kWh
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -221,30 +223,30 @@
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Dehumidifier">Dehumidifier</option>
                                                 <option value="Humidifier">Humidifier</option>
-                                                <option value="Air Purifier">Air Purifier</option>
-                                                <option value="Evaporative Cooler">Evaporative Cooler</option>
-                                                <option value="Window Air Conditioner">Window Air Conditioner</option>
-                                                <option value="Ceiling Fan">Ceiling Fan</option>
-                                                <option value="Box Fan">Box Fan</option>
-                                                <option value="Electric Blanket">Electric Blanket</option>
-                                                <option value="Water Bed Heater">Water Bed Heater</option>
-                                                <option value="Furnace Fan">Furnace Fan</option>
-                                                <option value="Furn 15KW ~ 1100sq.ft">Furn 15KW ~ 1100sq.ft</option>
-                                                <option value="Furn 20KW ~ 2000sq.ft">Furn 20KW ~ 2000sq.ft</option>
-                                                <option value="Furn 25KW ~ 3000sq.ft">Furn 25KW ~ 3000sq.ft</option>
-                                                <option value="Bassboard Lin. Feet">Bassboard Lin. Feet</option>
-                                                <option value="Wall Heaters @ 2000w">Wall Heaters @ 2000w</option>
-                                                <option value="1500 W Portable">1500 W Portable</option>
-                                                <option value="Heat pump fan">Heat pump fan</option>
-                                                <option value="Heat pump 800 ~ 1100sq.ft">Heat pump 800 ~ 1100sq.ft</option>
-                                                <option value="Heat pump 1100 ~ 2000sq.ft">Heat pump 1100 ~ 2000sq.ft</option>
-                                                <option value="Heat pump 2000 ~ 3000sq.ft">Heat pump 2000 ~ 3000sq.ft</option>
-                                                <option value="Air Conditioner 1/2 ton">Air Conditioner 1/2 ton</option>
-                                                <option value="Air Conditioner 1.5 ton">Air Conditioner 1.5 ton</option>
-                                                <option value="Air Conditioner 2 ton">Air Conditioner 2 ton</option>
-                                                <option value="Air Conditioner 3 ton">Air Conditioner 3 ton</option>
-                                                <option value="Air Conditioner 4 ton">Air Conditioner 4 ton</option>
-                                                <option value="Air Conditioner 5 ton">Air Conditioner 5 ton</option>
+                                                <option value="Air_Purifier">Air Purifier</option>
+                                                <option value="Evaporative_Cooler">Evaporative Cooler</option>
+                                                <option value="Window_Air_Conditioner">Window Air Conditioner</option>
+                                                <option value="Ceiling_Fan">Ceiling Fan</option>
+                                                <option value="Box_Fan">Box Fan</option>
+                                                <option value="Electric_Blanket">Electric Blanket</option>
+                                                <option value="Water_Bed_Heater">Water Bed Heater</option>
+                                                <option value="Furnace_Fan">Furnace Fan</option>
+                                                <option value="Furn_15KW_1100">Furn 15KW ~ 1100sq.ft</option>
+                                                <option value="Furn_20KW_2000">Furn 20KW ~ 2000sq.ft</option>
+                                                <option value="Furn_25KW_3000">Furn 25KW ~ 3000sq.ft</option>
+                                                <option value="Bassboard_Lin_Feet">Bassboard Lin. Feet</option>
+                                                <option value="Wall_Heaters_2000w">Wall Heaters @ 2000w</option>
+                                                <option value="1500W_Portable">1500 W Portable</option>
+                                                <option value="Heat_pump_fan">Heat pump fan</option>
+                                                <option value="Heat_pump_800_1100">Heat pump 800 ~ 1100sq.ft</option>
+                                                <option value="Heat_pump_1100_2000">Heat pump 1100 ~ 2000sq.ft</option>
+                                                <option value="Heat_pump_2000_3000">Heat pump 2000 ~ 3000sq.ft</option>
+                                                <option value="Air_Conditioner">Air Conditioner 1/2 ton</option>
+                                                <option value="Air_Conditioner1.5_ton">Air Conditioner 1.5 ton</option>
+                                                <option value="Air_Conditioner2_ton">Air Conditioner 2 ton</option>
+                                                <option value="Air_Conditioner3_ton">Air Conditioner 3 ton</option>
+                                                <option value="Air_Conditioner4_ton">Air Conditioner 4 ton</option>
+                                                <option value="Air_Conditioner5_ton">Air Conditioner 5 ton</option>
                                             </select>
                                             <label>Comfort controls</label>
                                         </div>
@@ -261,7 +263,7 @@
                                                             Quantity
                                                         </td>
                                                         <td>
-                                                            Monthly kWh
+                                                            Monthly KWh
                                                         </td>
                                                     </tr>
                                                 </thead>
@@ -269,36 +271,75 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6">
-                                        
-                                    </div>
-                                    <div class="col s6">
-                                        <div class="input-field">
-                                            <input type="text" name="total_electrical_load" id="total_electrical_load" placeholder=" ">
-                                            <label for="total_electrical_load">Total: </label>
+                                    </div><br><br>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" ">
+                                            <label for="average_bill1">Yearly usage: </label>
+                                            <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                         </div>
-                                    </div>
+                                    </div><br>
                                 </div>
                             </section>
+                            <div class="row">
+                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                                <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                            @endif
+                            </div>
+                            <div class="row center">
+                                <button class="btn green" type="button" onclick="insert(this)">Submit</button>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center imperial-red honeydew-text">
+                                    <h5 id="stripe_error"></h5>
+                                    <h6>Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </form>
-        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
-            <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
-        @endif
     </div>
 @endsection
 
 @section('js')
 <script>
+        //Total Voltages
+        
+        
+        function getTotal()
+        {
+            total=0;
+            itemList=[];
+            itemList.push($("#selectItem1").val());
+            itemList.push($("#selectItem2").val());
+            itemList.push($("#selectItem3").val());
+            itemList.push($("#selectItem4").val());
+            itemList.push($("#selectItem5").val());
+            itemList.push($("#selectItem6").val());
+            console.log(itemList);
+            console.log(itemList[0][0]);
+            
+            for(let i=0;i<itemList.length;i++)
+            {
+                if(itemList[i].length>0)
+                {
+                    for(let j=0;j<itemList[i].length;j++)
+                    {
+                        total+=parseInt($("#item"+itemList[i][j]).val())*parseInt($("#vol"+itemList[i][j]).val())*12;
+                    }
+                }
+            }
+            console.log("Total : ",total);
+            $("#average_bill1").val(total);
+
+        }
         function getSelectedValue(id){
             //alert("hello");
             var items = $("#selectItem"+id).val();
             var tableRow = "";
             for(let i = 0; i < items.length; i++){
-                tableRow += "<tr><td><input type='text' name='"+items[i]+"' value='"+items[i]+"' readonly></td></td><td><input type='text' name='quantity[]' value='1'></td></tr>";
+                tableRow += "<tr><td><input type='text' name='"+items[i]+"' value='"+items[i]+"' readonly></td></td><td><input type='text' id='item"+items[i]+"' name='quantity[]' value='1'></td><td><input type='text' id='vol"+items[i]+"' name='voltage[]' value=''></td></tr>";
             }
             document.getElementById("selectedItem"+id).innerHTML=tableRow;
             //console.log($("#selectItem").val());
@@ -318,49 +359,6 @@
         // Payment stuff
         const paymentHoldUrl = "{{route('payment.hold')}}";
         const stripePublicKey = "{{env('STRIPE_KEY')}}";
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            uppy = Uppy.Core({
-                id: "files",
-                debug: true,
-                meta: {
-                    save_as: ''
-                },
-                restrictions: {
-                    maxFileSize: 21000000,
-                    maxNumberOfFiles: 20
-                },
-                onBeforeUpload: (files) => {
-                    const updatedFiles = {}
-                    Object.keys(files).forEach(fileID => {
-                        updatedFiles[fileID] = files[fileID];
-                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
-                    })
-                    return updatedFiles
-                }
-            }).use(Uppy.Dashboard, {
-                target: `#uppy`,
-                inline: true,
-                hideUploadButton: true,
-                note: "Upto 20 files of 20 MBs each"
-            }).use(Uppy.XHRUpload, {
-                endpoint: "{{ env('SUN_STORAGE') }}/file",
-                headers: {
-                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
-                },
-                fieldName: "file"
-            });
-            uppy.on('upload-success', sendFileToDb);
-
-            uppy.on('file-added', (file) => {
-                fileCount++;
-            });
-
-            uppy.on('file-removed', (file) => {
-                fileCount--;
-            });
-        });
 
         document.addEventListener("DOMContentLoaded", function () {
             uppy = Uppy.Core({
@@ -424,7 +422,7 @@
                     console.log(response.db_response);
                     M.toast({
                         html: "Images uploaded",
-                        classes: "steel-blue"
+                        classes: "green"
                     });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
@@ -446,95 +444,16 @@
 
         };
 
-        function toggleSystemSize(elem) {
-            if (elem.checked) {
-                document.getElementById('system_size').disabled = false;
-                document.getElementById('system_size').value = "";
-            } else {
-                document.getElementById('system_size').disabled = true;
-                document.getElementById('system_size').value = "maximum";
-            }
-            M.updateTextFields();
-        }
-
-        function toggleHOA(elem) {
-            if (elem.checked) {
-                document.getElementById('installation').disabled = false;
-                document.getElementById('installation').value = "none";
-
-                document.getElementById('remarks').disabled = false;
-                document.getElementById('remarks').value = "";
-            } else {
-                document.getElementById('installation').disabled = true;
-                document.getElementById('installation').value = "none";
-
-                document.getElementById('remarks').disabled = true;
-                document.getElementById('remarks').value = "none";
-            }
-            M.FormSelect.init(document.querySelector("#installation"));
-            M.updateTextFields();
-        }
-
         function validateFields() {
-
-            M.FormSelect.init(document.querySelector("#installation"));
-            let form = document.forms["aurora_form"].getElementsByTagName("input");
+            let form = document.forms["electrical_form"].getElementsByTagName("input");
             let errors = 0;
             let jsonData = {};
-
-            //Make the thing green
-            function right(item) {
-                item.classList.remove("invalid");
-                item.classList.add("valid");
-
+           
+            for (let item of form) {
                 if (item.getAttribute("name"))
                     jsonData[item.getAttribute("name")] = item.value;
             }
-
-            //Make the thing red
-            function wrong(item) {
-                item.classList.remove("valid");
-                item.classList.add("invalid");
-                errors++;
-            }
-
-            // All the non-select inputs
-            for (let item of form) {
-                if (item.getAttribute('validate') === 'offset') {
-                    if (item.value >= 1 && item.value <= 200)
-                        right(item)
-                    else
-                        wrong(item)
-                } else if (item.getAttribute('validate') === 'annual_usage') {
-                    if (item.value >= 1)
-                        right(item)
-                    else
-                        wrong(item)
-                } else {
-                    if (!validate.single(item.value, {presence: {allowEmpty: false}}))
-                        right(item);
-                    else
-                        wrong(item);
-                }
-            }
-
-            const notes = document.getElementById('notes');
-            if (notes.value !== "")
-                right(notes);
-            else
-                jsonData[notes.getAttribute("name")] = "No notes";
-
-
-            const installation = M.FormSelect.getInstance(document.querySelector("#installation"));
-            if (installation.getSelectedValues()[0] === "") wrong(installation.wrapper);
-            else {
-                right(installation.wrapper);
-                jsonData["installation"] = installation.getSelectedValues()[0];
-            }
-
-            jsonData["hoa"] = document.getElementById('hoa').checked;
             jsonData["project_id"] = "{{$project_id}}";
-
             return {
                 errors: errors,
                 columns: jsonData
@@ -565,7 +484,7 @@
                         } else {
 
                             validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
-                            fetch("{{route('design.aurora')}}", {
+                            fetch("{{route('design.electrical_load')}}", {
                                 method: 'post',
                                 body: JSON.stringify(validationResult.columns),
                                 headers: {
@@ -582,7 +501,7 @@
                                         window.location = "{{route('design.list', $project_id)}}";
                                     M.toast({
                                         html: "Design inserted",
-                                        classes: "steel-blue"
+                                        classes: "green"
                                     });
                                 } else {
                                     M.toast({
