@@ -107,7 +107,7 @@
                                 @if(Auth::user()->role == 'admin')
                                     <a class="btn btn-large imperial-red-outline-button" id="quote_price">Quote price for the change request</a>
                                 @else
-                                    <span class="imperial-red">Waiting for Approval!</span>
+                                    <span class="imperial-red white-text p-10">Waiting for Approval!</span>
                                 @endif
                                 @component('components.quote-change-request', ["design"=>$design])@endcomponent
                                 @break
