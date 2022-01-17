@@ -111,9 +111,9 @@
         <table class="striped">
             <thead>
                 <tr>
-                    <td class="center"><b>Overhang</b></td>
-                    <td class="center"><b>Width</b></td>
-                    <td class="center"><b>Height</b></td>
+                    <td class="center"><b>Overhang (feet)</b></td>
+                    <td class="center"><b>Width (feet)</b></td>
+                    <td class="center"><b>Height (feet)</b></td>
                 </tr>
             </thead>
             <tbody>
@@ -508,7 +508,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Calculated Usage: </b></span>
-            {{ $design->fields['average_bill1'] }}
+            {{ $design->fields['average_bill1'] }}&nbsp;kWH
         </div>
     </div>
     @endif
