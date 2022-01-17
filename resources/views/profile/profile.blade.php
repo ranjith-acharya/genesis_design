@@ -175,42 +175,24 @@
                 <div id="profile" class="col s12">
                     <div class="card-content">
                         <div class="row">
-                            <div class="col m3 b-r"> <strong>Full Name</strong>
+                            <div class="col s12"> <b>Full Name</b>
                                 <br>
                                 <p class="capitalize">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
                             </div>
-                            <div class="col m3 b-r"> <strong>Mobile</strong>
+                            <div class="col s12  b-t p-t-20"> <b>Mobile</b>
                                 <br>
                                 <p>(+91) {{ Auth::user()->phone }}</p>
                             </div>
-                            <div class="col m3 b-r"> <strong>Email</strong>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 b-t p-t-20"> <b>Email</b>
                                 <br>
                                 <p>{{ Auth::user()->email }}</p>
                             </div>
-                            <div class="col m3"> <strong>Company</strong>
+                            <div class="col s12 b-t p-t-20"> <b>Company</b>
                                 <br>
                                 <p class="capitalize">{{ Auth::user()->company }}</p>
                             </div>
-                        </div>
-                        <hr>
-                        <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                        <h5 class="card-title">Skill Set</h5>
-                        <hr>
-                        <h6 class="font-light m-t-30">Wordpress <span class="pull-right">80%</span></h6>
-                        <div class="progress">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                            <h6 class="font-light m-t-30">HTML 5 <span class="pull-right">90%</span></h6>
-                        <div class="progress">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <h6 class="font-light m-t-30">jQuery <span class="pull-right">50%</span></h6>
-                        <div class="progress">
-                            <div class="determinate" style="width: 70%"></div>
-                        </div>
-                        <h6 class="font-light m-t-30">Photoshop <span class="pull-right">70%</span></h6>
-                        <div class="progress">
-                                <div class="determinate" style="width: 70%"></div>
                         </div>
                     </div>
                 </div>
