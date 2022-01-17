@@ -34,8 +34,8 @@ class ChangeRequestController extends Controller
             $cr->proposal_id = $request->proposal;
             $cr->save();
 
-            Mail::to($design->project->engineer->email)
-                ->send(new Notification($design->project->engineer->email,
+            Mail::to(User::where('role', 'admin')->first()->email)
+                ->send(new Notification(User::where('role', 'admin')->first()->email,
                     "New change request for: " . $design->project->name,
                     "",
                     route('proposal.view', $design->id) . "?proposal=" . $request->proposal,
