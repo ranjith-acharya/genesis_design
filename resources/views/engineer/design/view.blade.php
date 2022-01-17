@@ -52,7 +52,7 @@
                 @endif
             </div>
         </div>
-        @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
+        @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
                     <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
@@ -102,7 +102,7 @@
                 @endif
             </div>
         </div>
-        @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED)
+        @if ($design->status === \App\Statics\Statics::DESIGN_STATUS_REQUESTED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
                     <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
