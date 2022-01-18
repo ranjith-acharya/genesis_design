@@ -37,7 +37,7 @@ class Statics
 
     //    Project statuses
     const PROJECT_STATUS_NOT_ASSIGNED = "not assigned";
-    const PROJECT_STATUS_ON_HOLD = "on hold";
+    const PROJECT_STATUS_ON_HOLD = "hold";
     const PROJECT_STATUS_ACTIVE = "active";
     const PROJECT_STATUS_ARCHIVED = "archived";
     const PROJECT_STATUS_COMPLETED = "completed";

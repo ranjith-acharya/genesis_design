@@ -20,7 +20,9 @@ Project Index - Genesis Design
                             <h3>List of Projects</h3>
                         </div>
                         <div class="col s6 right-align">
-                    
+                            <p><label>
+                                <input type="checkbox" class="filled-in" id="selectAll"/><span>Select All</span>
+                            </label></p>
                     
                     <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
                         <ul id='dropdown1' class='dropdown-content'>
@@ -34,6 +36,7 @@ Project Index - Genesis Design
                     <table id="zero_config" class="responsive-table display">
                         <thead>
                             <tr class="black-text">
+                                <th>Select</th>
                                 <th>Project Name</th>
                                 <th> Assigned To</th>
                                 <th>Project Status</th>
@@ -45,6 +48,12 @@ Project Index - Genesis Design
                         <tbody>
                             @foreach($projectQuery as $data)
                             <tr>
+                                <td class="center">
+                                   <p><label>
+                                        <input type="checkbox" class="filled-in checkboxAll" id="{{ $data->id }}" value="{{ $data->id }}"/>
+                                        <span> </span>
+                                    </label></p>
+                                </td>
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
@@ -56,6 +65,8 @@ Project Index - Genesis Design
                                 <td class="capitalize">
                                 @if($data->status == 'pending')
                                     <span class="label label-red capitalize">{{ $data->status }}</span>
+                                @elseif($data->status == 'not assigned')
+                                    <span class="label label-warning capitalize">{{ $data->status }}</span>
                                 @else
                                     <span class="label label-success capitalize">{{ $data->status }}</span>
                                 @endif</td>
@@ -138,5 +149,24 @@ Project Index - Genesis Design
     function archiveProject(id){
         $("#archiveForm"+id).submit();
     }
+
+    var checkID = [];
+    $("#selectAll").click(function(){
+        // alert("Hey!");
+        if(this.checked){
+            // alert("checked");
+            $(".checkboxAll").each(function(id, checkboxValue) {
+                $(".checkboxAll").prop("checked", true);
+                //console.log(checkboxValue.value);               
+                checkID.push(checkboxValue.value);
+            });
+            console.log(checkID);
+        }else{
+            $(".checkboxAll").each(function() {
+                $(".checkboxAll").prop("checked", false);
+            });
+        }
+    });
+    
 </script>
 @endsection

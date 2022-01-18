@@ -196,6 +196,7 @@
                         </div>
                     </div>
                 </div>
+                @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                 <div id="paymentMethods" class="col s12">
                     <div class="card-content">
                         <div class="row">
@@ -241,6 +242,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

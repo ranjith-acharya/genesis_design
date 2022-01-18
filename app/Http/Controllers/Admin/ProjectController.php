@@ -153,4 +153,12 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         return $project;
     }
+
+    public function setStatus(Request $request){
+        //return $request;
+        $project = Project::findOrFail($request->projectId);
+        $project->status = $request->statusName;
+        $project->update();
+        return back()->with('success', 'Status Updated!');
+    }
 }

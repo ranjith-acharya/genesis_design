@@ -32,6 +32,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
+                Route::post('/project/set/status', 'ProjectController@setStatus')->name('projects.set.status');
                 
                 //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
 
@@ -81,7 +82,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::resource('/engineer', 'Admin\EngineerController');
                 
                 Route::get('/projects/list', 'Admin\ProjectController@indexProject')->name('projects.list');
-
+                Route::post('/project/set/status', 'Admin\ProjectController@setStatus')->name('projects.set.status');
+                
                 Route::resource('/projects', 'Admin\ProjectController');
                 Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');

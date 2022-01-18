@@ -163,6 +163,6 @@ class ProjectController extends Controller
     }
 
     public function bulkProject(){
-        return view('project.bulkproject');
+        return view('project.bulkProject');
     }
 }

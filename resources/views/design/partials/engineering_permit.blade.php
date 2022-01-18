@@ -477,7 +477,7 @@
         </div>
     </div>
     @endif
-
+    
     @if($design->fields['panel_location'] == "")
         
     @else
@@ -485,6 +485,17 @@
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Panel Location: </b></span>
             {{ $design->fields['panel_location'] }}
+        </div>
+    </div>
+    @endif
+
+    @if($design->fields['array']['manufacturer_model'] == "")
+        
+    @else
+    <div class="col s6">
+        <div class="mb-xxxs">
+            <span class="prussian-blue-text"><b>Manufacturer Model: </b></span>
+            {{ $design->fields['array']['manufacturer_model'] }}
         </div>
     </div>
     @endif
