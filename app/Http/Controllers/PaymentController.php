@@ -90,12 +90,10 @@ class PaymentController extends Controller
 
     public function newCard()
     {
-
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $intent = SetupIntent::create([
             'customer' => Auth::user()->stripe_id
         ]);
-
         return ["secret" => $intent->client_secret];
     }
 

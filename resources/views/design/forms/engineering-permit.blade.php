@@ -424,9 +424,15 @@
                                             <span class="helper-text red-text" id="azimuth_error"></span>
                                         </div>
                                         <div class="input-field col s4">
-                                            <input id="rafter_size" name="rafter_size" validate="rafter_size" onblur="checkVal()" type="number" value="0">
+                                            <select name="rafter_size" id="rafter_size">
+                                                <option value="" disabled selected>Choose your option</option>
+                                                <option value="2x4">2x4</option>
+                                                <option value="2x6">2x6</option>
+                                                <option value="2x8">2x8</option>
+                                                <option value="4x6">4x6</option>
+                                                <option value="4x8">4x8</option>
+                                            </select>
                                             <label for="rafter_size">Rafter Size: </label>
-                                            <span class="helper-text red-text" id="rafter_size_error"></span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -640,15 +646,15 @@
                                                 <label>Sub Panel</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="manufacturer_model1" name="manufacturer_model1[]" type="text" placeholder="">
+                                                <input id="manufacturer_model1" name="manufacturer_model1[]" class="required" type="text" placeholder="">
                                                 <label for="manufacturer_model1">Manufacturer and Model: </label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="main_breaker_rating1" name="main_breaker_rating1[]" type="text" placeholder="">
+                                                <input id="main_breaker_rating1" name="main_breaker_rating1[]"type="text" placeholder="">
                                                 <label for="main_breaker_rating1">Main Breaker Rating</label>
                                             </div>
                                             <div class="input-field col s3">
-                                                <input id="busbar_rating1" name="busbar_rating1[]" type="text" placeholder="">
+                                                <input id="busbar_rating1" name="busbar_rating1[]"type="text" placeholder="">
                                                 <label for="busbar_rating1">Busbar Rating</label>
                                             </div>
                                             <div class="input-field col s1">
@@ -1131,7 +1137,6 @@ function toggleSystemSize(elem) {
         function checkVal(){
             var pitch = document.getElementById("pitch").value;
             var azimuth = document.getElementById("azimuth").value;
-            var rafter_size = document.getElementById("rafter_size").value;
             //alert(azimuth);
             if(pitch < 0){
                 //alert("hello");
@@ -1154,14 +1159,6 @@ function toggleSystemSize(elem) {
             }else{
                 document.getElementById("azimuth_error").innerHTML = " ";
                 document.getElementById("azimuth").style.borderColor = "#4CAF50";
-            }
-            if(rafter_size < 0){
-                document.getElementById("rafter_size_error").innerHTML = 'Should be greater than Zero';
-                document.getElementById("rafter_size").style.borderColor = "#F44336";
-                document.getElementById("rafter_size").value = " ";
-            }else{
-                document.getElementById("rafter_size_error").innerHTML = " ";
-                document.getElementById("rafter_size").style.borderColor = "#4CAF50";
             }
         }
     </script>
@@ -1342,6 +1339,7 @@ function toggleSystemSize(elem) {
             M.FormSelect.init(document.querySelector("#installation"));
             M.FormSelect.init(document.querySelector("#roofMaterialOption"));
             M.FormSelect.init(document.querySelector("#comp_shingle_layers"));
+            M.FormSelect.init(document.querySelector("#rafter_size"));
             
             let form = document.forms["engineering_permit_package"].getElementsByTagName("input");
             let errors = 0;
@@ -1360,6 +1358,9 @@ function toggleSystemSize(elem) {
             
             const comp_shingle_layers = M.FormSelect.getInstance(document.querySelector("#comp_shingle_layers"));
                 jsonData["comp_shingle_layers"] = comp_shingle_layers.getSelectedValues()[0];
+
+            const rafter_size = M.FormSelect.getInstance(document.querySelector("#rafter_size"));
+                jsonData["rafter_size"] = rafter_size.getSelectedValues()[0];
 
 
             //alert(installation.getSelectedValues()[0]);
@@ -1390,12 +1391,13 @@ function toggleSystemSize(elem) {
             const overhang = document.getElementById('overhang').value;
             const width = document.getElementById('width').value;
             const height = document.getElementById('height').value;
-            const fields = {arrays: [], overhang: overhang[0], width: width[0], height: height[0]};
+            const manufacturer_model = document.getElementById('manufacturer_model1').value;
+            const fields = {arrays: [], overhang: overhang[0], width: width[0], height: height[0], manufacturer_model: manufacturer_model[0]};
 
             for (const key in arrays) {
                 fields.arrays.push(arrays[key]);
+                console.log(arrays[key]);
             }
-
             elem.disabled = true;
             const validationResult = validateFields();
             validationResult.columns["array"] = fields;

@@ -127,13 +127,16 @@ class ProposalController extends Controller
 
     public function getFile(Request $request)
     {
+        //return $request;
         $this->validate($request, [
             'design' => 'required|numeric',
             'proposal' => 'required|numeric',
             'file' => 'required|numeric'
         ]);
 
-        $design = Auth::user()->designs()->with(['proposals' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->designs()->with(['proposals' => function ($query) use ($request) {
             $query->findOrFail($request->proposal);
         }])->where('system_designs.id', $request->design)->firstOrFail();
         $file = $design->proposals[0]->files->firstWhere('id', $request->file);

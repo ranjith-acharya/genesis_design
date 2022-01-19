@@ -59,13 +59,16 @@ class ChangeRequestController extends Controller
 
     public function getFile(Request $request)
     {
+        //return $request;
         $this->validate($request, [
             'design' => 'required|numeric',
             'changeRequest' => 'required|numeric',
             'file' => 'required|numeric'
         ]);
 
-        $design = Auth::user()->designs()->with(['changeRequests' => function ($query) use ($request) {
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->designs()->with(['changeRequests' => function ($query) use ($request) {
             $query->findOrFail($request->changeRequest);
         }])->where('system_designs.id', $request->design)->firstOrFail();
 

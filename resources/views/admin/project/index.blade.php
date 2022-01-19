@@ -20,7 +20,9 @@ Project Index - Genesis Design
                             <h3>List of Projects</h3>
                         </div>
                         <div class="col s6 right-align">
-                    
+                            <p><label>
+                                <input type="checkbox" class="filled-in" id="selectAll"/><span>Select All</span>
+                            </label></p>
                     
                     <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
                         <ul id='dropdown1' class='dropdown-content'>
@@ -34,32 +36,52 @@ Project Index - Genesis Design
                     <table id="zero_config" class="responsive-table display">
                         <thead>
                             <tr class="black-text">
+                                <th>Select</th>
                                 <th>Project Name</th>
-                                <th> Assigned To</th>
+                                <th>Assigned To</th>
+                                <th>Assigned Date</th>
+                                <th>Design Type</th>
                                 <th>Project Status</th>
-                                <th>Project Type</th>
+                                <!-- <th>Project Type</th> -->
                                 <th>Action</th>
                                 <!-- <th>Designs</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($projectQuery as $data)
+                                @foreach($data->designs as $design)
                             <tr>
+                                <td class="center">
+                                   <p><label>
+                                        <input type="checkbox" class="filled-in checkboxAll" id="{{ $data->id }}" value="{{ $data->id }}"/>
+                                        <span> </span>
+                                    </label></p>
+                                </td>
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
-                                        <spa class="helper-text red-text">Not Assigned</span>
+                                        <span class="helper-text red-text">Not Assigned</span>
                                     @else
                                         {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
                                     @endif
                                 </td>
+                                <td>
+                                    @if($data->engineer_id == "")
+                                        <span class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $design->type->name }}
+                                </td>
                                 <td class="capitalize">
-                                @if($data->status == 'pending')
-                                    <span class="label label-red capitalize">{{ $data->status }}</span>
+                                @if($data->status == 'in active')
+                                    <span class="label label-red capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                                 @else
-                                    <span class="label label-success capitalize">{{ $data->status }}</span>
+                                    <span class="label label-success capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                                 @endif</td>
-                                <td class="capitalize">{{ $data->type->name }}</td>
+                                <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
                                 <td class="center">
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
@@ -78,6 +100,7 @@ Project Index - Genesis Design
                                 <button type="submit" class="btn indigo">Design </button>
                                 </td> -->
                             </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
@@ -138,5 +161,24 @@ Project Index - Genesis Design
     function archiveProject(id){
         $("#archiveForm"+id).submit();
     }
+
+    var checkID = [];
+    $("#selectAll").click(function(){
+        // alert("Hey!");
+        if(this.checked){
+            // alert("checked");
+            $(".checkboxAll").each(function(id, checkboxValue) {
+                $(".checkboxAll").prop("checked", true);
+                //console.log(checkboxValue.value);               
+                checkID.push(checkboxValue.value);
+            });
+            console.log(checkID);
+        }else{
+            $(".checkboxAll").each(function() {
+                $(".checkboxAll").prop("checked", false);
+            });
+        }
+    });
+    
 </script>
 @endsection

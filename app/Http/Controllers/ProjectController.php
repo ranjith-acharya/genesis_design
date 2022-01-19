@@ -128,9 +128,9 @@ class ProjectController extends Controller
             'project' => 'required|string|max:255',
             'file' => 'required|string|max:255'
         ]);
-
-        
-        $project = Auth::user()->projects()->with('files')->where('id', $request->project)->firstOrFail();
+        $engineer = Project::findOrFail($request->project)->engineer;
+        //return $engineer;
+        $project = $engineer->projects()->with('files')->where('id', $request->project)->firstOrFail();
         $file = $project->files->firstWhere('id', $request->file);
         if ($file) {
             $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();
@@ -164,6 +164,6 @@ class ProjectController extends Controller
     }
 
     public function bulkProject(){
-        return view('project.bulkproject');
+        return view('project.bulkProject');
     }
 }

@@ -68,8 +68,8 @@ Create Bulk Project
                     <div id="formRepetation">
                     </div>
                     <div class="col s2 center">
-                        <button type="button" onclick="repeatForm()"  class="btn btn-small steel-blue"><i class="material-icons left">add</i>CUSTOMER</button>
-                        <button type="button" onclick="insert()" class="btn btn-small green" ><i class="material-icons left">add</i>ADD PROJECT</button>
+                        <button type="button" onclick="repeatForm()"  class="btn btn-small steel-blue"><i class="material-icons left">add</i>ADD PROJECT</button>
+                        <button type="button" onclick="insert()" class="btn btn-small green" ><i class="material-icons left">add</i>SUBMIT PROJECT</button>
                     </div>
                 </div>
                <br>
@@ -137,7 +137,7 @@ axios(fileInsert, {
         uppiesArray.push(count);
         var div="<div id='repeat"+count+"'><div class='col s10'><div ><div data-repeater-item><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]' placeholder=' value=' class='required'><label for='customer_name'>Customer Name: </label></div>";
         div+="<div class='input-field col s5'><select class='browser-default' name='customer_project_type[]'><option value=''  selected>Choose your option</option><option value='residential'>Residential</option><option value='commercial'>Commercial</option></select></div>";
-        div+="<div class='input-field col s1'><button data-repeater-delete=' class='btn btn-small red tooltipped' data-tooltip='Remove Project' data-position='bottom' onclick='closeDiv("+count+")' type='button'><i class='material-icons'>clear</i></button></div></div>";
+        div+="<div class='input-field col s1'><button class='btn btn-small red tooltipped' data-tooltip='Remove Project' data-position='bottom' onclick='closeDiv("+count+")' type='button'><i class='material-icons'>clear</i></button></div></div>";
         div+="<div class='row'><div class='input-field col s10'><input type='text' id='customer_address"+count+"' name='customer_address[]'  placeholder=' ' class='required'><label for='customer_address'>Address: </label></div></div>";
         div+="<div class='row'><div class='col s2'><label for='uppyBulk"+count+"'>Upload Documents</label></div><div class='col s9'><div class='mh-a' id='uppyBulk"+count+"'></div><div class='><span class='helper-text imperial-red-text' id='files_error"+count+"'></span></div></div></div><br></div></div></div>";
         document.getElementById('formRepetation').innerHTML+=div;
@@ -145,7 +145,11 @@ axios(fileInsert, {
        
        
     }
-  
+    function closeDiv(count)
+    {
+        document.getElementById('repeat'+count).remove();
+        
+    }
     function loadUppies(count)
     { 
         uppies[count] = Uppy.Core({

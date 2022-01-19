@@ -36,13 +36,21 @@ class Statics
     const PROJECT_TYPES = [self::PROJECT_TYPE_RESIDENTIAL, self::PROJECT_TYPE_COMMERCIAL];
 
     //    Project statuses
+    const PROJECT_STATUS_ASSIGNED = "assigned";
     const PROJECT_STATUS_NOT_ASSIGNED = "not assigned";
-    const PROJECT_STATUS_ON_HOLD = "on hold";
-    const PROJECT_STATUS_ACTIVE = "active";
+    const PROJECT_STATUS_ON_HOLD = "hold";
+    const PROJECT_STATUS_IN_PROCESS = "in process";
     const PROJECT_STATUS_ARCHIVED = "archived";
     const PROJECT_STATUS_COMPLETED = "completed";
+    const PROJECT_STATUS_CANCELLED = "cancelled";
 
-    const PROJECT_STATUSES = [self::PROJECT_STATUS_NOT_ASSIGNED, self::PROJECT_STATUS_ON_HOLD, self::PROJECT_STATUS_ACTIVE, self::PROJECT_STATUS_ARCHIVED, self::PROJECT_STATUS_COMPLETED];
+    const PROJECT_STATUSES = [self::PROJECT_STATUS_ASSIGNED, self::PROJECT_STATUS_NOT_ASSIGNED, self::PROJECT_STATUS_ON_HOLD, self::PROJECT_STATUS_IN_PROCESS, self::PROJECT_STATUS_ARCHIVED, self::PROJECT_STATUS_COMPLETED, self::PROJECT_STATUS_CANCELLED];
+
+//    Status Types
+    const STATUS_ACTIVE = "active";
+    const STATUS_IN_ACTIVE = "in active";
+
+    const STATUSES = [self::STATUS_ACTIVE, self::STATUS_IN_ACTIVE];
 
 //    ProjectFile categories
     const FILE_CATEGORY_ROOF = "roof";

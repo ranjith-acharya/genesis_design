@@ -15,7 +15,24 @@ Update Project Details - Genesis Design
         @endif
             <div class="card">
                 <div class="card-content">
-                    <h3 class="capitalize">Edit {{ $projectType->name }} project</h3>
+                    <div class="row">
+                        <div class="col s6">
+                            <h3 class="capitalize">Edit {{ $projectType->name }} project</h3>
+                        </div>
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
+                        <div class="col s6 row right-align">
+                            <div class="col s6"></div>
+                            <div class="col s6">
+                                <select onchange="setStatus(this)">
+                                    <option value="" selected disabled>Set Status</option>
+                                    @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
+                                        <option value="{{ $projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
                     <form id="lead_form" method="post">
                         @csrf
                         <input type="hidden" name="project_type_id" validate="string" value="{{$projectType->id}}">
@@ -161,4 +178,23 @@ Update Project Details - Genesis Design
         const redirect = '{{route('admin.home')}}';
     </script>
     <script src="{{asset('js/project/form.js')}}"></script>
+    <script>
+        function setStatus(a){
+            //alert(a.value);
+            var status = a.value;
+            var id = {{ $project->id }};
+            var _token=$('input[name="_token"]').val();
+            //alert(id);
+            //alert(status);
+            $.ajax({
+                url:"@if(Auth::user()->role == 'admin'){{ route('admin.projects.set.status') }}@else{{ route('manager.projects.set.status') }}@endif",
+                method:"POST",
+                data:{statusName: status, projectId: id, _token:_token},
+                success:function(data){
+                    toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
+                }      
+            });
+        }
+    </script>
 @endsection

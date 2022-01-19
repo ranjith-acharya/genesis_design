@@ -201,14 +201,9 @@
                 <div class="input-field inline w100-on-small-only">
                     <select id="project_status_select" onchange="filter()">
                         <option value="all">All</option>
-                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                             @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
                                 <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
                             @endforeach
-                        @else
-                            <option value="{{\App\Statics\Statics::PROJECT_STATUS_ACTIVE}}">{{Str::ucfirst(\App\Statics\Statics::PROJECT_STATUS_ACTIVE)}}</option>
-                            <option value="{{\App\Statics\Statics::PROJECT_STATUS_ARCHIVED}}">{{Str::ucfirst(\App\Statics\Statics::PROJECT_STATUS_ARCHIVED)}}</option>
-                        @endif
                     </select>
                     <label for="project_status_select">Project Status</label>
                 </div>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SystemDesign extends Model
 {
-    protected $fillable = ['type', 'status', 'fields', 'project_id'];
+    protected $fillable = ['type', 'status', 'fields', 'project_id', 'start_date', 'end_date'];
 
     protected $casts = [
         'fields' => 'array',

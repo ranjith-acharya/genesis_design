@@ -27,6 +27,8 @@ class CreateSystemDesignsTable extends Migration
             $table->foreignId('system_design_type_id');
             $table->foreign('system_design_type_id')->references('id')->on('system_design_types');
 
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable(); 
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
