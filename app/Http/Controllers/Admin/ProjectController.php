@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ProjectController extends Controller
 {
@@ -138,7 +139,9 @@ class ProjectController extends Controller
         $project = Project::with('customer')->findOrFail($request->project_id);
         Project::where('id', $request->project_id)->update([
             "engineer_id" => $request->engineer_id,
-            'status' => Statics::PROJECT_STATUS_ACTIVE
+            'status' => Statics::STATUS_ACTIVE,
+            'project_status' => Statics::PROJECT_STATUS_ASSIGNED,
+            'assigned_date' => Carbon::now(),
         ]);
 
 //        email customer that project is being worked on
@@ -157,8 +160,31 @@ class ProjectController extends Controller
     public function setStatus(Request $request){
         //return $request;
         $project = Project::findOrFail($request->projectId);
-        $project->status = $request->statusName;
+        $project->project_status = $request->statusName;
+        if($request->statusName == Statics::PROJECT_STATUS_NOT_ASSIGNED || $request->statusName == Statics::PROJECT_STATUS_CANCELLED || $request->statusName == Statics::PROJECT_STATUS_ARCHIVED){
+            $project->status = Statics::STATUS_IN_ACTIVE;
+        }else{
+            $project->status = Statics::STATUS_ACTIVE;
+        }
         $project->update();
         return back()->with('success', 'Status Updated!');
+    }
+
+    public function getFile(Request $request)
+    {
+        $this->validate($request, [
+            'project' => 'required|string|max:255',
+            'file' => 'required|string|max:255'
+        ]);
+
+        $project = Auth::user()->projects()->with('files')->where('id', $request->project)->firstOrFail();
+        $file = $project->files->firstWhere('id', $request->file);
+        if ($file) {
+            $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();
+            return redirect()->away(json_decode($url));
+        } else {
+            abort(404);
+            return false;
+        }
     }
 }

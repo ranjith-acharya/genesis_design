@@ -292,13 +292,14 @@ class DesignRequestController extends Controller
 
     public function getFile(Request $request)
     {
-
+        //return $request;
         $this->validate($request, [
             'file' => 'required|string|max:255',
             'design' => 'required|string|max:255'
         ]);
-
-        $design = Auth::user()->designs()->with('files')->where('system_designs.id', $request->design)->firstOrFail();
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        //return $engineer;
+        $design = $engineer->designs()->with('files')->where('system_designs.id', $request->design)->firstOrFail();
 
         $file = null;
         foreach ($design->files as $f)
@@ -315,10 +316,13 @@ class DesignRequestController extends Controller
     }
 
     public function closeDesignRequest($id)
-    {
+    {   //return $id;
         $design = Auth::user()->designs()->findOrFail($id);
         if ($design->payment_date != null) {
             $design->status = Statics::DESIGN_STATUS_COMPLETED;
+            $design->project->project_status = Statics::PROJECT_STATUS_COMPLETED;
+            $design->project->status = Statics::STATUS_IN_ACTIVE;
+            $design->project->save();
             $design->save();
             return response()->redirectToRoute('design.view', $design->id);
         }

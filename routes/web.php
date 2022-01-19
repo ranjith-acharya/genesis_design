@@ -39,6 +39,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects/get/file', 'ProjectController@getFile')->name('projects.get.file');
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
                 Route::post('/projects/assign', 'ProjectController@assign')->name('assign');
                 Route::get('/projects/{id}/assign', 'ProjectController@getAssignEngineer')->name('assignValue');
@@ -86,6 +87,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 
                 Route::resource('/projects', 'Admin\ProjectController');
                 Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects/get/file', 'Admin\ProjectController@getFile')->name('projects.get.file');
                 Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');
                 Route::post('/projects/assign', 'Admin\ProjectController@assign')->name('assign');
                 Route::get('/projects/{id}/assign', 'Admin\ProjectController@getAssignEngineer')->name('assignValue');

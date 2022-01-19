@@ -38,15 +38,18 @@ Project Index - Genesis Design
                             <tr class="black-text">
                                 <th>Select</th>
                                 <th>Project Name</th>
-                                <th> Assigned To</th>
+                                <th>Assigned To</th>
+                                <th>Assigned Date</th>
+                                <th>Design Type</th>
                                 <th>Project Status</th>
-                                <th>Project Type</th>
+                                <!-- <th>Project Type</th> -->
                                 <th>Action</th>
                                 <!-- <th>Designs</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($projectQuery as $data)
+                                @foreach($data->designs as $design)
                             <tr>
                                 <td class="center">
                                    <p><label>
@@ -57,20 +60,28 @@ Project Index - Genesis Design
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
-                                        <spa class="helper-text red-text">Not Assigned</span>
+                                        <span class="helper-text red-text">Not Assigned</span>
                                     @else
                                         {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
                                     @endif
                                 </td>
+                                <td>
+                                    @if($data->engineer_id == "")
+                                        <span class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $design->type->name }}
+                                </td>
                                 <td class="capitalize">
-                                @if($data->status == 'pending')
-                                    <span class="label label-red capitalize">{{ $data->status }}</span>
-                                @elseif($data->status == 'not assigned')
-                                    <span class="label label-warning capitalize">{{ $data->status }}</span>
+                                @if($data->status == 'in active')
+                                    <span class="label label-red capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                                 @else
-                                    <span class="label label-success capitalize">{{ $data->status }}</span>
+                                    <span class="label label-success capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                                 @endif</td>
-                                <td class="capitalize">{{ $data->type->name }}</td>
+                                <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
                                 <td class="center">
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
@@ -89,6 +100,7 @@ Project Index - Genesis Design
                                 <button type="submit" class="btn indigo">Design </button>
                                 </td> -->
                             </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

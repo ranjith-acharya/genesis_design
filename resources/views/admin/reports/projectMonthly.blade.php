@@ -92,10 +92,10 @@
         <thead>
         <tr>
             <th>Project Name</th>
-            <th>Customer City</th>
-            <th>Customer State</th>
-            <th>Assigned to</th>
+            <th>Customer Name</th>
+            <th>Assigned To</th>
             <th>Assigned Date</th>
+            <th>Created Date</th>
             <th>Status</th>
         </tr>
         </thead>
@@ -103,8 +103,7 @@
             @foreach($projects as $data)
             <tr>
                 <td>{{ $data->name }}</td>
-                <td>{{ $data->city }}</td>
-                <td>{{ $data->state }}</td>
+                <td class="capitalize">{{ $data->customer->first_name }} {{ $data->customer->last_name }}</td>
                 <td>
                     @if($data->engineer_id == "")
                         <span class="red-text">Not yet assigned</span>
@@ -112,16 +111,15 @@
                         {{ $data->engineer['first_name'] }} {{ $data->engineer['last_name'] }}
                     @endif
                 </td>
+                <td>{{ \Carbon\Carbon::parse( $data->assigned_date)->format('d M, Y') }}</td>
                 <td>
                     {{ \Carbon\Carbon::parse( $data->updated_at)->format('d M, Y') }}
                 </td>
                 <td>
-                    @if($data->status == 'pending')
-                        <span class="label label-red capitalize">{{ $data->status }}</span>
-                    @elseif($data->status == 'archived')
-                        <span class="label label-primary capitalize">{{ $data->status }}</span>
+                    @if($data->status == 'in active')
+                        <span class="label label-red capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                     @else
-                        <span class="label label-success capitalize">{{ $data->status }}</span>
+                        <span class="label label-success capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
                     @endif
                 </td>
             </tr>

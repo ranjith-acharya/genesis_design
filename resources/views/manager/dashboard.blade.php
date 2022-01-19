@@ -57,8 +57,8 @@ Manager Home - Genesis Design
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
-                            <h2 class="white-text m-b-5">{{ $projectsPending }}</h2>
-                            <h6 class="white-text op-5">Pending Projects</h6>
+                            <h2 class="white-text m-b-5">{{ $projectsInActive }}</h2>
+                            <h6 class="white-text op-5">In Active Projects</h6>
                         </div>
                         <div class="ml-auto">
                             <span class="white-text display-6"><i class="ti-info-alt"></i></span>
@@ -69,7 +69,7 @@ Manager Home - Genesis Design
         </div>
     </div>
     <div class="row">
-        <div class="col s12 l8">
+        <div class="col s12 l7">
             <div class="card card-hover">
                 <div class="card-content">
                     <div class="d-flex align-items-center">
@@ -93,7 +93,7 @@ Manager Home - Genesis Design
                 </div>
                 </div>
             </div>
-            <div class="col s12 l4">
+            <div class="col s12 l5">
                 <div class="card card-hover">                       
                     <div class="card-content analytics-info">                            
                         <h5 class="card-title">Project Status</h5>
@@ -136,9 +136,9 @@ Manager Home - Genesis Design
                                             <div class="input-field col s12">
                                                 <select id="status" name="status">
                                                     <option value="" disabled selected>Select Status</option>
-                                                    <option value="active">Active</option>
-                                                    <option value="archived">Archived</option>
-                                                    <option value="pending">Pending</option>
+                                                    @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
+                                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                                    @endforeach
                                                 </select>
                                                 <label>Status</label>
                                             </div>
@@ -155,9 +155,9 @@ Manager Home - Genesis Design
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
-                                <th>Customer City</th>
-                                <th>Customer State</th>
+                                <th>Customer Name</th>
                                 <th>Assigned To</th>
+                                <th>Assigned Date</th>
                                 <th>Created Date</th>
                                 <th>Status</th>
                             </tr>
@@ -170,11 +170,8 @@ Manager Home - Genesis Design
                                             {{ $monthly->name }}
                                         </a>
                                     </td>
-                                    <td>
-                                        {{ $monthly->city }}
-                                    </td>
-                                    <td>
-                                        {{ $monthly->state }}
+                                    <td class="capitalize">
+                                        {{ $monthly->customer->first_name }} {{ $monthly->customer->last_name }}
                                     </td>
                                     <td>
                                         @if($monthly->engineer_id == "")
@@ -185,17 +182,16 @@ Manager Home - Genesis Design
                                             </a>
                                         @endif
                                     </td>
+                                    <td>{{ \Carbon\Carbon::parse( $monthly->assign_date)->format('d M, Y') }}</td>
                                     <td>
                                         {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
-                                        @if($monthly->status == 'pending')
-                                            <span class="label label-red capitalize">{{ $monthly->status }}</span>
-                                        @elseif($monthly->status == 'archived')
-                                            <span class="label label-primary capitalize">{{ $monthly->status }}</span>
-                                        @else
-                                            <span class="label label-success capitalize">{{ $monthly->status }}</span>
-                                        @endif
+                                    @if($monthly->status == 'in active')
+                                        <span class="label label-red capitalize">{{ $monthly->status }} / {{ $monthly->project_status }}</span>
+                                    @else
+                                        <span class="label label-success capitalize">{{ $monthly->status }} / {{ $monthly->project_status }}</span>
+                                    @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -247,7 +243,7 @@ Manager Home - Genesis Design
                                         {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
-                                        @if($weekly->status == 'pending')
+                                        @if($weekly->status == 'in active')
                                             <span class="label label-red capitalize">{{ $weekly->status }}</span>
                                         @else
                                             <span class="label label-success capitalize">{{ $weekly->status }}</span>
@@ -284,7 +280,7 @@ Manager Home - Genesis Design
                 tableRow = "";
 
                 for(i=0;i<data.length;i++){
-                    tableRow += "<tr><td>"+data[i]['name']+"</a></td><td>"+data[i]['city']+"</td><td>"+data[i]['state']+"</td><td>"+data[i]['engineer_id']+"</td><td>"+data[i]['created_at']+"</td><td> @if ("+data[i]['status']+" == 'pending')  <span class='label label-red capitalize'>"+data[i]['status']+"</span>  @elseif("+data[i]['status']+" == 'archived')  <span class='label label-primary capitalize'>"+data[i]['status']+"</span>  @else <span class='label label-success capitalize'>"+data[i]['status']+"</span> @endif </td></tr>";
+                    tableRow += "<tr><td>"+data[i]['name']+"</a></td><td>"+data[i]['first_name']+data[i]['last_name']+"</td><td>"+data[i]['engineer_id']+"</td><td>"+data[i]['assigned_date']+"</td><td>"+data[i]['created_at']+"</td><td> @if("+data[i][status]+" == 'in active') <span class='label label-red capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @else <span class='label label-success capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @endif </td></tr>";
                 }
                 $("#tableContent").html(tableRow);
             }
@@ -324,7 +320,7 @@ $(function() {
                 legend: {
                     orient: 'horizontal',
                     x: 'left',
-                    data: ['Active', 'Pending', 'Complete', 'Archived']
+                    data: ['Assigned', 'Not Assigned', 'In Process', 'Completed']
                 },
 
                 // Add custom colors
@@ -386,13 +382,13 @@ $(function() {
                 series: [{
                     name: 'Status',
                     type: 'pie',
-                    radius: '70%',
-                    center: ['45%', '57.5%'],
+                    radius: '56%',
+                    center: ['42%', '60%'],
                     data: [
-                        {value: {{$projectsActive }}, name: 'Active'},
-                        {value: {{$projectsPending }}, name: 'Pending'},
-                        {value: 35, name: 'Complete'},
-                        {value: 18, name: 'Archived'}
+                        {value: {{$projectsAssigned }}, name: 'Assigned'},
+                        {value: {{$projectsInProcess }}, name: 'In Process'},
+                        {value: {{$projectsNotAssigned }}, name: 'Not Assigned'},                        
+                        {value: {{$projectsCompleted }}, name: 'Completed'}
                     ]
                 }]
         };

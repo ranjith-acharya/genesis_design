@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $fillable = [
-        'name', 'description', 'street_1', 'street_2', 'city', 'state', 'zip', 'country', 'project_type_id', 'customer_id', 'latitude', 'longitude', 'company_id'
+        'name', 'description', 'street_1', 'street_2', 'city', 'state', 'zip', 'country', 'project_type_id', 'customer_id', 'latitude', 'longitude', 'status', 'project_status', 'company_id', 'assigned_date', 
     ];
 
     protected $casts = [

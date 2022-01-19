@@ -29,11 +29,11 @@ class ReportController extends Controller
         if($startDate == "" && $endDate == "" && $status == ""){
             $projects = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
         }elseif($startDate == "" || $endDate == ""){
-            $projects = Project::where('status', $status)->get();
+            $projects = Project::where('project_status', $status)->get();
         }elseif($status == ""){
             $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
         }else{
-            $projects = Project::where('status', $status)
+            $projects = Project::where('project_status', $status)
                             ->whereBetween('created_at', [ $startDate, $endDate ])->get();
         }
         

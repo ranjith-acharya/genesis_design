@@ -9,6 +9,7 @@ use App\User;
 use App\SystemDesign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class SystemDesignController extends Controller
 {
@@ -83,7 +84,12 @@ class SystemDesignController extends Controller
 
     public function start($id){
         $design = Auth::user()->assignedDesigns()->with(['project.files.type', 'type', 'files'])->where('system_designs.id', $id)->firstOrFail();
+        //return $design->project;
         $design->status = Statics::DESIGN_STATUS_IN_PROGRESS;
+        $design->project->project_status = Statics::PROJECT_STATUS_IN_PROCESS;
+        $design->project->status = Statics::STATUS_ACTIVE;
+        $design->project->save();
+        $design->start_date = Carbon::now();
         $design->update();
         return view('engineer.design.view', ["design" => $design, 'fileTypes' => $design->project->files->groupBy('type.name')]);
     }

@@ -25,7 +25,8 @@ class CreateProjectsTable extends Migration
             $table->string('country');
             $table->string('latitude');
             $table->string('longitude');
-            $table->enum('status', \App\Statics\Statics::PROJECT_STATUSES)->default(\App\Statics\Statics::PROJECT_STATUS_PENDING);
+            $table->enum('status', \App\Statics\Statics::STATUSES)->default(\App\Statics\Statics::STATUS_IN_ACTIVE);
+            $table->enum('project_status', \App\Statics\Statics::PROJECT_STATUSES)->default(\App\Statics\Statics::PROJECT_STATUS_NOT_ASSIGNED);
 
             $table->foreignId('customer_id');
             $table->foreign('customer_id')->references('id')->on('users');
@@ -36,6 +37,7 @@ class CreateProjectsTable extends Migration
             $table->foreignId('project_type_id');
             $table->foreign('project_type_id')->references('id')->on('project_types');
 
+            $table->dateTime('assigned_date')->nullable();
             $table->timestamps();
         });
     }

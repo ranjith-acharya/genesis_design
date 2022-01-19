@@ -23,11 +23,11 @@ class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, Sh
         if($startDate == "" && $endDate == "" && $status == ""){
             return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
         }elseif($startDate == "" || $endDate == ""){
-            return Project::where('status', $status)->get();
+            return Project::where('project_status', $status)->get();
         }elseif($status == ""){
             return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
         }else{
-            return Project::where('status', $status)
+            return Project::where('project_status', $status)
                             ->whereBetween('created_at', [ $startDate, $endDate ])->get();
         }
     }
@@ -45,10 +45,12 @@ class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, Sh
             'Latitude',
             'Longitude',
             'Status',
+            'Project_Status',
             'Customer_ID',
             'Engineer_ID',
             'Company_ID',
             'Project_ID',
+            'Assigned_Date',
             'Created_at',
             'Updated_at',
         ];
