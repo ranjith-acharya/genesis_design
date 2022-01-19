@@ -129,6 +129,7 @@ class ProjectController extends Controller
             'file' => 'required|string|max:255'
         ]);
 
+        
         $project = Auth::user()->projects()->with('files')->where('id', $request->project)->firstOrFail();
         $file = $project->files->firstWhere('id', $request->file);
         if ($file) {
