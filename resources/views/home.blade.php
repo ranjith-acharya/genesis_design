@@ -35,7 +35,8 @@
             M.FormSelect.init(document.querySelectorAll('select'));
             paginationOptions.filers = [
                 {field: "project_type_id", value: M.FormSelect.getInstance(document.getElementById('project_type_select')).getSelectedValues()[0]},
-                {field: "status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]}
+                {field: "project_status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]},
+                {field: "status", value: M.FormSelect.getInstance(document.getElementById('status_select')).getSelectedValues()[0]}
             ]
             paginate();
         }
@@ -197,6 +198,15 @@
                         @endforeach
                     </select>
                     <label for="project_type_select">Project Type</label>
+                </div>
+                <div class="input-field inline w100-on-small-only">
+                    <select id="status_select" onchange="filter()">
+                        <option value="all">All</option>
+                            @foreach(\App\Statics\Statics::STATUSES as $Status)
+                                <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                            @endforeach
+                    </select>
+                    <label for="status_select"> Status</label>
                 </div>
                 <div class="input-field inline w100-on-small-only">
                     <select id="project_status_select" onchange="filter()">
