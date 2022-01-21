@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\DesignFile;
+use App\User;
+
 use App\Mail\Notification;
+use App\Notifications\AuroraDesign;
+use App\Notifications\ElectricalLoadDesign;
+use App\Notifications\EngineeringPermitDesign;
+use App\Notifications\PEStampingDesign;
+use App\Notifications\StructuralLoadDesign;
 use App\ProjectFile;
 use App\Statics\Statics;
 use App\SystemDesign;
@@ -127,6 +134,24 @@ class DesignRequestController extends Controller
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
 
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new AuroraDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+    
+            $admins = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                }
+            )->pluck('id');
+            foreach($admins as $admin){
+                User::findOrFail($admin)->notify(new AuroraDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+
             if ($project->engineer) {
                 Mail::to($project->engineer->email)
                     ->send(new Notification($project->engineer->email, "New design request for: " . $project->name, "Type: " . Statics::DESIGN_TYPE_AURORA, route('engineer.design.view', $sd->id), "View Design"));
@@ -155,11 +180,30 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $sd->status = Statics::DESIGN_STATUS_REQUESTED;
+            $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+            $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->fields;
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new StructuralLoadDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+    
+            $admins = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                }
+            )->pluck('id');
+            foreach($admins as $admin){
+                User::findOrFail($admin)->notify(new StructuralLoadDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
 
             if ($project->engineer) {
                 Mail::to($project->engineer->email)
@@ -185,11 +229,30 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $sd->status = Statics::DESIGN_STATUS_REQUESTED;
+            $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+            $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->only(["system_size", "hoa", "installation", "remarks", "module", "moduleType", "moduleOther", "inverter", "inverterType", "inverterOther", "racking", "rackingType", "rackingOther", "monitor", "monitorType", "monitorOther", "utility", "tree_cutting", "re_roofing", "service_upgrade", "others", "array", "plywood", "osb", "skip_sheating", "plank", "roofDecking_LayerThickness", "center_spacing", "purlin", "pitch", "azimuth", "rafter_size", "roofMaterialOption", "other_roof_material", "soft_spots", "bouncy", "existing_leaks", "vaulted_ceiling", "comp_shingle_layers", "age_of_shingles", "roof_condition", "access_attic_vent", "stud_finder", "supply_side_voltage", "manufacturer_model", "main_breaker_rating", "busbar_rating", "meter_no", "proposed_point_connection", "meter_location", "tap_possible", "breaker_space", "grounding_method", "disconnect_type", "panel_location", "manufacturer_model1[]", "main_breaker_rating1[]", "busbar_rating1[]", "average_bill", "average_bill1"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new EngineeringPermitDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+    
+            $admins = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                }
+            )->pluck('id');
+            foreach($admins as $admin){
+                User::findOrFail($admin)->notify(new EngineeringPermitDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
 
             if ($project->engineer) {
                 Mail::to($project->engineer->email)
@@ -211,11 +274,30 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $sd->status = Statics::DESIGN_STATUS_REQUESTED;
+            $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+            $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->only(["average_bill", "average_bill1"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new ElectricalLoadDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+    
+            $admins = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                }
+            )->pluck('id');
+            foreach($admins as $admin){
+                User::findOrFail($admin)->notify(new ElectricalLoadDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
 
             if ($project->engineer) {
                 Mail::to($project->engineer->email)
@@ -237,11 +319,30 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $sd->status = Statics::DESIGN_STATUS_REQUESTED;
+            $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+            $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->only(["structural_letter", "electrical_stamps"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
             $sd->save();
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new PEStampingDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
+    
+            $admins = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                }
+            )->pluck('id');
+            foreach($admins as $admin){
+                User::findOrFail($admin)->notify(new PEStampingDesign($project->name, route('engineer.design.view', $sd->id)));
+            }
 
             if ($project->engineer) {
                 Mail::to($project->engineer->email)

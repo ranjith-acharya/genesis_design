@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Notification;
+use App\User;
+use App\Notifications\CustomerProject;
 use App\Project;
 use App\ProjectFile;
 use App\ProjectType;
@@ -42,6 +45,28 @@ class ProjectController extends Controller
         $fields = $request->all();
         $fields['customer_id'] = Auth::id();
         $fields['company_id'] = (Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
+
+        $managers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->pluck('id');
+        foreach($managers as $manager){
+            User::findOrFail($manager)->notify(new CustomerProject);
+        }
+
+        $admins = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'admin');
+            }
+        )->pluck('id');
+        foreach($admins as $admin){
+            User::findOrFail($admin)->notify(new CustomerProject);
+        }
+        //return $engineers;
+
+        //User::hasRole('admin')->notify(new CustomerProject);
+        //return $admin;
 
         return Project::create($fields);
     }

@@ -63,48 +63,39 @@
                                 <span class="bars bar3"></span>
                             </a>
                         </li>
-                        <li><a class="dropdown-trigger" href="javascript: void(0);" data-target="noti_dropdown"><i class="material-icons">notifications</i></a>
+                        <li>
+                            <a class="dropdown-trigger" href="javascript: void(0);" data-target="noti_dropdown">
+                                <i class="far fa-bell"></i>
+                                @if(auth()->user()->unreadnotifications->count())
+                                    <span class="new badge red pill">{{ auth()->user()->unreadnotifications->count() }}</span>
+                                @endif
+                            </a>
                             <ul id="noti_dropdown" class="mailbox dropdown-content">
                                 <li>
                                     <div class="drop-title">Notifications</div>
                                 </li>
                                 <li>
                                     <div class="message-center">
-                                        <a href="#">
-                                                <span class="btn-floating btn-large red"><i class="material-icons">link</i></span>
+                                        @foreach(auth()->user()->unReadNotifications as $notification)
+                                            <a href="{{ $notification->data['route'] }}">
                                                 <span class="mail-contnet">
-                                                    <h5>Launch Admin</h5>
-                                                    <span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
+                                                    <h5 class="red-text">{{ $notification->data['info'] }}</h5>
+                                                    <span class="black-text mail-desc">{{ $notification->data['project_name'] }}</span><span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
                                                 </span>
                                             </a>
-                                        <a href="#">
-                                                <span class="btn-floating btn-large blue"><i class="material-icons">date_range</i></span>
+                                        @endforeach
+                                        @foreach(auth()->user()->readNotifications as $notification)
+                                            <a href="{{ $notification->data['route'] }}">
                                                 <span class="mail-contnet">
-                                                    <h5>Event today</h5>
-                                                    <span class="mail-desc">Just a reminder that you have event</span>
-                                                    <span class="time">9:10 AM</span>
+                                                    <h5 class="green-text">{{ $notification->data['info'] }}</h5>
+                                                    <span class="black-text mail-desc">{{ $notification->data['project_name'] }}</span><span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
                                                 </span>
                                             </a>
-                                        <a href="#">
-                                                <span class="btn-floating btn-large cyan"><i class="material-icons">settings</i></span>
-                                                <span class="mail-contnet">
-                                                    <h5>Settings</h5>
-                                                    <span class="mail-desc">You can customize this template as you want</span>
-                                                    <span class="time">9:08 AM</span>
-                                                </span>
-                                            </a>
-                                        <a href="#">
-                                                <span class="btn-floating btn-large green"><i class="material-icons">face</i></span>
-                                                <span class="mail-contnet">
-                                                    <h5>Lily Jordan</h5>
-                                                    <span class="mail-desc">Just see the my admin!</span>
-                                                    <span class="time">9:02 AM</span>
-                                                </span>
-                                            </a>
+                                        @endforeach
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="center-align" href="javascript:void(0);"> <strong>Check all notifications</strong> </a>
+                                    <a class="center-align" href="@if(Auth::user()->role == 'admin') {{route('admin.markRead')}} @elseif(Auth::user()->role == 'manager') {{route('manager.markRead')}} @else {{route('customer.markRead')}} @endif"> <strong>Mark all as read</strong> </a>
                                 </li>
                             </ul>
                         </li>
