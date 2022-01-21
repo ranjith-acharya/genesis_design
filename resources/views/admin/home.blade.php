@@ -235,7 +235,15 @@ Admin Home - Genesis Design
                                             </a>
                                         @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse( $monthly->assigned_date)->format('d M, Y') }}</td>
+                                    <td>
+                                    
+                                    @if($monthly->engineer_id == "")
+                                        <span class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ Carbon\Carbon::parse($monthly->assigned_date)->format('M d, Y') }}
+                                    @endif
+                                    
+                                    </td>
                                     <td>
                                         {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
                                     </td>
