@@ -49,7 +49,7 @@
                     <div class="col s12 center">
                         <div class="valign-wrapper">
                             <div class="col s4 m3 left-align prussian-blue-text bold center">@{{ this.name }}</div>
-                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.status }} / @{{ this.project_status }}</div>
                             <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.type.name }}</div>
                             <div class="col s2 m2 left-align prussian-blue-text center capitalize">@{{ this.created_at }} (UTC)</div>
                             <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center">
