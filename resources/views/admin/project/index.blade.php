@@ -16,13 +16,23 @@ Project Index - Genesis Design
 	            @endif
                 <div class="card-content">
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col s3">
                             <h3>List of Projects</h3>
                         </div>
-                        <div class="col s6 right-align">
+                        <div class="col s3 ">
+                            <p><label>
+                                <input type="button" class="btn btn-primary" style="display:none;" id="archive" onclick="archiveAll()" value="Archive All"/>
+                            </label></p>
+</div>
+<div class="col s3 ">
+                            <p><label>
+                                <input type="button" class="btn btn-primary" style="display:none;" id="assign" onclick="assignAll()" value="Assign All"/>
+                            </label></p>
+</div>
+                        <!-- <div class="col s3 right-align">
                             <p><label>
                                 <input type="checkbox" class="filled-in" id="selectAll"/><span>Select All</span>
-                            </label></p>
+                            </label></p> -->
                     
                     <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
                         <ul id='dropdown1' class='dropdown-content'>
@@ -31,12 +41,12 @@ Project Index - Genesis Design
                             <li><a href="http://127.0.0.1:8000/project/new/commercial">Commercial</a></li>
                             <li class="divider" tabindex="-1"></li>
                         </ul> -->                   
-                        </div>
+                        <!-- </div> -->
                     </div>
                     <table id="zero_config" class="responsive-table display">
                         <thead>
                             <tr class="black-text">
-                                <th>Select</th>
+                                <!-- <th>Select</th> -->
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
@@ -51,12 +61,12 @@ Project Index - Genesis Design
                             @foreach($projectQuery as $data)
                                 @foreach($data->designs as $design)
                             <tr>
-                                <td class="center">
+                                <!-- <td class="center">
                                    <p><label>
                                         <input type="checkbox" class="filled-in checkboxAll" id="{{ $data->id }}" value="{{ $data->id }}"/>
                                         <span> </span>
                                     </label></p>
-                                </td>
+                                </td> -->
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
@@ -163,8 +173,28 @@ Project Index - Genesis Design
     }
 
     var checkID = [];
-    $("#selectAll").click(function(){
+
+    $(".checkboxAll").click(function(){
         // alert("Hey!");
+        if(this.checked){
+           
+            checkID.push(this.value);
+        }
+        else{
+            checkID.splice(checkID.indexOf(this.value),1);
+        }
+        if(checkID.length>0)
+        {
+            $("#archive").css("display","block");
+            $("#assign").css("display","block");
+        }
+        else{
+            $("#archive").css("display","none");
+            $("#assign").css("display","none");
+        }
+    });
+    $("#selectAll").click(function(){
+        checkID = [];
         if(this.checked){
             // alert("checked");
             $(".checkboxAll").each(function(id, checkboxValue) {
@@ -174,9 +204,19 @@ Project Index - Genesis Design
             });
             console.log(checkID);
         }else{
-            $(".checkboxAll").each(function() {
+            $(".checkboxAll").each(function(id, checkboxValue) {
                 $(".checkboxAll").prop("checked", false);
+                checkID.splice(checkID.indexOf(checkboxValue.value),1);
             });
+        }
+        if(checkID.length>0)
+        {
+            $("#archive").css("display","block");
+            $("#assign").css("display","block");
+        }
+        else{
+            $("#archive").css("display","none");
+            $("#assign").css("display","none");
         }
     });
     

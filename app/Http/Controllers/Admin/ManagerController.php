@@ -57,7 +57,7 @@ class ManagerController extends Controller
         $userData['role'] = 'manager';
         $userData['password'] = Hash::make($userData['password']);
         $user = User::create($userData);
-        //$user->assignRole('customer');
+        $user->assignRole('manager');
 
         return back()->with('success', 'Manager  created successfully!');
     }
