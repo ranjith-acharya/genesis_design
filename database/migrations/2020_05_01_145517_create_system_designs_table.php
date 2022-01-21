@@ -17,7 +17,8 @@ class CreateSystemDesignsTable extends Migration
         Schema::create('system_designs', function (Blueprint $table) {
             $table->id();
             $table->unsignedFloat('price');
-            $table->enum('status', \App\Statics\Statics::DESIGN_STATUSES)->default(\App\Statics\Statics::DESIGN_STATUS_REQUESTED);
+            $table->enum('status_customer', \App\Statics\Statics::DESIGN_STATUS_CUSTOMER)->default(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED);
+            $table->enum('status_engineer', \App\Statics\Statics::DESIGN_STATUS_ENGINEER)->default(\App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED);
             $table->longText('fields')->nullable()->default(null);
             $table->string('stripe_payment_code')->nullable()->default(null);
             $table->dateTime('payment_date')->nullable()->default(null);

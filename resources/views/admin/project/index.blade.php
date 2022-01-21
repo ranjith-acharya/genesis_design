@@ -50,7 +50,7 @@ Project Index - Genesis Design
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
-                                <th>Design Type</th>
+                                <!-- <th>Design Type</th> -->
                                 <th>Project Status</th>
                                 <!-- <th>Project Type</th> -->
                                 <th>Action</th>
@@ -59,7 +59,7 @@ Project Index - Genesis Design
                         </thead>
                         <tbody>
                             @foreach($projectQuery as $data)
-                                @foreach($data->designs as $design)
+                                
                             <tr>
                                 <!-- <td class="center">
                                    <p><label>
@@ -82,9 +82,9 @@ Project Index - Genesis Design
                                         {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
                                     @endif
                                 </td>
-                                <td>
-                                    {{ $design->type->name }}
-                                </td>
+                                <!-- <td>
+                                   abc
+                                </td> -->
                                 <td class="capitalize">
                                 @if($data->status == 'in active')
                                     <span class="label label-red capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
@@ -93,7 +93,7 @@ Project Index - Genesis Design
                                 @endif</td>
                                 <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
                                 <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
+                                <!-- <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
                                         <li><a href="#assign" onclick="setProjectID('{{ $data->name }}',{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
@@ -104,13 +104,14 @@ Project Index - Genesis Design
                                             </form>
                                             <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
+                                    <button >Assign</button>
                                 </td>
                                 <!-- <td>
                                 <button type="submit" class="btn indigo">Design </button>
                                 </td> -->
                             </tr>
-                                @endforeach
+                                
                             @endforeach
                         </tbody>
                     </table>

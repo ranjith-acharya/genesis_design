@@ -46,14 +46,15 @@
         <li class="mb-xxs">
             <div class="collapsible-header" style="flex-direction: column">
                 <div class="row mb-0 w100">
-                    <div class="col s12 center">
+                    <div class="col s12">
                         <div class="valign-wrapper">
-                            <div class="col s4 m3 left-align prussian-blue-text bold center">@{{ this.name }}</div>
-                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.status }} / @{{ this.project_status }}</div>
-                            <div class="col s3 m2 left-align prussian-blue-text center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s2 m2 left-align prussian-blue-text center capitalize">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s3 prussian-blue-text bold">@{{ this.name }}</div>
+                            <div class="col s2 prussian-blue-text bold">@{{ this.id }}</div>
+                            <div class="col s2 prussian-blue-text capitalize">@{{ this.status }}</div>
+                            <div class="col s2 prussian-blue-text capitalize">@{{ this.project_status }}</div>
+                            <div class="col s3 prussian-blue-text capitalize">@{{ this.created_at }} (UTC)</div>
                             <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center">
-                                @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
+                                @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn prussian-blue" href="{{route('project.edit', '')}}/@{{ this.id }}">View / Edit</a>
                                     <a class="btn prussian-blue ml-xxxs" href="{{route('design.list')}}/@{{ this.id  }}">Designs</a>
                                 @else
@@ -232,12 +233,13 @@
             <div class="col s12 mt-0 mb-0">
                 <div class="card-panel z-depth-0 transparent pb-xxs mb-0 mt-0" style="flex-direction: column; padding: 1rem">
                     <div class="row mb-0 w100">
-                        <div class="col s12 center">
-                            <div class="col s4 m3 left-align prussian-blue-text bold center">Name</div>
-                            <div class="col s3 m1 left-align black-text center">Status</div>
-                            <div class="col s3 m2 left-align black-text center">Type</div>
-                            <div class="col s2 m2 left-align black-text center">Created at</div>
-                            <div class="col m5 left-align center"></div>
+                        <div class="col s12">
+                            <div class="col s2 prussian-blue-text bold">Name</div>
+                            <div class="col s2 prussian-blue-text bold">Service</div>
+                            <div class="col s1 prussian-blue-text capitalize">State</div>
+                            <div class="col s2 prussian-blue-text capitalize">Project Status</div>
+                            <div class="col s4 prussian-blue-text capitalize">Created at</div>
+                            <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center"></div>
                         </div>
                     </div>
                 </div>
