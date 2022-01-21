@@ -36,6 +36,18 @@ class ProjectController extends Controller
         return view('admin.project.index', compact('projectQuery', 'engineers'));
     }
 
+    public function archiveAll(Request $request)
+    {
+        return $request;
+        foreach($request->project_ids as $project_id)
+        {
+            $project = Project::findOrFail($project_id);
+            $project->project_status=Statics::PROJECT_STATUS_ARCHIVED;
+            $project_id->status=Statics::STATUS_IN_ACTIVE;
+            $project->save();
+        }
+        return "Archive Successfully";
+    }
     /**
      * Show the form for creating a new resource.
      *

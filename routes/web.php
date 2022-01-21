@@ -84,7 +84,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 
                 Route::get('/projects/list', 'Admin\ProjectController@indexProject')->name('projects.list');
                 Route::post('/project/set/status', 'Admin\ProjectController@setStatus')->name('projects.set.status');
-                
+                Route::get('/project/archiveAll','Admin\ProjectController@archiveAll')->name('projects.set.archiveAll');
                 Route::resource('/projects', 'Admin\ProjectController');
                 Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects/get/file', 'Admin\ProjectController@getFile')->name('projects.get.file');

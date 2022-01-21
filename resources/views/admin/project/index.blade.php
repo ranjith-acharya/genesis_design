@@ -21,16 +21,16 @@ Project Index - Genesis Design
                         </div>
                         <div class="col s3 ">
                             <p><label>
-                                <input type="button" class="btn btn-primary" style="display:none;" id="archive" onclick="archiveAll()" value="Archive All"/>
+                                <input type="button" class="btn btn-primary" style="display:none;" id="archiveBtn" onclick="archiveAll()" value="Archive All"/>
                             </label></p>
 </div>
 <div class="col s3 ">
                             <p><label>
-                                <input type="button" class="btn btn-primary" style="display:none;" id="assign" onclick="assignAll()" value="Assign All"/>
+                                <input type="button" class="btn btn-primary" style="display:none;" id="assignBtn" onclick="assignAll()" value="Assign All"/>
                             </label></p>
 </div>
-                        <!-- <div class="col s3 right-align">
-                            <p><label>
+                        <div class="col s3 right-align">
+                            <!-- <p><label>
                                 <input type="checkbox" class="filled-in" id="selectAll"/><span>Select All</span>
                             </label></p> -->
                     
@@ -41,12 +41,12 @@ Project Index - Genesis Design
                             <li><a href="http://127.0.0.1:8000/project/new/commercial">Commercial</a></li>
                             <li class="divider" tabindex="-1"></li>
                         </ul> -->                   
-                        <!-- </div> -->
+                        </div>
                     </div>
                     <table id="zero_config" class="responsive-table display">
                         <thead>
                             <tr class="black-text">
-                                <!-- <th>Select</th> -->
+                            <th><p><label><input type="checkbox" class="filled-in" id="selectAll"/><span></span> </label></p></th>
                                 <th>Project Name</th>
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
@@ -61,12 +61,12 @@ Project Index - Genesis Design
                             @foreach($projectQuery as $data)
                                 @foreach($data->designs as $design)
                             <tr>
-                                <!-- <td class="center">
+                                <td class="center">
                                    <p><label>
                                         <input type="checkbox" class="filled-in checkboxAll" id="{{ $data->id }}" value="{{ $data->id }}"/>
-                                        <span> </span>
+                                        <span>  </span>
                                     </label></p>
-                                </td> -->
+                                </td>
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
@@ -146,6 +146,8 @@ Project Index - Genesis Design
 
 @section('js')
 <script>
+    var checkID = [];
+
     function setProjectID(name,id)
     {
         $('#project_id').val(id);
@@ -168,12 +170,25 @@ Project Index - Genesis Design
                 }
             });
     }
+
+    function archiveAll()
+    {
+        $.ajax({
+                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+"archiveAll",
+                method:"get",
+                data:{project_ids:checkID},
+                success:function(data)
+                {
+                   alert(data);
+                   console.log(data);      
+                }
+            });
+    }
     function archiveProject(id){
         $("#archiveForm"+id).submit();
     }
 
-    var checkID = [];
-
+    
     $(".checkboxAll").click(function(){
         // alert("Hey!");
         if(this.checked){
@@ -185,12 +200,12 @@ Project Index - Genesis Design
         }
         if(checkID.length>0)
         {
-            $("#archive").css("display","block");
-            $("#assign").css("display","block");
+            $("#archiveBtn").css("display","block");
+            $("#assignBtn").css("display","block");
         }
         else{
-            $("#archive").css("display","none");
-            $("#assign").css("display","none");
+            $("#archiveBtn").css("display","none");
+            $("#assignBtn").css("display","none");
         }
     });
     $("#selectAll").click(function(){
@@ -211,12 +226,12 @@ Project Index - Genesis Design
         }
         if(checkID.length>0)
         {
-            $("#archive").css("display","block");
-            $("#assign").css("display","block");
+            $("#archiveBtn").css("display","block");
+            $("#assignBtn").css("display","block");
         }
         else{
-            $("#archive").css("display","none");
-            $("#assign").css("display","none");
+            $("#archiveBtn").css("display","none");
+            $("#assignBtn").css("display","none");
         }
     });
     
