@@ -120,7 +120,8 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $sd->status = Statics::DESIGN_STATUS_REQUESTED;
+            $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+            $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "moduleType", "moduleOther", "racking", "rackingType", "rackingOther", "inverter", "inverterType", "inverterOther", "monitor", "monitorType", "monitorOther"]);
             $sd->stripe_payment_code = $request->stripe_payment_code;
