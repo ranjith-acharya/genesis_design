@@ -109,7 +109,7 @@
                         <div class="valign-wrapper">
                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                             <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status_customer }}</div>
                             <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
                             <div class="col s4 m2 left-align prussian-blue-text center">$ @{{ this.price }}</div>
                             <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
@@ -122,7 +122,7 @@
                             </div>
                         @else
                             <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status_engineer }}</div>
                             <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
                             <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
                             <div class="col s12 m2 right-align prussian-blue-text hide-on-med-and-down center">

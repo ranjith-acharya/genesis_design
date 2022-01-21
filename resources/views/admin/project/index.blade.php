@@ -48,6 +48,7 @@ Project Index - Genesis Design
                             <tr class="black-text">
                                 <!-- <th>Select</th> -->
                                 <th>Project Name</th>
+                                <th>Service Name</th>
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
                                 <!-- <th>Design Type</th> -->
@@ -59,7 +60,7 @@ Project Index - Genesis Design
                         </thead>
                         <tbody>
                             @foreach($projectQuery as $data)
-                                
+                            @foreach($data->designs as $design)
                             <tr>
                                 <!-- <td class="center">
                                    <p><label>
@@ -68,6 +69,7 @@ Project Index - Genesis Design
                                     </label></p>
                                 </td> -->
                                 <td>{{ $data->name }}</td>
+                                <td>{{ $design->type->name }}</td>
                                 <td>
                                     @if($data->engineer_id == "")
                                         <span class="helper-text red-text">Not Assigned</span>
@@ -93,9 +95,9 @@ Project Index - Genesis Design
                                 @endif</td>
                                 <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
                                 <td class="center">
-                                <!-- <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
+                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$data->id}}' class='dropdown-content'>
-                                        <li><a href="#assign" onclick="setProjectID('{{ $data->name }}',{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
+                                        <li><a href="#assignModel" onclick="setProjectID('{{ $data->name }}',{{$data->id}},{{$design->id}})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
                                         <li>
                                             <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
@@ -104,18 +106,18 @@ Project Index - Genesis Design
                                             </form>
                                             <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
                                         </li>
-                                    </ul> -->
-                                    <button >Assign</button>
+                                    </ul>
+                                   
                                 </td>
                                 <!-- <td>
                                 <button type="submit" class="btn indigo">Design </button>
                                 </td> -->
                             </tr>
-                                
+                            @endforeach
                             @endforeach
                         </tbody>
                     </table>
-                    <div id="assign" class="modal modal-fixed-footer">
+                    <div id="assignModel" class="modal modal-fixed-footer">
                         <div class="modal-content">
                             <h4>Select Engineer to Assign <span id="project_name"></span> project</h4>
                             <form method="post" id="assign_form">
@@ -130,6 +132,7 @@ Project Index - Genesis Design
                                 </div>
                                 <div class="col s12">
                                     <input type="hidden" name="project_id" id="project_id" value="">
+                                    <input type="hidden" name="design_id" id="design_id" value="">
                                     <a><button type="submit" class="green white-text btn btn-small">Assign</button></a>
                                 </div>
                             </form>
@@ -147,9 +150,11 @@ Project Index - Genesis Design
 
 @section('js')
 <script>
-    function setProjectID(name,id)
+    function setProjectID(name,id,design_id)
     {
+        console.log(design_id);
         $('#project_id').val(id);
+        $("#design_id").val(design_id);
         $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
         $("#project_name").text(name);
         //alert(id)

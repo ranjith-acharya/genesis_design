@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Mail\Notification;
+use Illuminate\Support\Facades\Mail;
+use App\SystemDesign;
 
 class ProjectController extends Controller
 {
@@ -135,18 +138,26 @@ class ProjectController extends Controller
 
     public function assign(Request $request)
     {
-        //return $request;
+        $user_name=Auth::user()->first_name;
         $project = Project::with('customer')->findOrFail($request->project_id);
+        
         Project::where('id', $request->project_id)->update([
             "engineer_id" => $request->engineer_id,
             'status' => Statics::STATUS_ACTIVE,
             'project_status' => Statics::PROJECT_STATUS_ASSIGNED,
             'assigned_date' => Carbon::now(),
         ]);
+        $system_design=SystemDesign::findOrFail($request->design_id);
+        $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+        $system_design->save();
 
-//        email customer that project is being worked on
-//        Mail::to($project->customer->email)
-//            ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+        Mail::to($project->customer->email)
+        ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+        
+        $project=Project::findOrFail($request->project_id);
+        Mail::to($project->engineer->email)
+            ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: <b>$project->name</b> By <br><b>$user_name</b>!", route('engineer.project.view', $project->id), "View Project"));
 
 
         return back()->with('success', 'Project assigned successfully!');

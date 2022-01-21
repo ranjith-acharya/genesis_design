@@ -14,7 +14,7 @@
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
-                    <h6><span class="imperial-red-text bold capitalize">{{$design->status}}</span></h6>
+                    <h6><span class="imperial-red-text bold capitalize">{{$design->status_customer}}</span></h6>
                 </div>
                 <div class="col s1 m1">
                     <a href="{{route('design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
@@ -47,7 +47,7 @@
         <div class="row" id="messages"><br>
             <div class="col s12">
                 <h4>Messages</h4>
-                <x-DesignMessages :designID="$design->id" readOnly="{{$design->status === \App\Statics\Statics::DESIGN_STATUS_COMPLETED}}"></x-DesignMessages>
+                <x-DesignMessages :designID="$design->id" readOnly="{{$design->status_customer === \App\Statics\Statics::DESIGN_STATUS_COMPLETED}}"></x-DesignMessages>
             </div>
         </div>
         <div class="row" id="proposals">
