@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Mail\Notification;
+use App\Notifications\ManagerAssign;
 use Illuminate\Support\Facades\Mail;
 use App\SystemDesign;
 
@@ -152,8 +153,12 @@ class ProjectController extends Controller
         $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
         $system_design->save();
 
+        
+        User::findOrFail($request->engineer_id)->notify(new ManagerAssign($project->name, route('engineer.project.view', $project->id)));
+        User::findOrFail($project->customer->id)->notify(new ManagerAssign($project->name, route('project.edit', $project->id)));
+
         Mail::to($project->customer->email)
-        ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+            ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
         
         $project=Project::findOrFail($request->project_id);
         Mail::to($project->engineer->email)

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ManagerAssign extends Notification
+class StructuralLoadDesign extends Notification
 {
     use Queueable;
 
@@ -59,7 +59,7 @@ class ManagerAssign extends Notification
     public function toArray($notifiable)
     {
         return [
-            'info' => "Project Assigned!",
+            'info' => "New Structural Load Design!",
             'project_name' => $this->project_name,
             'route' => $this->link,
         ];

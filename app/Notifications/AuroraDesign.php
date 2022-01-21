@@ -7,13 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ManagerAssign extends Notification
+class AuroraDesign extends Notification
 {
     use Queueable;
 
     public $project_name;
     public $link;
-
     /**
      * Create a new notification instance.
      *
@@ -59,7 +58,7 @@ class ManagerAssign extends Notification
     public function toArray($notifiable)
     {
         return [
-            'info' => "Project Assigned!",
+            'info' => "New Aurora Design!",
             'project_name' => $this->project_name,
             'route' => $this->link,
         ];

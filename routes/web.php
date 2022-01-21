@@ -22,6 +22,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
+
+                Route::get('/markRead', 'NotificationController@markRead')->name('markRead');
+                
                 Route::namespace('Admin')->group(function () {
                 //Route::get('/customer','UserController@customerIndex')->name('customers');
                 //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
@@ -73,6 +76,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
     Route::group(['middleware' => ['role:manager']], function() {
         Route::prefix('manager')->group(function() {
             Route::name('manager.')->group(function() {
+                Route::get('/markRead', 'NotificationController@markRead')->name('markRead');
                 Route::resource('/home', 'Manager\DashboardController');
                 Route::get('/project/monthly', 'Manager\DashboardController@projectMonthly')->name('project.monthly');
                 
@@ -147,6 +151,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
     });
 
     //Route::group(['middleware' => ['role:customer']], function () {
+        Route::get('/markRead', 'NotificationController@markRead')->name('customer.markRead');
 
         Route::get('/customer/reports', 'ReportController@reportIndex')->name('customer.export');
         Route::get('/customer/projects/self', 'ReportController@getProjects')->name('customer.projects.list');

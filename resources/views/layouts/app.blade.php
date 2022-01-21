@@ -66,7 +66,9 @@
                         <li>
                             <a class="dropdown-trigger" href="javascript: void(0);" data-target="noti_dropdown">
                                 <i class="far fa-bell"></i>
-                                <span class="new badge red pill">{{ auth()->user()->notifications->count() }}</span>
+                                @if(auth()->user()->unreadnotifications->count())
+                                    <span class="new badge red pill">{{ auth()->user()->unreadnotifications->count() }}</span>
+                                @endif
                             </a>
                             <ul id="noti_dropdown" class="mailbox dropdown-content">
                                 <li>
@@ -75,25 +77,25 @@
                                 <li>
                                     <div class="message-center">
                                         @foreach(auth()->user()->unReadNotifications as $notification)
-                                            <a href="#">
+                                            <a href="{{ $notification->data['route'] }}">
                                                 <span class="mail-contnet">
-                                                    <h5 class="red-text">{{ $notification->data['data'] }}</h5>
-                                                    <span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
+                                                    <h5 class="red-text">{{ $notification->data['info'] }}</h5>
+                                                    <span class="black-text mail-desc">{{ $notification->data['project_name'] }}</span><span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
                                                 </span>
                                             </a>
                                         @endforeach
                                         @foreach(auth()->user()->readNotifications as $notification)
-                                            <a href="#">
+                                            <a href="{{ $notification->data['route'] }}">
                                                 <span class="mail-contnet">
-                                                    <h5 class="green-text">{{ $notification->data['data'] }}</h5>
-                                                    <span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
+                                                    <h5 class="green-text">{{ $notification->data['info'] }}</h5>
+                                                    <span class="black-text mail-desc">{{ $notification->data['project_name'] }}</span><span class="time">{{ Carbon\Carbon::parse($notification->created_at)->diffForHumans(['options' => 0]) }}</span>
                                                 </span>
                                             </a>
                                         @endforeach
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="center-align" href="javascript:void(0);"> <strong>Mark all as read</strong> </a>
+                                    <a class="center-align" href="@if(Auth::user()->role == 'admin') {{route('admin.markRead')}} @elseif(Auth::user()->role == 'manager') {{route('manager.markRead')}} @else {{route('customer.markRead')}} @endif"> <strong>Mark all as read</strong> </a>
                                 </li>
                             </ul>
                         </li>
