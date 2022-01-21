@@ -46,23 +46,23 @@ class ProjectController extends Controller
         $fields['customer_id'] = Auth::id();
         $fields['company_id'] = (Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
 
-        $managers = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'manager');
-            }
-        )->pluck('id');
-        foreach($managers as $manager){
-            User::findOrFail($manager)->notify(new CustomerProject);
-        }
+        // $managers = User::whereHas(
+        //     'roles', function($q){
+        //         $q->where('name', 'manager');
+        //     }
+        // )->pluck('id');
+        // foreach($managers as $manager){
+        //     User::findOrFail($manager)->notify(new CustomerProject);
+        // }
 
-        $admins = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'admin');
-            }
-        )->pluck('id');
-        foreach($admins as $admin){
-            User::findOrFail($admin)->notify(new CustomerProject);
-        }
+        // $admins = User::whereHas(
+        //     'roles', function($q){
+        //         $q->where('name', 'admin');
+        //     }
+        // )->pluck('id');
+        // foreach($admins as $admin){
+        //     User::findOrFail($admin)->notify(new CustomerProject);
+        // }
         //return $engineers;
 
         //User::hasRole('admin')->notify(new CustomerProject);

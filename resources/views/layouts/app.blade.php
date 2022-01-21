@@ -72,7 +72,7 @@
                             </a>
                             <ul id="noti_dropdown" class="mailbox dropdown-content">
                                 <li>
-                                    <div class="drop-title">Notifications</div>
+                                    <div class="drop-title">You have {{ auth()->user()->unreadnotifications->count() }} Notifications</div>
                                 </li>
                                 <li>
                                     <div class="message-center">
