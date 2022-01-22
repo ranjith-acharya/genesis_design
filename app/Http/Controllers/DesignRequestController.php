@@ -421,7 +421,8 @@ class DesignRequestController extends Controller
     {   //return $id;
         $design = Auth::user()->designs()->findOrFail($id);
         if ($design->payment_date != null) {
-            $design->status = Statics::DESIGN_STATUS_COMPLETED;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
             $design->project->project_status = Statics::PROJECT_STATUS_COMPLETED;
             $design->project->status = Statics::STATUS_IN_ACTIVE;
             $design->project->save();

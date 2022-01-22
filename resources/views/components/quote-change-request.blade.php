@@ -64,6 +64,7 @@
         function reject() {
 
             let note = document.getElementById('modal_note');
+            alert(note);
             if (note.value.trim()){
                 axios("{{route('engineer.change_requests.quote')}}", {
                     method: 'post',
@@ -79,6 +80,7 @@
                         'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                     }
                 }).then(response => {
+                    console.log(response);
                     if (response.status === 200 || response.status === 201) {
                         M.toast({
                             html: "Quote sent!",

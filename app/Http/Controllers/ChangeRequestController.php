@@ -105,14 +105,19 @@ class ChangeRequestController extends Controller
             $query->findOrFail($request->change_request_id);
         }])->where('system_designs.id', $request->design)->firstOrFail();
         $cr = $design->changeRequests[0];
+       
         if ($request->approve){
             $cr->price = $request->quote;
             $cr->status = Statics::CHANGE_REQUEST_STATUS_AWAITING_APPROVAL;
+            // $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_ACCEPTED;
+            // $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_ACCEPTED;
+            // $design->save();
         }else{
             $cr->price = null;
             $cr->status = Statics::CHANGE_REQUEST_STATUS_REJECTED;
 
-            $design->status = Statics::DESIGN_STATUS_COMPLETED;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
             $design->save();
         }
 
@@ -155,7 +160,7 @@ class ChangeRequestController extends Controller
                 "View Change Request"));
         
         Mail::to(User::where('role', 'admin')->first()->email)
-            ->send(new Notification($design->project->engineer->email,
+            ->send(new Notification(User::where('role', 'admin')->first()->email,
                 "Customer accepted quote for: " . $design->type->name,
                 "",
                 route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
@@ -183,7 +188,8 @@ class ChangeRequestController extends Controller
             $cr->status = Statics::CHANGE_REQUEST_STATUS_REJECTED;
             $cr->save();
 
-            $design->status = Statics::DESIGN_STATUS_COMPLETED;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
             $design->save();
 
             return response()->redirectToRoute('design.view', $design->id);
