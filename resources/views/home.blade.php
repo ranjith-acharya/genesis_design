@@ -187,36 +187,44 @@
         </div><br><br>
         <div class="row mb-0">
             <div class="col s12 m9 center-on-small-only">
-                <div class="input-field inline w100-on-small-only" style="min-width: 33%">
-                    <input id="project_search" type="text" data-type="projects">
-                    <label for="project_search">Search for project(s)...</label>
+                <div class="col s3">
+                    <div class="input-field inline">
+                        <input id="project_search" type="text" data-type="projects">
+                        <label for="project_search">Search for project(s)...</label>
+                    </div>
                 </div>
-                <div class="input-field inline w100-on-small-only">
-                    <select id="project_type_select" onchange="filter()">
-                        <option value="all">All</option>
-                        @foreach($projectTypes as $projectType)
-                            <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
-                        @endforeach
-                    </select>
-                    <label for="project_type_select">Project Type</label>
-                </div>
-                <div class="input-field inline w100-on-small-only">
-                    <select id="status_select" onchange="filter()">
-                        <option value="all">All</option>
-                            @foreach(\App\Statics\Statics::STATUSES as $Status)
-                                <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                <div class="col s3">
+                    <div class="input-field inline">
+                        <select id="project_type_select" onchange="filter()">
+                            <option value="all">All</option>
+                            @foreach($projectTypes as $projectType)
+                                <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
                             @endforeach
-                    </select>
-                    <label for="status_select"> Status</label>
+                        </select>
+                        <label for="project_type_select">Project Type</label>
+                    </div>
                 </div>
-                <div class="input-field inline w100-on-small-only">
-                    <select id="project_status_select" onchange="filter()">
-                        <option value="all">All</option>
-                            @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
-                                <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
-                            @endforeach
-                    </select>
-                    <label for="project_status_select">Project Status</label>
+                <div class="col s3">
+                    <div class="input-field inline">
+                        <select id="status_select" onchange="filter()">
+                            <option value="all">All</option>
+                                @foreach(\App\Statics\Statics::STATUSES as $Status)
+                                    <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                                @endforeach
+                        </select>
+                        <label for="status_select"> Status</label>
+                    </div>
+                </div>
+                <div class="col s3">
+                    <div class="input-field inline">
+                        <select id="project_status_select" onchange="filter()">
+                            <option value="all">All</option>
+                                @foreach(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER as $projectStatus)
+                                    <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                @endforeach
+                        </select>
+                        <label for="project_status_select">Project Status</label>
+                    </div>
                 </div>
             </div>
             <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">

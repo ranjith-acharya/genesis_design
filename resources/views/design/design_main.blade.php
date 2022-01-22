@@ -17,7 +17,7 @@
                     @if($design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_HOLD || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST)
                         <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
                     @else
-                    <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
+                        <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
                     @endif
                 </div>
                 <div class="col s1 m1">

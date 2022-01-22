@@ -50,7 +50,41 @@ Create Bulk Project
                                     </div>
                                    
                                 </div>
-                                <div class="row">
+                                <div class="row input-field">
+                                    <div class="col s4">
+                                        <p><label>
+                                            <input type="checkbox" id="aurora_design" name="aurora_design"/>
+                                            <span>Aurora Design</span>
+                                        </label></p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><label>
+                                            <input type="checkbox" id="structural_load" name="structural_load"/>
+                                            <span>Structural Load Letter and Calculations</span>
+                                        </label></p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><label>
+                                            <input type="checkbox" id="pe_stamping" name="pe_stamping"/>
+                                            <span>PE Stamping</span>
+                                        </label></p>
+                                    </div>
+                                </div>
+                                <div class="row input-field">
+                                    <div class="col s4">
+                                        <p><label>
+                                            <input type="checkbox" id="electrical_load" name="electrical_load"/>
+                                            <span>Electrical Load Calculations</span>
+                                        </label></p>
+                                    </div>
+                                    <div class="col s4">
+                                        <p><label>
+                                            <input type="checkbox" id="engineering_permit" name="engineering_permit"/>
+                                            <span>Engineering Permit Package</span>
+                                        </label></p>
+                                    </div>
+                                </div>
+                                <div class="row input-field">
                                     <div class="col s2">
                                         <label for="uppyBulk">Upload Documents</label>
                                     </div>

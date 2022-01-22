@@ -7,6 +7,7 @@ use App\User;
 
 use App\Mail\Notification;
 use App\Notifications\AuroraDesign;
+use App\Notifications\DesignClose;
 use App\Notifications\ElectricalLoadDesign;
 use App\Notifications\EngineeringPermitDesign;
 use App\Notifications\PEStampingDesign;
@@ -429,11 +430,47 @@ class DesignRequestController extends Controller
     {   //return $id;
         $design = Auth::user()->designs()->findOrFail($id);
         if ($design->payment_date != null) {
-            $design->status = Statics::DESIGN_STATUS_COMPLETED;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
             $design->project->project_status = Statics::PROJECT_STATUS_COMPLETED;
             $design->project->status = Statics::STATUS_IN_ACTIVE;
             $design->project->save();
             $design->save();
+
+            $admin = User::where('role', 'admin')->first();
+            $admin->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+                Mail::to($manager->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+            }
+
+            User::findOrFail($design->project->engineer->id)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+
+            Mail::to($design->project->engineer->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+            
+            Mail::to(User::where('role', 'admin')->first()->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+
             return response()->redirectToRoute('design.view', $design->id);
         }
         return abort(402, "Design not paid for");
