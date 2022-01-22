@@ -35,7 +35,7 @@ class ChangeRequestController extends Controller
             $cr->proposal_id = $request->proposal;
             $cr->save();
 
-            $admin = User::where('role', 'admin')->get('id');
+            $admin = User::where('role', 'admin')->first();
             $admin->notify(new ChangeRequestCustomer($design->project->name, route('proposal.view', $design->id) . "?proposal=" . $request->proposal));
 
             Mail::to(User::where('role', 'admin')->first()->email)

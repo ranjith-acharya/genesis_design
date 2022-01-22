@@ -66,7 +66,7 @@
         });
 
         function markMessagesRead() {
-            axios("{{route('messages.mark.read', "")}}/{{$id}}", {
+            axios("{{route('messages.mark.read', '')}}/{{$id}}", {
                 method: 'post',
                 data: {
                     design: '{{$id}}'
@@ -115,24 +115,15 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Message sent!",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Message sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         document.getElementById('message_loader').style.display = "none";
                     } else {
-                        M.toast({
-                            html: "There was a error sending the message. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         document.getElementById('message_loader').style.display = "none";
                     }
                     return response;
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     document.getElementById('message_loader').style.display = "none";
                     return err;
                 });
@@ -168,26 +159,17 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    M.toast({
-                        html: "Image uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Image uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location.reload();
 
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading images. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
 

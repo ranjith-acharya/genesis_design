@@ -10,7 +10,7 @@
             lastPage: 1,
             searchTerm: "",
             filers: null,
-            url: '@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN){{route('admin.get')}}@elseif(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('project.get')}}@elseif(Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER){{route('manager.get')}}@else{{route('engineer.project.get')}}@endif'
+            url: "@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN){{route('admin.get')}}@elseif(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('project.get')}}@elseif(Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER){{route('manager.get')}}@else{{route('engineer.project.get')}}@endif"
         };
 
         document.addEventListener('DOMContentLoaded', function () {

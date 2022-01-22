@@ -37,7 +37,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -62,7 +62,7 @@
 
         const sendFileToDb = function (file, response) {
 
-            axios('{{route('change_requests.file.attach')}}', {
+            axios("{{route('change_requests.file.attach')}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,26 +76,17 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    M.toast({
-                        html: "Image uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Image uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location.reload();
 
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading images. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
 
@@ -117,22 +108,13 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Change request sent!",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Change request sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     } else {
-                        M.toast({
-                            html: "There was a error sending the message. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }
                     return response;
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     return err;
                 });
             else

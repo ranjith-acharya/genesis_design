@@ -83,14 +83,14 @@ Create Bulk Project
     var uppies=[0];
     var uppy="";
     let whichUppyIsRequired = [];
-    const redirect = '{{route('home')}}';
+    const redirect = "{{route('home')}}";
 let redirectEnabled = true;
 let fileCount = 0;
 let filesUploaded = 0;
-const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-    const post = '{{route('project.bulkinsert')}}';
+const company = "{{(Auth::user()->company)?Auth::user()->company:'no-company'}}";
+    const post = "{{route('project.bulkinsert')}}";
     const postUpdate = '';
-    const fileInsert = '{{route('project.file.attach')}}';
+    const fileInsert = "{{route('project.file.attach')}}";
 const sendFileToDb = function (file, response) {
 console.log("FILETODB ----> ",file);
 console.log("FILETo RESPONSE ----> ",response);
@@ -109,25 +109,28 @@ axios(fileInsert, {
 }).then(response => {
     if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        M.toast({
-            html: "Files uploaded",
-            classes: "steel-blue"
-        });
+        toastr.success('Files uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        // M.toast({
+        //     html: "Files uploaded",
+        //     classes: "green"
+        // });
     } else {
-        M.toast({
-            html: "There was a error uploading images. Please try again.",
-            classes: "imperial-red"
-        });
+        toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        // M.toast({
+        //     html: "There was a error uploading images. Please try again.",
+        //     classes: "imperial-red"
+        // });
         console.error(response);
     }
     filesUploaded++;
     if ((filesUploaded === fileCount) && redirectEnabled)
         window.location = redirect;
 }).catch(err => {
-    M.toast({
-        html: "There was a network error uploading images. Please try again.",
-        classes: "imperial-red"
-    });
+    toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+    // M.toast({
+    //     html: "There was a network error uploading images. Please try again.",
+    //     classes: "imperial-red"
+    // });
     console.error(err);
 });
 }
@@ -385,34 +388,34 @@ function uploadFiles(project_id,uppyid) {
                 console.log("Data Resposne -----> ",response.data)
                 for(let i=0;i<response.data.length;i++)
                 { 
-                uploadFiles(response.data[i],i);
+                  uploadFiles(response.data[i],i);
                 }
             } else {
-                M.toast({
-                    html: "There was a error inserting the project. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a error inserting the project. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                // M.toast({
+                //     html: "There was a error inserting the project. Please try again.",
+                //     classes: "imperial-red"
+                // });
                 console.error(response);
             }
         }).catch(err => {
-            M.toast({
-                html: "There was a network error. Please try again.",
-                classes: "imperial-red"
-            });
+            toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+            // M.toast({
+            //     html: "There was a network error. Please try again.",
+            //     classes: "imperial-red"
+            // });
             console.error(err);
         });
     } else {
-        M.toast({
-            html: "There are some errors in your form, please fix them and try again",
-            classes: "imperial-red"
-        });
+        toastr.error('There are some errors in your form, please fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        // M.toast({
+        //     html: "There are some errors in your form, please fix them and try again",
+        //     classes: "imperial-red"
+        // });
     }
 }
 
 
 
     </script>
-@endsection
-@section('js')
-
 @endsection

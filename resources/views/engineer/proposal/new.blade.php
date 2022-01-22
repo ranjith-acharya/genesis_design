@@ -108,26 +108,21 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    M.toast({
-                        html: "Files uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Files uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    // M.toast({
+                    //     html: "Files uploaded",
+                    //     classes: "steel-blue"
+                    // });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location = redirect;
 
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading files. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading files. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
         };
@@ -148,22 +143,17 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Proposal uploaded",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Proposal uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        // M.toast({
+                        //     html: "Proposal uploaded",
+                        //     classes: "steel-blue"
+                        // });
                     } else {
-                        M.toast({
-                            html: "There was a error sending the message. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }
                     return response;
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     return err;
                 });
             else
@@ -185,10 +175,11 @@
                 if (response.status === 200 || response.status === 201) {
                     uploadFiles(response.data.id);
                 } else if (response.status === 403) {
-                    M.toast({
-                        html: "Make sure there is a note and at least one file is added",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('Make sure there is a note and at least one file is added!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    // M.toast({
+                    //     html: "Make sure there is a note and at least one file is added",
+                    //     classes: "imperial-red"
+                    // });
                 }
                 elem.disabled = false;
             })

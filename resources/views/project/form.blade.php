@@ -19,19 +19,19 @@
     <script src="{{asset('js/validate/validate.min.js')}}"></script>
     <script type="text/javascript">
         const fileTypes = '{!! $projectType->fileCategories->toJson() !!}';
-        const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-        const post = '{{route('project.insert')}}';
+        const company = "{{(Auth::user()->company)?Auth::user()->company:'no-company'}}";
+        const post = "{{route('project.insert')}}";
         const postUpdate = '';
-        const fileInsert = '{{route('project.file.attach')}}';
-        const sunStorage = '{{env('SUN_STORAGE')}}';
-        const sunStorageKey = '{{env('SUN_STORAGE_KEY')}}';
+        const fileInsert = "{{route('project.file.attach')}}";
+        const sunStorage = "{{env('SUN_STORAGE')}}";
+        const sunStorageKey = "{{env('SUN_STORAGE_KEY')}}";
         const latOverload = '{{($project)?$project->latitude:""}}';
         const longOverload = '{{($project)?$project->longitude:""}}';
         const stateOverload = '{{($project)?$project->state:""}}';
         const projectIdOverload = '{{($project)?$project->id:""}}';
         const projectStatus = '{{($project)?$project->status:""}}';
         const hideUploadButton = '{{($project)?"no":"yes"}}';
-        const redirect = '{{route('home')}}';
+        const redirect = "{{route('home')}}";
     </script>
     <script src="{{asset('js/project/form.js')}}"></script>
 @endsection
@@ -138,7 +138,7 @@
                         <div class="input-field col s6">
                             <input id="zip" name="zip" class="main_text_fields" validate="postcode" value="{{($project)?$project->zip:""}}" data-id="15" type="number"/>
                             <label for="zip">Zip</label>
-                            <span class="helper-text" data-error="Invalid postcode. Must be 5 digits" data-success="">Required. Must be 5 digits</span>
+                            <span class="helper-text" data-error="Invalid postcode." data-success="">Required.</span>
                         </div>
                     </div>
                 </div>
