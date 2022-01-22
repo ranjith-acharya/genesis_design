@@ -30,8 +30,8 @@ class ChangeRequestController extends Controller
 
         $system_design=SystemDesign::findOrFail($request->design);
         
-        $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
-        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+        $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST;
+        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST;
         $system_design->save();
         if (!$design->proposals[0]->changeRequest) {
             $cr = new ChangeRequest();
@@ -40,7 +40,7 @@ class ChangeRequestController extends Controller
             $cr->proposal_id = $request->proposal;
             $cr->save();
 
-            $admin = User::where('role', 'admin')->get('id');
+            $admin = User::where('role', 'admin')->first();
             $admin->notify(new ChangeRequestCustomer($design->project->name, route('proposal.view', $design->id) . "?proposal=" . $request->proposal));
 
             Mail::to(User::where('role', 'admin')->first()->email)

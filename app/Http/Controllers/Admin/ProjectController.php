@@ -150,9 +150,8 @@ class ProjectController extends Controller
         ]);
         $system_design=SystemDesign::findOrFail($request->design_id);
         $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
-        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_ASSIGNED;
         $system_design->save();
-
         
         User::findOrFail($request->engineer_id)->notify(new ManagerAssign($project->name, route('engineer.project.view', $project->id)));
         User::findOrFail($project->customer->id)->notify(new ManagerAssign($project->name, route('project.edit', $project->id)));

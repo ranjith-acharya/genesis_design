@@ -56,7 +56,7 @@
                 @endif
             </div>
         </div>
-        @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED && Auth::user()->role == 'engineer')
+        @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
                     <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
@@ -67,7 +67,7 @@
         <div class="row" id="messages">
             <div class="col s12"><br>
                 <h4>Messages</h4>
-                @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED)
+                @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED)
                     <p class="imperial-red-text center">Start work on this design to enable messaging</p>
                 @else
                     <x-DesignMessages :designID="$design->id" readOnly="{{$design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_COMPLETED}}"></x-DesignMessages>
@@ -78,7 +78,7 @@
         <div class="row" id="proposals">
             <div class="col s12"><br>
                 <h4>Proposals</h4>
-                @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED)
+                @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED)
                     <p class="imperial-red-text center">Start work on this design to submit a proposal</p>
                 @elseif(sizeof($design->proposals) === 0 && $design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS)
                     <div class="center"><a class="btn btn-large prussian-blue" href="{{route('engineer.proposal.new', $design->id)}}">Submit&nbsp;a&nbsp;proposal</a></div>
@@ -106,7 +106,7 @@
                 @endif
             </div>
         </div>
-        @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED && Auth::user()->role == 'engineer')
+        @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
                     <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
