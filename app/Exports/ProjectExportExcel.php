@@ -2,69 +2,98 @@
 
 namespace App\Exports;
 
-use App\Project;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-use Illuminate\Support\Carbon;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use \Maatwebsite\Excel\Sheet;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class ProjectExportExcel implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
+class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection(){
-        $startDate = request()->input('from_date') ;
-        $endDate   = request()->input('to_date');
-        $status = request()->input('status');
-        //return Project::whereBetween('created_at', [ $startDate, $endDate ] )->get();
-        if($startDate == "" && $endDate == "" && $status == ""){
-            return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
-        }elseif($startDate == "" || $endDate == ""){
-            return Project::where('project_status', $status)->get();
-        }elseif($status == ""){
-            return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
-        }else{
-            return Project::where('project_status', $status)
-                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
-        }
+    public function __construct($data){
+        $this->data = $data;
     }
-    public function headings(): array{
-        return [
-            'id',
-            'Name',
-            'Description',
-            'Street_1',
-            'Street_2',
-            'City',
-            'State',
-            'Zip',
-            'Country',
-            'Latitude',
-            'Longitude',
-            'Status',
-            'Project_Status',
-            'Customer_ID',
-            'Engineer_ID',
-            'Company_ID',
-            'Project_ID',
-            'Assigned_Date',
-            'Created_at',
-            'Updated_at',
-        ];
+
+    public function view(): View{
+        return view('admin.reports.projectExcel', [
+            'projects' => $this->data
+        ]);
     }
-    public function styles(Worksheet $sheet){
+
+    public function registerEvents(): array
+    {
+        $datas = $this->data;
+        Sheet::macro('styleCells', function (Sheet $sheet, string $cellRange, array $style) {
+            $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($style);
+        });
         return [
-            1 => ['font' => ['bold' => true],
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE,
-                        'color' => ['argb' => '000000'],
-                    ],
-                ],
-            ],
+            AfterSheet::class => function(AfterSheet $event) use($datas){
+                $a='A5:'.'J'.(5+count($datas));
+                $x='A5:J5';
+                $event->sheet->getStyle($x)->applyFromArray([
+                    'font' => [
+                        'bold' => true
+                    ]
+                ]);
+                $event->sheet->styleCells(
+                    $a,
+                    [
+                        'borders' => [
+                            'allBorders' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                                'color' => ['argb' => '000000'],
+                            ],
+                        ]
+                    ]
+                        );
+
+                        $event->sheet->getStyle('H6')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ADFF2F');
+
+                        $event->sheet->styleCells(
+                            'A2:J2',
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                            ]
+                        );
+                        $event->sheet->styleCells(
+                            'A3:J3',
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                            ]
+                        );
+
+                        $event->sheet->styleCells(
+                            $a,
+                            [
+                                'alignment' => [
+                                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                ],
+                            ]
+                        );
+                        $event->sheet->styleCells(
+                            $a,
+                            [
+                                'alignment' => [
+                                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                                ],
+                            ]
+                        );
+                        $event->sheet->getStyle($a)->getAlignment()->setWrapText(true);
+                        $event->sheet->getDelegate()->mergeCells('A2:J2');
+                        $event->sheet->getRowDimension(2)->setRowHeight(50);
+                        $event->sheet->getDelegate()->mergeCells('A3:J3');  
+                        $event->sheet->getRowDimension(3)->setRowHeight(30);
+                                    
+            },
         ];
+
     }
 }

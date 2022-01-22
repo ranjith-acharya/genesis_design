@@ -12,24 +12,45 @@ use Illuminate\Support\Carbon;
 
 class ReportController extends Controller
 {
+    public function filterProject(Request $request){
+        $startDate =  $request->get('from_date');
+        $endDate   = $request->get('to_date');
+        $status = $request->get('status');
+        if($startDate != "" && $endDate != "" && $status != ""){
+            $projects = Project::where('project_status', $status)
+                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($startDate != "" && $endDate != "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($status != "" && $startDate == "" && $endDate == ""){
+            $projects = Project::where('project_status', $status)->get();
+        }else{
+            $projects = Project::all();
+        }
+
+        return $projects;
+    }
+
     public function exportExcel(Request $request){
         //dd($request->all());
-        return Excel::download(new ProjectExportExcel, 'Projects_Monthly.xlsx');
+        $projects = $this->filterProject($request);
+        ob_end_clean(); // this
+        ob_start(); // and this
+        return Excel::download(new ProjectExportExcel($projects), 'Projects_Monthly.xlsx');
     }
 
     public function exportPDF(Request $request){
         $startDate =  $request->get('from_date');
         $endDate   = $request->get('to_date');
         $status = $request->get('status');
-        if($startDate == "" && $endDate == "" && $status == ""){
-            $projects = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
-        }elseif($startDate == "" || $endDate == ""){
-            $projects = Project::where('project_status', $status)->get();
-        }elseif($status == ""){
-            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
-        }else{
+        if($startDate != "" && $endDate != "" && $status != ""){
             $projects = Project::where('project_status', $status)
-                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($startDate != "" && $endDate != "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($status != "" && $startDate == "" && $endDate == ""){
+            $projects = Project::where('project_status', $status)->get();
+        }else{
+            $projects = Project::all();
         }
         
         //$projects = Project::all();

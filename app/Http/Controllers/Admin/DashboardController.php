@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProjectExportExcel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Project;
 use App\Statics\Statics;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\StaticVar;
 
 class DashboardController extends Controller
@@ -37,20 +39,47 @@ class DashboardController extends Controller
         return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projectsMonthly', 'projectsWeekly', 'projectsAssigned', 'projectsNotAssigned', 'projectsHold', 'projectsInProcess', 'projectsArchived', 'projectsCompleted', 'projectsCancelled'));
     }
 
+    // public function projectMonthly(Request $request){
+    //     $startDate = $request->get('from_date');
+    //     $endDate = $request->get('to_date');
+    //     $status = $request->get('status');
+    //     if($startDate == "" && $endDate == "" && $status == ""){
+    //         return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+    //     }elseif($startDate == "" || $endDate == ""){
+    //         return Project::where('project_status', $status)->get();
+    //     }elseif($status == ""){
+    //         return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+    //     }else{
+    //         return Project::where('project_status', $status)
+    //                         ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+    //     }
+    // }
+
     public function projectMonthly(Request $request){
-        $startDate = $request->get('from_date');
-        $endDate = $request->get('to_date');
+        $startDate =  $request->get('from_date');
+        $endDate   = $request->get('to_date');
         $status = $request->get('status');
-        if($startDate == "" && $endDate == "" && $status == ""){
-            return Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
-        }elseif($startDate == "" || $endDate == ""){
-            return Project::where('project_status', $status)->get();
-        }elseif($status == ""){
-            return Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+        if($startDate != "" && $endDate != "" && $status != ""){
+            $projects = Project::where('project_status', $status)
+                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($startDate != "" && $endDate != "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($status != "" && $startDate == "" && $endDate == ""){
+            $projects = Project::where('project_status', $status)->get();
         }else{
-            return Project::where('project_status', $status)
-                            ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+            $projects = Project::all();
         }
+
+        return $projects;
+    }
+
+    public function exportExcel(Request $request){
+        //dd($request->all());
+        $projects = $this->projectMonthly($request);
+        ob_end_clean(); // this
+        ob_start(); // and this
+        //return $projects;
+        return Excel::download(new ProjectExportExcel($projects), 'Projects_Monthly.xlsx');
     }
 
     /**

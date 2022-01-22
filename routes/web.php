@@ -31,7 +31,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/home', 'DashboardController@index')->name('home');
                 Route::get('/project/monthly', 'DashboardController@projectMonthly')->name('project.monthly');
 
-                Route::get('/export/excel', 'ReportController@exportExcel')->name('export.excel');
+                Route::get('/export/excel', 'DashboardController@exportExcel')->name('export.excel');
                 Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
 
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
@@ -80,7 +80,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::resource('/home', 'Manager\DashboardController');
                 Route::get('/project/monthly', 'Manager\DashboardController@projectMonthly')->name('project.monthly');
                 
-                Route::get('/export/excel', 'Manager\ReportController@exportExcel')->name('export.excel');
+                Route::get('/export/excel', 'Manager\DashboardController@exportExcel')->name('export.excel');
                 Route::get('/export/pdf', 'Manager\ReportController@exportPDF')->name('export.pdf');
 
                 Route::resource('/customer', 'Admin\CustomerController');

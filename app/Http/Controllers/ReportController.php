@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerProjectExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\CustomerProjectExport;
 use App\Project;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -23,30 +23,34 @@ class ReportController extends Controller
             $projects = Project::where('customer_id', $user_id)->get();
         }else{
             $projects =  Project::where('customer_id', $user_id)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->get();
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
         }
         return view('customer.reports.index', compact('projects'));
     }
 
-    public function getProjects(){
+    public function getProjects(Request $request){
         $user_id = Auth::user()->id;
-        $startDate = request()->input('from_date');
-        $endDate   = request()->input('to_date');
-        //return $startDate;
-        
+        $startDate =  $request->get('from_date');
+        $endDate   = $request->get('to_date');
+        // $status = $request->get('status');
         if($startDate == "" && $endDate == ""){
-            return Project::where('customer_id', $user_id)->get();
+            $projects = Project::where('customer_id', $user_id)->get();
         }else{
-            return Project::where('customer_id', $user_id)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->get();
+            $projects = Project::where('customer_id', $user_id)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
         }
+
+        return $projects;
     }
 
-    public function exportExcel() 
-    {
-        return Excel::download(new CustomerProjectExport, 'Projects_All.xlsx');
+    public function exportExcel(Request $request){
+        //dd($request->all());
+        $projects = $this->getProjects($request);
+        ob_end_clean(); // this
+        ob_start(); // and this
+        return Excel::download(new CustomerProjectExport($projects), 'Projects_All.xlsx');
     }
 
     public function exportPDF(Request $request){
