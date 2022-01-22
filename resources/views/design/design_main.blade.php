@@ -17,7 +17,7 @@
                     @if($design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_HOLD || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST)
                         <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
                     @else
-                    <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
+                        <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
                     @endif
                 </div>
                 <div class="col s1 m1">
@@ -33,7 +33,7 @@
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_ELECTRICAL, 'design.partials.electrical_load', ['design' => $design])
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_PE, 'design.partials.pe_stamping', ['design' => $design])
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_ENGINEERING_PERMIT, 'design.partials.engineering_permit', ['design' => $design])
-                <h4 class="capitalize">Payment</h4>
+                <hr><h4 class="capitalize">Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
                     ${{ $design->price}}

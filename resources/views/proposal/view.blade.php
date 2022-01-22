@@ -30,7 +30,7 @@
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_PE, 'design.partials.pe_stamping', ['design' => $design])
                 @includeWhen($design->type->name === \App\Statics\Statics::DESIGN_TYPE_ENGINEERING_PERMIT, 'design.partials.engineering_permit', ['design' => $design])
                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
-                <br><h4>Payment</h4>
+                <hr><h4>Payment</h4>
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Design Cost: </b></span>
                     ${{ $design->price}}
@@ -41,9 +41,9 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div><hr>
         <div class="row">
-            <div class="col s12"><br>
+            <div class="col s12">
                 <h4 class="capitalize">Proposal</h4>
                 <span class="prussian-blue-text"><b>Note</b></span>
                 <blockquote>{{$design->proposals[0]->note}}</blockquote>
@@ -166,7 +166,7 @@
                 <div class="col s12 m6 center">
                     <form method="post" action="{{route('design.close', $design->id)}}">
                         @csrf
-                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal and View design</button>
+                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal</button>
                     </form>
                 </div>
             </div>

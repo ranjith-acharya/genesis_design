@@ -38,7 +38,7 @@
         const newLoader = document.getElementById('loading_new');
 
         document.addEventListener('DOMContentLoaded', function () {
-            stripe = Stripe('{{env('STRIPE_KEY')}}');
+            stripe = Stripe("{{env('STRIPE_KEY')}}");
             elements = stripe.elements();
             cardElement = elements.create('card', {
                 iconStyle: 'solid',
@@ -94,10 +94,7 @@
                     }
                 });
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error initializing stripe. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error initializing stripe. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 newLoader.style.display = 'none';
                 console.error(err);
                 elem.disabled = false;
@@ -123,18 +120,16 @@
                 }).then(response => {
                     if (response.status !== 200) {
                         defaultLoader.style.display = 'none';
-                        M.toast({
-                            html: "There was an error updating your payment method. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was an error updating your payment method. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        // M.toast({
+                        //     html: "There was an error updating your payment method. Please try again.",
+                        //     classes: "imperial-red"
+                        // });
                     } else {
                         window.location.reload();
                     }
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error initializing stripe. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error initializing stripe. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     defaultLoader.style.display = 'none';
                     console.error(err);
                     elem.disabled = false;

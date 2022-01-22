@@ -101,25 +101,20 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.db_response);
-                    M.toast({
-                        html: "Images uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Images uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    // M.toast({
+                    //     html: "Images uploaded",
+                    //     classes: "green"
+                    // });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location = "{{route('design.list', $project_id)}}";
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading images. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
 
@@ -282,23 +277,18 @@
                                     uploadFiles(response.data.id);
                                     if (fileCount === 0)
                                         window.location = "{{route('design.list', $project_id)}}";
-                                    M.toast({
-                                        html: "Design inserted",
-                                        classes: "steel-blue"
-                                    });
+                                        toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                        // M.toast({
+                                        //     html: "Design inserted",
+                                        //     classes: "green"
+                                        // });
                                 } else {
-                                    M.toast({
-                                        html: "There was a error inserting the design. Please try again.",
-                                        classes: "imperial-red"
-                                    });
+                                    toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                     console.error(response);
                                     elem.disabled = false;
                                 }
                             }).catch(err => {
-                                M.toast({
-                                    html: "There was a network error. Please try again.",
-                                    classes: "imperial-red"
-                                });
+                                toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 console.error(err);
                                 elem.disabled = false;
                             });
@@ -309,10 +299,7 @@
                     }
                 })
             } else {
-                M.toast({
-                    html: "Please insert at least one array before submitting the design",
-                    classes: "imperial-red"
-                });
+                toastr.error('Please insert at least one array before submitting the design!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 elem.disabled = false;
             }
         }

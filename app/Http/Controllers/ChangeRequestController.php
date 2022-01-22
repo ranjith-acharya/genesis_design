@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\ChangeRequest;
 use App\ChangeRequestFile;
 use App\Mail\Notification;
+use App\Notifications\AdminQuote;
 use App\Notifications\ChangeRequestCustomer;
+use App\Notifications\CustomerAcceptQuote;
+use App\Notifications\CustomerRejectQuote;
 use App\Statics\Statics;
 use App\SystemDesign;
 use App\User;
@@ -124,6 +127,8 @@ class ChangeRequestController extends Controller
         $cr->engineer_note = $request->note;
         $cr->save();
 
+        User::findOrFail($design->project->customer->id)->notify(new AdminQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+
         Mail::to($design->project->customer->email)
             ->send(new Notification($design->project->customer->email,
                 "New update for your change request for: " . $design->type->name,
@@ -151,6 +156,26 @@ class ChangeRequestController extends Controller
         $cr->stripe_payment_code = $request->stripe_payment_code;
         $cr->status = Statics::CHANGE_REQUEST_STATUS_APPROVED;
         $cr->save();
+
+        $admin = User::where('role', 'admin')->first();
+        $admin->notify(new CustomerAcceptQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+
+        User::findOrFail($design->project->engineer->id)->notify(new CustomerAcceptQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+        
+        $managers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->pluck('id');
+        foreach($managers as $manager){
+            User::findOrFail($manager)->notify(new CustomerAcceptQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+            Mail::to($manager->email)
+            ->send(new Notification($design->project->engineer->email,
+                "Customer accepted quote for: " . $design->type->name,
+                "",
+                route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
+                "View Change Request"));
+        }
 
         Mail::to($design->project->engineer->email)
             ->send(new Notification($design->project->engineer->email,
@@ -191,6 +216,41 @@ class ChangeRequestController extends Controller
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
             $design->save();
+
+        
+    $admin = User::where('role', 'admin')->first();
+    $admin->notify(new CustomerRejectQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+
+    User::findOrFail($design->project->customer->id)->notify(new CustomerRejectQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+        
+    $managers = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'manager');
+        }
+    )->pluck('id');
+    foreach($managers as $manager){
+        User::findOrFail($manager)->notify(new CustomerRejectQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
+        Mail::to($manager->email)
+            ->send(new Notification($design->project->engineer->email,
+            "Customer rejected quote for: " . $design->type->name,
+            "",
+            route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
+            "View Change Request"));
+    }
+
+Mail::to($design->project->engineer->email)
+    ->send(new Notification($design->project->engineer->email,
+        "Customer rejected quote for: " . $design->type->name,
+        "",
+        route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
+        "View Change Request"));
+
+Mail::to(User::where('role', 'admin')->first()->email)
+    ->send(new Notification($design->project->engineer->email,
+        "Customer rejected quote for: " . $design->type->name,
+        "",
+        route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
+        "View Change Request"));
 
             return response()->redirectToRoute('design.view', $design->id);
         }

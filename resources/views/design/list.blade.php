@@ -95,7 +95,8 @@
                 return true;
             }).catch(error => {
                 console.error(error);
-                M.toast({html: "There was an error when fetching list. Please try again.", classes: "imperial-red"});
+                toastr.error('There was an error when fetching list. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                // M.toast({html: "There was an error when fetching list. Please try again.", classes: "imperial-red"});
                 return false;
             });
         }

@@ -164,18 +164,18 @@ Update Project Details - Genesis Design
     <script type="text/javascript">
         const fileTypes = '{!! $projectType->fileCategories->toJson() !!}';
         const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-        const post = '{{route('admin.projects.update', $project->id)}}';
+        const post = "{{route('admin.projects.update', $project->id)}}";
         const postUpdate = '';
-        const fileInsert = '{{route('admin.projects.file')}}';
-        const sunStorage = '{{env('SUN_STORAGE')}}';
-        const sunStorageKey = '{{env('SUN_STORAGE_KEY')}}';
+        const fileInsert = "{{route('admin.projects.file')}}";
+        const sunStorage = "{{env('SUN_STORAGE')}}";
+        const sunStorageKey = "{{env('SUN_STORAGE_KEY')}}";
         const latOverload = '{{($project)?$project->latitude:""}}';
         const longOverload = '{{($project)?$project->longitude:""}}';
         const stateOverload = '{{($project)?$project->state:""}}';
         const projectIdOverload = '{{($project)?$project->id:""}}';
         const projectStatus = '{{($project)?$project->status:""}}';
         const hideUploadButton = '{{($project)?"no":"yes"}}';
-        const redirect = '{{route('admin.home')}}';
+        const redirect = "{{route('admin.home')}}";
     </script>
     <script src="{{asset('js/project/form.js')}}"></script>
     <script>

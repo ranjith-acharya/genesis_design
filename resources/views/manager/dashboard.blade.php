@@ -320,7 +320,7 @@ $(function() {
                 legend: {
                     orient: 'horizontal',
                     x: 'left',
-                    data: ['Assigned', 'Not Assigned', 'In Process', 'Completed']
+                    data: ['Assigned', 'Not Assigned', 'In Progress', 'Completed']
                 },
 
                 // Add custom colors
@@ -386,7 +386,7 @@ $(function() {
                     center: ['42%', '60%'],
                     data: [
                         {value: {{$projectsAssigned }}, name: 'Assigned'},
-                        {value: {{$projectsInProcess }}, name: 'In Process'},
+                        {value: {{$projectsInProcess }}, name: 'In Progress'},
                         {value: {{$projectsNotAssigned }}, name: 'Not Assigned'},                        
                         {value: {{$projectsCompleted }}, name: 'Completed'}
                     ]

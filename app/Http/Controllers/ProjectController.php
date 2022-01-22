@@ -149,14 +149,21 @@ class ProjectController extends Controller
 
     public function getFile(Request $request)
     {
+        //return $request;
         $this->validate($request, [
             'project' => 'required|string|max:255',
             'file' => 'required|string|max:255'
         ]);
         $engineer = Project::findOrFail($request->project)->engineer;
         //return $engineer;
-        $project = $engineer->projects()->with('files')->where('id', $request->project)->firstOrFail();
-        $file = $project->files->firstWhere('id', $request->file);
+        if($engineer == ""){
+            $file = ProjectFile::findOrFail($request->project);
+            //return $file;
+        }else{
+            $project = $engineer->projects()->with('files')->where('id', $request->project)->firstOrFail();
+            $file = $project->files->firstWhere('id', $request->file);
+        }    
+        
         if ($file) {
             $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();
             return redirect()->away(json_decode($url));

@@ -7,6 +7,7 @@ use App\User;
 
 use App\Mail\Notification;
 use App\Notifications\AuroraDesign;
+use App\Notifications\DesignClose;
 use App\Notifications\ElectricalLoadDesign;
 use App\Notifications\EngineeringPermitDesign;
 use App\Notifications\PEStampingDesign;
@@ -399,15 +400,23 @@ class DesignRequestController extends Controller
             'file' => 'required|string|max:255',
             'design' => 'required|string|max:255'
         ]);
+        
+
+        
         $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
         //return $engineer;
-        $design = $engineer->designs()->with('files')->where('system_designs.id', $request->design)->firstOrFail();
-
-        $file = null;
-        foreach ($design->files as $f)
-            if ($f->id == $request->file)
-                $file = $f;
-
+        if($engineer == ""){
+            $file = DesignFile::findOrFail($request->file);
+            //return $design;
+        }else{
+            $design = $engineer->designs()->with('files')->where('system_designs.id', $request->design)->firstOrFail();
+        
+            $file = null;
+            foreach ($design->files as $f)
+                if ($f->id == $request->file)
+                    $file = $f;
+        }
+        
         if ($file) {
             $url = Http::get(env('SUN_STORAGE') . "/file/url?ttl_seconds=900&api-key=" . env('SUN_STORAGE_KEY') . "&file_path=" . $file->path)->body();
             return redirect()->away(json_decode($url));
@@ -427,6 +436,41 @@ class DesignRequestController extends Controller
             $design->project->status = Statics::STATUS_IN_ACTIVE;
             $design->project->save();
             $design->save();
+
+            $admin = User::where('role', 'admin')->first();
+            $admin->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+                Mail::to($manager->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+            }
+
+            User::findOrFail($design->project->engineer->id)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
+
+            Mail::to($design->project->engineer->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+            
+            Mail::to(User::where('role', 'admin')->first()->email)
+                ->send(new Notification($design->project->engineer->email,
+                    "Design Closed for: " . $design->type->name,
+                    "",
+                    route('engineer.design.view', $design->id),
+                    "View Change Request"));
+
             return response()->redirectToRoute('design.view', $design->id);
         }
         return abort(402, "Design not paid for");

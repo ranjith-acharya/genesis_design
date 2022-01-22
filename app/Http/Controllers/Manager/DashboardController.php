@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $projectsAssigned = Project::where('project_status', Statics::PROJECT_STATUS_ASSIGNED)->count();
         $projectsNotAssigned = Project::where('project_status', Statics::PROJECT_STATUS_NOT_ASSIGNED)->count();
         $projectsHold = Project::where('project_status', Statics::PROJECT_STATUS_ON_HOLD)->count();
-        $projectsInProcess = Project::where('project_status', Statics::PROJECT_STATUS_IN_PROCESS)->count();
+        $projectsInProcess = Project::where('project_status', Statics::PROJECT_STATUS_IN_PROGRESS)->count();
         $projectsArchived = Project::where('project_status', Statics::PROJECT_STATUS_ARCHIVED)->count();
         $projectsCompleted = Project::where('project_status', Statics::PROJECT_STATUS_COMPLETED)->count();
         $projectsCancelled = Project::where('project_status', Statics::PROJECT_STATUS_CANCELLED)->count();

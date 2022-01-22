@@ -14,7 +14,11 @@
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
-                    <h6><span class="imperial-red-text bold capitalize">{{$design->status_engineer}}</span></h6>
+                    @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REJECTED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST)
+                        <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>
+                    @else
+                        <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>
+                    @endif
                 </div>
                 <div class="col s1 m1">
                     <a href="{{route('engineer.design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
@@ -26,7 +30,7 @@
                 <h4 class="capitalize">Project Details</h4>
                 @include('components.simple-project-view', ['project' => $design->project])
             </div>
-        </div>
+        </div><hr>
         <div class="row">
             <div class="col s12">
                 <h4 class="capitalize">Design Details</h4>
@@ -47,9 +51,9 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div><hr>
         <div class="row" id="messages">
-            <div class="col s12"><br>
+            <div class="col s12">
                 @if(sizeof($design->files) > 0)
                     <h4 class="capitalize">Attached Files</h4>
                     <x-ListFiles :files="$design->files" path="{{route('design.file')}}?design={{$design->id}}"></x-ListFiles>
@@ -75,8 +79,8 @@
             </div>
         </div>
         @endif
-        <div class="row" id="proposals">
-            <div class="col s12"><br>
+        <hr><div class="row" id="proposals">
+            <div class="col s12">
                 <h4>Proposals</h4>
                 @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED)
                     <p class="imperial-red-text center">Start work on this design to submit a proposal</p>

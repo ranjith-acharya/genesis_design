@@ -87,7 +87,7 @@ class SystemDesignController extends Controller
         //return $design->project;
         $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
         $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
-        $design->project->project_status = Statics::PROJECT_STATUS_IN_PROCESS;
+        $design->project->project_status = Statics::PROJECT_STATUS_IN_PROGRESS;
         $design->project->status = Statics::STATUS_ACTIVE;
         $design->project->save();
         $design->start_date = Carbon::now();
