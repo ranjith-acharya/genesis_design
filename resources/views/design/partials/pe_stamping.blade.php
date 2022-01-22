@@ -19,4 +19,4 @@
             {{$design->fields['electrical_stamps']?"Yes":"No" }}
         </div>
     </div>
-</div>
+</div><hr>

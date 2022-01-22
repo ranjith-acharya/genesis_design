@@ -67,7 +67,7 @@
                             <a class="dropdown-trigger" href="javascript: void(0);" data-target="noti_dropdown">
                                 <i class="far fa-bell"></i>
                                 @if(auth()->user()->unreadnotifications->count())
-                                    <span class="new badge red pill">{{ auth()->user()->unreadnotifications->count() }}</span>
+                                    <span class="new badge red">{{ auth()->user()->unreadnotifications->count() }}</span>
                                 @endif
                             </a>
                             <ul id="noti_dropdown" class="mailbox dropdown-content">

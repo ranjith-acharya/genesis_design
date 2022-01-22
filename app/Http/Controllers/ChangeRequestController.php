@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ChangeRequest;
 use App\ChangeRequestFile;
 use App\Mail\Notification;
+use App\Notifications\ChangeRequestCustomer;
 use App\Statics\Statics;
 use App\SystemDesign;
 use App\User;
@@ -33,6 +34,9 @@ class ChangeRequestController extends Controller
 //            $cr->system_design_id = $design->id;
             $cr->proposal_id = $request->proposal;
             $cr->save();
+
+            $admin = User::where('role', 'admin')->get('id');
+            $admin->notify(new ChangeRequestCustomer($design->project->name, route('proposal.view', $design->id) . "?proposal=" . $request->proposal));
 
             Mail::to(User::where('role', 'admin')->first()->email)
                 ->send(new Notification(User::where('role', 'admin')->first()->email,
