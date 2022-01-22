@@ -14,7 +14,11 @@
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
-                    <h6><span class="imperial-red-text bold capitalize">{{$design->status_customer}}</span></h6>
+                    @if($design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_HOLD || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED || $design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST)
+                        <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
+                    @else
+                    <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_customer}}</span></h6>
+                    @endif
                 </div>
                 <div class="col s1 m1">
                     <a href="{{route('design.list', $design->project_id)}}" class="tooltipped" data-tooltip="Go back to design list"><i class="fal fa-3x fa-arrow-left blue-text"></i></a>
@@ -37,19 +41,19 @@
                 <div class="mb-xxxs">
                     <span class="prussian-blue-text"><b>Payment Date: </b></span>
                     {{ ($design->payment_date)?$design->payment_date:"Payment Pending"}}
-                </div><br>
+                </div><hr>
                 @if(sizeof($design->files) > 0)
                     <h4 class="capitalize">Attached Files</h4>
                     <x-ListFiles :files="$design->files" path="{{route('design.file')}}?design={{$design->id}}"></x-ListFiles>
                 @endif
             </div>
-        </div>
-        <div class="row" id="messages"><br>
+        </div><hr>
+        <div class="row" id="messages">
             <div class="col s12">
                 <h4>Messages</h4>
                 <x-DesignMessages :designID="$design->id" readOnly="{{$design->status_customer === \App\Statics\Statics::DESIGN_STATUS_COMPLETED}}"></x-DesignMessages>
             </div>
-        </div>
+        </div><hr>
         <div class="row" id="proposals">
             <div class="col s12">
                 <h4>Proposals</h4>

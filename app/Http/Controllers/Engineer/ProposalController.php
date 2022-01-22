@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Engineer;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Notification;
+use App\Notifications\EngineerProposal;
 use App\Proposal;
 use App\ProposalFile;
 use App\Statics\Statics;
@@ -135,7 +136,17 @@ class ProposalController extends Controller
             ->send(new Notification($manager->email, "New Proposal for: " . $design->project->name, $body, route('proposal.view', $design->id) . "?proposal=" . $proposal->id, "View Proposal"));
         }
 
+        $allManagers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->pluck('id');
+        foreach($allManagers as $allManager){
+            User::findOrFail($allManager)->notify(new EngineerProposal($design->project->name, route('proposal.view', $design->id) . "?proposal=" . $proposal->id));
+        }
 
+        User::findOrFail($design->project->customer->id)->notify(new EngineerProposal($design->project->name, route('proposal.view', $design->id) . "?proposal=" . $proposal->id));
+        
         return $proposal;
     }
 
