@@ -157,7 +157,7 @@
                     </div>
                 </div>
             </div>
-        @elseif($design->status === \App\Statics\Statics::DESIGN_STATUS_IN_PROGRESS && Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
+        @elseif($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_RECEIVED && Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
             <div class="row">
                 <div class="col s12 m6 center">
                     <a class="btn btn-large prussian-blue" id="start_cr"> Change request</a>
