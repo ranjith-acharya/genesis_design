@@ -95,8 +95,8 @@ Project Index - Genesis Design
                                 @endif</td>
                                 <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
                                 <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
-                                    <ul id='action{{$data->id}}' class='dropdown-content'>
+                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $design->id }}'><i class="ti-view-list"></i></a>
+                                    <ul id='action{{$design->id}}' class='dropdown-content'>
                                         <li><a href="#assignModel" onclick="setProjectID('{{ $data->name }}',{{$data->id}},{{$design->id}})" class="blue-text modal-trigger">Assign</a></li>
                                         <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
                                         <li>

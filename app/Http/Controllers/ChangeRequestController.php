@@ -28,6 +28,11 @@ class ChangeRequestController extends Controller
             $query->with('changeRequest')->findOrFail($request->proposal);
         }])->where('system_designs.id', $request->design)->firstOrFail();
 
+        $system_design=SystemDesign::findOrFail($request->design);
+        
+        $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST;
+        $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST;
+        $system_design->save();
         if (!$design->proposals[0]->changeRequest) {
             $cr = new ChangeRequest();
             $cr->description = $request->description;

@@ -85,7 +85,8 @@ class SystemDesignController extends Controller
     public function start($id){
         $design = Auth::user()->assignedDesigns()->with(['project.files.type', 'type', 'files'])->where('system_designs.id', $id)->firstOrFail();
         //return $design->project;
-        $design->status = Statics::DESIGN_STATUS_IN_PROGRESS;
+        $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+        $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
         $design->project->project_status = Statics::PROJECT_STATUS_IN_PROCESS;
         $design->project->status = Statics::STATUS_ACTIVE;
         $design->project->save();
