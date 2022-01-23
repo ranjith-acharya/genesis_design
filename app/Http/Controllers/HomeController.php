@@ -33,9 +33,9 @@ class HomeController extends Controller
                 $types = ProjectType::where('is_hidden', false)->get();
                 $user_id=Auth::user()->id;
                 if(Auth::user()->hasRole('customer'))
-                $projectQuery = Project::where('customer_id',$user_id)->latest()->paginate(3);
+                $projectQuery = Auth::user()->projects()->latest()->paginate(3);
                 else
-                $projectQuery = Project::where('engineer_id',$user_id)->latest()->paginate(3);
+                $projectQuery = Auth::user()->assignedProjects()->latest()->paginate(3);
        
                 $return = view('index')->with('projectQuery', $projectQuery)->with('projectTypes',$types);
                 break;
