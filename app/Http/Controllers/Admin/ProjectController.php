@@ -151,9 +151,7 @@ class ProjectController extends Controller
             $projectQuery->where('name', 'LIKE', '%' . $term . "%");
         $filters = json_decode($request->filters);
         foreach ($filters as $filter)
-                if($filter->field=='project_status')
-                    $projectQuery->with('designs')->where('status_customer',$filter->value);
-                if ($filter->value != 'all' && $filter->field!='project_status' )
+            if ($filter->value != 'all' )
                     $projectQuery->where($filter->field, '=', $filter->value);
     $projectQuery=$projectQuery->latest()->paginate(3);
             return view('pages.project', compact('projectQuery'))->render();
