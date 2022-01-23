@@ -91,6 +91,7 @@ class SystemDesignController extends Controller
         $design->project->status = Statics::STATUS_ACTIVE;
         $design->start_date = Carbon::now();
         $design->project->save();
+        $design->update();
         return view('engineer.design.view', ["design" => $design, 'fileTypes' => $design->project->files->groupBy('type.name')]);
     }
 }

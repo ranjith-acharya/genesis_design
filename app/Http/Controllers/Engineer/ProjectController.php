@@ -44,7 +44,7 @@ class ProjectController extends Controller
         $project = Project::with('customer')->findOrFail($id);
         Project::where('id', $id)->update([
             "engineer_id" => Auth::id(),
-            'status' => Statics::PROJECT_STATUS_ACTIVE
+            'status' => Statics::STATUS_ACTIVE
         ]);
 
 //        email customer that project is being worked on
