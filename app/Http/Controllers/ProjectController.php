@@ -133,12 +133,24 @@ class ProjectController extends Controller
         return ProjectFile::create($request->all());
     }
 
+
 public function getProjectData(Request $request)
 {
-   
+
     if($request->ajax()) {
-        $users = Project::latest();
-            return view('pages.project', compact('users'))->render();
+        if(Auth::user()->hasRole('customer'))
+        $projectQuery = Auth::user()->projects()->with('type')->with('designs');
+        else
+        $projectQuery = Auth::user()->assignedProjects()->with('type')->with('designs');
+        $term = trim($request->search);
+        if ($term)
+            $projectQuery->where('name', 'LIKE', '%' . $term . "%");
+        $filters = json_decode($request->filters);
+        foreach ($filters as $filter)
+            if ($filter->value != 'all' )
+                    $projectQuery->where($filter->field, '=', $filter->value);
+    $projectQuery=$projectQuery->latest()->paginate(5);
+            return view('pages.project', compact('projectQuery'))->render();
     }
 }
 

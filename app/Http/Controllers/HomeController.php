@@ -31,8 +31,12 @@ class HomeController extends Controller
         switch (Auth::user()->role) {
             case (Statics::USER_TYPE_CUSTOMER || Statics::USER_TYPE_ENGINEER):
                 $types = ProjectType::where('is_hidden', false)->get();
-                $projectQuery = Project::latest()->paginate(3);
-                //$return = view('home')->with('projectTypes', $types);
+                $user_id=Auth::user()->id;
+                if(Auth::user()->hasRole('customer'))
+                $projectQuery = Project::where('customer_id',$user_id)->latest()->paginate(3);
+                else
+                $projectQuery = Project::where('engineer_id',$user_id)->latest()->paginate(3);
+       
                 $return = view('index')->with('projectQuery', $projectQuery)->with('projectTypes',$types);
                 break;
             case (Statics::USER_TYPE_ADMIN):

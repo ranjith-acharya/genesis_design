@@ -153,7 +153,7 @@ class ProjectController extends Controller
         foreach ($filters as $filter)
             if ($filter->value != 'all' )
                     $projectQuery->where($filter->field, '=', $filter->value);
-    $projectQuery=$projectQuery->latest()->paginate(3);
+    $projectQuery=$projectQuery->latest();
             return view('pages.project', compact('projectQuery'))->render();
     }
 }

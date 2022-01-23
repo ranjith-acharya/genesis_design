@@ -18,7 +18,7 @@ Project Index - Genesis Design
 @section('js')
 <script>
 function filter() {
-            getMoreUsers();
+            getMoreUsers(1);
         }
         $('#project_search').on('keyup', function() {
          
@@ -145,7 +145,9 @@ function getMoreUsers(page) {
                 <div id="user_data">
     @include('pages.project')
   </div>
-
+  <div class="">
+    {{ $projectQuery->links() }}
+  </div>
 
                     <div id="assignModel" class="modal modal-fixed-footer">
                         <div class="modal-content">
@@ -182,7 +184,7 @@ function getMoreUsers(page) {
         $(document).on('click', '.pagination a', function(event) {
           event.preventDefault();
           var page = $(this).attr('href').split('page=')[1];
-          alert(page);
+         
          getMoreUsers(page);
         });
 

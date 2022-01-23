@@ -182,7 +182,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
 //            Get APIs
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
                
-                Route::get('/projects/getProjects', 'Admin\ProjectController@getProjectData')->name('getProjects');
+                Route::get('/projects/getProjects', 'ProjectController@getProjectData')->name('getProjects');
 
                 Route::get('/get/file', 'ProjectController@getFile')->name('file.get');
             });
