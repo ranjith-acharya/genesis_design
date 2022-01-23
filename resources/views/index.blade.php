@@ -63,84 +63,86 @@ function getMoreUsers(page) {
         @endif
     <div class="row">
         <div class="col s12">
-            <div class="card">
+            <div class="">
                 @if ($message = Session::get('success'))
                 <script>
                     toastr.success('{{$message}}', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 </script>
 	            @endif
 
-                <div class="row">
-            <div class="col s6">
-                <h3>Your Projects</h3>
-            </div>
-            <div class="col s6 right-align">
-                @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
-                    <a href="{{ route('project.bulk') }}"><button class="btn prussian-blue">Multiple Project</button></a>
-                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>   Single Project</a>
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content prussian-blue-text'>
-                        @foreach($projectTypes as $projectType)
-                            <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{Str::ucfirst($projectType->name)}}</a></li>
-                            <li class="divider" tabindex="-1"></li>
-                        @endforeach
-                    </ul>
-                @else
-                    <!-- <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a> -->
-                @endif
-            </div>
-        </div><br><br>
-        <div class="row mb-0">
-            <div class="col s12 m9 center-on-small-only">
-                <div class="col s3">
-                    <div class="input-field inline">
-                        <input id="project_search" type="text" data-type="projects">
-                        <label for="project_search">Search for project(s)...</label>
-                    </div>
+            <div class="row">
+                <div class="col s6">
+                    <h3>Your Projects</h3>
                 </div>
-                <div class="col s3">
-                    <div class="input-field inline">
-                    <select id="project_type_select" onchange="filter()">
-                            <option value="all">All</option>
+                <div class="col s6 right-align">
+                    @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER||Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
+                        <a href="{{ route('project.bulk') }}"><button class="btn prussian-blue">Multiple Project</button></a>
+                        <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>   Single Project</a>
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown1' class='dropdown-content prussian-blue-text'>
                             @foreach($projectTypes as $projectType)
-                                <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
+                                <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{Str::ucfirst($projectType->name)}}</a></li>
+                                <li class="divider" tabindex="-1"></li>
                             @endforeach
-                        </select>
-                        <label for="project_type_select">Project Type</label>
+                        </ul>
+                    @else
+                        <!-- <a class="btn imperial-red-outline-button" href="{{route('engineer.project.available')}}">Start&nbsp;a&nbsp;project</a> -->
+                    @endif
+                </div>
+            </div><br><br>
+            <div class="row mb-0">
+                <div class="col s12 m9 center-on-small-only">
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <input id="project_search" type="text" data-type="projects">
+                            <label for="project_search">Search for project(s)...</label>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                        <select id="project_type_select" onchange="filter()">
+                                <option value="all">All</option>
+                                @foreach($projectTypes as $projectType)
+                                    <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
+                                @endforeach
+                            </select>
+                            <label for="project_type_select">Project Type</label>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <select id="status_select" onchange="filter()">
+                                <option value="all">All</option>
+                                    @foreach(\App\Statics\Statics::STATUSES as $Status)
+                                        <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                                    @endforeach
+                            </select>
+                            <label for="status_select"> Status</label>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <select id="project_status_select" onchange="filter()">
+                                <option value="all">All</option>
+                                    @foreach(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER as $projectStatus)
+                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                    @endforeach
+                            </select>  
+                            <label for="project_status_select">Project Status</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col s3">
-                    <div class="input-field inline">
-                        <select id="status_select" onchange="filter()">
-                            <option value="all">All</option>
-                                @foreach(\App\Statics\Statics::STATUSES as $Status)
-                                    <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
-                                @endforeach
-                        </select>
-                        <label for="status_select"> Status</label>
-                    </div>
-                </div>
-                <div class="col s3">
-                    <div class="input-field inline">
-                        <select id="project_status_select" onchange="filter()">
-                            <option value="all">All</option>
-                                @foreach(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER as $projectStatus)
-                                    <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
-                                @endforeach
-                        </select>
-                        <label for="project_status_select">Project Status</label>
-                    </div>
+                <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
+                    <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
+                        <i class="fal fa-angle-left"></i>
+                    </a>
+                    Page <span id="current_page">1</span> of <span id="last_page">1</span>
+                    <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
+                        <i class="fal fa-angle-right"></i>
+                    </button>
                 </div>
             </div>
-            <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
-                <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
-                    <i class="fal fa-angle-left"></i>
-                </a>
-                Page <span id="current_page">1</span> of <span id="last_page">1</span>
-                <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
-                    <i class="fal fa-angle-right"></i>
-                </button>
-            </div>
+           
         </div>
                 <div id="user_data">
     @include('pages.project')

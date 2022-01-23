@@ -9,6 +9,7 @@ use App\Project;
 use App\Statics\Statics;
 use App\SystemDesign;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -68,9 +69,11 @@ class ProjectController extends Controller
         $design->status_customer = $request->statusName;
         $design->note = $request->statusNote;
         if($request->statusName == Statics::DESIGN_STATUS_ENGINEER_HOLD){
+            $design->start_date = Carbon::now();
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_HOLD;
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_HOLD;
         }else{
+            $design->start_date = Carbon::now();
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
         }

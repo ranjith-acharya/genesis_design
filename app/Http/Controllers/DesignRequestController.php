@@ -143,6 +143,21 @@ class DesignRequestController extends Controller
             foreach($managers as $manager){
                 User::findOrFail($manager)->notify(new AuroraDesign($project->name, route('engineer.design.view', $sd->id)));
             }
+            
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            //return $managers;
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "New Design request: " . $project->name,
+                    "",
+                    route('engineer.design.view', $sd->id),
+                    "View Design"));
+            }
     
             $admins = User::whereHas(
                 'roles', function($q){
@@ -196,6 +211,21 @@ class DesignRequestController extends Controller
             foreach($managers as $manager){
                 User::findOrFail($manager)->notify(new StructuralLoadDesign($project->name, route('engineer.design.view', $sd->id)));
             }
+
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            //return $managers;
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "New Design request: " . $project->name,
+                    "",
+                    route('engineer.design.view', $sd->id),
+                    "View Design"));
+            }
     
             $admins = User::whereHas(
                 'roles', function($q){
@@ -245,7 +275,22 @@ class DesignRequestController extends Controller
             foreach($managers as $manager){
                 User::findOrFail($manager)->notify(new EngineeringPermitDesign($project->name, route('engineer.design.view', $sd->id)));
             }
-    
+            
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            //return $managers;
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "New Design request: " . $project->name,
+                    "",
+                    route('engineer.design.view', $sd->id),
+                    "View Design"));
+            }
+
             $admins = User::whereHas(
                 'roles', function($q){
                     $q->where('name', 'admin');
@@ -291,6 +336,21 @@ class DesignRequestController extends Controller
                 User::findOrFail($manager)->notify(new ElectricalLoadDesign($project->name, route('engineer.design.view', $sd->id)));
             }
     
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            //return $managers;
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "New Design request: " . $project->name,
+                    "",
+                    route('engineer.design.view', $sd->id),
+                    "View Design"));
+            }
+
             $admins = User::whereHas(
                 'roles', function($q){
                     $q->where('name', 'admin');
@@ -335,7 +395,22 @@ class DesignRequestController extends Controller
             foreach($managers as $manager){
                 User::findOrFail($manager)->notify(new PEStampingDesign($project->name, route('engineer.design.view', $sd->id)));
             }
-    
+            
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            //return $managers;
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "New Design request: " . $project->name,
+                    "",
+                    route('engineer.design.view', $sd->id),
+                    "View Design"));
+            }
+
             $admins = User::whereHas(
                 'roles', function($q){
                     $q->where('name', 'admin');
@@ -447,12 +522,20 @@ class DesignRequestController extends Controller
             )->pluck('id');
             foreach($managers as $manager){
                 User::findOrFail($manager)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));
-                Mail::to($manager->email)
-                ->send(new Notification($design->project->engineer->email,
-                    "Design Closed for: " . $design->type->name,
-                    "",
-                    route('engineer.design.view', $design->id),
-                    "View Change Request"));
+            }
+            
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                    ->send(new Notification($allManager->email,
+                        "Design Closed for: " . $design->type->name,
+                        "",
+                        route('engineer.design.view', $design->id),
+                        "View Change Request"));
             }
 
             User::findOrFail($design->project->engineer->id)->notify(new DesignClose($design->project->name, route('engineer.design.view', $design->id)));

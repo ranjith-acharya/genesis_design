@@ -131,6 +131,23 @@
                     </div>
                 </div>
             </div>
+            <div class="col s12">
+                @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD)
+                <hr>
+                <div class="row">
+                    <div class="col s12">
+                        <h4>Project Update</h4>
+                        @if($design->note == "")
+
+                        @else
+                        <div class="center">
+                            <b class="label label-red white-text p-10" style="font-size:15px;">{{ $design->note }}</b>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endif
+            </div>
         </div><hr>
         @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">

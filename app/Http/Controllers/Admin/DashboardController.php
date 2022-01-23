@@ -76,8 +76,8 @@ class DashboardController extends Controller
     public function exportExcel(Request $request){
         //dd($request->all());
         $projects = $this->projectMonthly($request);
-        ob_end_clean(); // this
-        ob_start(); // and this
+        // ob_end_clean(); // this
+        // ob_start(); // and this
         //return $projects;
         return Excel::download(new ProjectExportExcel($projects), 'Projects_Monthly.xlsx');
     }
