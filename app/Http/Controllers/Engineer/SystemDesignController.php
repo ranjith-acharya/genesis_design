@@ -89,8 +89,8 @@ class SystemDesignController extends Controller
         $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
         $design->project->project_status = Statics::PROJECT_STATUS_IN_PROGRESS;
         $design->project->status = Statics::STATUS_ACTIVE;
-        $design->project->save();
         $design->start_date = Carbon::now();
+        $design->project->save();
         $design->update();
         return view('engineer.design.view', ["design" => $design, 'fileTypes' => $design->project->files->groupBy('type.name')]);
     }

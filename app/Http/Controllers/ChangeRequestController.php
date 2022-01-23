@@ -12,6 +12,7 @@ use App\Notifications\CustomerRejectQuote;
 use App\Statics\Statics;
 use App\SystemDesign;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -223,6 +224,7 @@ class ChangeRequestController extends Controller
 
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
+            $design->end_date = Carbon::now();
             $design->save();
 
         
