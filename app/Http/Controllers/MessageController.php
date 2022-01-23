@@ -108,8 +108,8 @@ class MessageController extends Controller
                 $query->select('system_design_types.id', 'system_design_types.name');
             }, 'messages' => function ($query) {
                 $query->where('read', false)->where('sender_id', '<>', Auth::id())->select('system_design_messages.id', 'system_design_messages.system_design_id', 'system_design_messages.created_at');
-            }])->where('status', '<>', Statics::DESIGN_STATUS_COMPLETED)->select('system_designs.id', 'system_designs.project_id', 'system_designs.system_design_type_id');
-        }])->where('status', '<>', Statics::PROJECT_STATUS_ARCHIVED)->get(['name', 'id']);
+            }])->where('project_status', '<>', Statics::DESIGN_STATUS_COMPLETED)->select('system_designs.id', 'system_designs.project_id', 'system_designs.system_design_type_id');
+        }])->where('project_status', '<>', Statics::PROJECT_STATUS_ARCHIVED)->get(['name', 'id']);
 
 
         $notifications = new Collection();

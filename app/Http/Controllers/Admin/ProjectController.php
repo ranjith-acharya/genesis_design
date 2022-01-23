@@ -183,6 +183,18 @@ class ProjectController extends Controller
         Mail::to($project->engineer->email)
             ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: <b>$project->name</b> By <br><b>$user_name</b>!", route('engineer.project.view', $project->id), "View Project"));
 
+            $allManagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            foreach($allManagers as $allManager){
+                Mail::to($allManager->email)
+                    ->send(new Notification($allManager->email,
+                        "Project : <b>".$project->name."</b> has been Assigned to ".$project->engineer->email,
+                        "",
+                        route('engineer.project.view', $project->id), "View Project"));
+            }
 
         return back()->with('success', 'Project assigned successfully!');
     }

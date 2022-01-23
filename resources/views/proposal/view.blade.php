@@ -50,11 +50,12 @@
             </div>
         </div>
         <div class="row">
-            
+        @if($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_COMPLETED)
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
             </div>
+            @endif
             
         </div>
         @if($design->proposals[0]->changeRequest)
@@ -157,18 +158,22 @@
                     </div>
                 </div>
             </div>
-        @elseif($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_RECEIVED && Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
-            <div class="row">
-                <div class="col s12 m6 center">
+        @elseif(Auth::user()->hasRole(\App\Statics\Statics::USER_TYPE_CUSTOMER))
+          
+        <div class="row">
+        @if($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_COMPLETED) 
+                <div class="col s12  center">
                     <a class="btn btn-large prussian-blue" id="start_cr"> Change request</a>
                     @component('components.change-request-form', ["design"=>$design])@endcomponent
                 </div>
-                <div class="col s12 m6 center">
+        @else
+                <div class="col s12 center">
                     <form method="post" action="{{route('design.close', $design->id)}}">
                         @csrf
-                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Accept proposal</button>
+                        <button type="submit" class="btn btn-large  prussian-blue" onSubmit="return confirm('Are you sure you want to close the design?')">Pay and Download</button>
                     </form>
                 </div>
+        @endif
             </div>
         @endif
         </div>

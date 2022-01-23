@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Carbon;
+
 
 class ChangeRequestController extends Controller
 {
@@ -35,6 +37,8 @@ class ChangeRequestController extends Controller
         
         $system_design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST;
         $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST;
+        $system_design->project->status= Statics::STATUS_ACTIVE;
+         $system_design->project->save();
         $system_design->save();
         if (!$design->proposals[0]->changeRequest) {
             $cr = new ChangeRequest();
@@ -121,6 +125,7 @@ class ChangeRequestController extends Controller
 
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
+            $design->end_date=Carbon::now();
             $design->save();
         }
 
@@ -223,6 +228,7 @@ class ChangeRequestController extends Controller
 
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_COMPLETED;
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_COMPLETED;
+             $design->end_date=Carbon::now();
             $design->save();
 
         

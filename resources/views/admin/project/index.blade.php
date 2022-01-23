@@ -52,6 +52,7 @@ Project Index - Genesis Design
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
                                 <!-- <th>Design Type</th> -->
+                                <th>State</th>
                                 <th>Project Status</th>
                                 <!-- <th>Project Type</th> -->
                                 <th>Action</th>
@@ -59,7 +60,62 @@ Project Index - Genesis Design
                             </tr>
                         </thead>
                         <tbody>
+                        @if ($projectQuery->count() == 0)
+                        <tr>
+                            <td colspan="5">No Projects to display.</td>
+                        </tr>
+                        @endif
                             @foreach($projectQuery as $data)
+                            @if($data->designs->count()==0)
+                            <tr>
+                                
+                                <td>{{ $data->name }}</td>
+                                <td> No Design</td>
+                                <td>
+                                    @if($data->engineer_id == "")
+                                        <span class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($data->engineer_id == "")
+                                        <span class="helper-text red-text">Not Assigned</span>
+                                    @else
+                                        {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
+                                    @endif
+                                </td>
+                                <td class="capitalize">
+                                @if($data->status == 'in active')
+                                    <span class="label label-red capitalize"> {{ $data->status }}</span>
+                                @else
+                                    <span class="label label-success capitalize"> {{ $data->status }}</span>
+                                @endif</td>
+
+                                </td>   
+                                <td class="capitalize">
+                                    <span class="label label-inverse capitalize"> - </span>
+                                </td>
+                               
+                                <td class="center">
+                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
+                                    <ul id='action{{$data->id}}' class='dropdown-content'>
+                                        <li><a href="#assignModel" onclick="setProjectID('{{ $data->name }}',{{$data->id}},{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
+                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
+                                        <li>
+                                            <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
+                                                @csrf
+                                                
+                                            </form>
+                                            <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
+                                        </li>
+                                    </ul>
+                                   
+                                </td>
+                               
+                            </tr>
+                            @endif
+
                             @foreach($data->designs as $design)
                             <tr>
                                 <!-- <td class="center">
@@ -84,16 +140,17 @@ Project Index - Genesis Design
                                         {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
                                     @endif
                                 </td>
-                                <!-- <td>
-                                   abc
-                                </td> -->
+                        
                                 <td class="capitalize">
                                 @if($data->status == 'in active')
-                                    <span class="label label-red capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
+                                    <span class="label label-red capitalize">{{ $data->status }}</span>
                                 @else
-                                    <span class="label label-success capitalize">{{ $data->status }} / {{ $data->project_status }}</span>
+                                    <span class="label label-success capitalize">{{ $data->status }}</span>
                                 @endif</td>
-                                <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
+
+                                <td class="capitalize">
+                                    <span class="label label-success capitalize"> {{$design->status_engineer}} </span>
+                                </td>
                                 <td class="center">
                                 <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $design->id }}'><i class="ti-view-list"></i></a>
                                     <ul id='action{{$design->id}}' class='dropdown-content'>

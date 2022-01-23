@@ -14,6 +14,7 @@
                                 <th>Service Name</th>
                                 <th>State</th>
                                 <th>Project Status</th>
+                                <th>Created At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -41,7 +42,9 @@
                                 <td class="capitalize">
                                     <span class="label label-inverse capitalize"> - </span>
                                 </td>
-                              
+                                <td>
+                                    {{$data->created_at}} UTC
+                                </td>
                                 <td class="center">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn btn-small prussian-blue" href="{{route('project.edit', '')}}/{{ $data->id }}">View / Edit</a>
@@ -93,7 +96,9 @@
                                 <td class="capitalize">
                                     <span class="label label-success capitalize"> {{ $design->status_customer }}</span>
                                 </td>
-                                <!-- <td class="capitalize">{{ $data->type->name }}</td> -->
+                                <td>
+                                    {{$data->created_at}} UTC
+                                </td>
                                 <td class="center">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn btn-small prussian-blue" href="{{route('project.edit', '')}}/{{ $data->id }}">View / Edit</a>
