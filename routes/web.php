@@ -111,6 +111,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                             Route::get('/available', 'ProjectController@availableProjects')->name('available');
                             Route::get('/assign/{id}', 'ProjectController@assign')->name('assign');
                             Route::get('/view/{id?}', 'ProjectController@view')->name('view');
+                            Route::post('/set/status', 'ProjectController@setStatus')->name('set.status');
 
 //                      Get APIs
                             Route::get('/my-projects', 'ProjectController@getProjects')->name('get');

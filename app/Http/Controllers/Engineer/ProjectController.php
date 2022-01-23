@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Engineer;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Notification;
+use App\Notifications\StatusChange;
 use App\Project;
 use App\Statics\Statics;
+use App\SystemDesign;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -55,5 +58,57 @@ class ProjectController extends Controller
     {
         $project = Auth::user()->assignedProjects()->with(['type', 'files.type'])->findOrFail($id);
         return view('engineer.project.view', ["projectType" => $project->type, "project" => $project, 'fileTypes' => $project->files->groupBy('type.name')]);
+    }
+
+    public function setStatus(Request $request){
+        //return $request;
+        $design = SystemDesign::findOrFail($request->designId);
+        //return $design;
+        $design->status_engineer = $request->statusName;
+        $design->status_customer = $request->statusName;
+        $design->note = $request->statusNote;
+        if($request->statusName == Statics::DESIGN_STATUS_ENGINEER_HOLD){
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_HOLD;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_HOLD;
+        }else{
+            $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+            $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+        }
+        $design->update();
+        $managers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->pluck('id');
+        //return $managers;
+        foreach($managers as $manager){
+            User::findOrFail($manager)->notify(new StatusChange($design->type->name, route('engineer.design.view', $design->id)));
+        }
+
+        $allManagers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->get();
+        //return $managers;
+        foreach($allManagers as $allManager){
+            Mail::to($allManager->email)
+            ->send(new Notification($design->project->customer->email,
+                "New update on design: " . $design->type->name,
+                "",
+                route('engineer.design.view', $design->id),
+                "View Design"));
+        }
+
+        User::findOrFail($design->project->customer->id)->notify(new StatusChange($design->type->name, route('design.view', $design->id)));
+        Mail::to($design->project->customer->email)
+            ->send(new Notification($design->project->customer->email,
+                "New update on your design: " . $design->type->name,
+                "",
+                route('design.view', $design->id),
+                "View Design"));
+        
+        
+        return back()->with('success', 'Status Updated!');
     }
 }
