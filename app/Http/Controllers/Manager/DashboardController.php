@@ -31,7 +31,8 @@ class DashboardController extends Controller
         $projectsArchived = Project::where('project_status', Statics::PROJECT_STATUS_ARCHIVED)->count();
         $projectsCompleted = Project::where('project_status', Statics::PROJECT_STATUS_COMPLETED)->count();
         $projectsCancelled = Project::where('project_status', Statics::PROJECT_STATUS_CANCELLED)->count();
-        $projectsMonthly = Project::whereBetween('created_at', [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()])->get();
+
+        $projectsMonthly = Project::latest()->paginate(5);
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         
         return view('manager.dashboard', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projectsMonthly', 'projectsWeekly', 'projectsAssigned', 'projectsNotAssigned', 'projectsHold', 'projectsInProcess', 'projectsArchived', 'projectsCompleted', 'projectsCancelled'));
