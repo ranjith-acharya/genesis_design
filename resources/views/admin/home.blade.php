@@ -204,60 +204,9 @@ Admin Home - Genesis Design
                             </div>
                         </div>
                     </div>
-                    <table id="" class="responsive-table display black-text">
-                        <thead>
-                            <tr class="black-text">
-                                <th>Project Name</th>
-                                <th>Customer Name</th>
-                                <th>Assigned To</th>
-                                <th>Assigned Date</th>
-                                <th>Created Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableContent">
-                            @foreach($projectsMonthly as $monthly)
-                                <tr>
-                                    <td>
-                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $monthly->id) }}@else{{ route('manager.projects.edit', $monthly->id) }}@endif">
-                                            {{ $monthly->name }}
-                                        </a>
-                                    </td>
-                                    <td class="capitalize">
-                                        {{ $monthly->customer->first_name }} {{ $monthly->customer->last_name }}
-                                    </td>
-                                    <td>
-                                        @if($monthly->engineer_id == "")
-                                            <span class="red-text darken-1">Not yet assigned</span>
-                                        @else
-                                            <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $monthly->engineer->id) }}@else{{ route('manager.engineer.edit', $monthly->engineer->id) }}@endif">
-                                                {{ $monthly->engineer['first_name'] }} {{ $monthly->engineer['last_name'] }}
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                    
-                                    @if($monthly->engineer_id == "")
-                                        <span class="helper-text red-text">Not Assigned</span>
-                                    @else
-                                        {{ Carbon\Carbon::parse($monthly->assigned_date)->format('M d, Y') }}
-                                    @endif
-                                    
-                                    </td>
-                                    <td>
-                                        {{ \Carbon\Carbon::parse( $monthly->updated_at)->format('d M, Y') }}
-                                    </td>
-                                    <td>
-                                    @if($monthly->status == 'in active')
-                                        <span class="label label-red capitalize">{{ $monthly->status }} / {{ $monthly->project_status }}</span>
-                                    @else
-                                        <span class="label label-success capitalize">{{ $monthly->status }} / {{ $monthly->project_status }}</span>
-                                    @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div id="monthlyData">
+                        @include('admin.reports.monthlyData')
+                    </div>
                 </div>            </div>
         </div>
        
@@ -292,7 +241,6 @@ Admin Home - Genesis Design
                             </tr>
                         </thead>
                         <tbody>
-                            @if(count($projectsWeekly)>0)
                             @foreach($projectsWeekly as $weekly)
                                 <tr>
                                     <td>
@@ -302,13 +250,15 @@ Admin Home - Genesis Design
                                     </td>
                                     <td>
                                         @if($weekly->engineer_id == "")
-                                            <span class="helper-text red-text">Not Assigned</span>
+                                            <span class="red-text darken-1">Not yet assigned</span>
                                         @else
-                                            {{ $weekly->engineer->first_name }} {{ $weekly->engineer->last_name }}
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.engineer.edit', $weekly->engineer->id) }}@else{{ route('manager.engineer.edit', $weekly->engineer->id) }}@endif">
+                                                {{ $weekly->engineer['first_name'] }} {{ $weekly->engineer['last_name'] }}
+                                            </a>
                                         @endif
                                     </td>
                                     <td>
-                                        {{ Carbon\Carbon::parse($weekly->created_at)->format('d M, Y') }}
+                                        {{ \Carbon\Carbon::parse( $weekly->updated_at)->format('d M, Y') }}
                                     </td>
                                     <td>
                                         @if($weekly->status == 'in active')
@@ -319,9 +269,6 @@ Admin Home - Genesis Design
                                     </td>
                                 </tr>
                             @endforeach
-                            @else
-                            <tr><td></td><td></td><td></td><td></td></tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -347,12 +294,12 @@ Admin Home - Genesis Design
             datatype:"JSON",
             success:function(data){
                 console.log(data);
-                tableRow = "";
+                // tableRow = "";
 
-                for(i=0;i<data.length;i++){
-                    tableRow += "<tr><td>"+data[i]['name']+"</a></td><td>"+data[i]['first_name']+data[i]['last_name']+"</td><td>"+data[i]['engineer_id']+"</td><td>"+data[i]['assigned_date']+"</td><td>"+data[i]['created_at']+"</td><td> @if("+data[i][status]+" == 'in active') <span class='label label-red capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @else <span class='label label-success capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @endif </td></tr>";
-                }
-                $("#tableContent").html(tableRow);
+                // for(i=0;i<data.length;i++){
+                //     tableRow += "<tr><td>"+data[i]['name']+"</a></td><td>"+data[i]['first_name']+data[i]['last_name']+"</td><td>"+data[i]['engineer_id']+"</td><td>"+data[i]['assigned_date']+"</td><td>"+data[i]['created_at']+"</td><td> @if("+data[i][status]+" == 'in active') <span class='label label-red capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @else <span class='label label-success capitalize'>"+data[i]['status']+" / "+data[i]['project_status']+"</span> @endif </td></tr>";
+                // }
+                $("#monthlyData").html(data);
             }
         });
     });

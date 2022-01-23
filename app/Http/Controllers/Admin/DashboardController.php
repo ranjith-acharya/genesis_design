@@ -33,10 +33,10 @@ class DashboardController extends Controller
         $projectsCompleted = Project::where('project_status', Statics::PROJECT_STATUS_COMPLETED)->count();
         $projectsCancelled = Project::where('project_status', Statics::PROJECT_STATUS_CANCELLED)->count();
         
-        $projectsMonthly = Project::latest()->paginate(5);
+        $projects = Project::latest()->paginate(5);
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         //return Carbon::now()->subWeek()->endOfWeek();
-        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projectsMonthly', 'projectsWeekly', 'projectsAssigned', 'projectsNotAssigned', 'projectsHold', 'projectsInProcess', 'projectsArchived', 'projectsCompleted', 'projectsCancelled'));
+        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projects', 'projectsWeekly', 'projectsAssigned', 'projectsNotAssigned', 'projectsHold', 'projectsInProcess', 'projectsArchived', 'projectsCompleted', 'projectsCancelled'));
     }
 
     // public function projectMonthly(Request $request){
@@ -70,12 +70,29 @@ class DashboardController extends Controller
             $projects = Project::all();
         }
 
+        return view('admin.reports.monthlyData', compact('projects'))->render();
+    }
+    public function projectData(Request $request){
+        $startDate =  $request->get('from_date');
+        $endDate   = $request->get('to_date');
+        $status = $request->get('status');
+        if($startDate != "" && $endDate != "" && $status != ""){
+            $projects = Project::where('project_status', $status)
+                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($startDate != "" && $endDate != "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+        }elseif($status != "" && $startDate == "" && $endDate == ""){
+            $projects = Project::where('project_status', $status)->get();
+        }else{
+            $projects = Project::all();
+        }
+
         return $projects;
     }
 
     public function exportExcel(Request $request){
         //dd($request->all());
-        $projects = $this->projectMonthly($request);
+        $projects = $this->projectData($request);
         // ob_end_clean(); // this
         // ob_start(); // and this
         //return $projects;

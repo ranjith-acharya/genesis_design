@@ -58,7 +58,7 @@
                                     </label>
                                 </div>
                                 <div class="col s5 right-align">
-                                    <a href="#" class="link" id="to-recover">Forgot Pwd?</a>
+                                    <a href="#" class="link" id="to-recover">Forgot Password?</a>
                                 </div>
                             </div>
                             <!-- pwd -->
