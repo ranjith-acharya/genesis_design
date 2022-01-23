@@ -137,6 +137,26 @@ class ProjectController extends Controller
         return $query->paginate(5);
     }
 
+
+    public function getProjectData(Request $request)
+{
+
+    if($request->ajax()) {
+        $projectQuery = Project::with('type')->with('designs');
+
+        $term = trim($request->search);
+        if ($term)
+            $projectQuery->where('name', 'LIKE', '%' . $term . "%");
+        $filters = json_decode($request->filters);
+        foreach ($filters as $filter)
+                if($filter->field=='project_status')
+                    $projectQuery->with('designs')->where('status_customer',$filter->value);
+                if ($filter->value != 'all' && $filter->field!='project_status' )
+                    $projectQuery->where($filter->field, '=', $filter->value);
+    $projectQuery=$projectQuery->latest()->paginate(3);
+            return view('pages.project', compact('projectQuery'))->render();
+    }
+}
     public function assign(Request $request)
     {
         $user_name=Auth::user()->first_name;

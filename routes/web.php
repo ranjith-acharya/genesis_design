@@ -93,6 +93,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
                 Route::get('/projects/get/file', 'Admin\ProjectController@getFile')->name('projects.get.file');
                 Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');
+
+                Route::get('/projects/getProjects', 'Admin\ProjectController@getProjectData')->name('getProjects');
+
                 Route::post('/projects/assign', 'Admin\ProjectController@assign')->name('assign');
                 Route::get('/projects/{id}/assign', 'Admin\ProjectController@getAssignEngineer')->name('assignValue');
 
@@ -177,6 +180,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
 //            Get APIs
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
+               
+                Route::get('/projects/getProjects', 'Admin\ProjectController@getProjectData')->name('getProjects');
+
                 Route::get('/get/file', 'ProjectController@getFile')->name('file.get');
             });
         });

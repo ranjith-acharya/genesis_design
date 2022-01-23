@@ -43,6 +43,7 @@
     </script>
     <script id="row" type="text/html">
         @{{#each data}}
+
         <li class="mb-xxs">
             <div class="collapsible-header" style="flex-direction: column">
                 <div class="row mb-0 w100">
