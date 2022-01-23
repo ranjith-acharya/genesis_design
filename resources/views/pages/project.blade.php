@@ -1,7 +1,7 @@
-<div class="card-content">  
+<div class="card card-content p-10">  
                     <div class="row">
                         <div class="col s3">
-                            <h3>List of Projects</h3>
+                            <h4>List of Projects</h4>
                         </div>
                         <div class="col s3 ">
                             <p><label>
@@ -109,7 +109,7 @@
     {!! $projectQuery->links() !!}
   </div>
 
-<p>
+<p style="padding-top:2%;">
     Displaying {{$projectQuery->count()}} of {{ $projectQuery->total() }} Project(s).
 </p>
 </div>
