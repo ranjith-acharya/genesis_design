@@ -87,6 +87,21 @@
                 </ul>
             </div>
         </div>
+        @if($design->status_customer == \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_HOLD)
+            <hr>
+            <div class="row">
+                <div class="col s12">
+                    <h4>Project Update</h4>
+                    @if($design->note == "")
+
+                    @else
+                    <div class="center">
+                        <b class="label label-red white-text p-10" style="font-size:15px;">{{ $design->note }}</b>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        @endif
         </div>
     </div>
 @endsection

@@ -109,7 +109,29 @@
                     </ul>
                 @endif
             </div>
-        </div>
+        </div><hr>
+        <div class="row">
+            <div class="col s12">
+                <h4>Set Status</h4>
+                <div class="row">
+                    @csrf<div class="input-field col s4">
+                        <select id="statusOption" name="statusOption">
+                            <option value="" disabled selected>Set Status</option>
+                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD }}">{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD }}</option>
+                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS }}">{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS }}</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s4" id="holdStatusOption">
+                        <input id="holdStatusNote" name="holdStatusNote" type="text" class="required" placeholder=" ">
+                        <label for="holdStatusNote">Note : </label>
+                    </div>
+                    <div class="input field col s4">
+                        <br>
+                        <button type="submit" class="btn btn-small green"onclick="setStatus();">Update Status</button>
+                    </div>
+                </div>
+            </div>
+        </div><hr>
         @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
@@ -119,4 +141,31 @@
         @endif
         </div>
     </div>
+@endsection
+
+@section('js')
+<script>
+    function setStatus(a){
+        //alert(a.value);
+        var status = document.getElementById("statusOption").value;
+        var id = {{ $design->id }};
+        var _token=$('input[name="_token"]').val();
+        var otherInput = document.getElementById("holdStatusOption");
+        var note  = document.getElementById("holdStatusNote").value;
+        // alert(note);
+        // alert(_token);
+        // alert(id);
+        // alert(status);
+        $.ajax({
+            url:"@if(Auth::user()->role == 'admin'){{ route('admin.projects.set.status') }}@elseif(Auth::user()->role == 'manager'){{ route('manager.projects.set.status') }}@else{{ route('engineer.project.set.status') }}@endif",
+            method:"POST",
+            data:{statusName: status, designId: id, statusNote: note, _token:_token},
+            success:function(data){
+                console.log(data);
+                toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                location.reload();
+            }      
+        });
+    }
+    </script>
 @endsection

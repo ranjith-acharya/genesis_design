@@ -169,8 +169,16 @@ class ChangeRequestController extends Controller
         )->pluck('id');
         foreach($managers as $manager){
             User::findOrFail($manager)->notify(new CustomerAcceptQuote($design->type->name, route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id));
-            Mail::to($manager->email)
-            ->send(new Notification($design->project->engineer->email,
+        }
+
+        $allmanagers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->get();
+        foreach($allmanagers as $allmanager){
+            Mail::to($allmanager->email)
+            ->send(new Notification($allmanager->email,
                 "Customer accepted quote for: " . $design->type->name,
                 "",
                 route('proposal.view', $design->id) . "?proposal=" . $cr->proposal_id,
