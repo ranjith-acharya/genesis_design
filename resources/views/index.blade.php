@@ -117,7 +117,7 @@ function getMoreUsers(page) {
                                         <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
                                     @endforeach
                             </select>
-                            <label for="status_select"> Status</label>
+                            <label for="status_select"> State</label>
                         </div>
                     </div>
                     <div class="col s3">
@@ -132,7 +132,7 @@ function getMoreUsers(page) {
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
+                <!-- <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
                     <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
                         <i class="fal fa-angle-left"></i>
                     </a>
@@ -140,15 +140,23 @@ function getMoreUsers(page) {
                     <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
                         <i class="fal fa-angle-right"></i>
                     </button>
-                </div>
+                </div> -->
             </div>
            
         </div>
                 <div id="user_data">
     @include('pages.project')
-  </div>
-  <div class="">
-    {{ $projectQuery->links() }}
+    <div>
+        <style>
+            .pager{
+                display: inline-flex !important;
+            }
+            .pager > li{
+                padding-inline: 10px;
+            }
+        </style>
+        {{ $projectQuery->links('vendor.pagination.custom') }}
+    </div>
   </div>
 
                     <div id="assignModel" class="modal modal-fixed-footer">

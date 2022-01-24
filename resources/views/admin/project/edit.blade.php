@@ -20,7 +20,7 @@ Update Project Details - Genesis Design
                             <h3 class="capitalize">Edit {{ $projectType->name }} project</h3>
                         </div>
                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
-                        <div class="col s6 row right-align">
+                        <!-- <div class="col s6 row right-align">
                             <div class="col s6"></div>
                             <div class="col s6">
                                 <select onchange="setStatus(this)">
@@ -30,7 +30,7 @@ Update Project Details - Genesis Design
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         @endif
                     </div>
                     <form id="lead_form" method="post">

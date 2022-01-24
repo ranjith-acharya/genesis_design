@@ -1,12 +1,5 @@
-<div class="card card-content p-10">  
-                    <div class="row">
-                        <div class="col s3">
-                            <h4>List of Projects</h4>
-                        </div>
-                       
-                       
-                    </div>
-                    <table  class="responsive-table display">
+<div class="card card-content p-10">
+                    <table  class="responsive-table display striped">
                         <thead>
                             <tr class="black-text">
                                 <!-- <th>Select</th> -->
@@ -43,9 +36,9 @@
                                     <span class="label label-inverse capitalize"> - </span>
                                 </td>
                                 <td>
-                                    {{$data->created_at}} UTC
+                                    {{ \Carbon\Carbon::parse($data->created_at)->format('d M, Y') }}
                                 </td>
-                                <td class="center">
+                                <td class="">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn btn-small prussian-blue" href="{{route('project.edit', '')}}/{{ $data->id }}">View / Edit</a>
                                     <a class="btn btn-small prussian-blue ml-xxxs" href="{{route('design.list')}}/{{ $data->id  }}">Designs</a>
@@ -94,12 +87,16 @@
 
                                 </td>   
                                 <td class="capitalize">
-                                    <span class="label label-success capitalize"> {{ $design->status_customer }}</span>
+                                    @if(Auth::user()->role == 'customer')
+                                        <span class="label label-success capitalize"> {{ $design->status_customer }}</span>
+                                    @else
+                                        <span class="label label-success capitalize"> {{ $design->status_engineer }}</span>
+                                    @endif
                                 </td>
                                 <td>
-                                    {{$data->created_at}} UTC
+                                    {{ \Carbon\Carbon::parse($data->created_at)->format('d M, Y') }}
                                 </td>
-                                <td class="center">
+                                <td class="">
                                 @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER || Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                                     <a class="btn btn-small prussian-blue" href="{{route('project.edit', '')}}/{{ $data->id }}">View / Edit</a>
                                     <a class="btn btn-small prussian-blue ml-xxxs" href="{{route('design.list')}}/{{ $data->id  }}">Designs</a>
@@ -117,9 +114,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                  
-
-<p style="padding-top:2%;">
-    Displaying {{$projectQuery->count()}} of {{ $projectQuery->total() }} Project(s).
-</p>
+        <p style="padding-top:2%;">
+            Displaying {{$projectQuery->count()}} of {{ $projectQuery->total() }} Project(s).
+        </p>
 </div>
