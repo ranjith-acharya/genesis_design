@@ -3,7 +3,51 @@
 @section('title')
 Project Index - Genesis Design
 @endsection
-
+@push('style')
+	<style type="text/css">
+        ul{
+            white-space:nowrap !important;
+        }
+		.my-active span{
+			background-color: #5cb85c !important;
+			color: white !important;
+			border-color: #5cb85c !important;
+		}
+	</style>
+@endpush
+@section('js')
+<script>
+function filter() {
+            getMoreUsers(1);
+        }
+        $('#project_search').on('keyup', function() {
+         
+          getMoreUsers(1);
+        });
+function getMoreUsers(page) {
+    M.FormSelect.init(document.querySelectorAll('select'));
+    var filters = [
+                {field: "project_type_id", value: M.FormSelect.getInstance(document.getElementById('project_type_select')).getSelectedValues()[0]},
+                {field: "project_status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]},
+                {field: "status", value: M.FormSelect.getInstance(document.getElementById('status_select')).getSelectedValues()[0]}
+            ]
+    var search=$('#project_search').val();
+    //console.log(search+" "+project_type_id+" "+project_status+" "+status);
+       $.ajax({
+        type: "GET",
+        data: {
+          'search':search,
+          'filters': JSON.stringify(filters)
+        },
+        url: "{{ route('admin.projects.getProjects') }}" + "?page=" + page,
+        success:function(data) {
+            console.log(data);
+          $('#projectData').html(data);
+        }
+      });
+    }
+        </script>
+@endsection
 @section('content')
 <div class="container-fluid black-text">
     <div class="row">
@@ -14,166 +58,72 @@ Project Index - Genesis Design
                     toastr.success('{{$message}}', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 </script>
 	            @endif
-                <div class="card-content">
+                <div>
                     <div class="row">
                         <div class="col s3">
                             <h3>List of Projects</h3>
                         </div>
-                        <div class="col s3 ">
-                            <p><label>
-                                <input type="button" class="btn btn-primary" style="display:none;" id="archive" onclick="archiveAll()" value="Archive All"/>
-                            </label></p>
 </div>
-<div class="col s3 ">
-                            <p><label>
-                                <input type="button" class="btn btn-primary" style="display:none;" id="assign" onclick="assignAll()" value="Assign All"/>
-                            </label></p>
-</div>
-                        <!-- <div class="col s3 right-align">
-                            <p><label>
-                                <input type="checkbox" class="filled-in" id="selectAll"/><span>Select All</span>
-                            </label></p> -->
-                    
-                    <!-- <button class="btn indigo dropdown-trigger" data-target='dropdown1'><i class="material-icons left">add</i>NEW PROJECT</button>
-                        <ul id='dropdown1' class='dropdown-content'>
-                            <li><a href="http://127.0.0.1:8000/project/new/residential">Residential</a></li>
-                            <li class="divider" tabindex="-1"></li>
-                            <li><a href="http://127.0.0.1:8000/project/new/commercial">Commercial</a></li>
-                            <li class="divider" tabindex="-1"></li>
-                        </ul> -->                   
-                        <!-- </div> -->
+<div class="row mb-0">
+                <div class="col s12 m9 center-on-small-only">
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <input id="project_search" type="text" data-type="projects">
+                            <label for="project_search">Search for project(s)...</label>
+                        </div>
                     </div>
-                    <table id="zero_config" class="responsive-table display">
-                        <thead>
-                            <tr class="black-text">
-                                <!-- <th>Select</th> -->
-                                <th>Project Name</th>
-                                <th>Service Name</th>
-                                <th>Assigned To</th>
-                                <th>Assigned Date</th>
-                                <!-- <th>Design Type</th> -->
-                                <th>State</th>
-                                <th>Project Status</th>
-                                <!-- <th>Project Type</th> -->
-                                <th>Action</th>
-                                <!-- <th>Designs</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @if ($projectQuery->count() == 0)
-                        <tr>
-                            <td colspan="5">No Projects to display.</td>
-                        </tr>
-                        @endif
-                            @foreach($projectQuery as $data)
-                            @if($data->designs->count()==0)
-                            <tr>
-                                
-                                <td>{{ $data->name }}</td>
-                                <td> No Design</td>
-                                <td>
-                                    @if($data->engineer_id == "")
-                                        <span class="helper-text red-text">Not Assigned</span>
-                                    @else
-                                        {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($data->engineer_id == "")
-                                        <span class="helper-text red-text">Not Assigned</span>
-                                    @else
-                                        {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
-                                    @endif
-                                </td>
-                                <td class="capitalize">
-                                @if($data->status == 'in active')
-                                    <span class="label label-red capitalize"> {{ $data->status }}</span>
-                                @else
-                                    <span class="label label-success capitalize"> {{ $data->status }}</span>
-                                @endif</td>
-
-                                </td>   
-                                <td class="capitalize">
-                                    <span class="label label-inverse capitalize"> - </span>
-                                </td>
-                               
-                                <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $data->id }}'><i class="ti-view-list"></i></a>
-                                    <ul id='action{{$data->id}}' class='dropdown-content'>
-                                        <li><a href="#assignModel" onclick="setProjectID('{{ $data->name }}',{{$data->id}},{{$data->id}})" class="blue-text modal-trigger">Assign</a></li>
-                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li>
-                                            <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
-                                                @csrf
-                                                
-                                            </form>
-                                            <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
-                                        </li>
-                                    </ul>
-                                   
-                                </td>
-                               
-                            </tr>
-                            @endif
-
-                            @foreach($data->designs as $design)
-                            <tr>
-                                <!-- <td class="center">
-                                   <p><label>
-                                        <input type="checkbox" class="filled-in checkboxAll" id="{{ $data->id }}" value="{{ $data->id }}"/>
-                                        <span> </span>
-                                    </label></p>
-                                </td> -->
-                                <td>{{ $data->name }}</td>
-                                <td>{{ $design->type->name }}</td>
-                                <td>
-                                    @if($data->engineer_id == "")
-                                        <span class="helper-text red-text">Not Assigned</span>
-                                    @else
-                                        {{ $data->engineer->first_name }} {{ $data->engineer->last_name }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($data->engineer_id == "")
-                                        <span class="helper-text red-text">Not Assigned</span>
-                                    @else
-                                        {{ Carbon\Carbon::parse($data->assigned_date)->format('M d, Y') }}
-                                    @endif
-                                </td>
-                        
-                                <td class="capitalize">
-                                @if($data->status == 'in active')
-                                    <span class="label label-red capitalize">{{ $data->status }}</span>
-                                @else
-                                    <span class="label label-success capitalize">{{ $data->status }}</span>
-                                @endif</td>
-
-                                <td class="capitalize">
-                                    <span class="label label-success capitalize"> {{$design->status_engineer}} </span>
-                                </td>
-                                <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $design->id }}'><i class="ti-view-list"></i></a>
-                                    <ul id='action{{$design->id}}' class='dropdown-content'>
-                                        <li><a href="#assignModel" onclick="setProjectID('{{ $data->name }}',{{$data->id}},{{$design->id}})" class="blue-text modal-trigger">Assign</a></li>
-                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $data->id) }}@else{{ route('manager.projects.edit', $data->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li>
-                                            <form id="archiveForm{{$data->id}}" action="{{route('project.archive', $data->id)}}" method="post">
-                                                @csrf
-                                                
-                                            </form>
-                                            <a onclick="archiveProject({{$data->id}})" class="imperial-red-text ">Archive</a>
-                                        </li>
-                                    </ul>
-                                   
-                                </td>
-                                <!-- <td>
-                                <button type="submit" class="btn indigo">Design </button>
-                                </td> -->
-                            </tr>
-                            @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                        <select id="project_type_select" onchange="filter()">
+                                <option value="all">All</option>
+                                @foreach($projectTypes as $projectType)
+                                    <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
+                                @endforeach
+                            </select>
+                            <label for="project_type_select">Project Type</label>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <select id="status_select" onchange="filter()">
+                                <option value="all">All</option>
+                                    @foreach(\App\Statics\Statics::STATUSES as $Status)
+                                        <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                                    @endforeach
+                            </select>
+                            <label for="status_select"> State</label>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <select id="project_status_select" onchange="filter()">
+                                <option value="all">All</option>
+                                    @foreach(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER as $projectStatus)
+                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                    @endforeach
+                            </select>  
+                            <label for="project_status_select">Project Status</label>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+           
+       
+                    <div id="projectData">
+                        @include('admin.reports.projects')
+                        <div>
+        <style>
+            .pager{
+                display: inline-flex !important;
+            }
+            .pager > li{
+                padding-inline: 10px;
+            }
+        </style>
+        {{ $projects->links('vendor.pagination.custom') }}
+    </div>
+                    </div>
                     <div id="assignModel" class="modal modal-fixed-footer">
                         <div class="modal-content">
                             <h4>Select Engineer to Assign <span id="project_name"></span> project</h4>
@@ -207,9 +157,22 @@ Project Index - Genesis Design
 
 @section('js')
 <script>
+
+$(document).ready(function() {
+        $(document).on('click', '.pagination a', function(event) {
+          event.preventDefault();
+          var page = $(this).attr('href').split('page=')[1];
+         
+         getMoreUsers(page);
+        });
+
+       
+
+       
+    });
     function setProjectID(name,id,design_id)
     {
-        console.log(design_id);
+        
         $('#project_id').val(id);
         $("#design_id").val(design_id);
         $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
@@ -234,54 +197,6 @@ Project Index - Genesis Design
     function archiveProject(id){
         $("#archiveForm"+id).submit();
     }
-
-    var checkID = [];
-
-    $(".checkboxAll").click(function(){
-        // alert("Hey!");
-        if(this.checked){
-           
-            checkID.push(this.value);
-        }
-        else{
-            checkID.splice(checkID.indexOf(this.value),1);
-        }
-        if(checkID.length>0)
-        {
-            $("#archive").css("display","block");
-            $("#assign").css("display","block");
-        }
-        else{
-            $("#archive").css("display","none");
-            $("#assign").css("display","none");
-        }
-    });
-    $("#selectAll").click(function(){
-        checkID = [];
-        if(this.checked){
-            // alert("checked");
-            $(".checkboxAll").each(function(id, checkboxValue) {
-                $(".checkboxAll").prop("checked", true);
-                //console.log(checkboxValue.value);               
-                checkID.push(checkboxValue.value);
-            });
-            console.log(checkID);
-        }else{
-            $(".checkboxAll").each(function(id, checkboxValue) {
-                $(".checkboxAll").prop("checked", false);
-                checkID.splice(checkID.indexOf(checkboxValue.value),1);
-            });
-        }
-        if(checkID.length>0)
-        {
-            $("#archive").css("display","block");
-            $("#assign").css("display","block");
-        }
-        else{
-            $("#archive").css("display","none");
-            $("#assign").css("display","none");
-        }
-    });
     
 </script>
 @endsection

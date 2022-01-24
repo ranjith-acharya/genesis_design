@@ -31,15 +31,17 @@ class ProjectController extends Controller
     public function index()
     {
         //return 'hello';
-        $projectQuery = Project::all();
+        $projects = Project::latest()->paginate(4);
+        $projectTypes = ProjectType::where('is_hidden', false)->get();
         $engineers = User::where('role', 'engineer')->get();
-        return view('admin.project.index', compact('projectQuery', 'engineers'));
+        return view('admin.project.index', compact('projects', 'engineers','projectTypes'));
     }
 
     public function indexProject(){
-        $projectQuery = Project::latest()->get();
+        $projects = Project::latest()->paginate(4);
+        $projectTypes = ProjectType::where('is_hidden', false)->get();
         $engineers = User::where('role', 'engineer')->get();
-        return view('admin.project.index', compact('projectQuery', 'engineers'));
+        return view('admin.project.index', compact('projects', 'engineers','projectTypes'));
     }
 
     /**
@@ -144,8 +146,10 @@ class ProjectController extends Controller
 {
 
     if($request->ajax()) {
+        if(Auth::user()->hasRole('customer'))
+        $projectQuery = Auth::user()->projects()->with('type')->with('designs');
+        else
         $projectQuery = Project::with('type')->with('designs');
-
         $term = trim($request->search);
         if ($term)
             $projectQuery->where('name', 'LIKE', '%' . $term . "%");
@@ -153,8 +157,8 @@ class ProjectController extends Controller
         foreach ($filters as $filter)
             if ($filter->value != 'all' )
                     $projectQuery->where($filter->field, '=', $filter->value);
-    $projectQuery=$projectQuery->latest();
-            return view('pages.project', compact('projectQuery'))->render();
+    $projects=$projectQuery->latest()->paginate(5);
+            return view('admin.reports.projects', compact('projects'))->render();
     }
 }
     public function assign(Request $request)

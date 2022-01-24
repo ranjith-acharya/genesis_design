@@ -35,9 +35,15 @@
             <td>
                 {{$project->customer['first_name']}} {{$project->customer['last_name']}}
             </td>
+            @if($project->engineer_id=="")
+            <td>    
+               Not Assigned
+            </td>
+            @else
             <td>    
                 {{$project->engineer['first_name']}} {{$project->engineer['last_name']}}
             </td>
+            @endif
             <td>    
                 {{$project['assigned_date']}}
             </td>
