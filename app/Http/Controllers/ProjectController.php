@@ -46,7 +46,7 @@ class ProjectController extends Controller
         $fields = $request->all();
         $fields['customer_id'] = Auth::id();
         $fields['company_id'] = (Auth::user()->role === Statics::USER_TYPE_ADMIN) ? null : Auth::user()->company_id;
-
+        $fields['status'] = Statics::STATUS_ACTIVE;
         // $managers = User::whereHas(
         //     'roles', function($q){
         //         $q->where('name', 'manager');

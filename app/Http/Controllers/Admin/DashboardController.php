@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Project;
 use App\Statics\Statics;
+use App\SystemDesign;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\StaticVar;
@@ -25,18 +26,18 @@ class DashboardController extends Controller
         $engineerCount = User::where('role', 'engineer')->count();
         $projectsActive = Project::where('status', 'active')->count();
         $projectsInActive = Project::where('status', 'in active')->count();
-        $projectsAssigned = Project::where('project_status', Statics::PROJECT_STATUS_ASSIGNED)->count();
-        $projectsNotAssigned = Project::where('project_status', Statics::PROJECT_STATUS_NOT_ASSIGNED)->count();
+        $designsAssigned = SystemDesign::where('status_engineer', Statics::DESIGN_STATUS_ENGINEER_ASSIGNED)->count();
+        $designsNotAssigned = SystemDesign::where('status_engineer', Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED)->count();
         $projectsHold = Project::where('project_status', Statics::PROJECT_STATUS_ON_HOLD)->count();
-        $projectsInProcess = Project::where('project_status', Statics::PROJECT_STATUS_IN_PROGRESS)->count();
+        $designsInProcess = SystemDesign::where('status_engineer', Statics::DESIGN_STATUS_ENGINEER_PROGRESS)->count();
         $projectsArchived = Project::where('project_status', Statics::PROJECT_STATUS_ARCHIVED)->count();
-        $projectsCompleted = Project::where('project_status', Statics::PROJECT_STATUS_COMPLETED)->count();
+        $designsCompleted = SystemDesign::where('status_engineer', Statics::DESIGN_STATUS_ENGINEER_COMPLETED)->count();
         $projectsCancelled = Project::where('project_status', Statics::PROJECT_STATUS_CANCELLED)->count();
         
         $projects = Project::latest()->paginate(5);
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         //return Carbon::now()->subWeek()->endOfWeek();
-        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projects', 'projectsWeekly', 'projectsAssigned', 'projectsNotAssigned', 'projectsHold', 'projectsInProcess', 'projectsArchived', 'projectsCompleted', 'projectsCancelled'));
+        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projects', 'projectsWeekly', 'designsAssigned', 'designsNotAssigned', 'projectsHold', 'designsInProcess', 'projectsArchived', 'designsCompleted', 'projectsCancelled'));
     }
 
     // public function projectMonthly(Request $request){

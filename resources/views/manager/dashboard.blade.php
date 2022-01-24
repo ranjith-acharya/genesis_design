@@ -342,10 +342,10 @@ $(function() {
                     radius: '56%',
                     center: ['42%', '60%'],
                     data: [
-                        {value: {{$projectsAssigned }}, name: 'Assigned'},
-                        {value: {{$projectsInProcess }}, name: 'In Progress'},
-                        {value: {{$projectsNotAssigned }}, name: 'Not Assigned'},                        
-                        {value: {{$projectsCompleted }}, name: 'Completed'}
+                        {value: {{$designsAssigned }}, name: 'Assigned'},
+                        {value: {{$designsInProcess }}, name: 'In Progress'},
+                        {value: {{$designsNotAssigned }}, name: 'Not Assigned'},                        
+                        {value: {{$designsCompleted }}, name: 'Completed'}
                     ]
                 }]
         };
