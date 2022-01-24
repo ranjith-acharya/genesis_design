@@ -128,7 +128,7 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $designs_count=Project::findOrFail($project_id)->designs->count();
+            $designs_count=Project::findOrFail($project->id)->designs->count();
             if($designs_count>0)
             {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
@@ -206,7 +206,7 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $designs_count=Project::findOrFail($project_id)->designs->count();
+            $designs_count=Project::findOrFail($project->id)->designs->count();
             if($designs_count>0)
             {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
@@ -279,7 +279,7 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $designs_count=Project::findOrFail($project_id)->designs->count();
+            $designs_count=Project::findOrFail($project->id)->designs->count();
             if($designs_count>0)
             {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
@@ -348,7 +348,7 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $designs_count=Project::findOrFail($project_id)->designs->count();
+            $designs_count=Project::findOrFail($project->id)->designs->count();
             if($designs_count>0)
             {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
@@ -417,7 +417,7 @@ class DesignRequestController extends Controller
             $sd = new SystemDesign();
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
-            $designs_count=Project::findOrFail($project_id)->designs->count();
+            $designs_count=Project::findOrFail($project->id)->designs->count();
             if($designs_count>0)
             {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
