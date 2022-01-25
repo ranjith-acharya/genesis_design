@@ -218,7 +218,7 @@ Project Index - Genesis Design
        var modelid=id;
         $.ajax({
                 url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
-                method:"GET",
+                method:"POST",
                 datatype:"JSON",
                 success:function(data)
                 {

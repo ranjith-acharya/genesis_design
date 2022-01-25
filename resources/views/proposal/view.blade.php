@@ -50,12 +50,12 @@
             </div>
         </div>
         <div class="row">
-        @if($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_COMPLETED)
+        @if($design->status_customer === \App\Statics\Statics::DESIGN_STATUS_CUSTOMER_COMPLETED || Auth::user()->role != 'customer')
             <div class="col s12">
                 <h4 class="capitalize">Proposal Files</h4>
                 <x-ListFiles :files="$design->proposals[0]->files" path="{{route('proposal.file')}}?design={{$design->id}}&proposal={{$design->proposals[0]->id}}"></x-ListFiles>
             </div>
-            @endif
+        @endif
             
         </div>
         @if($design->proposals[0]->changeRequest)
