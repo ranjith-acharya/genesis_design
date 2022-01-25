@@ -60,7 +60,7 @@ function getMoreUsers(page) {
                     </div>
                 </div>
             </div>
-        @endif
+        @else
     <div class="row">
         <div class="col s12">
             <div class="">
@@ -158,6 +158,7 @@ function getMoreUsers(page) {
         {{ $projectQuery->links('vendor.pagination.custom') }}
     </div>
   </div>
+  @endif
 
                     <div id="assignModel" class="modal modal-fixed-footer">
                         <div class="modal-content">

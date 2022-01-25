@@ -31,6 +31,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/home', 'DashboardController@index')->name('home');
                 Route::get('/project/monthly', 'DashboardController@projectMonthly')->name('project.monthly');
 
+
+                Route::get('/getProjects', 'ProjectController@getProjectData')->name('projects.getProjects');
                 Route::get('/export/excel', 'DashboardController@exportExcel')->name('export.excel');
                 Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
 

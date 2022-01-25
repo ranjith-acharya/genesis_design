@@ -21,12 +21,12 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Design Status</th>
-            <th>Price</th>
             <th>Payment Date</th>
         </tr>
     </thead>
     <tbody id="tableData">
     @foreach($projects as $project)
+    @if($project->designs->count()>0)
         @foreach($project->designs as $design)
         <tr>
             <td>
@@ -35,9 +35,15 @@
             <td>
                 {{$project->customer['first_name']}} {{$project->customer['last_name']}}
             </td>
+            @if($project->engineer_id=="")
+            <td>    
+               Not Assigned
+            </td>
+            @else
             <td>    
                 {{$project->engineer['first_name']}} {{$project->engineer['last_name']}}
             </td>
+            @endif
             <td>    
                 {{$project['assigned_date']}}
             </td>
@@ -54,13 +60,48 @@
                 {{$design['status_engineer']}}
             </td>
             <td>    
-                $ {{$design['price']}}
+                {{$design['payment_date']}}
+            </td>
+        </tr>
+        @endforeach
+    @else
+    <tr>
+            <td>
+                {{$project['name']}}
+            </td>
+            <td>
+                {{$project->customer['first_name']}} {{$project->customer['last_name']}}
+            </td>
+            @if($project->engineer_id=="")
+            <td>    
+               Not Assigned
+            </td>
+            @else
+            <td>    
+                {{$project->engineer['first_name']}} {{$project->engineer['last_name']}}
+            </td>
+            @endif
+            <td>    
+                {{$project['assigned_date']}}
+            </td>
+            <td>    
+                {{$design->type['name']}}
+            </td>
+            <td>    
+                {{$design['start_date']}}
+            </td>
+            <td>    
+                {{$design['end_date']}}
+            </td>
+            <td>    
+               
             </td>
             <td>    
                 {{$design['payment_date']}}
             </td>
         </tr>
-        @endforeach
+        
+       @endif
     @endforeach
     </tbody>
     </table>
