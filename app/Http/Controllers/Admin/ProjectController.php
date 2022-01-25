@@ -179,25 +179,28 @@ public function assign(Request $request)
         $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_ASSIGNED;
         $system_design->save();
         
+        $project=Project::findOrFail($request->project_id);
+        $engineer_mail=$project->engineer->email;
+        Mail::to($project->engineer->email)
+            ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: $project->name. By <br>$user_name!", route('engineer.project.view', $project->id), "View Project"));
+
         User::findOrFail($request->engineer_id)->notify(new ManagerAssign($project->name, route('engineer.project.view', $project->id)));
         User::findOrFail($project->customer->id)->notify(new ManagerAssign($project->name, route('project.edit', $project->id)));
 
         Mail::to($project->customer->email)
-            ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+            ->send(new Notification($project->customer->email, "Project Status Update, Your project $project->name is now being worked on!", "", route('project.edit', $project->id), "View Project"));
         
-        $project=Project::findOrFail($request->project_id);
-        Mail::to($project->engineer->email)
-            ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: <b>$project->name</b> By <br><b>$user_name</b>!", route('engineer.project.view', $project->id), "View Project"));
-
         $allManagers = User::whereHas(
             'roles', function($q){
                 $q->where('name', 'manager');
             }
         )->get();
+        
         foreach($allManagers as $allManager){
+           
             Mail::to($allManager->email)
                 ->send(new Notification($allManager->email,
-                    "Project : <b>$project->name</b> has been Assigned to $project->engineer->email",
+                    "Project: $project->name. has been Assigned to  $engineer_mail",
                     "",
                     route('manager.projects.edit', $project->id), "View Project"));
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,54 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function adminUpdate(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        return back()->with('success','Details updated successfully!');
+    }
+
+    public function managerUpdate(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        return back()->with('success','Details updated successfully!');
+    }
+
+    public function engineerUpdate(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        return back()->with('success','Details updated successfully!');
+    }
+
+    public function customerUpdate(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|max:10',
+        ]);
+    
+        $user = User::find($id);
+        $user->update($request->all());
+        return back()->with('success','Details updated successfully!');
     }
 
     /**

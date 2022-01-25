@@ -114,6 +114,17 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div>
+        <style>
+            .pager{
+                display: inline-flex !important;
+            }
+            .pager > li{
+                padding-inline: 10px;
+            }
+        </style>
+        {{ $projectQuery->links('vendor.pagination.custom') }}
+    </div>
         <p style="padding-top:2%;">
             Displaying {{$projectQuery->count()}} of {{ $projectQuery->total() }} Project(s).
         </p>

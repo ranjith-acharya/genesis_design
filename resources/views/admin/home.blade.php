@@ -8,7 +8,7 @@ Admin Home - Genesis Design
 <div class="container-fluid">
     <div class="row">
         <div class="col l3 m6 s12">
-            <div class="card danger-gradient card-hover">
+            <a href="{{ route('admin.customer.index') }}"><div class="card danger-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -20,11 +20,11 @@ Admin Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
         <div class="col l3 m6 s12">
             <div class="card info-gradient card-hover">
-                <div class="card-content">
+                <a href="{{ route('admin.engineer.index') }}"><div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
                             <h2 class="white-text m-b-5">{{ $engineerCount }}</h2>
@@ -34,7 +34,7 @@ Admin Home - Genesis Design
                             <span class="white-text display-6"><i class="fal fa-user-hard-hat"></i></span>
                         </div>
                     </div>
-                </div>
+                </div></a>
             </div>
         </div>
         <div class="col l3 m6 s12">

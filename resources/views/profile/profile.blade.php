@@ -143,9 +143,14 @@
 <div class="row">
     <div class="col s4">
         <div class="card">
-        @php
-            $profile_img=Auth::user()->role.".png";
+            @php
+                $profile_img=Auth::user()->role.".png";
             @endphp
+            @if ($message = Session::get('success'))
+                <script>
+                    toastr.success('{{$message}}', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                </script>
+	        @endif
             <div class="card-content white-text social-profile d-flex justify-content-center">
                 <div class="align-self-center">
                     <img src="{{ asset('assets/images/users/'.$profile_img) }}" class="" width="100">
@@ -184,9 +189,18 @@
                                 <br>
                                 <p>{{ Auth::user()->email }}</p>
                             </div>
+                            @if(Auth::user()->company == "")
+
+                            @else
                             <div class="col s12 b-t p-t-20"> <b>Company</b>
                                 <br>
                                 <p class="capitalize">{{ Auth::user()->company }}</p>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <div class=" col s12 b-t p-t-20">
+                                <a class="modal-trigger" href="#editProfile"><button type="button" class="btn btn-small green white-text">Edit</button></a>
                             </div>
                         </div>
                     </div>
@@ -242,4 +256,64 @@
         </div>
     </div>
 </div>
+<div id="editProfile" class="modal">
+    <form method="post" action="@if(Auth::user()->role == 'admin') {{ route('profile.admin.update', Auth::user()->id) }} @elseif(Auth::user()->role == 'manager') {{ route('profile.manager.update', Auth::user()->id) }} @elseif(Auth::user()->role == 'engineer') {{ route('profile.engineer.update', Auth::user()->id) }} @else {{ route('profile.customer.update', Auth::user()->id) }} @endif">
+    @csrf
+    @method('PUT')
+        <div class="modal-content">
+            <h4>Update Profile</h4><br>
+            <div class="row">
+                <div class="col s6">
+                    <div class="input-field w100 col">
+                        <input id="first_name" type="text" class="validate @error('first_name') invalid @enderror" name="first_name" value="{{ Auth::user()->first_name }}" required autocomplete="first name">
+                        <label for="first_name">First Name</label>
+                        @error('first_name')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field w100 col">
+                        <input id="last_name" type="text" class="validate @error('last_name') invalid @enderror" name="last_name" value="{{ Auth::user()->last_name }}" required autocomplete="last name">
+                        <label for="last_name">Last Name</label>
+                        @error('last_name')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="input-field w100 col">
+                        <input id="company" type="text" class="" name="company" value="{{ Auth::user()->company }}" autocomplete="company">
+                        <label for="company">Company Name</label>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field w100 col">
+                        <input id="phone" type="text" class="validate @error('phone') invalid @enderror" name="phone" value="{{ Auth::user()->phone }}" required maxlength="10" autocomplete="phone">
+                        <label for="phone">Phone Number</label>
+                        @error('phone')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="input-field w100 col">
+                        <input id="email" type="text" class="validate @error('email') invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email" disabled>
+                        <label for="email">Email Address</label>
+                        @error('email')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-small green white-text">Update</button>
+        </div>
+    </form>
+  </div>
 @endsection
