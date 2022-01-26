@@ -218,6 +218,10 @@ Route::middleware(['verified', 'auth'])->group(function () {
         });
 
         Route::name('profile.')->group(function () {
+            Route::put('/profile/admin/update/{id}', 'ProfileController@adminUpdate')->name('admin.update');
+            Route::put('/profile/manager/update/{id}', 'ProfileController@managerUpdate')->name('manager.update');
+            Route::put('/profile/engineer/update/{id}', 'ProfileController@engineerUpdate')->name('engineer.update');
+            Route::put('/profile/customer/update/{id}', 'ProfileController@customerUpdate')->name('customer.update');
             Route::resource('/profile', 'ProfileController');
             Route::get('/profile/payment/methods', 'PaymentController@getPaymentMethods')->name('payment.methods');
         });

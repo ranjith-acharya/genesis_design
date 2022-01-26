@@ -71,7 +71,50 @@ function getMoreUsers(page) {
         }
       });
     }
-        </script>
+</script>
+<script>
+
+$(document).ready(function() {
+        $(document).on('click', '.pagination a', function(event) {
+          event.preventDefault();
+          var page = $(this).attr('href').split('page=')[1];
+         
+         getMoreUsers(page);
+        });
+
+       
+
+       
+    });
+    function setProjectID(name,id,design_id)
+    {
+        
+        $('#project_id').val(id);
+        $("#design_id").val(design_id);
+        $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
+        $("#project_name").text(name);
+        //alert(id)
+       var modelid=id;
+        $.ajax({
+                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
+                method:"POST",
+                datatype:"JSON",
+                success:function(data)
+                {
+                   //alert(data);
+                   console.log(data);
+                   //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
+                   $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
+                    // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
+                    // $("#method").val("PATCH");        
+                }
+            });
+    }
+    function archiveProject(id){
+        $("#archiveForm"+id).submit();
+    }
+    
+</script>
 @endsection
 @section('content')
 <div class="container-fluid black-text">
@@ -182,26 +225,3 @@ function getMoreUsers(page) {
 </div>
 @endsection
 
-@section('js')
-<script>
-
-$(document).ready(function() {
-        $(document).on('click', '.pagination a', function(event) {
-          event.preventDefault();
-          var page = $(this).attr('href').split('page=')[1];
-         
-         getMoreUsers(page);
-        });
-
-       
-
-       
-    });
-    
-   
-    function archiveProject(id){
-        $("#archiveForm"+id).submit();
-    }
-    
-</script>
-@endsection

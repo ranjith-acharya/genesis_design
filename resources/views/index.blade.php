@@ -160,17 +160,6 @@ function getMoreUsers(page) {
         </div>
                 <div id="user_data">
     @include('pages.project')
-    <div>
-        <style>
-            .pager{
-                display: inline-flex !important;
-            }
-            .pager > li{
-                padding-inline: 10px;
-            }
-        </style>
-        {{ $projectQuery->links('vendor.pagination.custom') }}
-    </div>
   </div>
   @endif
 

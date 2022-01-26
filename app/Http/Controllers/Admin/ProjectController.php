@@ -210,9 +210,11 @@ class ProjectController extends Controller
             return view('admin.reports.projects', compact('projects'))->render();
     }
 }
-    public function assign(Request $request)
+public function assign(Request $request)
     {
+        //return $request;
         $user_name=Auth::user()->first_name;
+        //return $user_name;
         $project = Project::with('customer')->findOrFail($request->project_id);
         
         Project::where('id', $request->project_id)->update([
@@ -226,28 +228,40 @@ class ProjectController extends Controller
         $system_design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_ASSIGNED;
         $system_design->save();
         
+        $project=Project::findOrFail($request->project_id);
+        $engineer_mail=$project->engineer->email;
+        Mail::to($project->engineer->email)
+            ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: $project->name. By <br>$user_name!", route('engineer.project.view', $project->id), "View Project"));
+
         User::findOrFail($request->engineer_id)->notify(new ManagerAssign($project->name, route('engineer.project.view', $project->id)));
         User::findOrFail($project->customer->id)->notify(new ManagerAssign($project->name, route('project.edit', $project->id)));
 
         Mail::to($project->customer->email)
-            ->send(new Notification($project->customer->email, "Project Status Update", "Your project <b>$project->name</b> is now being worked on!", route('project.edit', $project->id), "View Project"));
+            ->send(new Notification($project->customer->email, "Project Status Update, Your project $project->name is now being worked on!", "", route('project.edit', $project->id), "View Project"));
         
-        $project=Project::findOrFail($request->project_id);
-        Mail::to($project->engineer->email)
-            ->send(new Notification($project->engineer->email, "Project Status Update", "You have been assigned on this Project: <b>$project->name</b> By <br><b>$user_name</b>!", route('engineer.project.view', $project->id), "View Project"));
-
-            $allManagers = User::whereHas(
-                'roles', function($q){
-                    $q->where('name', 'manager');
-                }
-            )->get();
-            foreach($allManagers as $allManager){
-                Mail::to($allManager->email)
-                    ->send(new Notification($allManager->email,
-                        "Project : <b>".$project->name."</b> has been Assigned to ".$project->engineer->email,
-                        "",
-                        route('engineer.project.view', $project->id), "View Project"));
+        $allManagers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
             }
+        )->get();
+        
+        foreach($allManagers as $allManager){
+           
+            Mail::to($allManager->email)
+                ->send(new Notification($allManager->email,
+                    "Project: $project->name. has been Assigned to  $engineer_mail",
+                    "",
+                    route('manager.projects.edit', $project->id), "View Project"));
+        }
+
+        $managers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->pluck('id');
+        foreach($managers as $manager){
+            User::findOrFail($manager)->notify(new ManagerAssign($project->name, route('manager.projects.edit', $project->id)));
+        }
 
         return back()->with('success', 'Project assigned successfully!');
     }
@@ -266,6 +280,7 @@ class ProjectController extends Controller
         $design->note = $request->statusNote;
         if($request->statusName == Statics::DESIGN_STATUS_ENGINEER_HOLD){
             $design->start_date = Carbon::now();
+            $design->project->status = Statics::STATUS_ACTIVE;
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_HOLD;
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_HOLD;
         }else{
@@ -273,6 +288,7 @@ class ProjectController extends Controller
             $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
         }
+        $design->project->save();
         $design->update();
         $managers = User::whereHas(
             'roles', function($q){
@@ -292,8 +308,8 @@ class ProjectController extends Controller
         //return $managers;
         foreach($allManagers as $allManager){
             Mail::to($allManager->email)
-            ->send(new Notification($design->project->customer->email,
-                "New update on your design: " . $design->type->name,
+            ->send(new Notification($allManager->email,
+                "New update on a Project: ".$design->project->name." your design: " . $design->type->name,
                 "",
                 route('engineer.design.view', $design->id),
                 "View Design"));
@@ -302,7 +318,7 @@ class ProjectController extends Controller
         User::findOrFail($design->project->customer->id)->notify(new StatusChange($design->type->name, route('design.view', $design->id)));
         Mail::to($design->project->customer->email)
             ->send(new Notification($design->project->customer->email,
-                "New update on your design: " . $design->type->name,
+                "New update on Project: ".$design->project->name." your design: " . $design->type->name,
                 "",
                 route('design.view', $design->id),
                 "View Design"));
