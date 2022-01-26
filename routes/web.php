@@ -81,7 +81,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/markRead', 'NotificationController@markRead')->name('markRead');
                 Route::resource('/home', 'Manager\DashboardController');
                 Route::get('/project/monthly', 'Manager\DashboardController@projectMonthly')->name('project.monthly');
-                
+                Route::get('/getProjects', 'Admin\ProjectController@getProjectData')->name('projects.getProjects');
                 Route::get('/export/excel', 'Manager\DashboardController@exportExcel')->name('export.excel');
                 Route::get('/export/pdf', 'Manager\ReportController@exportPDF')->name('export.pdf');
 

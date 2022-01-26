@@ -59,35 +59,131 @@ class DashboardController extends Controller
     public function projectMonthly(Request $request){
         $startDate =  $request->get('from_date');
         $endDate   = $request->get('to_date');
-        $status = $request->get('status');
+        $status = $request->get('state');
+        $project_status=$request->get('status');
+
         if($startDate != "" && $endDate != "" && $status != ""){
-            $projects = Project::where('project_status', $status)
-                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
+            $projects = Project::where('status', $status)
+                                    ->whereBetween('created_at', [ $startDate, $endDate ]);
         }elseif($startDate != "" && $endDate != "" && $status == ""){
-            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ]);
         }elseif($status != "" && $startDate == "" && $endDate == ""){
-            $projects = Project::where('project_status', $status)->get();
-        }else{
-            $projects = Project::all();
+            $projects = Project::where('status', $status);
         }
+            else
+            {
+                $projects=Project::latest();
+            } 
+            if ($project_status == 'completed')
+            {
+                $projects->whereHas('designs', function($q){
+                    $q->where('status_engineer','completed');
+                });
+            }
+            elseif($project_status == 'in progress')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','in progress');
+            });
+            }
+            elseif($project_status == 'on hold')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','on hold');
+            });
+            }
+            elseif($project_status == 'change request')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','change request');
+            });
+            }
+            elseif($project_status == 'assigned')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','assigned');
+            });
+            }
+            elseif($project_status == 'not assigned')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','not assigned');
+            });
+            }
+            elseif($project_status == 'submitted')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','submitted');
+            });
+            }
+
+                $projects=$projects->get();
 
         return view('admin.reports.monthlyData', compact('projects'))->render();
     }
     public function projectData(Request $request){
+       
         $startDate =  $request->get('from_date');
         $endDate   = $request->get('to_date');
-        $status = $request->get('status');
-        if($startDate != "" && $endDate != "" && $status != ""){
-            $projects = Project::where('project_status', $status)
-                                    ->whereBetween('created_at', [ $startDate, $endDate ])->get();
-        }elseif($startDate != "" && $endDate != "" && $status == ""){
-            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ])->get();
-        }elseif($status != "" && $startDate == "" && $endDate == ""){
-            $projects = Project::where('project_status', $status)->get();
-        }else{
-            $projects = Project::all();
-        }
+        $status = $request->get('state');
+        $project_status=$request->get('status');
 
+        if($startDate != "" && $endDate != "" && $status != ""){
+            $projects = Project::where('status', $status)
+                                    ->whereBetween('created_at', [ $startDate, $endDate ]);
+        }elseif($startDate != "" && $endDate != "" && $status == ""){
+            $projects = Project::whereBetween('created_at', [ $startDate, $endDate ]);
+        }elseif($status != "" && $startDate == "" && $endDate == ""){
+            $projects = Project::where('status', $status);
+        }
+            else
+            {
+                $projects=Project::latest();
+            } 
+            if ($project_status == 'completed')
+            {
+                $projects->whereHas('designs', function($q){
+                    $q->where('status_engineer','completed');
+                });
+            }
+            elseif($project_status == 'in progress')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','in progress');
+            });
+            }
+            elseif($project_status == 'on hold')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','on hold');
+            });
+            }
+            elseif($project_status == 'change request')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','change request');
+            });
+            }
+            elseif($project_status == 'assigned')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','assigned');
+            });
+            }
+            elseif($project_status == 'not assigned')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','not assigned');
+            });
+            }
+            elseif($project_status == 'submitted')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','submitted');
+            });
+            }
+
+                $projects=$projects->get();
         return $projects;
     }
 

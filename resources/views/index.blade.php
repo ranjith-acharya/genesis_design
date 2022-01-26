@@ -120,6 +120,7 @@ function getMoreUsers(page) {
                             <label for="status_select"> State</label>
                         </div>
                     </div>
+                    @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
                     <div class="col s3">
                         <div class="input-field inline">
                             <select id="project_status_select" onchange="filter()">
@@ -131,6 +132,19 @@ function getMoreUsers(page) {
                             <label for="project_status_select">Project Status</label>
                         </div>
                     </div>
+                    @else
+                    <div class="col s3">
+                        <div class="input-field inline">
+                            <select id="project_status_select" onchange="filter()">
+                                <option value="all">All</option>
+                                    @foreach(\App\Statics\Statics::DESIGN_STATUS_ENGINEER as $projectStatus)
+                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                    @endforeach
+                            </select>  
+                            <label for="project_status_select">Project Status</label>
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 <!-- <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
                     <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">

@@ -85,19 +85,19 @@
                 {{$project['assigned_date']}}
             </td>
             <td>    
-                {{$design->type['name']}}
+                No Design
             </td>
             <td>    
-                {{$design['start_date']}}
+                ---
             </td>
             <td>    
-                {{$design['end_date']}}
+               ---
             </td>
             <td>    
                
             </td>
             <td>    
-                {{$design['payment_date']}}
+               ---
             </td>
         </tr>
         

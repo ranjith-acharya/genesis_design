@@ -147,8 +147,65 @@ public function getProjectData(Request $request)
             $projectQuery->where('name', 'LIKE', '%' . $term . "%");
         $filters = json_decode($request->filters);
         foreach ($filters as $filter)
-            if ($filter->value != 'all' )
-                    $projectQuery->where($filter->field, '=', $filter->value);
+        {
+        if($filter->field=='project_status')
+        {
+            if ($filter->value == 'completed')
+            {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','completed');
+                });
+            }
+            elseif($filter->value == 'in progress')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_engineer','in progress');
+            });
+            }
+            elseif($filter->value == 'on hold')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_engineer','on hold');
+            });
+            }
+            elseif($filter->value == 'change request')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_engineer','change request');
+            });
+            }
+            
+            elseif($filter->value == 'requested')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_customer','requested');
+            });
+            }
+            elseif($filter->value == 'assigned')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_engineer','assigned');
+            });
+            }
+            elseif($filter->value == 'not assigned')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_engineer','not assigned');
+            });
+            }
+            elseif($filter->value == 'received')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_customer','received');
+            });
+            }
+
+   
+        }
+        elseif ($filter->value != 'all' )
+                $projectQuery->where($filter->field, '=', $filter->value);
+    } 
+
     $projectQuery=$projectQuery->latest()->paginate(5);
             return view('pages.project', compact('projectQuery'))->render();
     }

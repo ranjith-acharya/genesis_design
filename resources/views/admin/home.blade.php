@@ -175,28 +175,39 @@ Admin Home - Genesis Design
                                 <form method="get" id="exportForm">
                                     @csrf
                                     <div class="row">
-                                        <div class="col s3">
+                                        <div class="col s2">
                                             <div class="input-field">
                                                 <input type="date" name="from_date" id="from_date">
                                             </div>
                                         </div>
-                                        <div class="col s3">
+                                        <div class="col s2">
                                             <div class="input-field">
                                                 <input type="date" name="to_date" id="to_date">
                                             </div>
                                         </div>
                                         <div class="col s3">
                                             <div class="input-field col s12">
+                                                <select id="state" name="state">
+                                                    <option value="" disabled selected>Select State</option>
+                                                    @foreach(\App\Statics\Statics::STATUSES as $Status)
+                                        <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                                    @endforeach
+                                                </select>
+                                                <label>State</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s3">
+                                            <div class="input-field col s12">
                                                 <select id="status" name="status">
-                                                    <option value="" disabled selected>Select Status</option>
-                                                    @foreach(\App\Statics\Statics::PROJECT_STATUSES as $projectStatus)
-                                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
-                                                    @endforeach
+                                                <option value="" disabled selected>Select Status</option>
+                                    @foreach(\App\Statics\Statics::DESIGN_STATUS_ENGINEER as $projectStatus)
+                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                    @endforeach
                                                 </select>
                                                 <label>Status</label>
                                             </div>
                                         </div>
-                                        <div class="col s3" style="margin-top:2%;">
+                                        <div class="col s2" style="margin-top:2%;">
                                             <button type="button" id="exportSearch" class="btn btn-flat green white-text"><i class="material-icons left">search</i>Search</button>
                                         </div>
                                     </div>
@@ -286,11 +297,12 @@ Admin Home - Genesis Design
         var fromDate = $("#from_date").val();
         var toDate = $("#to_date").val();
         var statusExport = $("#status").val();
+        var state = $("#state").val();
         //alert(statusExport);
         $.ajax({
             url:"{{ route('admin.project.monthly') }}",
             method:"GET",
-            data: {from_date: fromDate, to_date: toDate, status: statusExport},
+            data: {from_date: fromDate, to_date: toDate, status: statusExport,state:state},
             datatype:"JSON",
             success:function(data){
                 console.log(data);
