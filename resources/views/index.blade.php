@@ -17,6 +17,15 @@ Project Index - Genesis Design
 @endpush
 @section('js')
 <script>
+      $(document).ready(function() {
+        $(document).on('click', '.pager a', function(event) {
+          event.preventDefault();
+          var page = $(this).attr('href').split('page=')[1];
+        
+         getMoreUsers(page);
+      
+        });
+    });
 function filter() {
             getMoreUsers(1);
         }
@@ -46,6 +55,7 @@ function getMoreUsers(page) {
         }
       });
     }
+
         </script>
 @endsection
 @section('content')
@@ -146,15 +156,7 @@ function getMoreUsers(page) {
                     </div>
                     @endif
                 </div>
-                <!-- <div class="col s12 m3 center-on-small-only right-on-lg-and-up" style="padding-top: 20px">
-                    <a class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Previous Page" onclick="prevPage()">
-                        <i class="fal fa-angle-left"></i>
-                    </a>
-                    Page <span id="current_page">1</span> of <span id="last_page">1</span>
-                    <button class="btn-flat tooltipped waves-effect" data-position="top" data-tooltip="Next Page" onclick="nextPage()">
-                        <i class="fal fa-angle-right"></i>
-                    </button>
-                </div> -->
+                
             </div>
            
         </div>
@@ -163,28 +165,7 @@ function getMoreUsers(page) {
   </div>
   @endif
 
-                    <div id="assignModel" class="modal modal-fixed-footer">
-                        <div class="modal-content">
-                            <h4>Select Engineer to Assign <span id="project_name"></span> project</h4>
-                            <form method="post" id="assign_form">
-                            @csrf
-                                <div class="input-field col s12">
-                                    <select class="browser-default" name="engineer_id" id="engineer_select">
-                                        <option disabled >Select Engineer</option>
-                                        
-                                    </select>
-                                </div>
-                                <div class="col s12">
-                                    <input type="hidden" name="project_id" id="project_id" value="">
-                                    <input type="hidden" name="design_id" id="design_id" value="">
-                                    <a><button type="submit" class="green white-text btn btn-small">Assign</button></a>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        <a href="#!" class="modal-close btn-flat imperial-red-text" type="reset">Cancel</a>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -194,96 +175,11 @@ function getMoreUsers(page) {
 
 @section('js')
 <script>
-    $(document).ready(function() {
-        $(document).on('click', '.pagination a', function(event) {
-          event.preventDefault();
-          var page = $(this).attr('href').split('page=')[1];
-         
-         getMoreUsers(page);
-        });
-
+  
        
 
        
     });
 
-</script>
-<script>
-    function setProjectID(name,id,design_id)
-    {
-        console.log(design_id);
-        $('#project_id').val(id);
-        $("#design_id").val(design_id);
-        $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
-        $("#project_name").text(name);
-        //alert(id)
-       var modelid=id;
-        $.ajax({
-                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
-                method:"GET",
-                datatype:"JSON",
-                success:function(data)
-                {
-                   //alert(data);
-                   console.log(data);
-                   //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
-                   $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
-                    // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
-                    // $("#method").val("PATCH");        
-                }
-            });
-    }
-    function archiveProject(id){
-        $("#archiveForm"+id).submit();
-    }
-
-    var checkID = [];
-
-    // $(".checkboxAll").click(function(){
-    //     // alert("Hey!");
-    //     if(this.checked){
-           
-    //         checkID.push(this.value);
-    //     }
-    //     else{
-    //         checkID.splice(checkID.indexOf(this.value),1);
-    //     }
-    //     if(checkID.length>0)
-    //     {
-    //         $("#archive").css("display","block");
-    //         $("#assign").css("display","block");
-    //     }
-    //     else{
-    //         $("#archive").css("display","none");
-    //         $("#assign").css("display","none");
-    //     }
-    // });
-    // $("#selectAll").click(function(){
-    //     checkID = [];
-    //     if(this.checked){
-    //         // alert("checked");
-    //         $(".checkboxAll").each(function(id, checkboxValue) {
-    //             $(".checkboxAll").prop("checked", true);
-    //             //console.log(checkboxValue.value);               
-    //             checkID.push(checkboxValue.value);
-    //         });
-    //         console.log(checkID);
-    //     }else{
-    //         $(".checkboxAll").each(function(id, checkboxValue) {
-    //             $(".checkboxAll").prop("checked", false);
-    //             checkID.splice(checkID.indexOf(checkboxValue.value),1);
-    //         });
-    //     }
-    //     if(checkID.length>0)
-    //     {
-    //         $("#archive").css("display","block");
-    //         $("#assign").css("display","block");
-    //     }
-    //     else{
-    //         $("#archive").css("display","none");
-    //         $("#assign").css("display","none");
-    //     }
-    // });
-    
 </script>
 @endsection
