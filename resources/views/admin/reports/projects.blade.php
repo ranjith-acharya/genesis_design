@@ -1,5 +1,5 @@
 <div class="card card-content p-10">
-<table id="" class="responsive-table display black-text">
+<table id="" class="responsive-table striped display black-text">
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
@@ -53,21 +53,9 @@
                                     </td>
                                  
                                     <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $weekly->id }}'><i class="ti-view-list"></i></a>
-                                    <ul id='action{{$weekly->id}}' class='dropdown-content'>
-                                        <li><a href="#assignModel" onclick="setProjectID('{{ $weekly->name }}',{{$weekly->id}},{{$weekly->id}})" class="blue-text modal-trigger">Assign</a></li>
-                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li>
-                                            <form id="archiveForm{{$weekly->id}}" action="{{route('project.archive', $weekly->id)}}" method="post">
-                                                @csrf
-                                                
-                                            </form>
-                                            <a onclick="archiveProject({{$weekly->id}})" class="imperial-red-text ">Archive</a>
-                                        </li>
-                                    </ul>
-                                   
-                                </td>
-                                   
+                                        <!-- <button href="#assignModel" onclick="setProjectID('{{ $weekly->name }}',{{$weekly->id}},{{$weekly->id}})" class="btn btn-small light-green modal-trigger tooltipped" data-position="bottom" data-tooltip="Assign to an Engineer"><i class="ti-check-box small"></i></button> -->
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif" class="indigo-text"><button class="btn btn-small indigo tooltipped" data-position="bottom" data-tooltip="Edit the Project" type="button"><i class="ti-pencil small"></i></button></a>
+                                    </td>
                                 </tr>
                                 @else
                                 @foreach($weekly->designs as $design)
@@ -107,20 +95,9 @@
                                         @endif
                                     </td>
                                     <td class="center">
-                                <a class='dropdown-trigger white black-text' href='#' data-target='action{{ $design->id }}'><i class="ti-view-list"></i></a>
-                                    <ul id='action{{$design->id}}' class='dropdown-content'>
-                                        <li><a href="#assignModel" onclick="setProjectID('{{ $weekly->name }}',{{$weekly->id}},{{$design->id}})" class="blue-text modal-trigger">Assign</a></li>
-                                        <li><a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif" class="indigo-text">Edit</a></li>
-                                        <li>
-                                            <form id="archiveForm{{$weekly->id}}" action="{{route('project.archive', $weekly->id)}}" method="post">
-                                                @csrf
-                                                
-                                            </form>
-                                            <a onclick="archiveProject({{$weekly->id}})" class="imperial-red-text ">Archive</a>
-                                        </li>
-                                    </ul>
-                                   
-                                </td>
+                                        <button class="btn btn-small light-green modal-trigger tooltipped" data-position="bottom" data-tooltip="Assign to an Engineer" href="#assignModel" onclick="setProjectID('{{ $weekly->name }}',{{$weekly->id}},{{$design->id}})"><i class="ti-check-box small"></i></button>
+                                        <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif" class="indigo-text"><button class="btn btn-small indigo tooltipped" data-position="bottom" data-tooltip="Edit the Project" type="button"><i class="ti-pencil small"></i></button></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @endif
