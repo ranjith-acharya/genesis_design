@@ -75,7 +75,7 @@ function getMoreUsers(page) {
 <script>
 
 $(document).ready(function() {
-        $(document).on('click', '.pagination a', function(event) {
+        $(document).on('click', '.pager a', function(event) {
           event.preventDefault();
           var page = $(this).attr('href').split('page=')[1];
          
@@ -180,17 +180,7 @@ $(document).ready(function() {
        
                     <div id="projectData">
                         @include('admin.reports.projects')
-                        <div>
-        <style>
-            .pager{
-                display: inline-flex !important;
-            }
-            .pager > li{
-                padding-inline: 10px;
-            }
-        </style>
-        {{ $projects->links('vendor.pagination.custom') }}
-    </div>
+                        
                     </div>
                     <div id="assignModel" class="modal modal-fixed-footer">
                         <div class="modal-content">

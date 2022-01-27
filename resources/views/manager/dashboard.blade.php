@@ -9,7 +9,7 @@ Manager Home - Genesis Design
     <div class="row">
         <div class="col l3 m6 s12">
             <div class="card danger-gradient card-hover">
-                <a href="{{ route('manager.customer.index') }}"><div class="card-content">
+                <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
                             <h2 class="white-text m-b-5">{{ $customerCount }}</h2>
@@ -19,12 +19,12 @@ Manager Home - Genesis Design
                             <span class="white-text display-6"><i class="ti-user"></i></span>
                         </div>
                     </div>
-                </div></a>
+                </div>
             </div>
         </div>
         <div class="col l3 m6 s12">
             <div class="card info-gradient card-hover">
-                <a href="{{ route('manager.engineer.index') }}"><div class="card-content">
+                <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
                             <h2 class="white-text m-b-5">{{ $engineerCount }}</h2>
@@ -34,7 +34,7 @@ Manager Home - Genesis Design
                             <span class="white-text display-6"><i class="fal fa-user-hard-hat"></i></span>
                         </div>
                     </div>
-                </div></a>
+                </div>
             </div>
         </div>
         <div class="col l3 m6 s12">
@@ -232,6 +232,10 @@ Manager Home - Genesis Design
 
 @section('js')
 <script>
+
+
+
+
     $("#exportSearch").click(function(){
         // alert("Hello");
         $("#exportForm").attr("action", "{{ route('admin.home') }}");

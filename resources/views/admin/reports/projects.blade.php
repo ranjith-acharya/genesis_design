@@ -131,4 +131,15 @@
                         </tbody>
                     </table>
 </div>
+<div>
+        <style>
+            .pager{
+                display: inline-flex !important;
+            }
+            .pager > li{
+                padding-inline: 10px;
+            }
+        </style>
+        {{ $projects->links('vendor.pagination.custom') }}
+    </div>
                    

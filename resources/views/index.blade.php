@@ -173,13 +173,3 @@ function getMoreUsers(page) {
 </div>
 @endsection
 
-@section('js')
-<script>
-  
-       
-
-       
-    });
-
-</script>
-@endsection

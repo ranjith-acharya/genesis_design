@@ -92,7 +92,7 @@
                                 @endif
                             @endforeach
                             @else
-                            <tr><td></td><td></td><td></td><td></td></tr>
+                            <tr>No Projects</tr>
                             @endif
                         </tbody>
                     </table>
