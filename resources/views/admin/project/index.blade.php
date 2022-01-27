@@ -17,31 +17,6 @@ Project Index - Genesis Design
 @endpush
 @section('js')
 <script>
-    function setProjectID(name,id,design_id)
-    {
-       
-        console.log(name,id,design_id);
-        $('#project_id').val(id);
-        $("#design_id").val(design_id);
-        $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
-        $("#project_name").text(name);
-        //alert(id)
-       var modelid=id;
-        $.ajax({
-                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
-                method:"POST",
-                datatype:"JSON",
-                success:function(data)
-                {
-                   //alert(data);
-                   console.log(data);
-                   //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
-                   $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
-                    // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
-                    // $("#method").val("PATCH");        
-                }
-            });
-    }
 function filter() {
             getMoreUsers(1);
         }
@@ -86,30 +61,30 @@ $(document).ready(function() {
 
        
     });
-    function setProjectID(name,id,design_id)
-    {
-        
-        $('#project_id').val(id);
-        $("#design_id").val(design_id);
-        $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
-        $("#project_name").text(name);
-        //alert(id)
-       var modelid=id;
-        $.ajax({
-                url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
-                method:"POST",
-                datatype:"JSON",
-                success:function(data)
-                {
-                   //alert(data);
-                   console.log(data);
-                   //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
-                   $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
-                    // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
-                    // $("#method").val("PATCH");        
-                }
-            });
-    }
+function setProjectID(name,id,design_id){
+    //alert(name);
+    console.log(name,id,design_id);
+    $('#project_id').val(id);
+    $("#design_id").val(design_id);
+    $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
+    $("#project_name").text(name);
+    //alert(id)
+    var modelid=id;
+    $.ajax({
+        url:"@if(Auth::user()->role == 'admin'){{url('admin/projects')}}@else{{url('manager/projects')}}@endif"+"/"+id+"/assign",
+        method:"POST",
+        datatype:"JSON",
+        success:function(data)
+        {
+            //alert(data);
+            console.log(data);
+            //$("#engineer_select").val(data['engineer_id']).attr("selected", "selected");
+            $('#engineer_select option[value="'+data['engineer_id']+'"]').attr("selected", "selected");
+            // $('#updateForm').attr('action',"{{url('fuel_details')}}"+"/"+id); 
+            // $("#method").val("PATCH");        
+        }
+    });
+}
     function archiveProject(id){
         $("#archiveForm"+id).submit();
     }
@@ -206,7 +181,6 @@ $(document).ready(function() {
                         <a href="#!" class="modal-close btn-flat imperial-red-text" type="reset">Cancel</a>
                         </div>
                     </div>
-
 </div>
 
             </div>

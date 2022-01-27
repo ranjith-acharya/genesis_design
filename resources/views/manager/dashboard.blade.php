@@ -183,7 +183,7 @@ Manager Home - Genesis Design
                             
                         </div>
                     </div>
-                    <table id="" class="responsive-table display black-text">
+                    <table id="" class="responsive-table striped display black-text">
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
