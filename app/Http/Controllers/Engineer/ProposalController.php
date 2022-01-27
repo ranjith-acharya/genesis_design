@@ -105,9 +105,9 @@ class ProposalController extends Controller
        
         
         if ($cr)
-            $body = "You have a proposal for project: <b>" . $design->project->name . "</b> for a change request in design: " . $design->type->name;
+            $body = "You have a proposal for project: <b>" . $design->project->name . "</b> for a change request in: " . $design->type->name;
         else
-            $body = "You have a proposal for project: <b>" . $design->project->name . "</b> for design: " . $design->type->name;
+            $body = "You have a proposal for project: <b>" . $design->project->name . "</b> for: " . $design->type->name;
 
             //Mail to Customer
         Mail::to($design->project->customer->email)
@@ -121,9 +121,9 @@ class ProposalController extends Controller
 
         //Mail to ALL Portal Managers
         if ($cr)
-        $body = "<b>".$engineer->email."</b>  sent a proposal for project: <b>" . $design->project->name . "</b>   for a change request in design: " . $design->type->name." to <b>" . $design->project->customer->email . "</b>";
+        $body = "<b>".$engineer->email."</b>  sent a proposal for project: <b>" . $design->project->name . "</b>   for a change request in: " . $design->type->name." to <b>" . $design->project->customer->email . "</b>";
     else
-        $body = "<b>".$engineer->email."</b> sent proposal for project: <b>" . $design->project->name . "</b> for design: " . $design->type->name." to <b>" . $design->project->customer->email . "</b>";
+        $body = "<b>".$engineer->email."</b> sent proposal for project: <b>" . $design->project->name . "</b> for: " . $design->type->name." to <b>" . $design->project->customer->email . "</b>";
 
         
         $managers=User::whereHas('roles', function($q){

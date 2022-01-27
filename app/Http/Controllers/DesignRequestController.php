@@ -578,7 +578,7 @@ class DesignRequestController extends Controller
             foreach($allManagers as $allManager){
                 Mail::to($allManager->email)
                     ->send(new Notification($allManager->email,
-                        "Design Closed for: " . $design->type->name,
+                        "Design Closed for: " . $design->project->name,
                         "",
                         route('engineer.design.view', $design->id),
                         "View Change Request"));
@@ -588,14 +588,14 @@ class DesignRequestController extends Controller
 
             Mail::to($design->project->engineer->email)
                 ->send(new Notification($design->project->engineer->email,
-                    "Design Closed for: " . $design->type->name,
+                    "Design Closed for: " . $design->project->name,
                     "",
                     route('engineer.design.view', $design->id),
                     "View Change Request"));
             
             Mail::to(User::where('role', 'admin')->first()->email)
                 ->send(new Notification($design->project->engineer->email,
-                    "Design Closed for: " . $design->type->name,
+                    "Design Closed for: " . $design->project->name,
                     "",
                     route('engineer.design.view', $design->id),
                     "View Change Request"));
