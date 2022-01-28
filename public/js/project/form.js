@@ -613,7 +613,7 @@ function insert() {
 
 function update() {
     const validationResult = validateFields(true);
-
+       
     if (validationResult.errors === 0) {
         axios(postUpdate, {
             method: 'post',

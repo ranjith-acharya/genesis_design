@@ -63,7 +63,13 @@ $(document).ready(function() {
     });
 function setProjectID(name,id,design_id){
     //alert(name);
-    console.log(name,id,design_id);
+    if(design_id=="A123")
+    {
+        alert("Currently No Design In this Project We Can't Assign to Anyone ");
+    }
+    else{
+
+    
     $('#project_id').val(id);
     $("#design_id").val(design_id);
     $("#assign_form").attr('action',"@if(Auth::user()->role == 'admin'){{ route('admin.assign') }}@else{{ route('manager.assign') }}@endif");
@@ -84,6 +90,7 @@ function setProjectID(name,id,design_id){
             // $("#method").val("PATCH");        
         }
     });
+    }
 }
     function archiveProject(id){
         $("#archiveForm"+id).submit();
