@@ -85,7 +85,7 @@
                 @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED)
                     <p class="imperial-red-text center">Start work on this design to submit a proposal</p>
                 @elseif(sizeof($design->proposals) === 0 && $design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS)
-                    <div class="center"><a class="btn btn-large prussian-blue" href="{{route('engineer.proposal.new', $design->id)}}">Submit&nbsp;a&nbsp;proposal</a></div>
+                    <div class="center"><a class="btn btn-large prussian-blue" href="{{route('engineer.proposal.new', $design->id)}}">Submit</a></div>
                 @elseif(sizeof($design->proposals) > 0)
                     <div class="row">
                         <div class="col s4 left-align prussian-blue-text bold center">Note</div>
