@@ -106,8 +106,9 @@ class MessageController extends Controller
             'file' => 'required|string|max:255',
             'design' => 'required|string|max:255'
         ]);
-
-        $design = Auth::user()->designs()->with('messages.files')->where('system_designs.id', $request->design)->firstOrFail();
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        // return $engineer;
+        $design = $engineer->designs()->with('messages.files')->where('system_designs.id', $request->design)->firstOrFail();
 
         $message = null;
         foreach ($design->messages as $msg)

@@ -14,7 +14,7 @@
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
-                    @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REQUESTED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_REJECTED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST)
+                    @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST)
                         <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>
                     @else
                         <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>
@@ -110,6 +110,7 @@
                 @endif
             </div>
         </div><hr>
+        @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED)
         <div class="row">
             <div class="col s12">
                 <h4>Set Status</h4>
@@ -149,6 +150,7 @@
                 @endif
             </div>
         </div><hr>
+        @endif
         @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
