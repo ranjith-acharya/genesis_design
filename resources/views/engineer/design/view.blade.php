@@ -25,8 +25,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12"><br>
+    <div id="print-content">
+        <div class="row"><br>
+            <div class="col s12">
                 <h4 class="capitalize">Project Details</h4>
                 @include('components.simple-project-view', ['project' => $design->project])
             </div>
@@ -50,6 +51,11 @@
                     {{ ($design->payment_date)?$design->payment_date:"Payment Pending"}}
                 </div>
                 @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="button" class="btn btn-small blue darken-1" onclick="printDiv('print-content')"><i class="ti-printer left"></i>Print</button>
             </div>
         </div><hr>
         <div class="row" id="messages">
@@ -160,6 +166,7 @@
         @endif
         </div>
     </div>
+    </div>
 @endsection
 
 @section('js')
@@ -185,6 +192,15 @@
                 location.reload();
             }      
         });
+    }
+    </script>
+    <script type="text/javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
     }
     </script>
 @endsection
