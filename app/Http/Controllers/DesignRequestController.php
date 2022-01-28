@@ -178,10 +178,6 @@ class DesignRequestController extends Controller
                 User::findOrFail($admin)->notify(new AuroraDesign($project->name, route('engineer.design.view', $sd->id)));
             }
 
-            if ($project->engineer) {
-                Mail::to($project->engineer->email)
-                    ->send(new Notification($project->engineer->email, "New design request for: " . $project->name, "Type: " . Statics::DESIGN_TYPE_AURORA, route('engineer.design.view', $sd->id), "View Design"));
-            }
 
             return $sd;
         } else {
@@ -328,10 +324,6 @@ class DesignRequestController extends Controller
                 User::findOrFail($admin)->notify(new EngineeringPermitDesign($project->name, route('engineer.design.view', $sd->id)));
             }
 
-            if ($project->engineer) {
-                Mail::to($project->engineer->email)
-                    ->send(new Notification($project->engineer->email, "New design request for: " . $project->name, "Type: " . Statics::DESIGN_TYPE_AURORA, route('engineer.design.view', $sd->id), "View Design"));
-            }
 
             return $sd;
         } else {
@@ -397,10 +389,6 @@ class DesignRequestController extends Controller
                 User::findOrFail($admin)->notify(new ElectricalLoadDesign($project->name, route('engineer.design.view', $sd->id)));
             }
 
-            if ($project->engineer) {
-                Mail::to($project->engineer->email)
-                    ->send(new Notification($project->engineer->email, "New design request for: " . $project->name, "Type: " . Statics::DESIGN_TYPE_AURORA, route('engineer.design.view', $sd->id), "View Design"));
-            }
 
             return $sd;
         } else {
@@ -466,10 +454,6 @@ class DesignRequestController extends Controller
                 User::findOrFail($admin)->notify(new PEStampingDesign($project->name, route('engineer.design.view', $sd->id)));
             }
 
-            if ($project->engineer) {
-                Mail::to($project->engineer->email)
-                    ->send(new Notification($project->engineer->email, "New design request for: " . $project->name, "Type: " . Statics::DESIGN_TYPE_AURORA, route('engineer.design.view', $sd->id), "View Design"));
-            }
 
             return $sd;
         } else {
@@ -605,5 +589,3 @@ class DesignRequestController extends Controller
         return abort(402, "Design not paid for");
     }
 }
-
-
