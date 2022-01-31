@@ -408,7 +408,6 @@
                 <div class="input-field col s4">
                     <input id="remarks" name="remarks" type="text" disabled value="None">
                     <label for="remarks">Remarks</label>
-                    <span class="helper-text">Required</span>
                 </div>
             </div>
             <div class="row">
