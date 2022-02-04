@@ -17,7 +17,7 @@ class CreateSystemDesignsTable extends Migration
         Schema::create('system_designs', function (Blueprint $table) {
             $table->id();
             $table->unsignedFloat('price');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->enum('status_customer', \App\Statics\Statics::DESIGN_STATUS_CUSTOMER)->default(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED);
             $table->enum('status_engineer', \App\Statics\Statics::DESIGN_STATUS_ENGINEER)->default(\App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED);
             $table->longText('fields')->nullable()->default(null);

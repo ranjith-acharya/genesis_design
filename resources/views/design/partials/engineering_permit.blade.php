@@ -104,13 +104,11 @@
     </div>
     @endif
     
-    
     <div class="row center">
     @if($design->fields['array']['overhang'] && $design->fields['array']['width'] && $design->fields['array']['height'] == "")
 
     @else
-    <div class="col s12 left-align"><h4 class="prussian-blue-text">Roof Information</h4></div>
-    
+    <div class="input-field col s12 left-align"><h4 class="prussian-blue-text">Roof Information</h4></div>
     <div class="col s12">
         <table class="striped">
             <thead>
