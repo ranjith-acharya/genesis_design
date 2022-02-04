@@ -3,10 +3,10 @@
                         <thead>
                             <tr class="black-text">
                                 <th>Project Name</th>
-                                <th>Customer Name</th>
+                                <th>Service Name</th>
+                                <!-- <th>Customer Name</th> -->
                                 <th>Assigned To</th>
                                 <th>Assigned Date</th>
-                                <th>Created Date</th>
                                 <th>Design Status</th>
                                 <th>Status</th>
                                 <th>Action </th>
@@ -22,10 +22,12 @@
                                             {{ $weekly->name }}
                                         </a>
                                     </td>
-                                   
                                     <td>
-                                        {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
+                                        NO DESIGN
                                     </td>
+                                    <!-- <td>
+                                        {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
+                                    </td> -->
                                     <td>
                                         @if($weekly->engineer_id == "")
                                             <span class="helper-text red-text">Not Assigned</span>
@@ -40,9 +42,7 @@
                                             {{ Carbon\Carbon::parse($weekly->assigned_date)->format('d M, Y') }} 
                                         @endif
                                     </td>
-                                    <td>
-                                        {{ Carbon\Carbon::parse($weekly->created_at)->format('d M, Y') }}
-                                    </td>
+                                   
                                     <td> <label class="label label-inverse white-text"> --- </label> </td>
                                     <td>
                                         @if($weekly->status == 'in active')
@@ -65,10 +65,12 @@
                                             {{ $weekly->name }}
                                         </a>
                                     </td>
-                                   
                                     <td>
-                                        {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
+                                       {{$design->type->name}}
                                     </td>
+                                    <!-- <td>
+                                        {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
+                                    </td> -->
                                     <td>
                                         @if($weekly->engineer_id == "")
                                             <span class="helper-text red-text">Not Assigned</span>
@@ -83,9 +85,7 @@
                                             {{ Carbon\Carbon::parse($weekly->assigned_date)->format('d M, Y') }} 
                                         @endif
                                     </td>
-                                    <td>
-                                        {{ Carbon\Carbon::parse($weekly->created_at)->format('d M, Y') }}
-                                    </td>
+                                   
                                     <td class="capitalize"> {{ $design->status_engineer }} </td>
                                     <td>
                                         @if($weekly->status == 'in active')

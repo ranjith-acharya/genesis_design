@@ -48,7 +48,7 @@
     </div>
 </div><hr>
 <div class="row">
-    <div class="col s12"><h4 class="prussian-blue-text">Roof Information</h4></div>
+    <div class="col s12"><h4 class="prussian-blue-text">Adder</h4></div>
     @if($design->fields['utility'] == "")
         
     @else
@@ -103,10 +103,14 @@
         </div>
     </div>
     @endif
+    
+    
     <div class="row center">
     @if($design->fields['array']['overhang'] && $design->fields['array']['width'] && $design->fields['array']['height'] == "")
 
     @else
+    <div class="col s12 left-align"><h4 class="prussian-blue-text">Roof Information</h4></div>
+    
     <div class="col s12">
         <table class="striped">
             <thead>

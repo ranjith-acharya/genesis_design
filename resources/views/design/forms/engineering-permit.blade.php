@@ -690,8 +690,8 @@
                                             <select id="selectItem1" multiple onchange="getSelectedValue('1')">
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
-                                                <option value="Freezer-Chest">Freezer - Chest</option>
-                                                <option value="Freezer-Upright">Freezer - Upright</option>
+                                                <option value="Freezer_Chest">Freezer - Chest</option>
+                                                <option value="Freezer_Upright">Freezer - Upright</option>
                                                 <option value="Dishwasher">Dishwasher</option>
                                                 <option value="Range">Range</option>
                                                 <option value="Oven">Oven</option>
@@ -699,7 +699,7 @@
                                                 <option value="Toaster_oven">Toaster oven</option>
                                                 <option value="Coffee_maker">Coffee maker</option>
                                                 <option value="Garbage_disposal">Garbage disposal</option>
-                                                <option value="Well_pump_1/2_HP">Well pump 1/2 HP</option>
+                                                <option value="Well_pump_1_2_HP">Well pump 1/2 HP</option>
                                             </select>
                                             <label>Kitchen</label>
                                         </div>
@@ -732,12 +732,12 @@
                                             <select id="selectItem2" multiple onchange="getSelectedValue('2')">
                                                 <option value="" disabled>Choose your option</option>
                                                 <option value="Stereo">Stereo</option>
-                                                <option value="TV-small(up_to_19)">TV - small (up to 19)</option>
-                                                <option value="TV-medium(up_to_27)">TV - medium (up to 27)</option>
-                                                <option value="TV-large(greater_than_27)">TV - large (greater than 27)</option>
-                                                <option value="TV-27_LCD_Flat_Screen">TV - 27 LCD Flat Screen</option>
-                                                <option value="TV-42Plasma">TV - 42 Plasma</option>
-                                                <option value="VCR/DVD">VCR/DVD</option>
+                                                <option value="TV_small_up_to_19">TV - small (up to 19)</option>
+                                                <option value="TV_medium_up_to_27">TV - medium (up to 27)</option>
+                                                <option value="TV_large_greater_than_27">TV - large (greater than 27)</option>
+                                                <option value="TV_27_LCD_Flat_Screen">TV - 27 LCD Flat Screen</option>
+                                                <option value="TV_42Plasma">TV - 42 Plasma</option>
+                                                <option value="VCR_DVD">VCR/DVD</option>
                                                 <option value="Cable_box">Cable box</option>
                                                 <option value="Satellite_dish">Satellite dish</option>
                                                 <option value="Computer_and_printer">Computer and printer</option>
@@ -894,7 +894,7 @@
                                                 <option value="Heat_pump_1100_2000">Heat pump 1100 ~ 2000sq.ft</option>
                                                 <option value="Heat_pump_2000_3000">Heat pump 2000 ~ 3000sq.ft</option>
                                                 <option value="Air_Conditioner">Air Conditioner 1/2 ton</option>
-                                                <option value="Air_Conditioner1.5_ton">Air Conditioner 1.5 ton</option>
+                                                <option value="Air_Conditioner1_5_ton">Air Conditioner 1.5 ton</option>
                                                 <option value="Air_Conditioner2_ton">Air Conditioner 2 ton</option>
                                                 <option value="Air_Conditioner3_ton">Air Conditioner 3 ton</option>
                                                 <option value="Air_Conditioner4_ton">Air Conditioner 4 ton</option>
@@ -958,7 +958,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <button class="btn btn-large green right" type="button" onclick="insert(this)">Submit</button>
+                               
                                 <div class="row">
                                     <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
                                         <div class="card-panel center imperial-red honeydew-text">
@@ -995,10 +995,11 @@ $(".validation-wizard").steps({
         return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
     },
     onFinishing: function(event, currentIndex) {
-        return form.validate().settings.ignore = ":disabled", form.valid()
+        insert(event);
+        
     },
     onFinished: function(event, currentIndex) {
-        //
+      
     }
 }), $(".validation-wizard").validate({
     ignore: "input[type=hidden]",
