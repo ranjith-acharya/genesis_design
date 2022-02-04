@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ProjectType;
+use App\Project;
 use App\Statics\Statics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,10 +31,17 @@ class HomeController extends Controller
         switch (Auth::user()->role) {
             case (Statics::USER_TYPE_CUSTOMER || Statics::USER_TYPE_ENGINEER):
                 $types = ProjectType::where('is_hidden', false)->get();
-                $return = view('home')->with('projectTypes', $types);
+                $user_id=Auth::user()->id;
+                if(Auth::user()->hasRole('customer'))
+                $projectQuery = Auth::user()->projects()->latest()->paginate(3);
+                else
+                $projectQuery = Auth::user()->assignedProjects()->latest()->paginate(3);
+       
+                $return = view('index')->with('projectQuery', $projectQuery)->with('projectTypes',$types);
                 break;
             case (Statics::USER_TYPE_ADMIN):
-                $return = view('admin.home');
+                $types = ProjectType::where('is_hidden', false)->get();
+                $return = view('admin.home')->with('projectTypes', $types);
                 break;
         }
 

@@ -28,24 +28,20 @@
                         'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                     }
                 }).then(response => {
+                    console.log(response);
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Quote sent!",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Quote sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        // M.toast({
+                        //     html: "Quote sent!",
+                        //     classes: "green"
+                        // });
                         window.location.reload();
                     } else {
-                        M.toast({
-                            html: "There was a error sending the quote. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the quote. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }
 
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 });
             } else if (parseInt(quote.value) === 0) {
                 M.toast({
@@ -54,15 +50,13 @@
                     displayLength: 9000
                 });
             } else
-                M.toast({
-                    html: "Make sure quote is greater than or equal to 0",
-                    classes: "imperial-red"
-                });
+                toastr.error('Make sure quote is greater than or equal to 0!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         }
 
         function reject() {
 
             let note = document.getElementById('modal_note');
+            alert(note);
             if (note.value.trim()){
                 axios("{{route('engineer.change_requests.quote')}}", {
                     method: 'post',
@@ -78,31 +72,20 @@
                         'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                     }
                 }).then(response => {
+                    console.log(response);
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Quote sent!",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Quote sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         window.location.reload();
                     } else {
-                        M.toast({
-                            html: "There was a error sending the quote. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the quote. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }
 
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 });
             }
             else
-                M.toast({
-                    html: "You must type in a note to reject a change request",
-                    classes: "imperial-red"
-                });
+                toastr.error('You must type in a note to reject a change request!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         }
     </script>
 @endpush

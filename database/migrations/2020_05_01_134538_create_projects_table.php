@@ -17,15 +17,16 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('street_1');
+            $table->string('street_1')->nullable()->default(null);
             $table->string('street_2')->nullable()->default(null);
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
-            $table->string('country');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->enum('status', \App\Statics\Statics::PROJECT_STATUSES)->default(\App\Statics\Statics::PROJECT_STATUS_PENDING);
+            $table->string('city')->nullable()->default(null);
+            $table->string('state')->nullable()->default(null);
+            $table->string('zip')->nullable()->default(null);
+            $table->string('country')->nullable()->default(null);
+            $table->string('latitude')->nullable()->default(null);
+            $table->string('longitude')->nullable()->default(null);
+            $table->enum('status', \App\Statics\Statics::STATUSES)->default(\App\Statics\Statics::STATUS_IN_ACTIVE);
+            $table->enum('project_status', \App\Statics\Statics::PROJECT_STATUSES)->default(\App\Statics\Statics::PROJECT_STATUS_NOT_ASSIGNED);
 
             $table->foreignId('customer_id');
             $table->foreign('customer_id')->references('id')->on('users');
@@ -36,6 +37,7 @@ class CreateProjectsTable extends Migration
             $table->foreignId('project_type_id');
             $table->foreign('project_type_id')->references('id')->on('project_types');
 
+            $table->dateTime('assigned_date')->nullable();
             $table->timestamps();
         });
     }

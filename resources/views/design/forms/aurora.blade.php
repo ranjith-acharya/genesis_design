@@ -19,8 +19,8 @@
         let filesUploaded = 0;
 
         // Payment stuff
-        const paymentHoldUrl = '{{route('payment.hold')}}';
-        const stripePublicKey = '{{env('STRIPE_KEY')}}';
+        const paymentHoldUrl = "{{route('payment.hold')}}";
+        const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -48,7 +48,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -83,25 +83,16 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.db_response);
-                    M.toast({
-                        html: "Images uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Images uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
-                        window.location = '{{route('design.list', $project_id)}}';
+                        window.location = "{{route('design.list', $project_id)}}";
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading images. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
 
@@ -145,6 +136,7 @@
 
             //Make the thing green
             function right(item) {
+                console.log("item", item);
                 item.classList.remove("invalid");
                 item.classList.add("valid");
 
@@ -180,11 +172,43 @@
             }
 
             const notes = document.getElementById('notes');
-            if (notes.value !== "")
+            const inverterOther = document.getElementById('inverterOther');
+            // const monitorOther = document.getElementById('monitorOther');
+            const moduleOther = document.getElementById('moduleOther');
+            const rackingOther = document.getElementById('rackingOther');
+            if (notes.value !== ""){
+                //alert("notes");
                 right(notes);
+            }
             else
                 jsonData[notes.getAttribute("name")] = "No notes";
 
+            if(inverterOther.value !== "")
+                right(inverterOther);
+            else{
+                inverterOther.classList.value = "valid";
+                jsonData[inverterOther.getAttribute("name")] = "No inverter";
+            }
+            
+            // if(monitorOther.value !== "")
+            //     right(monitorOther);
+            // else
+            //     jsonData[monitorOther.getAttribute("name")] = "No monitor";
+
+            if(moduleOther.value !== ""){
+                //alert("Module");
+                right(moduleOther);
+            }else{
+                moduleOther.classList.value = "valid";
+                jsonData[moduleOther.getAttribute("name")] = "No module";
+            }
+
+            if(rackingOther.value !== "")
+                right(rackingOther);
+            else{
+                rackingOther.classList.value = "valid";
+                jsonData[rackingOther.getAttribute("name")] = "No racking";
+            }
 
             const installation = M.FormSelect.getInstance(document.querySelector("#installation"));
             if (installation.getSelectedValues()[0] === "") wrong(installation.wrapper);
@@ -240,24 +264,15 @@
                                     console.log(response.db_response)
                                     uploadFiles(response.db_response.id);
                                     if (fileCount === 0)
-                                        window.location = '{{route('design.list', $project_id)}}';
-                                    M.toast({
-                                        html: "Design inserted",
-                                        classes: "steel-blue"
-                                    });
+                                        window.location = "{{route('design.list', $project_id)}}";
+                                        toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } else {
-                                    M.toast({
-                                        html: "There was a error inserting the design. Please try again.",
-                                        classes: "imperial-red"
-                                    });
+                                    toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                     console.error(response);
                                     elem.disabled = false;
                                 }
                             }).catch(err => {
-                                M.toast({
-                                    html: "There was a network error. Please try again.",
-                                    classes: "imperial-red"
-                                });
+                                toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 console.error(err);
                                 elem.disabled = false;
                             });
@@ -269,40 +284,77 @@
                 })
 
             } else {
-                M.toast({
-                    html: "There are some errors in your form, please fix them and try again",
-                    classes: "imperial-red"
-                });
+                toastr.error('There are some errors in your form, please fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 elem.disabled = false;
             }
         }
     </script>
+    <script>
+    function equipment(val, name){
+        //alert(val);
+        //console.log(name.id);
+        var name = name.id;
+            if(name == 'inverter'){
+                if(val == 'Others'){
+                    document.getElementById('inverterOther_input').style.display = "block";
+                    document.getElementById('inverterOther').value = "";
+                }else{
+                    document.getElementById('inverterOther_input').style.display = "none";
+                }
+            }else if(name == 'monitor'){
+                if(val == 'Others'){
+                    document.getElementById('monitorOther_input').style.display = "block";
+                    document.getElementById('monitorOther').value = "";
+                }else{
+                    document.getElementById('monitorOther_input').style.display = "none";
+                }
+            }else if(name == 'racking'){
+                if(val == 'Others'){
+                    document.getElementById('rackingOther_input').style.display = "block";
+                    document.getElementById('rackingOther').value = "";
+                }else{
+                    document.getElementById('rackingOther_input').style.display = "none";
+                }
+            }else if(name == 'module'){
+                if(val == 'Others'){
+                    document.getElementById('moduleOther_input').style.display = "block";
+                    document.getElementById('moduleOther').value = "";
+                }else{
+                    document.getElementById('moduleOther_input').style.display = "none";
+            }
+        }
+    }
+</script>
 @endsection
 
 @php
-    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR ])->get(['name', 'model', 'type']);
+    $equipment = \App\Equipment::whereIn('type', [\App\Statics\Statics::EQUIPMENT_TYPE_INVERTER, \App\Statics\Statics::EQUIPMENT_TYPE_MODULE, \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR, \App\Statics\Statics::EQUIPMENT_TYPE_RACKING ])->get(['name', 'model', 'type']);
     $monitorSelect = [];
     $inverterSelect = [];
     $moduleSelect = [];
+    $rackingSelect = [];
     foreach ($equipment as $item){
         if ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_INVERTER)
-            $inverterSelect[$item->name . " | " . $item->model] = null;
+            $inverterSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MODULE)
-            $moduleSelect[$item->name . " | " . $item->model] = null;
+            $moduleSelect[$item->name] = null;
+        elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_RACKING)
+            $rackingSelect[$item->name] = null;
         elseif ($item->type === \App\Statics\Statics::EQUIPMENT_TYPE_MONITOR)
-            $monitorSelect[$item->name . " | " . $item->model] = null;
+            $monitorSelect[$item->name] = null;
     }
 @endphp
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <form id="aurora_form">
             <div class="row">
                 <div class="col s12">
-                    <h3 class="imperial-red-text capitalize">{{$type->name}}</h3>
+                    <h3 class="prussian-blue-text capitalize">{{$type->name}}</h3>
                     <h5>Design Request</h5>
                 </div>
             </div>
+        <div class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <div class="row valign-wrapper">
                 <div class="input-field col s6">
                     <div class="switch center">
@@ -335,7 +387,7 @@
             <div class="row valign-wrapper">
                 <div class="input-field col s4">
                     <div class="switch center">
-                        <label>
+                    <label class="tooltipped" data-position="top" data-delay="10" data-tooltip="House Owner Association"> 
                             HOA? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No
                             <input type="checkbox" onclick="toggleHOA(this)">
                             <span class="lever"></span>
@@ -356,24 +408,133 @@
                 <div class="input-field col s4">
                     <input id="remarks" name="remarks" type="text" disabled value="None">
                     <label for="remarks">Remarks</label>
-                    <span class="helper-text">Required</span>
                 </div>
             </div>
             <div class="row">
-                <div class="col s12">
-                    @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
-                </div>
-            </div>
+                                    @if($project_type == 'commercial')
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type</label>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <label for="moduleOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <label for="inverterOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <label for="rackingOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                                                <label for="monitorType">Monitor Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
+                                                <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
+                                                <label for="monitorOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($project_type == 'residential')
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type</label>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <label for="moduleOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <label for="inverterOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <label for="rackingOther">Other: </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
             <div class="row">
                 <div class="col s12">
                     <blockquote style="padding-left: 0.5em">Anything else we should know? Drop it here:</blockquote>
@@ -383,6 +544,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </form>
         <div class="row">
             <div class="col s12">

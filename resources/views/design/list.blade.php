@@ -16,7 +16,7 @@
             lastPage: 1,
             searchTerm: "",
             filers: null,
-            url: '@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('design.get')}}@else{{route('engineer.design.get')}}@endif?id={{$project->id}}'
+            url: "@if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER){{route('design.get')}}@elseif(Auth::user()->role === 'admin' || Auth::user()->role === 'manager' || Auth::user()->role === 'engineer'){{route('engineer.design.get')}}@endif?id={{$project->id}}"
         };
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -95,7 +95,8 @@
                 return true;
             }).catch(error => {
                 console.error(error);
-                M.toast({html: "There was an error when fetching list. Please try again.", classes: "imperial-red"});
+                toastr.error('There was an error when fetching list. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                // M.toast({html: "There was an error when fetching list. Please try again.", classes: "imperial-red"});
                 return false;
             });
         }
@@ -107,18 +108,32 @@
                 <div class="row mb-0 w100">
                     <div class="col s12 center">
                         <div class="valign-wrapper">
-                            <div class="col s4 m2 left-align imperial-red-text bold center capitalize">@{{ this.type.name }}</div>
-                            <div class="col s4 m2 left-align center capitalize">@{{ this.status }}</div>
-                            <div class="col s1 m1 left-align center">@{{ this.proposals_count }}</div>
-                            <div class="col s4 m2 left-align center">$ @{{ this.price }}</div>
-                            <div class="col s3 m3 left-align center">@{{ this.created_at }} (UTC)</div>
-                            <div class="col s12 m2 right-align hide-on-med-and-down center">
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                            <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status_customer }}</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">$ @{{ this.price }}</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m2 right-align prussian-blue-text hide-on-med-and-down center">
                                 @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
-                                    <a class="btn steel-blue-outline-button" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
                                 @else
-                                    <a class="btn steel-blue-outline-button" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
                                 @endif
                             </div>
+                        @else
+                            <div class="col s4 m2 left-align prussian-blue-text bold center capitalize">@{{ this.type.name }}</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center capitalize">@{{ this.status_engineer }}</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">@{{ this.proposals_count }}</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">@{{ this.created_at }} (UTC)</div>
+                            <div class="col s12 m2 right-align prussian-blue-text hide-on-med-and-down center">
+                                @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('design.view')}}/@{{ this.id  }}">View</a>
+                                @else
+                                    <a class="btn btn-small prussian-blue white-text" href="{{route('engineer.design.view')}}/@{{ this.id  }}">View</a>
+                                @endif
+                            </div>
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -216,20 +231,20 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             {{ Breadcrumbs::render('design_list', $project) }}
             <div class="col s12 m9">
                 <h3>Requested Designs</h3>
-                <h6>For <span class="imperial-red-text bold ">{{$project->name}}</span></h6>
+                <h6>For <span class="blue-text bold ">{{$project->name}}</span></h6>
             </div>
             @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                 <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
-                    <a class="btn btn-large imperial-red-outline-button dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
+                    <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
                     @foreach($types as $designType)
-                        <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::ucfirst($designType->name)}}</a></li>
+                        <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::upper($designType->name)}}</a></li>
                         <li class="divider" tabindex="-1"></li>
                     @endforeach
                 </ul>
@@ -237,61 +252,97 @@
         </div>
         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
             <div class="row">
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="designs">{{$designs}}</span>
-                        <i class="fal fa-draw-polygon"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text text-darken-1">
-                            Designs Requested
+                    <div class="col l4 m6">
+                        <div class="card danger-gradient darken-1 card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$designs}}</h2>
+                                        <h6 class="white-text m-b-0">Design Requested</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-clipboard"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card success-gradient darken-1 card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$change_requests}}</h2>
+                                        <h6 class="white-text m-b-0">Change Requests</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-control-shuffle"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card info-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">{{$proposals}}</h2>
+                                        <h6 class="white-text m-b-0">Proposal Received</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-write"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card warning-gradient darken-1 card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$cost}}</h2>
+                                        <h6 class="white-text m-b-0">Design Costs</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-wallet"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card primary-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$change_request_cost}}</h2>
+                                        <h6 class="white-text m-b-0">Change Request Costs</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-money"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 m6">
+                        <div class="card danger-gradient darken-4 card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-0">${{$total}}</h2>
+                                        <h6 class="white-text m-b-0">Total</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="ti-check-box"></i></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card amber steel-blue">
-                        <span id="proposals_received">{{$change_requests}}</span>
-                        <i class="fal fa-exchange-alt"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Change Requests
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card amber steel-blue">
-                        <span id="proposals_received">{{$proposals}}</span>
-                        <i class="fal fa-drafting-compass"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Proposals Received
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$cost}}</span>
-                        <i class="fal fa-money-bill-wave"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Design Costs
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$change_request_cost}}</span>
-                        <i class="fal fa-money-bill-wave"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Change Request Costs
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m4" style="min-width: 250px">
-                    <div class="card info_card steel-blue">
-                        <span id="design_costs">${{$total}}</span>
-                        <i class="fal fa-usd-circle"></i>
-                        <div class="card-action steel-blue darken-1 honeydew-text">
-                            Total
-                        </div>
-                    </div>
-                </div>
-            </div>
         @endif
         <div class="row">
             <div class="col s12 m9 center-on-small-only">
@@ -329,12 +380,21 @@
                 <div class="pb-xxs mb-0 mt-0" style="flex-direction: column; padding: 1rem">
                     <div class="row mb-0 w100">
                         <div class="col s12 center">
-                            <div class="col s4 m2 left-align imperial-red-text bold center">Design Type</div>
-                            <div class="col s4 m2 left-align center">Status</div>
-                            <div class="col s1 m1 left-align center">Proposals</div>
-                            <div class="col s4 m2 left-align center">Price</div>
-                            <div class="col s3 m3 left-align center">Date Created</div>
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                            <div class="col s4 m2 left-align prussian-blue-text bold center">Design Type</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Status</div>
+                            <div class="col s1 m1 left-align prussian-blue-text center">Proposals</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Price</div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">Date Created</div>
                             <div class="col m2 left-align center"></div>
+                        @else
+                            <div class="col s4 m3 left-align prussian-blue-text bold center">Design Type</div>
+                            <div class="col s4 m2 left-align prussian-blue-text center">Status</div>
+                            <div class="col s1 m2 left-align prussian-blue-text center">Proposals</div>
+                            <div class="col s4 left-align prussian-blue-text center"></div>
+                            <div class="col s3 m3 left-align prussian-blue-text center">Date Created</div>
+                            <div class="col m2 left-align center"></div>
+                        @endif
                         </div>
                     </div>
                 </div>

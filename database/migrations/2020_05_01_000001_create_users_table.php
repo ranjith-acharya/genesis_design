@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('company')->nullable()->default(null);
             $table->string('stripe_id')->nullable();
             $table->string('default_payment_method')->nullable();
+            //$table->string('role')->nullable();
             $table->enum('role', \App\Statics\Statics::USER_TYPES)->default(\App\Statics\Statics::USER_TYPE_CUSTOMER);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

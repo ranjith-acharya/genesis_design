@@ -83,13 +83,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col s12">
+    <div class="col s12"><br>
         <div id="map" style="height: 30em"></div>
     </div>
-</div>
+</div><br>
 <div class="row">
     <div class="col s12">
-        <h5>Project File Attachments</h5>
+        <h4>Project File Attachments</h4>
         @component('components.list-project-files', ['fileTypes' => $fileTypes, 'project' => $project, 'path' => route('engineer.project.file.get')])@endcomponent
     </div>
 </div>

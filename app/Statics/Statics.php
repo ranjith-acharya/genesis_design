@@ -36,11 +36,48 @@ class Statics
     const PROJECT_TYPES = [self::PROJECT_TYPE_RESIDENTIAL, self::PROJECT_TYPE_COMMERCIAL];
 
     //    Project statuses
-    const PROJECT_STATUS_PENDING = "pending";
-    const PROJECT_STATUS_ACTIVE = "active";
+    const PROJECT_STATUS_ASSIGNED = "assigned";
+    const PROJECT_STATUS_NOT_ASSIGNED = "not assigned";
+    const PROJECT_STATUS_ON_HOLD = "on hold";
+    const PROJECT_STATUS_IN_PROGRESS = "in progress";
     const PROJECT_STATUS_ARCHIVED = "archived";
+    const PROJECT_STATUS_COMPLETED = "completed";
+    const PROJECT_STATUS_CANCELLED = "cancelled";
 
-    const PROJECT_STATUSES = [self::PROJECT_STATUS_PENDING, self::PROJECT_STATUS_ACTIVE, self::PROJECT_STATUS_ARCHIVED];
+    const PROJECT_STATUSES = [self::PROJECT_STATUS_ASSIGNED, self::PROJECT_STATUS_NOT_ASSIGNED, self::PROJECT_STATUS_ON_HOLD, self::PROJECT_STATUS_IN_PROGRESS, self::PROJECT_STATUS_ARCHIVED, self::PROJECT_STATUS_COMPLETED, self::PROJECT_STATUS_CANCELLED];
+
+//    Status Types
+    const STATUS_ACTIVE = "active";
+    const STATUS_IN_ACTIVE = "in active";
+
+    const STATUSES = [self::STATUS_ACTIVE, self::STATUS_IN_ACTIVE];
+
+//    Design Status Customer
+    const DESIGN_STATUS_CUSTOMER_HOLD = "on hold";
+    const DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST = "change request";
+    const DESIGN_STATUS_CUSTOMER_COMPLETED = "completed";
+    const DESIGN_STATUS_CUSTOMER_RECEIVED = "received";
+    const DESIGN_STATUS_CUSTOMER_PROGRESS = "in progress";
+    const DESIGN_STATUS_CUSTOMER_REQUESTED = "requested";
+    // const DESIGN_STATUS_CUSTOMER_ACCEPTED = "accepted";
+    // const DESIGN_STATUS_CUSTOMER_REJECTED = "rejected";
+
+
+    const DESIGN_STATUS_CUSTOMER = [self::DESIGN_STATUS_CUSTOMER_HOLD, self::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST, self::DESIGN_STATUS_CUSTOMER_COMPLETED, self::DESIGN_STATUS_CUSTOMER_RECEIVED, self::DESIGN_STATUS_CUSTOMER_PROGRESS, self::DESIGN_STATUS_CUSTOMER_REQUESTED];
+
+//    Design Status Engineer
+    const DESIGN_STATUS_ENGINEER_HOLD = "on hold";
+    const DESIGN_STATUS_ENGINEER_CHANGE_REQUEST = "change request";
+    const DESIGN_STATUS_ENGINEER_COMPLETED = "completed";
+    const DESIGN_STATUS_ENGINEER_SUMBITTED = "submitted";
+    const DESIGN_STATUS_ENGINEER_PROGRESS = "in progress";
+    const DESIGN_STATUS_ENGINEER_NOT_ASSIGNED = "not assigned";
+    const DESIGN_STATUS_ENGINEER_ASSIGNED = "assigned";
+    // const DESIGN_STATUS_ENGINEER_ACCEPTED = "accepted";
+    // const DESIGN_STATUS_ENGINEER_REJECTED = "rejected";
+    // const DESIGN_STATUS_ENGINEER_REQUESTED = "requested";
+
+    const DESIGN_STATUS_ENGINEER = [self::DESIGN_STATUS_ENGINEER_HOLD, self::DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST,self::DESIGN_STATUS_ENGINEER_COMPLETED, self::DESIGN_STATUS_ENGINEER_SUMBITTED, self::DESIGN_STATUS_ENGINEER_PROGRESS, self::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED,self::DESIGN_STATUS_ENGINEER_ASSIGNED];
 
 //    ProjectFile categories
     const FILE_CATEGORY_ROOF = "roof";
@@ -53,8 +90,9 @@ class Statics
     const USER_TYPE_ADMIN = "admin";
     const USER_TYPE_CUSTOMER = "customer";
     const USER_TYPE_ENGINEER = "engineer";
+    const USER_TYPE_MANAGER = "manager";
 
-    const USER_TYPES = [self::USER_TYPE_ADMIN, self::USER_TYPE_CUSTOMER, self::USER_TYPE_ENGINEER];
+    const USER_TYPES = [self::USER_TYPE_ADMIN, self::USER_TYPE_CUSTOMER, self::USER_TYPE_ENGINEER,self::USER_TYPE_MANAGER];
 
 //    Proposals File Type
     const PROPOSAL_FILE_TYPE_FULL = "full";
