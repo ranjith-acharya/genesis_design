@@ -92,7 +92,7 @@
         });
 
         const sendFileToDb = function (file, response) {
-
+            console.log(file);
             axios("{{route('engineer.proposal.file.attach')}}", {
                 method: 'POST',
                 headers: {
@@ -101,7 +101,7 @@
                 },
                 data: {
                     path: response.body.name,
-                    type: file.meta.type,
+                    type: 'full',
                     proposal_id: file.meta.proposal_id,
                     content_type: file.meta.type
                 }
@@ -164,7 +164,7 @@
             elem.disabled = true;
 
             function uploadFiles(proposal_id) {
-                uppyFull.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/full`, type: "full"})
+                uppyFull.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/full`})
                 uppyFull.upload();
 
                 {{--uppyPartial.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/partial`, type: "partial"})--}}

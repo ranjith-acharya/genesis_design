@@ -48,18 +48,7 @@
     </div>
 </div><hr>
 <div class="row">
-    <div class="col s12"><h4 class="prussian-blue-text">Adder</h4></div>
-    @if($design->fields['utility'] == "")
-        
-    @else
-    <div class="col s12">
-        <div class="mb-xxxs">
-            <span class="prussian-blue-text"><b>Utility: </b></span>
-            {{ $design->fields['utility'] }}
-        </div>
-    </div>
-    @endif
-    
+    <div class="col s12"><h4 class="prussian-blue-text">Adder</h4></div>    
     @if($design->fields['tree_cutting'] == "")
         
     @else
@@ -504,13 +493,24 @@
 </div><hr>
 <div class="row">
     <div class="col s12"><h4 class="prussian-blue-text">Utility Bills / Electric Load</h4></div>
+    @if($design->fields['utility'] == "")
+        
+    @else
+    <div class="col s12">
+        <div class="mb-xxxs">
+            <span class="prussian-blue-text"><b>Utility: </b></span>
+            {{ $design->fields['utility'] }}
+        </div>
+    </div>
+    @endif
+
     @if($design->fields['average_bill'] == "")
         
     @else
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Yearly Usage: </b></span>
-            {{ $design->fields['average_bill'] }}
+            {{ $design->fields['average_bill'] }}&nbsp;kWH
         </div>
     </div>
     @endif
