@@ -17,8 +17,10 @@ class CreateSystemDesignsTable extends Migration
         Schema::create('system_designs', function (Blueprint $table) {
             $table->id();
             $table->unsignedFloat('price');
-            $table->enum('status', \App\Statics\Statics::DESIGN_STATUSES)->default(\App\Statics\Statics::DESIGN_STATUS_REQUESTED);
-            $table->json('fields')->nullable()->default(null);
+            $table->text('note')->nullable();
+            $table->enum('status_customer', \App\Statics\Statics::DESIGN_STATUS_CUSTOMER)->default(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER_REQUESTED);
+            $table->enum('status_engineer', \App\Statics\Statics::DESIGN_STATUS_ENGINEER)->default(\App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED);
+            $table->longText('fields')->nullable()->default(null);
             $table->string('stripe_payment_code')->nullable()->default(null);
             $table->dateTime('payment_date')->nullable()->default(null);
 
@@ -27,6 +29,8 @@ class CreateSystemDesignsTable extends Migration
             $table->foreignId('system_design_type_id');
             $table->foreign('system_design_type_id')->references('id')->on('system_design_types');
 
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable(); 
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

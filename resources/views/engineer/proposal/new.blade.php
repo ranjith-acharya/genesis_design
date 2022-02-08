@@ -13,7 +13,7 @@
         let uppyPartial = null;
         let fileCount = 0;
         let filesUploaded = 0;
-        const redirect = '{{route('engineer.design.view', $design->id)}}';
+        const redirect = "{{route('engineer.design.view', $design->id)}}";
         const company = '{{($design->project->customer->company)?$design->project->customer->company:"no-company"}}';
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -38,7 +38,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -66,7 +66,7 @@
             {{--    hideUploadButton: true,--}}
             {{--    note: "Upto 20 files of 20 MBs each"--}}
             {{--}).use(Uppy.XHRUpload, {--}}
-            {{--    endpoint: '{{ env('SUN_STORAGE') }}/file',--}}
+            {{--    endpoint: "{{ env('SUN_STORAGE') }}/file",--}}
             {{--    headers: {--}}
             {{--        'api-key': "{{env('SUN_STORAGE_KEY')}}"--}}
             {{--    },--}}
@@ -92,8 +92,8 @@
         });
 
         const sendFileToDb = function (file, response) {
-
-            axios('{{route('engineer.proposal.file.attach')}}', {
+            console.log(file);
+            axios("{{route('engineer.proposal.file.attach')}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,33 +101,28 @@
                 },
                 data: {
                     path: response.body.name,
-                    type: file.meta.type,
+                    type: 'full',
                     proposal_id: file.meta.proposal_id,
                     content_type: file.meta.type
                 }
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    M.toast({
-                        html: "Files uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Files uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    // M.toast({
+                    //     html: "Files uploaded",
+                    //     classes: "steel-blue"
+                    // });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location = redirect;
 
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading files. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading files. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
         };
@@ -148,22 +143,17 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Proposal uploaded",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Proposal uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        // M.toast({
+                        //     html: "Proposal uploaded",
+                        //     classes: "steel-blue"
+                        // });
                     } else {
-                        M.toast({
-                            html: "There was a error sending the message. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }
                     return response;
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     return err;
                 });
             else
@@ -174,7 +164,7 @@
             elem.disabled = true;
 
             function uploadFiles(proposal_id) {
-                uppyFull.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/full`, type: "full"})
+                uppyFull.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/full`})
                 uppyFull.upload();
 
                 {{--uppyPartial.setMeta({proposal_id: proposal_id, path: `genesis/${company}/proposals/project-{{$design->id}}/partial`, type: "partial"})--}}
@@ -185,10 +175,11 @@
                 if (response.status === 200 || response.status === 201) {
                     uploadFiles(response.data.id);
                 } else if (response.status === 403) {
-                    M.toast({
-                        html: "Make sure there is a note and at least one file is added",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('Make sure there is a note and at least one file is added!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    // M.toast({
+                    //     html: "Make sure there is a note and at least one file is added",
+                    //     classes: "imperial-red"
+                    // });
                 }
                 elem.disabled = false;
             })
@@ -197,16 +188,18 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         @if((sizeof($design->changeRequests)>0))
             {{ Breadcrumbs::render('change_request_proposal_new', $design) }}
         @else
             {{ Breadcrumbs::render('proposal_new', $design) }}
         @endif
+        <div class="card card-content">
+            <div class="container-fluid">
         <div class="row">
             <div class="col s12 m10">
                 <h3>New Proposal</h3>
-                <h6 class="capitalize">For <span class="bold imperial-red-text">{{$design->type->name}}</span> Project <span class="bold imperial-red-text">{{$design->project->name}}</span></h6>
+                <h6 class="capitalize">For <span class="bold blue-text">{{$design->type->name}}</span> Project <span class="bold blue-text">{{$design->project->name}}</span></h6>
             </div>
         </div>
         @if((sizeof($design->changeRequests)>0))
@@ -241,9 +234,11 @@
                 <div class="imperial-red-text" id="uppy_errors"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row"><br>
             <div class="col s12 center">
-                <button class="btn btn-large imperial-red-outline-button" onclick="send(this)">Send Proposal</button>
+                <button class="btn prussian-blue" onclick="send(this)">Send Proposal</button>
+            </div>
+        </div>
             </div>
         </div>
     </div>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Notification;
+use App\Notifications\MessageNotify;
 use App\Statics\Statics;
 use App\SystemDesign;
 use App\SystemDesignMessage;
 use App\SystemDesignMessageFile;
 use App\SystemDesignPrice;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -32,20 +34,54 @@ class MessageController extends Controller
         $message->system_design_id = $request->design;
         $message->save();
 
+        // Mail::to($design->project->customer->email)
+        //         ->send(new Notification($design->project->customer->email,
+        //             "New message for: " . $design->type->name . " in project: " . $design->project->name,
+        //             Str::limit($request->message, 45),
+        //             route('design.view', $design->id), "View Message"));
+
 //        If end, send email to customer
-        if (Auth::user()->hasRole(Statics::USER_TYPE_ENGINEER)) {
+        if (Auth::user()->role == Statics::USER_TYPE_ADMIN || Auth::user()->role == Statics::USER_TYPE_MANAGER) {
+            
+            User::findOrFail($design->project->customer->id)->notify(new MessageNotify($design->project->name, route('design.view', $design->id)));
             Mail::to($design->project->customer->email)
                 ->send(new Notification($design->project->customer->email,
                     "New message for: " . $design->type->name . " in project: " . $design->project->name,
                     Str::limit($request->message, 45),
                     route('design.view', $design->id), "View Message"));
         } else {
-            Mail::to($design->project->engineer->email)
-                ->send(new Notification($design->project->engineer->email,
+            $admin = User::where('role', 'admin')->first();
+            //return $admin;
+            $admin->notify(new MessageNotify($design->project->name, route('engineer.design.view', $design->id)));
+            Mail::to(User::where('role', 'admin')->first()->email)
+                ->send(new Notification(User::where('role', 'admin')->first()->email,
                     "New message for: " . $design->type->name . " in project: " . $design->project->name,
                     Str::limit($request->message, 45),
                     route('engineer.design.view', $design->id),
                     "View Message"));
+
+            $managers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->pluck('id');
+            foreach($managers as $manager){
+                User::findOrFail($manager)->notify(new MessageNotify($design->project->name, route('engineer.design.view', $design->id)));
+            }
+    
+            $allmanagers = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'manager');
+                }
+            )->get();
+            foreach($allmanagers as $allmanager){
+                Mail::to($allmanager->email)
+                ->send(new Notification($allmanager->email,
+                    "New message for: " . $design->type->name . " in project: " . $design->project->name,
+                    Str::limit($request->message, 45),
+                    route('engineer.design.view', $design->id),
+                    "View Message"));
+            }
         }
 
         return $message;
@@ -70,8 +106,9 @@ class MessageController extends Controller
             'file' => 'required|string|max:255',
             'design' => 'required|string|max:255'
         ]);
-
-        $design = Auth::user()->designs()->with('messages.files')->where('system_designs.id', $request->design)->firstOrFail();
+        $engineer = SystemDesign::findOrFail($request->design)->project->engineer;
+        // return $engineer;
+        $design = $engineer->designs()->with('messages.files')->where('system_designs.id', $request->design)->firstOrFail();
 
         $message = null;
         foreach ($design->messages as $msg)
@@ -108,8 +145,8 @@ class MessageController extends Controller
                 $query->select('system_design_types.id', 'system_design_types.name');
             }, 'messages' => function ($query) {
                 $query->where('read', false)->where('sender_id', '<>', Auth::id())->select('system_design_messages.id', 'system_design_messages.system_design_id', 'system_design_messages.created_at');
-            }])->where('status', '<>', Statics::DESIGN_STATUS_COMPLETED)->select('system_designs.id', 'system_designs.project_id', 'system_designs.system_design_type_id');
-        }])->where('status', '<>', Statics::PROJECT_STATUS_ARCHIVED)->get(['name', 'id']);
+            }])->where('project_status', '<>', Statics::DESIGN_STATUS_COMPLETED)->select('system_designs.id', 'system_designs.project_id', 'system_designs.system_design_type_id');
+        }])->where('project_status', '<>', Statics::PROJECT_STATUS_ARCHIVED)->get(['name', 'id']);
 
 
         $notifications = new Collection();

@@ -3,8 +3,8 @@
     <script src="{{asset('js/designs/payment.js')}}"></script>
     <script type="text/javascript">
         // Payment stuff
-        const paymentHoldUrl = '{{route('change_requests.hold')}}';
-        const stripePublicKey = '{{env('STRIPE_KEY')}}';
+        const paymentHoldUrl = "{{route('change_requests.hold')}}";
+        const stripePublicKey = "{{env('STRIPE_KEY')}}";
 
         document.getElementById('accept_quote').addEventListener('click', function (elem) {
             elem.target.disabled = true;
@@ -38,20 +38,14 @@
                         }).then(response => {
                             if (response.status === 200 || response.status === 201) {
                                 console.log(response.db_response)
-                                window.location = '{{route('design.view', $design->id)}}';
+                                window.location = "{{route('design.view', $design->id)}}";
                             } else {
-                                M.toast({
-                                    html: "There was a error accepting the change request. Please try again.",
-                                    classes: "imperial-red"
-                                });
+                                toastr.error('There was a error accepting the change request. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 console.error(response);
                                 elem.disabled = false;
                             }
                         }).catch(err => {
-                            M.toast({
-                                html: "There was a network error. Please try again.",
-                                classes: "imperial-red"
-                            });
+                            toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                             console.error(err);
                             elem.disabled = false;
                         });

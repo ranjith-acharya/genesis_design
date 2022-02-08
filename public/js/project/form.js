@@ -54,7 +54,43 @@ const states = [
     "Washington",
     "Wisconsin",
     "West Virginia",
-    "Wyoming"
+    "Wyoming",
+    "Andaman and Nicobar (UT)",
+    "Andhra Pradesh",	
+    "Arunachal Pradesh",
+    "Assam",						
+    "Bihar",			
+    "Chandigarh (UT)",
+    "Chhattisgarh",
+    "Dadra and Nagar Haveli (UT)",
+    "Daman and Diu (UT)",
+    "Delhi",		
+    "Goa",					
+    "Gujarat",
+    "Haryana",			
+    "Himachal Pradesh",
+    "Jammu and Kashmir",
+    "Jharkhand",			
+    "Karnataka",					
+    "Kerala",			
+    "Lakshadweep (UT)",
+    "Madhya Pradesh",			
+    "Maharashtra",				
+    "Manipur",				
+    "Meghalaya",					
+    "Mizoram",					
+    "Nagaland",					
+    "Orissa",			
+    "Puducherry (UT)",
+    "Punjab",					
+    "Rajasthan",					
+    "Sikkim",				
+    "Tamil Nadu",					
+    "Telangana",					
+    "Tripura",				
+    "Uttar Pradesh",
+    "Uttarakhand",				
+    "West Bengal"
 ];
 let autocomplete = null;
 let autocompleteService;
@@ -160,8 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize map
     map = new google.maps.Map(document.getElementById("map"), {
         center: {
-            lat: (latOverload) ? parseFloat(latOverload) : 38.889695,
-            lng: (longOverload) ? parseFloat(longOverload) : -77.034908
+            lat: (latOverload) ? parseFloat(latOverload) : 18.9255728,
+            lng: (longOverload) ? parseFloat(longOverload) : 72.8242221
         },
         zoom: 16,
         mapTypeId: 'satellite'
@@ -490,7 +526,7 @@ function validateFields(skipUppies = false) {
                 right(item);
             else wrong(item);
         } else if (item.getAttribute("validate") === "postcode") {
-            if (!validate.single(stripSpecials(item.value), {presence: {allowEmpty: false}, numericality: true, length: {is: 5}}))
+            if (!validate.single(stripSpecials(item.value), {presence: {allowEmpty: false}, numericality: true}))
                 right(item);
             else
                 wrong(item);
@@ -563,30 +599,21 @@ function insert() {
                 console.log(response)
                 uploadFiles(response.data.id);
             } else {
-                M.toast({
-                    html: "There was a error inserting the project. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a error inserting the project. Please try again.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(response);
             }
         }).catch(err => {
-            M.toast({
-                html: "There was a network error. Please try again.",
-                classes: "imperial-red"
-            });
+            toastr.error('There was a network error. Please try again.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
             console.error(err);
         });
     } else {
-        M.toast({
-            html: "There are some errors in your form, please fix them and try again",
-            classes: "imperial-red"
-        });
+        toastr.error('There are some errors in your form, please fix them and try again.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
     }
 }
 
 function update() {
     const validationResult = validateFields(true);
-
+       
     if (validationResult.errors === 0) {
         axios(postUpdate, {
             method: 'post',
@@ -598,29 +625,17 @@ function update() {
         }).then(response => {
             if (response.status === 200 || response.status === 201) {
                 console.log(response.data)
-                M.toast({
-                    html: "Project Information updated!",
-                    classes: "steel-blue"
-                });
+                toastr.success('Project Information updated!.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
             } else {
-                M.toast({
-                    html: "There was a error updating the project. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a error updating the project. Please try again.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(response);
             }
         }).catch(err => {
-            M.toast({
-                html: "There was a network error. Please try again.",
-                classes: "imperial-red"
-            });
+            toastr.error('There was a network error. Please try again.', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
             console.error(err);
         });
     } else {
-        M.toast({
-            html: "There are some errors in your form, please fix them and try again",
-            classes: "imperial-red"
-        });
+        toastr.error('There are some errors, in your form, Pleas fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
     }
 }
 
@@ -641,25 +656,16 @@ const sendFileToDb = function (file, response) {
     }).then(response => {
         if (response.status === 200 || response.status === 201) {
             console.log(response.data);
-            M.toast({
-                html: "Files uploaded",
-                classes: "steel-blue"
-            });
+            toastr.success('Files Uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         } else {
-            M.toast({
-                html: "There was a error uploading images. Please try again.",
-                classes: "imperial-red"
-            });
+            toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
             console.error(response);
         }
         filesUploaded++;
         if ((filesUploaded === fileCount) && redirectEnabled)
             window.location = redirect;
     }).catch(err => {
-        M.toast({
-            html: "There was a network error uploading images. Please try again.",
-            classes: "imperial-red"
-        });
+        toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         console.error(err);
     });
 

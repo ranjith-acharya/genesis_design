@@ -19,32 +19,31 @@
     <script src="{{asset('js/validate/validate.min.js')}}"></script>
     <script type="text/javascript">
         const fileTypes = '{!! $projectType->fileCategories->toJson() !!}';
-        const company = '{{(Auth::user()->company)?Auth::user()->company:"no-company"}}';
-        const post = '{{route('project.insert')}}';
+        const company = "{{(Auth::user()->company)?Auth::user()->company:'no-company'}}";
+        const post = "{{route('project.insert')}}";
         const postUpdate = '';
-        const fileInsert = '{{route('project.file.attach')}}';
-        const sunStorage = '{{env('SUN_STORAGE')}}';
-        const sunStorageKey = '{{env('SUN_STORAGE_KEY')}}';
+        const fileInsert = "{{route('project.file.attach')}}";
+        const sunStorage = "{{env('SUN_STORAGE')}}";
+        const sunStorageKey = "{{env('SUN_STORAGE_KEY')}}";
         const latOverload = '{{($project)?$project->latitude:""}}';
         const longOverload = '{{($project)?$project->longitude:""}}';
         const stateOverload = '{{($project)?$project->state:""}}';
         const projectIdOverload = '{{($project)?$project->id:""}}';
         const projectStatus = '{{($project)?$project->status:""}}';
         const hideUploadButton = '{{($project)?"no":"yes"}}';
-        const redirect = '{{route('home')}}';
+        const redirect = "{{route('home')}}";
     </script>
     <script src="{{asset('js/project/form.js')}}"></script>
 @endsection
 
 @section('content')
-    <div class="container mt-3" id="container">
-
+<div class="container-fluid" id="container">
         @if ($project)
             {{ Breadcrumbs::render('project', $project) }}
         @else
             {{ Breadcrumbs::render('project_new') }}
         @endif
-
+    <div class="card card-content">
         @isset($archive_error)
             <div class="center">
                 <h5 class="imperial-red-text">{{$archive_error}}</h5>
@@ -53,18 +52,18 @@
         <div class="row">
             <div class="valign-wrapper">
                 <div class="col s12 m6">
-                    <h3 class="mt-2 capitalize">{{$projectType->name}} Project</h3>
+                    <h3 class="mt-2 capitalize" style="margin-top:20px;">{{$projectType->name}} Project</h3>
                     <h4>Information</h4>
                 </div>
                 <div class="col s12 m6 hide-on-small-and-down right right-align">
                     @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                         <form action="{{route('project.archive', $project->id)}}" method="post">
                             @csrf
-                            <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                            <button type="submit" class="btn prussian-blue m-xxxs">Archive Project</button>
                         </form>
                     @endif
                     @if($project)
-                        <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                        <a class="btn prussian-blue m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                     @endif
                 </div>
             </div>
@@ -72,25 +71,25 @@
                 @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                     <form action="{{route('project.archive', $project->id)}}" method="post">
                         @csrf
-                        <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                        <button type="submit" class="btn prussian-blue-text m-xxxs">Archive Project</button>
                     </form>
                 @endif
                 @if($project)
-                    <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                    <a class="btn prussian-blue-text m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                 @endif
             </div>
         </div>
-        <form id="lead_form">
+        <form id="lead_form" method="post">
             <input type="hidden" name="project_type_id" validate="string" value="{{$projectType->id}}">
             <input type="hidden" name="project_id" validate="string" value="{{($project)?$project->id:"0"}}">
             <input type="hidden" name="country" validate="string" value="United States of America">
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input id="name" class="main_text_fields" name="name" value="{{($project)?$project->name:""}}" validate="string" type="text"/>
                     <label for="name">Project Name</label>
                     <span class="helper-text">Required</span>
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <textarea id="description" class="materialize-textarea" name="description">{{($project)?$project->description:""}}</textarea>
                     <label for="description">Project Description</label>
                     <span class="helper-text">Required</span>
@@ -139,7 +138,7 @@
                         <div class="input-field col s6">
                             <input id="zip" name="zip" class="main_text_fields" validate="postcode" value="{{($project)?$project->zip:""}}" data-id="15" type="number"/>
                             <label for="zip">Zip</label>
-                            <span class="helper-text" data-error="Invalid postcode. Must be 5 digits" data-success="">Required. Must be 5 digits</span>
+                            <span class="helper-text" data-error="Invalid postcode." data-success="">Required.</span>
                         </div>
                     </div>
                 </div>
@@ -157,13 +156,13 @@
             </div>
         @endisset
         <div class="row">
-            <h4 class="mt-2">File Attachments</h4>
+            <h4 class="mt-2" style="margin-left:10px;">File Attachments</h4>
             @isset($project)
                 @component('components.list-project-files', ['fileTypes' => $fileTypes, 'project' => $project, 'path' => route('project.file.get')])@endcomponent
             @endisset
             <div id="uppies">
                 @foreach($projectType->fileCategories as $cat)
-                    <div class="col s12">
+                    <div class="col s12 container" style="height:100%;">
                         <h5 class="capitalize">{{$cat->name}} </h5>
                         <span class="helper-text grey-text small" style="font-size: 0.8rem">{{($cat->pivot->is_required)?"Required":""}}</span>
                         @if($cat->description)
@@ -177,21 +176,24 @@
                 @endforeach
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col s12 center">
                 @unless($project)
-                    <button type="button" class="btn imperial-red-outline-button" onclick="insert()">Create&nbsp;project</button>
+                    <button type="button" class="btn prussian-blue" onclick="insert()">Create&nbsp;project</button>
                 @endunless
                 @if($project && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
                     <form action="{{route('project.archive', $project->id)}}" method="post">
                         @csrf
-                        <button type="submit" class="btn imperial-red-outline-button m-xxxs">Archive Project</button>
+                        <button type="submit" class="btn prussian-blue m-xxxs">Archive Project</button>
                     </form>
                 @endif
                 @if($project)
-                    <a class="btn imperial-red-outline-button m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
+                    <a class="btn prussian-blue m-xxxs" href="{{route('design.list', $project->id)}}">View Designs</a>
                 @endif
             </div>
         </div>
+        <br>
     </div>
+</div>
 @endsection

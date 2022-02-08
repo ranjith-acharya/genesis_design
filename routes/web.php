@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return Redirect::route('login');
+    return redirect()->route('login');
+});
+
+Route::get('/datatable', function(){
+    return view('home1');
 });
 
 Auth::routes(['verify' => true]);
@@ -14,18 +19,94 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['verified', 'auth'])->group(function () {
 
-    Route::middleware('role:admin')->group(function () {
+    Route::group(['middleware' => ['role:admin']], function () {
         Route::prefix('admin')->group(function () {
             Route::name('admin.')->group(function () {
+
+                Route::get('/markRead', 'NotificationController@markRead')->name('markRead');
+                
                 Route::namespace('Admin')->group(function () {
+                //Route::get('/customer','UserController@customerIndex')->name('customers');
+                //Route::get('/engineer','UserController@engineerIndex')->name('engineers');
+                Route::get('/home', 'DashboardController@index')->name('home');
+                Route::get('/project/monthly', 'DashboardController@projectMonthly')->name('project.monthly');
+
+
+                Route::get('/getProjects', 'ProjectController@getProjectData')->name('projects.getProjects');
+                Route::get('/export/excel', 'DashboardController@exportExcel')->name('export.excel');
+                Route::get('/export/pdf', 'ReportController@exportPDF')->name('export.pdf');
+
+                Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
+                Route::post('/project/set/status', 'ProjectController@setStatus')->name('projects.set.status');
+                
+                //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
+
+                //project controller edit, delete
+                Route::resource('/projects', 'ProjectController');
+                Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects/get/file', 'ProjectController@getFile')->name('projects.get.file');
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
-                Route::get('/users/{role}', 'UserController@index')->name('list');
+                Route::post('/projects/assign', 'ProjectController@assign')->name('assign');
+                Route::get('/projects/{id}/assign', 'ProjectController@getAssignEngineer')->name('assignValue');
+
+                //Admin Customer Controller
+                Route::resource('/customer', 'CustomerController');
+
+                //Admin Engineer Controller
+                Route::resource('/engineer', 'EngineerController');
+
+                //Admin Manager Controller
+                Route::resource('/manager', 'ManagerController');
+
+                //Admin Users Controller
+                Route::resource('/users', 'UserController');
+
+                //Admin Design Price Controller
+                Route::resource('/price', 'DesignPriceController');
+                
+                //Role and Permissions
+                Route::resource('/roles', 'RoleController');
+                Route::resource('/permissions', 'PermissionController');
+
+                //API
+                Route::get('/users/{role}', 'UserController@getList')->name('list');
             });
         });
         });
     });
 
-    Route::middleware('role:engineer')->group(function () {
+    Route::group(['middleware' => ['role:manager']], function() {
+        Route::prefix('manager')->group(function() {
+            Route::name('manager.')->group(function() {
+                Route::get('/markRead', 'NotificationController@markRead')->name('markRead');
+                Route::resource('/home', 'Manager\DashboardController');
+                Route::get('/project/monthly', 'Manager\DashboardController@projectMonthly')->name('project.monthly');
+                Route::get('/getProjects', 'Admin\ProjectController@getProjectData')->name('projects.getProjects');
+                Route::get('/export/excel', 'Manager\DashboardController@exportExcel')->name('export.excel');
+                Route::get('/export/pdf', 'Manager\ReportController@exportPDF')->name('export.pdf');
+
+                Route::resource('/customer', 'Admin\CustomerController');
+                Route::resource('/engineer', 'Admin\EngineerController');
+                
+                Route::get('/projects/list', 'Admin\ProjectController@indexProject')->name('projects.list');
+                Route::post('/project/set/status', 'Admin\ProjectController@setStatus')->name('projects.set.status');
+                
+                Route::resource('/projects', 'Admin\ProjectController');
+                Route::post('/projects/file', 'Admin\ProjectController@attachFile')->name('projects.file');
+                Route::get('/projects/get/file', 'Admin\ProjectController@getFile')->name('projects.get.file');
+                Route::get('/projects', 'Admin\ProjectController@getProjects')->name('get');
+
+                Route::get('/projects/getProjects', 'Admin\ProjectController@getProjectData')->name('getProjects');
+
+                Route::post('/projects/assign', 'Admin\ProjectController@assign')->name('assign');
+                Route::get('/projects/{id}/assign', 'Admin\ProjectController@getAssignEngineer')->name('assignValue');
+
+                //Route::get('view/{id?}', 'Engineer\SystemDesignController@view')->name('design.view');
+            });
+        });
+    });
+
+    Route::group(['middleware' => ['role:engineer|manager|admin']], function () {
         Route::prefix('engineer')->group(function () {
             Route::name('engineer.')->group(function () {
                 Route::namespace('Engineer')->group(function () {
@@ -35,6 +116,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                             Route::get('/available', 'ProjectController@availableProjects')->name('available');
                             Route::get('/assign/{id}', 'ProjectController@assign')->name('assign');
                             Route::get('/view/{id?}', 'ProjectController@view')->name('view');
+                            Route::post('/set/status', 'ProjectController@setStatus')->name('set.status');
 
 //                      Get APIs
                             Route::get('/my-projects', 'ProjectController@getProjects')->name('get');
@@ -74,7 +156,13 @@ Route::middleware(['verified', 'auth'])->group(function () {
         });
     });
 
-    Route::middleware('role:customer')->group(function () {
+    //Route::group(['middleware' => ['role:customer']], function () {
+        Route::get('/markRead', 'NotificationController@markRead')->name('customer.markRead');
+
+        Route::get('/customer/reports', 'ReportController@reportIndex')->name('customer.export');
+        Route::get('/customer/projects/self', 'ReportController@getProjects')->name('customer.projects.list');
+        Route::get('/customer/export/excel', 'ReportController@exportExcel')->name('customer.export.excel');
+        Route::get('/customer/export/pdf', 'ReportController@exportPDF')->name('customer.export.pdf');
 
         Route::prefix('project')->group(function () {
             Route::name('project.')->group(function () {
@@ -83,14 +171,21 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('new/{type}', 'ProjectController@form')->name('form');
                 Route::get('update/{id?}', 'ProjectController@edit')->name('edit');
 
+                Route::get('/multiple', 'ProjectController@bulkProject')->name('bulk');
+
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
+
+                Route::post('/bulk', 'ProjectController@Bulkinsert')->name('bulkinsert');
 //            Route::post('update','ProjectController@update')->name('update');
                 Route::post('/file', 'ProjectController@attachFile')->name('file.attach');
                 Route::post('/archive/{id}', 'ProjectController@archive')->name('archive');
 
 //            Get APIs
                 Route::get('/projects', 'ProjectController@getProjects')->name('get');
+               
+                Route::get('/projects/getProjects', 'ProjectController@getProjectData')->name('getProjects');
+
                 Route::get('/get/file', 'ProjectController@getFile')->name('file.get');
             });
         });
@@ -106,6 +201,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/file', 'DesignRequestController@attachFile')->name('file.attach');
                 Route::post('/aurora', 'DesignRequestController@saveAurora')->name('aurora');
                 Route::post('/structural_load', 'DesignRequestController@saveStructuralLoad')->name('structural_load');
+                Route::post('/electrical_load', 'DesignRequestController@saveElectricalLoad')->name('electrical_load');
+                Route::post('/pe_stamping', 'DesignRequestController@savePEStamping')->name('pe_stamping');
+                Route::post('/engineering_permit_package', 'DesignRequestController@saveEngPermitPackage')->name('engineering_permit_package');
             });
         });
 
@@ -119,11 +217,13 @@ Route::middleware(['verified', 'auth'])->group(function () {
             });
         });
 
-        Route::prefix('profile')->group(function () {
-            Route::name('profile.')->group(function () {
-                Route::view('/', 'profile.profile')->name('main');
-                Route::get('/payment/methods', 'PaymentController@getPaymentMethods')->name('payment.methods');
-            });
+        Route::name('profile.')->group(function () {
+            Route::put('/profile/admin/update/{id}', 'ProfileController@adminUpdate')->name('admin.update');
+            Route::put('/profile/manager/update/{id}', 'ProfileController@managerUpdate')->name('manager.update');
+            Route::put('/profile/engineer/update/{id}', 'ProfileController@engineerUpdate')->name('engineer.update');
+            Route::put('/profile/customer/update/{id}', 'ProfileController@customerUpdate')->name('customer.update');
+            Route::resource('/profile', 'ProfileController');
+            Route::get('/profile/payment/methods', 'PaymentController@getPaymentMethods')->name('payment.methods');
         });
 
         Route::prefix('changeRequests')->group(function () {
@@ -135,9 +235,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('reject', 'ChangeRequestController@reject')->name('reject');
             });
         });
-    });
+    //});
 
-    Route::middleware('role:engineer|customer')->group(function () {
+    Route::group(['middleware' => ['role:engineer|customer|manager|admin']], function () {
         Route::prefix('messages')->group(function () {
             Route::name('messages.')->group(function () {
                 Route::post('/insert', 'MessageController@insert')->name('insert');

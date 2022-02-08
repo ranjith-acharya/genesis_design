@@ -38,7 +38,7 @@
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
             }).use(Uppy.XHRUpload, {
-                endpoint: '{{ env('SUN_STORAGE') }}/file',
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
                 headers: {
                     'api-key': "{{env('SUN_STORAGE_KEY')}}"
                 },
@@ -66,7 +66,7 @@
         });
 
         function markMessagesRead() {
-            axios("{{route('messages.mark.read', "")}}/{{$id}}", {
+            axios("{{route('messages.mark.read', '')}}/{{$id}}", {
                 method: 'post',
                 data: {
                     design: '{{$id}}'
@@ -115,24 +115,15 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        M.toast({
-                            html: "Message sent!",
-                            classes: "steel-blue"
-                        });
+                        toastr.success('Message sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         document.getElementById('message_loader').style.display = "none";
                     } else {
-                        M.toast({
-                            html: "There was a error sending the message. Please try again.",
-                            classes: "imperial-red"
-                        });
+                        toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         document.getElementById('message_loader').style.display = "none";
                     }
                     return response;
                 }).catch(err => {
-                    M.toast({
-                        html: "There was a network error. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     document.getElementById('message_loader').style.display = "none";
                     return err;
                 });
@@ -154,7 +145,7 @@
 
         const sendFileToDb = function (file, response) {
 
-            axios('{{route('messages.file.attach')}}', {
+            axios("{{route('messages.file.attach')}}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,26 +159,17 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    M.toast({
-                        html: "Image uploaded",
-                        classes: "steel-blue"
-                    });
+                    toastr.success('Image uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location.reload();
 
                 } else {
-                    M.toast({
-                        html: "There was a error uploading images. Please try again.",
-                        classes: "imperial-red"
-                    });
+                    toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     console.error(response);
                 }
             }).catch(err => {
-                M.toast({
-                    html: "There was a network error uploading images. Please try again.",
-                    classes: "imperial-red"
-                });
+                toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 console.error(err);
             });
 
@@ -236,12 +218,12 @@
     <div class="row m-0">
         <div class="valign-wrapper">
             <div class="input-field col s9">
-                <textarea id="message" class="materialize-textarea"></textarea>
+                <textarea id="message" class="materialize-textarea" placeholder="Type your message"></textarea>
                 <label for="message">Message</label>
             </div>
             <div class="col s3 center">
-                <a class="btn steel-blue-outline-button tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" style="line-height: 1.6;"></i></a>
-                <a class="btn steel-blue-outline-button tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip" style="line-height: 1.6;"></i></a>
+                <a class="btn btn-large btn-floating pulse cyan tooltipped" data-position="top" data-tooltip="Send Message" id="send"><i class="fal fa-paper-plane" ></i></a>
+                <a class="btn btn-large btn-floating prussian-blue tooltipped  ml-s" id="attach-file" data-position="top" data-tooltip="Attach File"><i class="fal fa-paperclip"></i></a>
             </div>
         </div>
         <div id="message_loader" style="display: none">

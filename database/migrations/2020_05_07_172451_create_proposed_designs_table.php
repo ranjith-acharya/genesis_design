@@ -15,7 +15,7 @@ class CreateProposedDesignsTable extends Migration
     {
         Schema::create('proposed_designs', function (Blueprint $table) {
             $table->id();
-            $table->json('fields')->nullable()->default(null);
+            $table->longText('fields')->nullable()->default(null);
             $table->foreignId('system_design_id')->nullable()->default(null);
             $table->foreign('system_design_id')->references('id')->on('system_designs');
             $table->timestamps();
