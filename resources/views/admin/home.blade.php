@@ -38,7 +38,7 @@ Admin Home - Genesis Design
             </div>
         </div>
         <div class="col l3 m6 s12">
-            <a href="{{ route('admin.projects.list') }}"><div class="card success-gradient card-hover">
+            <a href="{{ url('admin/projects/list?type=active') }}"><div class="card success-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -53,7 +53,7 @@ Admin Home - Genesis Design
             </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <a href="{{ route('admin.projects.list') }}"><div class="card warning-gradient card-hover">
+            <a href="{{ url('admin/projects/list?type=inactive') }}"><div class="card warning-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
