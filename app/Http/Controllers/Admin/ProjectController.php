@@ -30,15 +30,26 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //return 'hello';
-        $projects = Project::latest()->paginate(4);
-        $projectTypes = ProjectType::where('is_hidden', false)->get();
-        $engineers = User::where('role', 'engineer')->get();
-        return view('admin.project.index', compact('projects', 'engineers','projectTypes'));
+        // //return 'hello';
+        // $projects = Project::latest()->paginate(4);
+        // $projectTypes = ProjectType::where('is_hidden', false)->get();
+        // $engineers = User::where('role', 'engineer')->get();
+        // return view('admin.project.index', compact('projects', 'engineers','projectTypes'));
     }
 
-    public function indexProject(){
-        $projects = Project::latest()->paginate(4);
+    public function indexProject(Request $request){
+        // return sizeof($request->all());
+        if(sizeof($request->all()) > 0){
+            if($request->type == 'active'){
+                $projects = Project::where('status', $request->type)->latest()->paginate(4);        
+            }else{
+                // return "hello";
+                $projects = Project::where('status', Statics::STATUS_IN_ACTIVE)->latest()->paginate(4);
+                // return $projects;
+            }
+        }else{
+            $projects = Project::latest()->paginate(4);
+        }
         $projectTypes = ProjectType::where('is_hidden', false)->get();
         $engineers = User::where('role', 'engineer')->get();
         return view('admin.project.index', compact('projects', 'engineers','projectTypes'));
@@ -144,7 +155,6 @@ class ProjectController extends Controller
 
     public function getProjectData(Request $request)
 {
-
     if($request->ajax()) {
         if(Auth::user()->hasRole('customer'))
         $projectQuery = Auth::user()->projects()->with('type')->with('designs');

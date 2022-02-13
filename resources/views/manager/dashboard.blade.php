@@ -8,7 +8,7 @@ Manager Home - Genesis Design
 <div class="container-fluid">
     <div class="row">
         <div class="col l3 m6 s12">
-            <div class="card danger-gradient card-hover">
+            <a href="{{ route('manager.customer.index') }}"><div class="card danger-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -20,10 +20,10 @@ Manager Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card info-gradient card-hover">
+            <a href="{{ route('manager.engineer.index') }}"><div class="card info-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -35,10 +35,10 @@ Manager Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card success-gradient card-hover">
+            <a href="{{ url('manager/projects/list?type=active') }}"><div class="card success-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -50,10 +50,10 @@ Manager Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card warning-gradient card-hover">
+            <a href="{{ url('manager/projects/list?type=inactive') }}"><div class="card warning-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -65,7 +65,7 @@ Manager Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
     </div>
     <div class="row">

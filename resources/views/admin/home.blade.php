@@ -23,8 +23,8 @@ Admin Home - Genesis Design
             </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card info-gradient card-hover">
-                <a href="{{ route('admin.engineer.index') }}"><div class="card-content">
+            <a href="{{ route('admin.engineer.index') }}"><div class="card info-gradient card-hover">
+                <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
                             <h2 class="white-text m-b-5">{{ $engineerCount }}</h2>
@@ -38,7 +38,7 @@ Admin Home - Genesis Design
             </div>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card success-gradient card-hover">
+            <a href="{{ url('admin/projects/list?type=active') }}"><div class="card success-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -50,10 +50,10 @@ Admin Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
         <div class="col l3 m6 s12">
-            <div class="card warning-gradient card-hover">
+            <a href="{{ url('admin/projects/list?type=inactive') }}"><div class="card warning-gradient card-hover">
                 <div class="card-content">
                     <div class="d-flex no-block align-items-center">
                         <div>
@@ -65,7 +65,7 @@ Admin Home - Genesis Design
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
         </div>
     </div>
 
