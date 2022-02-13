@@ -53,19 +53,19 @@ Create Bulk Project
                                 <div class="row input-field">
                                     <div class="col s4">
                                         <p><label>
-                                            <input type="checkbox" id="aurora_design" name="aurora_design"/>
+                                            <input type="checkbox" id="aurora_design" onchange="getDesignPrice('aurora_design',{{$project_id}},1)" name="aurora_design"/>
                                             <span>Aurora Design</span>
                                         </label></p>
                                     </div>
                                     <div class="col s4">
                                         <p><label>
-                                            <input type="checkbox" id="structural_load" name="structural_load"/>
+                                            <input type="checkbox" id="structural_load" onchange="getDesignPrice('structural_load',{{$project_id}},1)" name="structural_load"/>
                                             <span>Structural Load Letter and Calculations</span>
                                         </label></p>
                                     </div>
                                     <div class="col s4">
                                         <p><label>
-                                            <input type="checkbox" id="pe_stamping" name="pe_stamping"/>
+                                            <input type="checkbox" id="pe_stamping" onchange="getDesignPrice('pe_stamping',{{$project_id}},1)" name="pe_stamping"/>
                                             <span>PE Stamping</span>
                                         </label></p>
                                     </div>
@@ -73,13 +73,13 @@ Create Bulk Project
                                 <div class="row input-field">
                                     <div class="col s4">
                                         <p><label>
-                                            <input type="checkbox" id="electrical_load" name="electrical_load"/>
+                                            <input type="checkbox" id="electrical_load" onchange="getDesignPrice('electrical_load',{{$project_id}},1)" name="electrical_load"/>
                                             <span>Electrical Load Calculations</span>
                                         </label></p>
                                     </div>
                                     <div class="col s4">
                                         <p><label>
-                                            <input type="checkbox" id="engineering_permit" name="engineering_permit"/>
+                                            <input type="checkbox" id="engineering_permit" onchange="getDesignPrice('engineering_permit',{{$project_id}},1)" name="engineering_permit"/>
                                             <span>Engineering Permit Package</span>
                                         </label></p>
                                     </div>
@@ -122,12 +122,26 @@ let redirectEnabled = true;
 let fileCount = 0;
 let filesUploaded = 0;
 const company = "{{(Auth::user()->company)?Auth::user()->company:'no-company'}}";
-    const post = "{{route('project.bulkinsert')}}";
-    const postUpdate = '';
-    const fileInsert = "{{route('project.file.attach')}}";
+const post = "{{route('project.bulkinsert')}}";
+const postUpdate = '';
+const fileInsert = "{{route('project.file.attach')}}";
+var designs=[];
+
+function getDesignPrice(design_name,project_id,id)
+{
+    projects=[];
+    const checkbox=document.getElementById(design_name);
+    if(checkbox.checked)
+    {
+        project_id=project_id+id;
+        projects.push({'name':design_name,'project_id':project_id});
+    }
+    else{
+        alert("not checked ...");
+    }
+    console.log(designs);
+}
 const sendFileToDb = function (file, response) {
-console.log("FILETODB ----> ",file);
-console.log("FILETo RESPONSE ----> ",response);
 axios(fileInsert, {
     method: 'POST',
     headers: {
@@ -172,7 +186,7 @@ axios(fileInsert, {
     {
         count++;
         uppiesArray.push(count);
-        var div="<div id='repeat"+count+"'><div class='col s10'><div ><div data-repeater-item><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]' placeholder=' value=' class='required'><label for='customer_name'>Customer Name: </label></div>";
+        var div="<div id='repeat"+count+"'><div class='col s10'><div ><div data-repeater-item><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]'  class='required'><label for='customer_name'>Customer Name: </label></div>";
         div+="<div class='input-field col s5'><select class='browser-default' name='customer_project_type[]'><option value=''  selected>Choose your option</option><option value='residential'>Residential</option><option value='commercial'>Commercial</option></select></div>";
         div+="<div class='input-field col s1'><button class='btn btn-small red tooltipped' data-tooltip='Remove Project' data-position='bottom' onclick='closeDiv("+count+")' type='button'><i class='material-icons'>clear</i></button></div></div>";
         div+="<div class='row'><div class='input-field col s10'><input type='text' id='customer_address"+count+"' name='customer_address[]'  placeholder=' ' class='required'><label for='customer_address'>Address: </label></div></div>";
@@ -391,7 +405,7 @@ function validateFields(skipUppies = false) {
 //insert Bulk Project
 function insert() {
 const validationResult = validateFields();
-console.log("Rules ---> ",validationResult);
+console.log("Rules ",validationResult);
 function uploadFiles(project_id,uppyid) {
     console.log("Project : ",project_id,"ID : ",uppyid);
        if(uppyid==0)

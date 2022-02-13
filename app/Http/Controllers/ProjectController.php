@@ -287,6 +287,8 @@ public function getProjectData(Request $request)
     }
 
     public function bulkProject(){
-        return view('project.bulkProject');
+        $project_id=Project::latest()->first()->id;
+
+        return view('project.bulkProject',compact('project_id'));
     }
 }

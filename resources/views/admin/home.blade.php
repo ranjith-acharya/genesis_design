@@ -76,19 +76,13 @@ Admin Home - Genesis Design
                         <div class="card-content">
                             <div class="d-flex align-items-center">
                             <div>
-                                <h5 class="card-title">Yearly Sales</h5>
-                            </div>
-                            <div class="ml-auto">
-                                <ul class="list-inline font-12 dl m-r-10">
-                                    <li class="cyan-text"><i class="fa fa-circle"></i> Earnings</li>
-                                    <li class="blue-text text-accent-4"><i class="fa fa-circle"></i> Sales</li>
-                                </ul>
+                                <h5 class="card-title">Designs</h5>
                             </div>
                         </div>
                         <div class="p-t-20">
                             <div class="row">
                                 <div class="col s12">
-                                    <div id="sales" style="height: 332px;"></div>
+                                    <div id="nightingale-chart" style="height: 332px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -430,66 +424,26 @@ $(function() {
         // based on prepared DOM, initialize echarts instance
         var nightingaleChart = echarts.init(document.getElementById('nightingale-chart'));
             var option = {
-                 title: {
-                    text: 'Employee\'s salary review',
-                    subtext: 'Senior front end developer',
-                    x: 'center'
-                },
+                 
 
                 // Add tooltip
                 tooltip: {
                     trigger: 'item',
-                    formatter: "{a} <br/>{b}: +{c}$ ({d}%)"
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
                 },
 
                 // Add legend
                 legend: {
                     x: 'left',
                     y: 'top',
-                    orient: 'vertical',
-                    data: ['January','February','March','April','May','June','July','August','September','October','November','December']
+                    orient: 'horizontal',
+                    data: ['Aurora','Structural Load','PE Stamping','Electric Load','Engineering Permit']
                 },
 
-                color: ['#ffbc34', '#4fc3f7', '#212529', '#f62d51', '#2962FF', '#FFC400', '#006064', '#FF1744', '#1565C0', '#FFC400', '#64FFDA', '#607D8B'],
+                color: ['#ffbc34', '#4fc3f7', '#212529', '#f62d51', '#2962FF'],
 
                 // Display toolbox
-                toolbox: {
-                    show: true,
-                    orient: 'vertical',
-                    feature: {
-                        mark: {
-                            show: true,
-                            title: {
-                                mark: 'Markline switch',
-                                markUndo: 'Undo markline',
-                                markClear: 'Clear markline'
-                            }
-                        },
-                        dataView: {
-                            show: true,
-                            readOnly: false,
-                            title: 'View data',
-                            lang: ['View chart data', 'Close', 'Update']
-                        },
-                        magicType: {
-                            show: true,
-                            title: {
-                                pie: 'Switch to pies',
-                                funnel: 'Switch to funnel',
-                            },
-                            type: ['pie', 'funnel']
-                        },
-                        restore: {
-                            show: true,
-                            title: 'Restore'
-                        },
-                        saveAsImage: {
-                            show: true,
-                            title: 'Same as image',
-                            lang: ['Save']
-                        }
-                    }
-                },
+                
 
                 // Enable drag recalculate
                 calculable: true,
@@ -497,7 +451,7 @@ $(function() {
                 // Add series
                 series: [
                     {
-                        name: 'Increase (brutto)',
+                        name: 'design',
                         type: 'pie',
                         radius: ['15%', '73%'],
                         center: ['50%', '57%'],
@@ -512,18 +466,11 @@ $(function() {
                         sort: 'ascending',
 
                         data: [
-                            {value: 440, name: 'January'},
-                            {value: 260, name: 'February'},
-                            {value: 350, name: 'March'},
-                            {value: 250, name: 'April'},
-                            {value: 210, name: 'May'},
-                            {value: 350, name: 'June'},
-                            {value: 300, name: 'July'},
-                            {value: 430, name: 'August'},
-                            {value: 400, name: 'September'},
-                            {value: 450, name: 'October'},
-                            {value: 330, name: 'November'},
-                            {value: 200, name: 'December'}
+                            {value: 440, name: 'Aurora'},
+                            {value: 260, name: 'Structural Load'},
+                            {value: 350, name: 'PE Stamping'},
+                            {value: 250, name: 'Electric Load'},
+                            {value: 200, name: 'Engineering Permit'}
                         ]
                     }
                 ]
