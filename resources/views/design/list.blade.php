@@ -239,7 +239,7 @@
                 <h6>For <span class="blue-text bold ">{{$project->name}}</span></h6>
             </div>
             @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
-                <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
+                {{-- <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
                     <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
@@ -247,7 +247,30 @@
                         <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::upper($designType->name)}}</a></li>
                         <li class="divider" tabindex="-1"></li>
                     @endforeach
-                </ul>
+                </ul> --}}
+                <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
+                    <a class="btn prussian-blue modal-trigger" href="#requestDesign">Request a Design</a>
+                </div>
+                <div id="requestDesign" class="modal">
+                    <div class="modal-content">
+                        <h4>Request a Design</h4><br>
+                        <form>
+                        @csrf
+                        @foreach($types as $designType)
+                            <p>
+                                <label>
+                                <input type="checkbox" class="filled-in" />
+                                <span>{{Str::upper($designType->name)}}</span>
+                                </label>
+                            </p>
+                        @endforeach
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close btn btn-small red">Cancel</a>
+                            <input type="submit" class="btn btn-small prussian-blue" value="Request">
+                        </div>
+                        </form>
+                    </div>
+                </div>
             @endif
         </div>
         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
