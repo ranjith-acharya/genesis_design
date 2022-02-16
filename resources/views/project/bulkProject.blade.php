@@ -186,12 +186,23 @@ axios(fileInsert, {
     {
         count++;
         uppiesArray.push(count);
-        var div="<div id='repeat"+count+"'><div class='col s10'><div ><div data-repeater-item><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]'  class='required'><label for='customer_name'>Customer Name: </label></div>";
-        div+="<div class='input-field col s5'><select class='browser-default' name='customer_project_type[]'><option value=''  selected>Choose your option</option><option value='residential'>Residential</option><option value='commercial'>Commercial</option></select></div>";
-        div+="<div class='input-field col s1'><button class='btn btn-small red tooltipped' data-tooltip='Remove Project' data-position='bottom' onclick='closeDiv("+count+")' type='button'><i class='material-icons'>clear</i></button></div></div>";
-        div+="<div class='row'><div class='input-field col s10'><input type='text' id='customer_address"+count+"' name='customer_address[]'  placeholder=' ' class='required'><label for='customer_address'>Address: </label></div></div>";
-        div+="<div class='row'><div class='col s2'><label for='uppyBulk"+count+"'>Upload Documents</label></div><div class='col s9'><div class='mh-a' id='uppyBulk"+count+"'></div><div class='><span class='helper-text imperial-red-text' id='files_error"+count+"'></span></div></div></div><br></div></div></div>";
-        document.getElementById('formRepetation').innerHTML+=div;
+        var div= document.createElement("div");
+        div.id='repeat'+count;
+        div.innerHTML="<div class='col s10'><div ><div><div class='row'><div class='input-field col s5'><input id='customer_name"+count+"' type='text' name='customer_name[]'  class='required'><label for='customer_name'>Customer Name: </label></div><div class='input-field col s5'><select class='browser-default' name='customer_project_type[]'><option value=''  selected>Choose your option</option><option value='residential'>Residential</option><option value='commercial'>Commercial</option></select></div><div class='input-field col s1'><button class='btn btn-small red tooltipped' data-tooltip='Remove Project' data-position='bottom' onclick='closeDiv("+count+")' type='button'><i class='material-icons'>clear</i></button></div></div>";
+        div.innerHTML+="<div class='row'><div class='input-field col s10'><input type='text' id='customer_address"+count+"' name='customer_address[]'  placeholder=' ' class='required'><label for='customer_address'>Address: </label></div></div>";
+        div.innerHTML+="<div class='row input-field'><div class='col s4'><p><label><input type='checkbox' id='aurora_design' onchange='getDesignPrice('aurora_design',{{$project_id}},1)' name='aurora_design'/><span>Aurora Design</span></label></p></div><div class='col s4'><p><label><input type='checkbox' id='structural_load' onchange='getDesignPrice('structural_load',{{$project_id}},1)' name='structural_load'/> <span>Structural Load Letter and Calculations</span>
+                                        </label></p>
+                                    </div>
+                                    <div class='col s4'>
+                                        <p><label>
+                                            <input type='checkbox' id='pe_stamping' onchange='getDesignPrice('pe_stamping',{{$project_id}},1)' name='pe_stamping'/>
+                                            <span>PE Stamping</span>
+                                        </label></p>
+                                    </div>
+                                </div>"
+        div.innerHTML+="<div class='row'><div class='col s2'><label for='uppyBulk"+count+"'>Upload Documents</label></div><div class='col s9'><div class='mh-a' id='uppyBulk"+count+"'></div><div class='><span class='helper-text imperial-red-text' id='files_error"+count+"'></span></div></div></div><br></div></div>";
+        //document.getElementById('formRepetation').innerHTML+=div;
+        document.getElementById('formRepetation').appendChild(div);
         loadUppies(count);
        
        
