@@ -107,10 +107,23 @@
     designList=[];
     function getDesign(e,designName,index)
     {
+        console.log(e);
         if(e.target.checked)
-            designList[index]=designName;
-        else
-            designList[index]="";
+        {
+            if(designName=="engineering permit package")
+            {
+                $("check0").attr("disable",true);
+                $("check1").attr("disable",true);
+                $("check2").attr("disable",true);
+                $("check3").attr("disable",true);
+            }
+            else{
+                $("check5").attr("disabled",true);
+            }
+            
+        }
+            
+       
     }
 
     function fetchDesigns()
@@ -295,7 +308,7 @@
                         @foreach($types as $k=>$designType)
                             <p>
                                 <label>
-                                <input type="checkbox"  name ="designs[]" value="{{$designType->name}}" class="filled-in" />
+                                <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" id="check{{$k}}" name ="designs[]" value="{{$designType->name}}" class="filled-in" />
                                 <span>{{Str::upper($designType->name)}}</span>
                                 </label>
                             </p>

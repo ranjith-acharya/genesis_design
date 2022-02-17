@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="row">
-                                                {{-- @if($project_type == 'commercial') --}}
+                                                @if($project_type == 'commercial') 
                                                 <div class="row">
                                                     <div class="col s4">
                                                         @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -165,8 +165,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- @endif
-                                                @if($project_type == 'residential') --}}
+                                                 @endif
+                                                @if($project_type == 'residential') 
                                                 <div class="row">
                                                     <div class="col s4">
                                                         @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -218,7 +218,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- @endif --}}
+                                               @endif 
                                             </div>
                         <div class="row">
                             <div class="col s12">
@@ -258,7 +258,7 @@
                             <div class="col s12">
                                 <h5>Arrays</h5>
                                 <div class="row col s12">
-                                {{-- @if($project_type == 'commercial') --}}
+                                 @if($project_type == 'commercial')
                                     <div class="row">
                                         <div class="col s4">
                                             @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -327,8 +327,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- @endif
-                                        @if($project_type == 'residential') --}}
+                                         @endif
+                                        @if($project_type == 'residential') 
                                         <div class="row">
                                             <div class="col s4">
                                                 @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -380,7 +380,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- @endif --}}
+                                         @endif 
                                     </div>
                                 <div class="row">
                                     <div class="col s12 m4 input-field">
