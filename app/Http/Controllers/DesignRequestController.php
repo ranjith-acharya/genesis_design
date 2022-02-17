@@ -462,6 +462,11 @@ class DesignRequestController extends Controller
         }
     }
 
+
+    public function getDesignForms(Request $request)
+    {
+        return $request;
+    }
     public function getDesigns(Request $request)
     {
 

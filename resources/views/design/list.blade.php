@@ -100,6 +100,35 @@
                 return false;
             });
         }
+
+
+      
+
+    designList=[];
+    function getDesign(e,designName,index)
+    {
+        if(e.target.checked)
+            designList[index]=designName;
+        else
+            designList[index]="";
+    }
+
+    function fetchDesigns()
+    {
+        var _token=$('input[name="_token"]').val();
+        $.ajax({
+        url:"{{ route('project.designs') }}",
+        method:"POST",
+        data:{designList: designList, _token:_token},
+        success:function(data){
+            console.log(data);
+            toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+           // window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
+        }      
+        });
+        }
+
+
     </script>
     <script id="basic_row" type="text/html">
         @{{#each data}}
@@ -256,17 +285,17 @@
                         <h4>Request a Design</h4><br>
                         <form>
                         @csrf
-                        @foreach($types as $designType)
+                        @foreach($types as $k=>$designType)
                             <p>
                                 <label>
-                                <input type="checkbox" class="filled-in" />
+                                <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" class="filled-in" />
                                 <span>{{Str::upper($designType->name)}}</span>
                                 </label>
                             </p>
                         @endforeach
                         <div class="modal-footer">
                             <a href="#!" class="modal-close btn btn-small red">Cancel</a>
-                            <input type="submit" class="btn btn-small prussian-blue" value="Request">
+                            <input type="button" onclick="fetchDesigns()" class="btn btn-small prussian-blue" value="Request">
                         </div>
                         </form>
                     </div>
@@ -442,4 +471,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
+
+
