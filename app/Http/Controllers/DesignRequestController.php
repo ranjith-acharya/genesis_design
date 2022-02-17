@@ -465,7 +465,9 @@ class DesignRequestController extends Controller
 
     public function getDesignForms(Request $request)
     {
-        return $request;
+      //  return $request;
+        return view('design.forms.engineering-permit', ["type" => $request["designs"], "project_id" => $request["project_id"], "project_type" => $request["project_type"]]);
+       
     }
     public function getDesigns(Request $request)
     {
