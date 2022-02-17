@@ -100,6 +100,40 @@
                 return false;
             });
         }
+
+
+      
+
+    designList=[];
+    function getDesign(e,designName,index)
+    {
+        if(e.target.checked)
+            designList[index]=designName;
+        else
+            designList[index]="";
+    }
+
+    function fetchDesigns()
+    {
+        $("#requestForms").submit();
+        // var _token=$('input[name="_token"]').val();
+        // var project_id="{{$project['id']}}";
+        // var project_type="{{$project->type->name}}";
+        // console.log(project_id);
+        // console.log(project_type);
+        // $.ajax({
+        // url:"{{ route('project.designs') }}",
+        // method:"POST",
+        // data:{designList:designList,project_type:project_type,project_id:project_id, _token:_token},
+        // success:function(data){
+        //     console.log(data);
+        //     toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        //    // window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
+        // }      
+        // });
+        }
+
+
     </script>
     <script id="basic_row" type="text/html">
         @{{#each data}}
@@ -254,19 +288,21 @@
                 <div id="requestDesign" class="modal">
                     <div class="modal-content">
                         <h4>Request a Design</h4><br>
-                        <form>
+                        <form method="post"  id="requestForms" action="{{ route('project.designs') }}">
                         @csrf
-                        @foreach($types as $designType)
+                        <input type="hidden" value="{{$project->type->name}}" name="project_type">
+                        <input type="hidden" value="{{$project->id}}" name="project_id">
+                        @foreach($types as $k=>$designType)
                             <p>
                                 <label>
-                                <input type="checkbox" class="filled-in" />
+                                <input type="checkbox"  name ="designs[]" value="{{$designType->name}}" class="filled-in" />
                                 <span>{{Str::upper($designType->name)}}</span>
                                 </label>
                             </p>
                         @endforeach
                         <div class="modal-footer">
                             <a href="#!" class="modal-close btn btn-small red">Cancel</a>
-                            <input type="submit" class="btn btn-small prussian-blue" value="Request">
+                            <input type="button" onclick="fetchDesigns()" class="btn btn-small prussian-blue" value="Request">
                         </div>
                         </form>
                     </div>
@@ -442,4 +478,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
+
+

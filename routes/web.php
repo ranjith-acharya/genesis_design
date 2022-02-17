@@ -173,6 +173,9 @@ Route::middleware(['verified', 'auth'])->group(function () {
 
                 Route::get('/multiple', 'ProjectController@bulkProject')->name('bulk');
 
+//          Get all Designs 
+                Route::post('/getform', 'DesignRequestController@getDesignForms')->name('designs');
+
 //            Save things
                 Route::post('/', 'ProjectController@insert')->name('insert');
 
