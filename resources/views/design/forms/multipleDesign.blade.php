@@ -30,7 +30,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col s12">
-            <h3 class="prussian-blue-text capitalize"></h3>
+            <h3 class="prussian-blue-text capitalize">{{$type[0]}}</h3>
             <h5>Design Request</h5>
         </div>
         <div class="col s12">
