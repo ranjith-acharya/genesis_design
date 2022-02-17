@@ -107,20 +107,48 @@
     designList=[];
     function getDesign(e,designName,index)
     {
-        console.log(e);
+        
         if(e.target.checked)
         {
             if(designName=="engineering permit package")
             {
-                $("check0").attr("disable",true);
-                $("check1").attr("disable",true);
-                $("check2").attr("disable",true);
-                $("check3").attr("disable",true);
+                $("#check0").attr("checked",false);
+                $("#check1").attr("checked",false);
+                $("#check2").attr("checked",false);
+                $("#check3").attr("checked",false);
+                $("#check4").attr("checked",false);
+                $("#check0").attr("disabled",true);
+                $("#check1").attr("disabled",true);
+                $("#check2").attr("disabled",true);
+                $("#check3").attr("disabled",true);
+                $("#check4").attr("disabled",true);
+               
             }
             else{
-                $("check5").attr("disabled",true);
+                $("#check5").attr("disabled",true);
+                $("#check5").attr("checked",false);
+                designList.push(designName);
+                console.log(designList);
             }
-            
+        }
+        else{
+            designList.pop();
+            console.log(designList);
+            if(designList.length>0)
+            {
+                $("#check5").attr("checked",false); 
+                $("#check5").attr("disabled",true);   
+            }
+            else
+            {
+                $("#check5").attr("disabled",false);
+                $("#check0").attr("disabled",false);
+                $("#check1").attr("disabled",false);
+                $("#check2").attr("disabled",false);
+                $("#check3").attr("disabled",false);
+                $("#check4").attr("disabled",false);
+            }
+           
         }
             
        

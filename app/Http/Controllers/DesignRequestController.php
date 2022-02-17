@@ -465,8 +465,44 @@ class DesignRequestController extends Controller
 
     public function getDesignForms(Request $request)
     {
-      //  return $request;
-        return view('design.forms.multipleDesign', ["type" => $request["designs"], "project_id" => $request["project_id"], "project_type" => $request["project_type"]]);
+        $project_id=$request->project_id;
+        $project_type=$request->project_type;
+        if(count($request->designs)==1)
+        {
+            $type=$request->designs[0];
+            switch ($type) {
+                case (Statics::DESIGN_TYPE_AURORA):
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_AURORA)->firstOrFail();
+                    $response = view('design.forms.aurora', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
+                    break;
+                case (Statics::DESIGN_TYPE_STRUCTURAL):
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_STRUCTURAL)->firstOrFail();
+                    $response = view('design.forms.structural-load-letter', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
+                    break;
+                case (Statics::DESIGN_TYPE_PE):
+                    //return Statics::DESIGN_TYPE_PE;
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_PE)->firstOrFail();
+                    $response = view('design.forms.pe', ["type" => $type, "project_id" => $project_id]);
+                    break;
+                case (Statics::DESIGN_TYPE_ELECTRICAL):
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_ELECTRICAL)->firstOrFail();
+                    $response = view('design.forms.electrical-load', ["type" => $type, "project_id" => $project_id]);
+                    break;
+                case (Statics::DESIGN_TYPE_SITE_SURVEY):
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_SITE_SURVEY)->firstOrFail();
+                    $response = view('design.forms.site-survey', ["type" => $type, "project_id" => $project_id]);
+                    break;
+                case (Statics::DESIGN_TYPE_ENGINEERING_PERMIT):
+                    $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_ENGINEERING_PERMIT)->firstOrFail();
+                    $response = view('design.forms.engineering-permit', ["type" => $type, "project_id" => $project_id, "project_type" => $project_type]);
+                    break;
+                default:
+                    abort(404);
+                    break;
+            }
+            return $response;
+        }
+        return view('design.forms.multipleDesign', ["type" => $request["designs"], "project_id" => $project_id, "project_type" => $project_type]);
        
     }
     public function getDesigns(Request $request)
