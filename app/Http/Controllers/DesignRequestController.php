@@ -505,8 +505,81 @@ class DesignRequestController extends Controller
         return view('design.forms.multipleDesign', ["type" => $request["designs"], "project_id" => $project_id, "project_type" => $project_type]);
        
     }
+
+    //Store Multiple Designs 
+
+
     public function storeMultiple(Request $request){
-        return $request;
+        $designs=[];
+        if($request['stripe_payment_aurora']!="no")
+        {
+            $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();
+
+        if ($project && $project->status !== Statics::PROJECT_STATUS_ARCHIVED) {
+            $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_AURORA)->first();
+            $sd = new SystemDesign();
+            $sd->system_design_type_id = $type->id;
+            $sd->project_id = $project->id;
+            $designs_count=Project::findOrFail($project->id)->designs->count();
+            if($designs_count>0)
+            {
+                $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+                $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+            }
+            else
+            {
+                $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+                $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
+            }
+            
+            $sd->price = $type->latestPrice->price;
+            $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "moduleType", "moduleOther", "racking", "rackingType", "rackingOther", "inverter", "inverterType", "inverterOther", "monitor", "monitorType", "monitorOther"]);
+            $sd->stripe_payment_code = $request->stripe_payment_aurora;
+            $sd->save();
+            array_push($designs,$sd->id);
+            //return $sd;
+        } else {
+            abort(403);
+            return false;
+        }
+
+        }
+        //storing strcutural load
+        if($request['stripe_payment_structural']!="no")
+        {
+            $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();
+
+            if ($project && $project->status !== Statics::PROJECT_STATUS_ARCHIVED) {
+                $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_STRUCTURAL)->first();
+                $sd = new SystemDesign();
+                $sd->system_design_type_id = $type->id;
+                $sd->project_id = $project->id;
+                $designs_count=Project::findOrFail($project->id)->designs->count();
+                if($designs_count>0)
+                {
+                    $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+                    $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+                }
+                else
+                {
+                    $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+                    $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
+                }
+                $sd->price = $type->latestPrice->price;
+                $sd->fields = $request->fields;
+                $sd->stripe_payment_code = $request->stripe_payment_structural;
+                $sd->save();
+                array_push($designs,$sd->id);
+                //return $sd;
+            }
+                else {
+                    abort(403);
+                    return false;
+                }
+    
+        }
+
+        return $designs;
     }
 
     public function getDesigns(Request $request)

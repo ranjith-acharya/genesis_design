@@ -38,14 +38,15 @@
                 <div class="wizard-content" style="padding-bottom:2%;">
                     <form id="array_form" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
                     @csrf
-                    @foreach($type as $t)
-                   <input type="hidden" name="systemDesigns[]" value="{{$t}}">
-                   @endforeach
+                    <input type="hidden" name="project_id" value="{{$project_id}}">
+                  
+                   
                     @if(in_array('aurora design',$type))
                     <h6>Aurora Design</h6>
                     <section>
                         <div class="row valign-wrapper">
                             <div class="input-field col s6">
+                            <input type="hidden" name="aurora_design" value="aurora design">
                                 <div class="switch center">
                                     <label>
                                         Max System Size
@@ -257,6 +258,7 @@
                     <section>
                         <div class="row">
                             <div class="col s12 input-field">
+                            <input type="hidden" name="structural_load_letter_and_calculations" value="structural load letter and calculations">
                                 <select id="roof_type">
                                     <option value="Asphalt">Asphalt</option>
                                     <option value="Cedar Shake">Cedar Shake</option>
@@ -466,6 +468,7 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
+                                <input type="hidden" name="pe_stamping" value="pe stamping">
                                     <div class="col s12">
                                     <h4>Supporting Documents(Site Survey Pictures)</h4>
                                     <div class="mh-a" id="uppySupportingDocuments"></div>
@@ -531,6 +534,7 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field col s12">
+                                <input type="hidden" name="electrical_load_calculations" value="electrical load calculations">
                                     <select id="selectItem1" multiple onchange="getSelectedValue('1')">
                                         <option value="" disabled>Choose your option</option>
                                         <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
@@ -877,10 +881,14 @@
 
             M.FormSelect.init(document.querySelector("#installation"));
             let form = document.forms["array_form"].getElementsByTagName("input");
-            console.log(form);
+           
             let errors =  0;
             let jsonData = {};
-
+            const roofType = M.FormSelect.getInstance(document.querySelector("#roof_type"));
+            const fields = {arrays: [],roofType: roofType.getSelectedValues()[0]};
+            for (const key in arrays) {
+                fields.arrays.push(arrays[key]);
+            }
             //Make the thing green
             function right(item) {
                 item.classList.remove("invalid");
@@ -935,6 +943,23 @@
                 jsonData[inverterOther.getAttribute("name")] = "No inverter";
             }
 
+            const installation = M.FormSelect.getInstance(document.querySelector("#installation"));
+            if (installation.getSelectedValues()[0] === "") wrong(installation.wrapper);
+            else {
+                right(installation.wrapper);
+                jsonData["installation"] = installation.getSelectedValues()[0];
+            }
+
+            jsonData["hoa"] = document.getElementById('hoa').checked;
+
+
+            const notes = document.getElementById('notes');
+            if (notes.value !== ""){
+                //alert("notes");
+                right(notes);
+            }
+            else
+                jsonData[notes.getAttribute("name")] = "No notes";
             // if(monitorOther.value !== "")
             //     right(monitorOther);
             // else
@@ -987,6 +1012,11 @@
                 jsonData[rackingOther1.getAttribute("name")] = "No racking";
             }
 
+            jsonData['stripe_payment_aurora']="no";
+            jsonData['stripe_payment_stamping']="no";
+            jsonData['stripe_payment_structural']="no";
+            jsonData['stripe_payment_electrical']="no";
+            jsonData['fields']=fields;
             return {
                 errors: errors,
                 columns: jsonData
@@ -1367,28 +1397,43 @@
             //alert(fields.arrays.length);
             document.getElementById('stripe_card').style.display = 'none'
 
-            function uploadFiles(system_design_id) {
+            function uploadFiles(system_design_id,i) {
+                if(i==0)
+                {
                 uppy1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy1.upload();
+                }
+                else{
                 uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy2.upload();
-                uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                uppy3.upload();
-                uppy4.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                uppy4.upload();
+                }
+                // uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                // uppy3.upload();
+                // uppy4.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                // uppy4.upload();
             }
             if (validationResult.errors === 0) {
-                holdPayment('{{$type[1]}}').then(resp => {
-                    console.log(resp)
-                    if (resp) {
-                        if (resp.error) {
-                            document.getElementById('stripe_error').innerText = resp.error.message;
-                            elem.disabled = false;
-                            document.getElementById('stripe_card').style.display = 'block'
-                        } else {
+                @foreach($type as $t)
+                holdPayment('{{$t}}').then(resp=>{
+                    console.log("{{$t}} : ",resp);
+                    @if($t=="aurora design")
+                    alert("aurora");
+                    validationResult.columns['stripe_payment_aurora'] = resp.paymentIntent.id;
+                    @elseif($t=="structural load letter and calculations")
+                    alert("strcutural");
+                    validationResult.columns['stripe_payment_structural'] = resp.paymentIntent.id;
+                    @elseif($t=="pe stamping")
+                    alert("stamp");
+                    validationResult.columns['stripe_payment_stamping'] = resp.paymentIntent.id;
+                    @else
+                    alert("electrical");
+                        validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
+                    @endif
 
-                            validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
-                            fetch("{{ route('design.multiple_design') }}", {
+                    @if(end($type)==$t)
+                    
+                        console.log("-------", validationResult.columns);
+                        fetch("{{ route('design.multiple_design') }}", {
                                 method: 'post',
                                 body: JSON.stringify(validationResult.columns),
                                 headers: {
@@ -1400,7 +1445,8 @@
                             }).then(response => {
                                 if (response.status === 200 || response.status === 201) {
                                     console.log(response.db_response)
-                                    uploadFiles(response.db_response.id);
+                                    for(i=0;i<response.db_response.length;i++)
+                                    uploadFiles(response.db_response[i],i);
                                     if (fileCount === 0)
                                         window.location = "{{route('design.list', $project_id)}}";
                                         toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
@@ -1414,12 +1460,56 @@
                                 console.error(err);
                                 elem.disabled = false;
                             });
-                        }
-                    } else {
-                        console.log("error")
-                        elem.disabled = false;
-                    }
+                    @endif
                 })
+                @endforeach
+
+
+               
+
+                
+                // holdPayment('{{$type[1]}}').then(resp => {
+                //     console.log(resp)
+                //     if (resp) {
+                //         if (resp.error) {
+                //             document.getElementById('stripe_error').innerText = resp.error.message;
+                //             elem.disabled = false;
+                //             document.getElementById('stripe_card').style.display = 'block'
+                //         } else {
+
+                //             validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
+                //             fetch("{{ route('design.multiple_design') }}", {
+                //                 method: 'post',
+                //                 body: JSON.stringify(validationResult.columns),
+                //                 headers: {
+                //                     'Content-Type': 'application/json',
+                //                     'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                //                 }
+                //             }).then(async response => {
+                //                 return {db_response: await response.json(), "status": response.status};
+                //             }).then(response => {
+                //                 if (response.status === 200 || response.status === 201) {
+                //                     console.log(response.db_response)
+                //                     uploadFiles(response.db_response.id);
+                //                     if (fileCount === 0)
+                //                         window.location = "{{route('design.list', $project_id)}}";
+                //                         toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                //                 } else {
+                //                     toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                //                     console.error(response);
+                //                     elem.disabled = false;
+                //                 }
+                //             }).catch(err => {
+                //                 toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                //                 console.error(err);
+                //                 elem.disabled = false;
+                //             });
+                //         }
+                //     } else {
+                //         console.log("error")
+                //         elem.disabled = false;
+                //     }
+                // })
 
             } else {
                 toastr.error('There are somr error in your form, please fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
