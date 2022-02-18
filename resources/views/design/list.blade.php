@@ -107,10 +107,51 @@
     designList=[];
     function getDesign(e,designName,index)
     {
+        
         if(e.target.checked)
-            designList[index]=designName;
-        else
-            designList[index]="";
+        {
+            if(designName=="engineering permit package")
+            {
+                $("#check0").attr("checked",false);
+                $("#check1").attr("checked",false);
+                $("#check2").attr("checked",false);
+                $("#check3").attr("checked",false);
+                $("#check4").attr("checked",false);
+                $("#check0").attr("disabled",true);
+                $("#check1").attr("disabled",true);
+                $("#check2").attr("disabled",true);
+                $("#check3").attr("disabled",true);
+                $("#check4").attr("disabled",true);
+               
+            }
+            else{
+                $("#check5").attr("disabled",true);
+                $("#check5").attr("checked",false);
+                designList.push(designName);
+                console.log(designList);
+            }
+        }
+        else{
+            designList.pop();
+            console.log(designList);
+            if(designList.length>0)
+            {
+                $("#check5").attr("checked",false); 
+                $("#check5").attr("disabled",true);   
+            }
+            else
+            {
+                $("#check5").attr("disabled",false);
+                $("#check0").attr("disabled",false);
+                $("#check1").attr("disabled",false);
+                $("#check2").attr("disabled",false);
+                $("#check3").attr("disabled",false);
+                $("#check4").attr("disabled",false);
+            }
+           
+        }
+            
+       
     }
 
     function fetchDesigns()
@@ -295,7 +336,7 @@
                         @foreach($types as $k=>$designType)
                             <p>
                                 <label>
-                                <input type="checkbox"  name ="designs[]" value="{{$designType->name}}" class="filled-in" />
+                                <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" id="check{{$k}}" name ="designs[]" value="{{$designType->name}}" class="filled-in" />
                                 <span>{{Str::upper($designType->name)}}</span>
                                 </label>
                             </p>

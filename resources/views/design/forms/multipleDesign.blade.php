@@ -38,7 +38,8 @@
                 <div class="wizard-content" style="padding-bottom:2%;">
                     <form id="array_form" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
                     @csrf
-                    <h6>Aurora Design</h6>
+                    <h6>Multiple Designs</h6>
+                    @if(Arr::has($type,'aurora design'))
                     <section>
                         <div class="row valign-wrapper">
                             <div class="input-field col s6">
@@ -239,7 +240,8 @@
                             </div>
                         </div>
                     </section>
-
+                    @endif
+@if(Arr::has($type,'structural load letter and calculation'))
                     <h6>Structural Load Letter and Calculation</h6>
                     <section>
                         <div class="row">
@@ -438,7 +440,8 @@
                             </div>
                         </div>
                     </section>
-
+@endif
+@if(Arr::has($type,'pe stamping'))
                     <h6>PE Stamping</h6>
                     <section>
                         <div class="row">
@@ -494,7 +497,8 @@
                             </div>
                         </div>
                     </section>
-
+                    @endif
+                    @if(Arr::has($type,'electrical load calculations'))
                     <h6>Electrical Load Calculations</h6>
                     <section>
                         <div class="row">
@@ -758,6 +762,7 @@
                         </div>
                     </div>
                     </section>
+                    @endif
                     </form>
                 </div>
             </div>
