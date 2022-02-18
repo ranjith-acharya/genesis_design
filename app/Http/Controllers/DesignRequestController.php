@@ -469,6 +469,10 @@ class DesignRequestController extends Controller
         return view('design.forms.multipleDesign', ["type" => $request["designs"], "project_id" => $request["project_id"], "project_type" => $request["project_type"]]);
        
     }
+    public function storeMultiple(Request $request){
+        return $request;
+    }
+
     public function getDesigns(Request $request)
     {
 
