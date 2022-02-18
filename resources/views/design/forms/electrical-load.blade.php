@@ -15,7 +15,7 @@
             </div>
             <div class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <section>
-            <div class="row">
+            <!-- <div class="row">
                                     <h4 class="mt-2" style="margin-left:10px;">Upload Bill</h4>
                                     <div class="col s12">
                                         <div class="mh-a" id="uppyBill"></div>
@@ -31,7 +31,7 @@
                                         <label for="average_bill">Yearly usage: </label>
                                     </div>
                                 </div><br>
-                                <h3 class="center-align">- OR - </h3><br>
+                                <h3 class="center-align">- OR - </h3><br> -->
                                 <div class="row">
                                     <div class="col s6">
                                         <div class="input-field col s12">

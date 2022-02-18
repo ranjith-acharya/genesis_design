@@ -38,8 +38,11 @@
                 <div class="wizard-content" style="padding-bottom:2%;">
                     <form id="array_form" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
                     @csrf
-                    <h6>{{$type[0]}}</h6>
+                    @foreach($type as $t)
+                   <input type="hidden" name="systemDesigns[]" value="{{$t}}">
+                   @endforeach
                     @if(in_array('aurora design',$type))
+                    <h6>Aurora Design</h6>
                     <section>
                         <div class="row valign-wrapper">
                             <div class="input-field col s6">
@@ -848,6 +851,7 @@
 
             M.FormSelect.init(document.querySelector("#installation"));
             let form = document.forms["array_form"].getElementsByTagName("input");
+            console.log(form);
             let errors =  0;
             let jsonData = {};
 
@@ -1327,7 +1331,7 @@
 
     <script>
         function insert(elem){
-            alert("hello");
+           
             
             const validationResult = validateFields();
 
