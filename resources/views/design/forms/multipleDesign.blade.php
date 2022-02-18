@@ -242,6 +242,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center imperial-red honeydew-text">
+                                    <h5 id="stripe_error"></h5>
+                                    <h6>Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     @endif
 @if(in_array('structural load letter and calculations',$type))
@@ -442,6 +450,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center imperial-red honeydew-text">
+                                    <h5 id="stripe_error"></h5>
+                                    <h6>Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 @endif
 @if(in_array('pe stamping',$type))
@@ -499,9 +515,17 @@
                                 </div> -->
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center imperial-red honeydew-text">
+                                    <h5 id="stripe_error"></h5>
+                                    <h6>Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     @endif
-                    @if(in_array('electrical load calculations',$type))
+                @if(in_array('electrical load calculations',$type))
                     <h6>Electrical Load Calculations</h6>
                     <section>
                         <div class="row">
@@ -753,9 +777,6 @@
                             </div><br>
                         </div>
                         <div class="row">
-                            <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
-                        </div>
-                        <div class="row">
                             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
                                 <div class="card-panel center imperial-red honeydew-text">
                                     <h5 id="stripe_error"></h5>
@@ -763,9 +784,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </section>
-                    @endif
+                @endif
+                    <h6>Payment Details</h6>
+                    <section>
+                        <div class="row">
+                            <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                        </div>
+                    </section>
                     </form>
                 </div>
             </div>
