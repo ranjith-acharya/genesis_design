@@ -748,6 +748,14 @@
                         <div class="row">
                             <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
                         </div>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center imperial-red honeydew-text">
+                                    <h5 id="stripe_error"></h5>
+                                    <h6>Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     </section>
                     </form>
@@ -1273,5 +1281,115 @@
                 fileCount--;
             });
         });
+
+        const sendFileToDb = function (file, response) {
+
+        fetch("{{route('design.file.attach')}}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+            },
+            body: JSON.stringify({
+                path: response.body.name,
+                system_design_id: file.meta.system_design_id,
+                content_type: file.meta.type
+            })
+        }).then(async response => {
+            return {db_response: await response.json(), "status": response.status};
+        }).then(response => {
+            if (response.status === 200 || response.status === 201) {
+                console.log(response.db_response);
+                toastr.success('Images uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                // M.toast({
+                //     html: "Images uploaded",
+                //     classes: "green"
+                // });
+                filesUploaded++;
+                if (filesUploaded === fileCount)
+                    window.location = "{{route('design.list', $project_id)}}";
+            } else {
+                toastr.error('There was a error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                console.error(response);
+            }
+        }).catch(err => {
+            toastr.error('There was a network error uploading images. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+            console.error(err);
+        });
+
+        };
+    </script>
+
+    <script>
+        function insert(elem){
+            alert("hello");
+            
+            const validationResult = validateFields();
+
+            console.log("data", validationResult);
+            //alert(validationResult);
+            
+            //alert(fields.arrays.length);
+            document.getElementById('stripe_card').style.display = 'none'
+
+            function uploadFiles(system_design_id) {
+                uppy1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy1.upload();
+                uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy2.upload();
+                uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy3.upload();
+                uppy4.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy4.upload();
+            }
+            if (validationResult.errors === 0) {
+                holdPayment('{{$type[1]}}').then(resp => {
+                    console.log(resp)
+                    if (resp) {
+                        if (resp.error) {
+                            document.getElementById('stripe_error').innerText = resp.error.message;
+                            elem.disabled = false;
+                            document.getElementById('stripe_card').style.display = 'block'
+                        } else {
+
+                            validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
+                            fetch("{{ route('design.multiple_design') }}", {
+                                method: 'post',
+                                body: JSON.stringify(validationResult.columns),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                                }
+                            }).then(async response => {
+                                return {db_response: await response.json(), "status": response.status};
+                            }).then(response => {
+                                if (response.status === 200 || response.status === 201) {
+                                    console.log(response.db_response)
+                                    uploadFiles(response.db_response.id);
+                                    if (fileCount === 0)
+                                        window.location = "{{route('design.list', $project_id)}}";
+                                        toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                } else {
+                                    toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                    console.error(response);
+                                    elem.disabled = false;
+                                }
+                            }).catch(err => {
+                                toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                console.error(err);
+                                elem.disabled = false;
+                            });
+                        }
+                    } else {
+                        console.log("error")
+                        elem.disabled = false;
+                    }
+                })
+
+            } else {
+                toastr.error('There are somr error in your form, please fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                elem.disabled = false;
+            }
+        }
     </script>
 @endsection
