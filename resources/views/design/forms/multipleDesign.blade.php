@@ -30,7 +30,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col s12">
-            <h3 class="prussian-blue-text capitalize">{{$type[0]}}</h3>
+            <h3 class="prussian-blue-text capitalize">Multiple</h3>
             <h5>Design Request</h5>
         </div>
         <div class="col s12">
@@ -60,12 +60,12 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input id="annual_usage" name="annual_usage" type="number" validate="annual_usage">
+                                <input id="annual_usage" name="annual_usage" type="number" validate="annual_usage" class="required">
                                 <label for="annual_usage">Annual Usage</label>
                                 <span class="helper-text" data-error="Enter a value greater than 1">Required</span>
                             </div>
                             <div class="input-field col s6">
-                                <input id="max_offset" name="max_offset" type="number" validate="offset">
+                                <input id="max_offset" name="max_offset" type="number" validate="offset" class="required">
                                 <label for="max_offset">Max Offset %</label>
                                 <span class="helper-text" data-error="Enter a value between 1 and 200">Required. Max 200%</span>
                             </div>
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="row">
-                                                @if($project_type == 'commercial') 
+                                            @if($project_type == 'commercial')
                                                 <div class="row">
                                                     <div class="col s4">
                                                         @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -166,8 +166,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 @endif
-                                                @if($project_type == 'residential') 
+                                            @endif
+                                            @if($project_type == 'residential')
                                                 <div class="row">
                                                     <div class="col s4">
                                                         @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
@@ -219,8 +219,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                               @endif 
-                                            </div>
+                                            @endif
+                        </div>
                         <div class="row">
                             <div class="col s12">
                                 <blockquote style="padding-left: 0.5em">Anything else we should know? Drop it here:</blockquote>
@@ -260,10 +260,10 @@
                             <div class="col s12">
                                 <h5>Arrays</h5>
                                 <div class="row col s12">
-                                 @if($project_type == 'commercial')
+                                @if($project_type == 'commercial')
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                            @component('components.autocomplete1', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -271,8 +271,8 @@
                                                 <label for="moduleType">Module Type</label>                                            
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                    <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <div class="input-field col s12" id="moduleOther_input1" style="display:none;">
+                                                    <input type="text" name="moduleOther" id="moduleOther1" value="moduleOther">
                                                     <label for="moduleOther">Other: </label>
                                                 </div>
                                             </div>
@@ -280,7 +280,7 @@
                                     </div>
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -289,15 +289,15 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                    <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <div class="input-field col s12" id="inverterOther_input1" style="display:none;">
+                                                    <input type="text" name="inverterOther" id="inverterOther1" value="inverterOther">
                                                     <label for="inverterOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -306,15 +306,15 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                    <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <div class="input-field col s12" id="rackingOther_input1" style="display:none;">
+                                                    <input type="text" name="rackingOther" id="rackingOther1" value="rackingOther">
                                                     <label for="rackingOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -323,17 +323,17 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
-                                                    <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
+                                                <div class="input-field col s12" id="monitorOther_input1" style="display:none;" >
+                                                    <input type="text" name="monitorOther" id="monitorOther1" value="monitorOther">
                                                     <label for="monitorOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
-                                         @endif
-                                        @if($project_type == 'residential') 
+                                        @endif
+                                        @if($project_type == 'residential')
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -342,15 +342,15 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                    <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <div class="input-field col s12" id="moduleOther_input1" style="display:none;">
+                                                    <input type="text" name="moduleOther" id="moduleOther1" value="moduleOther">
                                                     <label for="moduleOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -359,15 +359,15 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                    <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <div class="input-field col s12" id="inverterOther_input1" style="display:none;">
+                                                    <input type="text" name="inverterOther" id="inverterOther1" value="inverterOther">
                                                     <label for="inverterOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col s4">
-                                                @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                                @component('components.autocomplete1', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12">
@@ -376,27 +376,27 @@
                                                 </div>
                                             </div>
                                             <div class="col s4">
-                                                <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                    <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <div class="input-field col s12" id="rackingOther_input1" style="display:none;">
+                                                    <input type="text" name="rackingOther" id="rackingOther1" value="rackingOther">
                                                     <label for="rackingOther">Other: </label>
                                                 </div>
                                             </div>
                                         </div>
-                                         @endif 
+                                        @endif
                                     </div>
                                 <div class="row">
                                     <div class="col s12 m4 input-field">
-                                        <input id="panels" name="panels" validate="panels" type="number" value="1">
+                                        <input id="panels" name="panels" validate="panels" type="number" value="1" class="required">
                                         <label for="panels"># of Panels</label>
                                         <span class="helper-text">Required. at least 1</span>
                                     </div>
                                     <div class="col s12 m4 input-field">
-                                        <input id="tilt" name="tilt" validate="tilt" type="number" value="0">
+                                        <input id="tilt" name="tilt" validate="tilt" type="number" value="0" class="required">
                                         <label for="tilt">Tilt</label>
                                         <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 90">Required 0-90</span>
                                     </div>
                                     <div class="col s12 m4 input-field">
-                                        <input id="azimuth" name="azimuth" validate="azimuth" type="number" value="0">
+                                        <input id="azimuth" name="azimuth" validate="azimuth" type="number" value="0" class="required">
                                         <label for="azimuth">Azimuth</label>
                                         <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 360">Required 0-360</span>
                                     </div>
@@ -501,23 +501,6 @@
                     @if(Arr::has($type,'electrical load calculations'))
                     <h6>Electrical Load Calculations</h6>
                     <section>
-                        <div class="row">
-                            <h4 class="mt-2" style="margin-left:10px;">Upload Bill</h4>
-                            <div class="col s12">
-                                <div class="mh-a" id="uppyBill"></div>
-                                <div class="center">
-                                    <span class="helper-text imperial-red-text" id="files_error"></span>
-                                </div>
-                            </div>
-                        </div><br>
-                        <h3 class="center-align">- OR - </h3><br>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="average_bill" name="average_bill" type="text" placeholder=" ">
-                                <label for="average_bill">Yearly usage: </label>
-                            </div>
-                        </div><br>
-                        <h3 class="center-align">- OR - </h3><br>
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field col s12">
@@ -760,11 +743,14 @@
                             </div><br><br>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="average_bill1" name="average_bill1" type="text" placeholder=" ">
+                                    <input id="average_bill1" name="average_bill1" type="text" placeholder=" " value="0">
                                     <label for="average_bill1">Yearly usage: </label>
                                     <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                 </div>
                             </div><br>
+                        </div>
+                        <div class="row">
+                            <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
                         </div>
                     </div>
                     </section>
@@ -890,11 +876,12 @@
                         right(item)
                     else
                         wrong(item)
-                } else {
+                } 
+                else {
                     if (!validate.single(item.value, {presence: {allowEmpty: false}}))
                         right(item);
-                    else
-                        wrong(item);
+                //     else
+                //         wrong(item);
                 }
             }
 
@@ -930,12 +917,44 @@
                 jsonData[rackingOther.getAttribute("name")] = "No racking";
             }
 
+            const inverterOther1 = document.getElementById('inverterOther1');
+            // const monitorOther = document.getElementById('monitorOther');
+            const moduleOther1 = document.getElementById('moduleOther1');
+            const rackingOther1 = document.getElementById('rackingOther1');
+
+            if(inverterOther1.value !== "")
+                right(inverterOther1);
+            else{
+                inverterOther1.classList.value = "valid";
+                jsonData[inverterOther1.getAttribute("name")] = "No inverter";
+            }
+
+            // if(monitorOther.value !== "")
+            //     right(monitorOther);
+            // else
+            //     jsonData[monitorOther.getAttribute("name")] = "No monitor";
+
+            if(moduleOther1.value !== ""){
+                //alert("Module");
+                right(moduleOther1);
+            }else{
+                moduleOther1.classList.value = "valid";
+                jsonData[moduleOther1.getAttribute("name")] = "No module";
+            }
+
+            if(rackingOther1.value !== "")
+                right(rackingOther1);
+            else{
+                rackingOther1.classList.value = "valid";
+                jsonData[rackingOther1.getAttribute("name")] = "No racking";
+            }
+
             return {
                 errors: errors,
                 columns: jsonData
             };
             }
-
+            let arrays = {};
             document.getElementById('add_array').addEventListener('click', function () {
             const result = validateFields()
             if (!result.errors) {
@@ -956,7 +975,7 @@
                                 <td class="center"><button type="button" class="btn imperial-red-outline-button remove" data-id="${row.id}" onclick="remove(this)">Remove</button></td>`;
                 document.getElementById('array_table').append(row);
             }
-            });
+        });
 
             function remove(elem) {
                 const id = elem.getAttribute('data-id')
@@ -1001,6 +1020,78 @@
             //console.log($("#selectItem").val());
         }
     </script>
+    <script>
+        function equipment(val, name){
+            // alert(val);
+            console.log(name[0].id);
+
+            var name = name[0].id;
+                if(name == 'inverter' ){
+                    if(val == 'Others'){
+                        document.getElementById('inverterOther_input').style.display = "block";
+                        document.getElementById('inverterOther').value = "";
+                    }else{
+                        document.getElementById('inverterOther_input').style.display = "none";
+                    }
+                }else if(name == 'monitor'){
+                    if(val == 'Others'){
+                        document.getElementById('monitorOther_input').style.display = "block";
+                        document.getElementById('monitorOther').value = "";
+                    }else{
+                        document.getElementById('monitorOther_input').style.display = "none";
+                    }
+                }else if(name == 'racking'){
+                    if(val == 'Others'){
+                        document.getElementById('rackingOther_input').style.display = "block";
+                        document.getElementById('rackingOther').value = "";
+                    }else{
+                        document.getElementById('rackingOther_input').style.display = "none";
+                    }
+                }else if(name == 'module'){
+                    if(val == 'Others'){
+                        document.getElementById('moduleOther_input').style.display = "block";
+                        document.getElementById('moduleOther').value = "";
+                    }else{
+                        document.getElementById('moduleOther_input').style.display = "none";
+                }
+            }
+        }
+            function equipment1(val, name){
+            // alert(val);
+            console.log(name[1].id);
+
+            var name = name[1].id;
+            if(name == 'inverter1'){
+                    if(val == 'Others'){
+                        document.getElementById('inverterOther_input1').style.display = "block";
+                        document.getElementById('inverterOther1').value = "";
+                    }else{
+                        document.getElementById('inverterOther_input1').style.display = "none";
+                    }
+                }else if(name == 'monitor1'){
+                    if(val == 'Others'){
+                        document.getElementById('monitorOther_input1').style.display = "block";
+                        document.getElementById('monitorOther1').value = "";
+                    }else{
+                        document.getElementById('monitorOther_input1').style.display = "none";
+                    }
+                }else if(name == 'racking1'){
+                    if(val == 'Others'){
+                        document.getElementById('rackingOther_input1').style.display = "block";
+                        document.getElementById('rackingOther1').value = "";
+                    }else{
+                        document.getElementById('rackingOther_input1').style.display = "none";
+                    }
+                }else if(name == 'module1'){
+                    if(val == 'Others'){
+                        document.getElementById('moduleOther_input1').style.display = "block";
+                        document.getElementById('moduleOther1').value = "";
+                    }else{
+                        document.getElementById('moduleOther_input1').style.display = "none";
+                }
+            }
+        }
+    </script>
     <script src="{{asset('uppy/uppy.min.js')}}"></script>
     <script src="{{asset('js/validate/validate.min.js')}}"></script>
     <script src="https://js.stripe.com/v3/"></script>
@@ -1012,7 +1103,6 @@
         let uppy2 = null;
         let uppy3 = null;
         let uppy4 = null;
-        let uppy5 = null;
         let fileCount = 0;
         let filesUploaded = 0;
 
@@ -1185,48 +1275,6 @@
             });
 
             uppy4.on('file-removed', (file) => {
-                fileCount--;
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            uppy5 = Uppy.Core({
-                id: "files",
-                debug: true,
-                meta: {
-                    save_as: ''
-                },
-                restrictions: {
-                    maxFileSize: 21000000,
-                    maxNumberOfFiles: 20
-                },
-                onBeforeUpload: (files) => {
-                    const updatedFiles = {}
-                    Object.keys(files).forEach(fileID => {
-                        updatedFiles[fileID] = files[fileID];
-                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
-                    })
-                    return updatedFiles
-                }
-            }).use(Uppy.Dashboard, {
-                target: `#uppyBill`,
-                inline: true,
-                hideUploadButton: true,
-                note: "Upto 20 files of 20 MBs each"
-            }).use(Uppy.XHRUpload, {
-                endpoint: "{{ env('SUN_STORAGE') }}/file",
-                headers: {
-                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
-                },
-                fieldName: "file"
-            });
-            uppy5.on('upload-success', sendFileToDb);
-
-            uppy5.on('file-added', (file) => {
-                fileCount++;
-            });
-
-            uppy5.on('file-removed', (file) => {
                 fileCount--;
             });
         });
