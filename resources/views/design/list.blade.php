@@ -116,17 +116,17 @@
                 $("#check1").attr("checked",false);
                 $("#check2").attr("checked",false);
                 $("#check3").attr("checked",false);
-                
+                $("#check4").attr("checked",false);
                 $("#check0").attr("disabled",true);
                 $("#check1").attr("disabled",true);
                 $("#check2").attr("disabled",true);
                 $("#check3").attr("disabled",true);
-                
+                $("#check4").attr("disabled",true);
                
             }
             else{
-                $("#check4").attr("disabled",true);
-                $("#check4").attr("checked",false);
+                $("#check5").attr("disabled",true);
+                $("#check5").attr("checked",false);
                 designList.push(designName);
                 console.log(designList);
             }
@@ -136,17 +136,17 @@
             console.log(designList);
             if(designList.length>0)
             {
-                $("#check4").attr("checked",false); 
-                $("#check4").attr("disabled",true);   
+                $("#check5").attr("checked",false); 
+                $("#check5").attr("disabled",true);   
             }
             else
             {
-                $("#check4").attr("disabled",false);
+                $("#check5").attr("disabled",false);
                 $("#check0").attr("disabled",false);
                 $("#check1").attr("disabled",false);
                 $("#check2").attr("disabled",false);
                 $("#check3").attr("disabled",false);
-
+                $("#check4").attr("disabled",false);
             }
            
         }
