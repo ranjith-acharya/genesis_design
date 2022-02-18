@@ -207,6 +207,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/electrical_load', 'DesignRequestController@saveElectricalLoad')->name('electrical_load');
                 Route::post('/pe_stamping', 'DesignRequestController@savePEStamping')->name('pe_stamping');
                 Route::post('/engineering_permit_package', 'DesignRequestController@saveEngPermitPackage')->name('engineering_permit_package');
+                Route::post('/multiple/design', 'DesignRequestController@storeMultiple')->name('multiple_design');
             });
         });
 
