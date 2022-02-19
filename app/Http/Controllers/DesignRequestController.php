@@ -521,16 +521,16 @@ class DesignRequestController extends Controller
             $sd->system_design_type_id = $type->id;
             $sd->project_id = $project->id;
             $designs_count=Project::findOrFail($project->id)->designs->count();
-            if($designs_count>0)
-            {
-                $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
-                $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
-            }
-            else
-            {
+            // if($designs_count>0)
+            // {
+            //     $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+            //     $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+            // }
+            // else
+            // {
                 $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
                 $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
-            }
+            // }
             
             $sd->price = $type->latestPrice->price;
             $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "moduleType", "moduleOther", "racking", "rackingType", "rackingOther", "inverter", "inverterType", "inverterOther", "monitor", "monitorType", "monitorOther"]);
@@ -555,16 +555,16 @@ class DesignRequestController extends Controller
                 $sd->system_design_type_id = $type->id;
                 $sd->project_id = $project->id;
                 $designs_count=Project::findOrFail($project->id)->designs->count();
-                if($designs_count>0)
-                {
-                    $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
-                    $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
-                }
-                else
-                {
+                // if($designs_count>0)
+                // {
+                //     $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+                //     $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+                // }
+                // else
+                // {
                     $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
                     $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
-                }
+                // }
                 $sd->price = $type->latestPrice->price;
                 $sd->fields = $request->fields;
                 $sd->stripe_payment_code = $request->stripe_payment_structural;
@@ -576,9 +576,81 @@ class DesignRequestController extends Controller
                     abort(403);
                     return false;
                 }
-    
+                
+            }
+            //storing PE Stamping
+        if($request['stripe_payment_stamping']!="no")
+        {
+
+            $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();  
+        //return $project;
+        if ($project && $project->status !== Statics::PROJECT_STATUS_ARCHIVED) {
+            $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_PE)->first();
+            $sd = new SystemDesign();
+            $sd->system_design_type_id = $type->id;
+            $sd->project_id = $project->id;
+            $designs_count=Project::findOrFail($project->id)->designs->count();
+            // if($designs_count>0)
+            // {
+            //     $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+            //     $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+            // }
+            // else
+            // {
+                $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+                $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
+            // }
+            $sd->price = $type->latestPrice->price;
+            $sd->fields = $request->only(["structural_letter", "electrical_stamps"]);
+            $sd->stripe_payment_code = $request->stripe_payment_stamping;
+            $sd->save();
+            array_push($designs,$sd->id);
+            //return $sd;
+        }
+            else {
+                abort(403);
+                return false;
+            }
         }
 
+
+        //store ELectrical Load
+
+        if($request['stripe_payment_electrical']!="no")
+        {
+
+            $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();  
+            //return $project;
+            if ($project && $project->status !== Statics::PROJECT_STATUS_ARCHIVED) {
+                $type = SystemDesignType::with('latestPrice')->where('name', Statics::DESIGN_TYPE_ELECTRICAL)->first();
+                $sd = new SystemDesign();
+                $sd->system_design_type_id = $type->id;
+                $sd->project_id = $project->id;
+                $designs_count=Project::findOrFail($project->id)->designs->count();
+                // if($designs_count>0)
+                // {
+                //     $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
+                //     $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_PROGRESS;
+                // }
+                // else
+                // {
+                    $sd->status_customer = Statics::DESIGN_STATUS_CUSTOMER_REQUESTED;
+                    $sd->status_engineer = Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED;
+                // }
+                $sd->price = $type->latestPrice->price;
+                $sd->fields = $request->only(["average_bill", "average_bill1"]);
+                $sd->stripe_payment_code = $request->stripe_payment_electrical;
+                $sd->save();
+               // array_push($designs,$sd->id);
+                //return $sd;
+            }
+                else {
+                    abort(403);
+                    return false;
+                }
+        }
+
+        
         return $designs;
     }
 

@@ -1017,6 +1017,7 @@
             jsonData['stripe_payment_structural']="no";
             jsonData['stripe_payment_electrical']="no";
             jsonData['fields']=fields;
+            jsonData['average_bill']="";
             return {
                 errors: errors,
                 columns: jsonData
@@ -1403,14 +1404,17 @@
                 uppy1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy1.upload();
                 }
-                else{
+                else if(i==1){
                 uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy2.upload();
                 }
-                // uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                // uppy3.upload();
-                // uppy4.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                // uppy4.upload();
+                else 
+                {
+                uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy3.upload();
+                uppy4.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppy4.upload();
+                }
             }
             if (validationResult.errors === 0) {
                 @foreach($type as $t)
