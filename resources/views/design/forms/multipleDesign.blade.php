@@ -46,7 +46,7 @@
                     <section>
                         <div class="row valign-wrapper">
                             <div class="input-field col s6">
-                            <input type="hidden" name="aurora_design" value="aurora design">
+                            <input type="hidden" name="aurora_design" id="aurora_design" value="aurora design">
                                 <div class="switch center">
                                     <label>
                                         Max System Size
@@ -258,7 +258,7 @@
                     <section>
                         <div class="row">
                             <div class="col s12 input-field">
-                            <input type="hidden" name="structural_load_letter_and_calculations" value="structural load letter and calculations">
+                            <input type="hidden" name="structural_load_letter_and_calculations" id="structural_load_letter_and_calculations" value="structural load letter and calculations">
                                 <select id="roof_type">
                                     <option value="Asphalt">Asphalt</option>
                                     <option value="Cedar Shake">Cedar Shake</option>
@@ -468,7 +468,7 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field">
-                                <input type="hidden" name="pe_stamping" value="pe stamping">
+                                <input type="hidden" name="pe_stamping" id="pe_stamping" value="pe stamping">
                                     <div class="col s12">
                                     <h4>Supporting Documents(Site Survey Pictures)</h4>
                                     <div class="mh-a" id="uppySupportingDocuments"></div>
@@ -879,16 +879,11 @@
 
         function validateFields() {
 
-            M.FormSelect.init(document.querySelector("#installation"));
-            let form = document.forms["array_form"].getElementsByTagName("input");
            
+            let form = document.forms["array_form"].getElementsByTagName("input");
+           console.log("<--- Form Data --->  : ",form);
             let errors =  0;
             let jsonData = {};
-            const roofType = M.FormSelect.getInstance(document.querySelector("#roof_type"));
-            const fields = {arrays: [],roofType: roofType.getSelectedValues()[0]};
-            for (const key in arrays) {
-                fields.arrays.push(arrays[key]);
-            }
             //Make the thing green
             function right(item) {
                 item.classList.remove("invalid");
@@ -923,6 +918,16 @@
                     else
                         wrong(item)
                 } 
+                else if(item.getAttribute('id') === 'aurora_design')
+                {
+                   
+                    aurora_fields();
+                }
+                else if(item.getAttribute('id') === 'structural_load_letter_and_calculations')
+                {
+                    
+                    structural_load();
+                }
                 else {
                     if (!validate.single(item.value, {presence: {allowEmpty: false}}))
                         right(item);
@@ -931,7 +936,10 @@
                 }
             }
 
-            const inverterOther = document.getElementById('inverterOther');
+            function aurora_fields()
+            {
+
+                const inverterOther = document.getElementById('inverterOther');
             // const monitorOther = document.getElementById('monitorOther');
             const moduleOther = document.getElementById('moduleOther');
             const rackingOther = document.getElementById('rackingOther');
@@ -943,6 +951,7 @@
                 jsonData[inverterOther.getAttribute("name")] = "No inverter";
             }
 
+            M.FormSelect.init(document.querySelector("#installation"));
             const installation = M.FormSelect.getInstance(document.querySelector("#installation"));
             if (installation.getSelectedValues()[0] === "") wrong(installation.wrapper);
             else {
@@ -979,8 +988,11 @@
                 rackingOther.classList.value = "valid";
                 jsonData[rackingOther.getAttribute("name")] = "No racking";
             }
+        }
 
-            const inverterOther1 = document.getElementById('inverterOther1');
+            function structural_load()
+            {
+                const inverterOther1 = document.getElementById('inverterOther1');
             // const monitorOther = document.getElementById('monitorOther');
             const moduleOther1 = document.getElementById('moduleOther1');
             const rackingOther1 = document.getElementById('rackingOther1');
@@ -1011,12 +1023,20 @@
                 rackingOther1.classList.value = "valid";
                 jsonData[rackingOther1.getAttribute("name")] = "No racking";
             }
+            const roofType = M.FormSelect.getInstance(document.querySelector("#roof_type"));
+            const fields = {arrays: [],roofType: roofType.getSelectedValues()[0]};
+            for (const key in arrays) {
+                fields.arrays.push(arrays[key]);
+            }
+            jsonData['fields']=fields;
+
+            }
+                       
 
             jsonData['stripe_payment_aurora']="no";
             jsonData['stripe_payment_stamping']="no";
             jsonData['stripe_payment_structural']="no";
             jsonData['stripe_payment_electrical']="no";
-            jsonData['fields']=fields;
             jsonData['average_bill']="";
             return {
                 errors: errors,
@@ -1398,13 +1418,13 @@
             //alert(fields.arrays.length);
             document.getElementById('stripe_card').style.display = 'none'
 
-            function uploadFiles(system_design_id,i) {
-                if(i==0)
+            function uploadFiles(designs,system_design_id) {
+                if(designs=='aurora')
                 {
                 uppy1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy1.upload();
                 }
-                else if(i==1){
+                else  if(designs=='structural'){
                 uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy2.upload();
                 }
@@ -1435,8 +1455,6 @@
                     @endif
 
                     @if(end($type)==$t)
-                    
-                        console.log("-------", validationResult.columns);
                         fetch("{{ route('design.multiple_design') }}", {
                                 method: 'post',
                                 body: JSON.stringify(validationResult.columns),
@@ -1448,9 +1466,9 @@
                                 return {db_response: await response.json(), "status": response.status};
                             }).then(response => {
                                 if (response.status === 200 || response.status === 201) {
-                                    console.log(response.db_response)
+                                    console.log(response.db_response);
                                     for(i=0;i<response.db_response.length;i++)
-                                    uploadFiles(response.db_response[i],i);
+                                    uploadFiles(response.db_response[i]['name'],response.db_response[i]['design_id']);
                                     if (fileCount === 0)
                                         window.location = "{{route('design.list', $project_id)}}";
                                         toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
