@@ -15,9 +15,10 @@ class Statics
     const DESIGN_TYPE_STRUCTURAL = "structural load letter and calculations";
     const DESIGN_TYPE_PE = "pe stamping";
     const DESIGN_TYPE_ELECTRICAL = "electrical load calculations";
+    const DESIGN_TYPE_SITE_SURVEY = "site survey";
     const DESIGN_TYPE_ENGINEERING_PERMIT = "engineering permit package";
 
-    const DESIGN_TYPES = [self::DESIGN_TYPE_AURORA, self::DESIGN_TYPE_STRUCTURAL, self::DESIGN_TYPE_PE, self::DESIGN_TYPE_ELECTRICAL, self::DESIGN_TYPE_ENGINEERING_PERMIT];
+    const DESIGN_TYPES = [self::DESIGN_TYPE_AURORA, self::DESIGN_TYPE_STRUCTURAL, self::DESIGN_TYPE_PE, self::DESIGN_TYPE_ELECTRICAL, self::DESIGN_TYPE_SITE_SURVEY, self::DESIGN_TYPE_ENGINEERING_PERMIT];
 
 //    Equipment
     const EQUIPMENT_TYPE_OTHER = "other";
