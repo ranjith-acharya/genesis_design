@@ -65,7 +65,7 @@
                                             {{ $weekly->name }}
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="capitalize">
                                        {{$design->type->name}}
                                     </td>
                                     <!-- <td>
