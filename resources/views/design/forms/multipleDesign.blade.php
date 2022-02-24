@@ -1441,16 +1441,12 @@
                 holdPayment('{{$t}}').then(resp=>{
                     console.log("{{$t}} : ",resp);
                     @if($t=="aurora design")
-                    alert("aurora");
                     validationResult.columns['stripe_payment_aurora'] = resp.paymentIntent.id;
                     @elseif($t=="structural load letter and calculations")
-                    alert("strcutural");
                     validationResult.columns['stripe_payment_structural'] = resp.paymentIntent.id;
                     @elseif($t=="pe stamping")
-                    alert("stamp");
                     validationResult.columns['stripe_payment_stamping'] = resp.paymentIntent.id;
                     @else
-                    alert("electrical");
                         validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
                     @endif
 
