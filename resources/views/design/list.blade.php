@@ -157,7 +157,7 @@
     function fetchDesigns()
     {
         design_permit=document.getElementById("check5").checked;
-        alert(design_permit);
+        // alert(design_permit);
         if(designList.length>0 ||design_permit)
         {
             $('.modal').modal('close');
