@@ -511,6 +511,8 @@ class DesignRequestController extends Controller
 
     public function storeMultiple(Request $request){
         $designs=[];
+        $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();
+
         if($request['stripe_payment_aurora']!="no")
         {
             $project = Auth::user()->projects()->with('engineer')->where('id', $request->project_id)->first();
@@ -536,7 +538,7 @@ class DesignRequestController extends Controller
             $sd->fields = $request->only(["annual_usage", "installation", "hoa", "max_offset", "project_id", "notes", "remarks", "system_size", "module", "moduleType", "moduleOther", "racking", "rackingType", "rackingOther", "inverter", "inverterType", "inverterOther", "monitor", "monitorType", "monitorOther"]);
             $sd->stripe_payment_code = $request->stripe_payment_aurora;
             $sd->save();
-            array_push($designs,$sd->id);
+            array_push($designs,['name'=>'aurora','design_id'=>$sd->id]);
             //return $sd;
         } else {
             abort(403);
@@ -569,7 +571,8 @@ class DesignRequestController extends Controller
                 $sd->fields = $request->fields;
                 $sd->stripe_payment_code = $request->stripe_payment_structural;
                 $sd->save();
-                array_push($designs,$sd->id);
+                //array_push($designs,['structural'=>$sd->id]);
+                array_push($designs,['name'=>'structural','design_id'=>$sd->id]);
                 //return $sd;
             }
                 else {
@@ -604,7 +607,8 @@ class DesignRequestController extends Controller
             $sd->fields = $request->only(["structural_letter", "electrical_stamps"]);
             $sd->stripe_payment_code = $request->stripe_payment_stamping;
             $sd->save();
-            array_push($designs,$sd->id);
+            //array_push($designs,['stamps'=>$sd->id]);
+            array_push($designs,['name'=>'stamps','design_id'=>$sd->id]);
             //return $sd;
         }
             else {
@@ -641,7 +645,7 @@ class DesignRequestController extends Controller
                 $sd->fields = $request->only(["average_bill", "average_bill1"]);
                 $sd->stripe_payment_code = $request->stripe_payment_electrical;
                 $sd->save();
-               // array_push($designs,$sd->id);
+               // array_push($designs,['aurora'=>$sd->id]);
                 //return $sd;
             }
                 else {
@@ -650,6 +654,23 @@ class DesignRequestController extends Controller
                 }
         }
 
+        //portal Notification
+        //mail Notifications
+
+        $allManagers = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'manager');
+            }
+        )->get();
+        //return $managers;
+        foreach($allManagers as $allManager){
+            Mail::to($allManager->email)
+            ->send(new Notification($allManager->email,
+                "New Design request: " . $project->name,
+                "",
+                route('engineer.design.view', $sd->id),
+                "View Design"));
+        }
         
         return $designs;
     }

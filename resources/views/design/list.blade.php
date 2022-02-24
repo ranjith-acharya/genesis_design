@@ -156,23 +156,20 @@
 
     function fetchDesigns()
     {
-        $("#requestForms").submit();
-        // var _token=$('input[name="_token"]').val();
-        // var project_id="{{$project['id']}}";
-        // var project_type="{{$project->type->name}}";
-        // console.log(project_id);
-        // console.log(project_type);
-        // $.ajax({
-        // url:"{{ route('project.designs') }}",
-        // method:"POST",
-        // data:{designList:designList,project_type:project_type,project_id:project_id, _token:_token},
-        // success:function(data){
-        //     console.log(data);
-        //     toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-        //    // window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
-        // }      
-        // });
+        design_permit=document.getElementById("check5").checked;
+        alert(design_permit);
+        if(designList.length>0 ||design_permit)
+        {
+            $('.modal').modal('close');
+            $("#requestForms").submit();
+           
+            
         }
+        else
+        {
+            toastr.error('Please Select One Design!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        }
+    }
 
 
     </script>
