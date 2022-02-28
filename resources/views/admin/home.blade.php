@@ -440,7 +440,7 @@ $(function() {
                     data: ['Aurora','Structural Load','PE Stamping','Electric Load','Engineering Permit']
                 },
 
-                color: ['#ffbc34', '#4fc3f7', '#212529', '#f62d51', '#2962FF'],
+                color: ['#ffcd56', '#E97452', '#4bc0c0', '#2962FF', '#1D3557'],
 
                 // Display toolbox
                 
@@ -451,10 +451,10 @@ $(function() {
                 // Add series
                 series: [
                     {
-                        name: 'design',
+                        name: 'Design',
                         type: 'pie',
-                        radius: ['15%', '73%'],
-                        center: ['50%', '57%'],
+                        radius: ['15%', '66%'],
+                        center: ['40%', '57%'],
                         roseType: 'area',
 
                         // Funnel
@@ -466,11 +466,11 @@ $(function() {
                         sort: 'ascending',
 
                         data: [
-                            {value: 440, name: 'Aurora'},
-                            {value: 260, name: 'Structural Load'},
-                            {value: 350, name: 'PE Stamping'},
-                            {value: 250, name: 'Electric Load'},
-                            {value: 200, name: 'Engineering Permit'}
+                            {value: {{ $auroraDesignCount }}, name: 'Aurora'},
+                            {value: {{ $structuralCount }}, name: 'Structural Load'},
+                            {value: {{ $pestampingCount }}, name: 'PE Stamping'},
+                            {value: {{ $electricalCount }}, name: 'Electric Load'},
+                            {value: {{ $permitCount }}, name: 'Engineering Permit'}
                         ]
                     }
                 ]

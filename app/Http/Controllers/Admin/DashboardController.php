@@ -34,10 +34,16 @@ class DashboardController extends Controller
         $designsCompleted = SystemDesign::where('status_engineer', Statics::DESIGN_STATUS_ENGINEER_COMPLETED)->count();
         $projectsCancelled = Project::where('project_status', Statics::PROJECT_STATUS_CANCELLED)->count();
         
+        $auroraDesignCount = SystemDesign::where('system_design_type_id', 1)->count();
+        $structuralCount = SystemDesign::where('system_design_type_id', 2)->count();
+        $pestampingCount = SystemDesign::where('system_design_type_id', 3)->count();
+        $electricalCount = SystemDesign::where('system_design_type_id', 4)->count();
+        $permitCount = SystemDesign::where('system_design_type_id', 6)->count();
+
         $projects = Project::latest()->paginate(5);
         $projectsWeekly = Project::whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->get();
         //return Carbon::now()->subWeek()->endOfWeek();
-        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projects', 'projectsWeekly', 'designsAssigned', 'designsNotAssigned', 'projectsHold', 'designsInProcess', 'projectsArchived', 'designsCompleted', 'projectsCancelled'));
+        return view('admin.home', compact('customerCount', 'engineerCount', 'projectsActive', 'projectsInActive', 'projects', 'projectsWeekly', 'designsAssigned', 'designsNotAssigned', 'projectsHold', 'designsInProcess', 'projectsArchived', 'designsCompleted', 'projectsCancelled', 'auroraDesignCount', 'structuralCount', 'pestampingCount', 'electricalCount', 'permitCount'));
     }
 
     // public function projectMonthly(Request $request){
