@@ -1,5 +1,5 @@
 <div class="row">    
-    @if($design->fields['average_bill'] == "")
+    {{-- @if($design->fields['average_bill'] == "")
         
     @else
     <div class="col s6">
@@ -8,7 +8,7 @@
             {{ $design->fields['average_bill'] }}&nbsp;kWH
         </div>
     </div>
-    @endif
+    @endif --}}
 
     @if($design->fields['average_bill1'] == "")
         

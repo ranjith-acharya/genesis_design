@@ -458,10 +458,10 @@
             const validationResult = validateFields();
             document.getElementById('stripe_card').style.display = 'none'
 
-            function uploadFiles(system_design_id) {
-                uppy.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
-                uppy.upload();
-            }
+            // function uploadFiles(system_design_id) {
+            //     uppy.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+            //     uppy.upload();
+            // }
 
             if (validationResult.errors === 0) {
 
@@ -487,10 +487,10 @@
                             }).then(response => {
                                 if (response.status === 200 || response.status === 201) {
                                     console.log(response.db_response)
-                                    uploadFiles(response.db_response.id);
-                                    if (fileCount === 0)
-                                        window.location = "{{route('design.list', $project_id)}}";
-                                        toastr.success('Design Submitted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                    // uploadFiles(response.db_response.id);
+                                //     if (fileCount === 0)
+                                    window.location = "{{route('design.list', $project_id)}}";
+                                    toastr.success('Design Submitted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } else {
                                     toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                     console.error(response);
