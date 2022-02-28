@@ -32,7 +32,11 @@ class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
         });
         return [
             AfterSheet::class => function(AfterSheet $event) use($datas){
-                $a='A5:'.'J'.(6+count($datas));
+                $count = 0;
+                foreach($datas as $data) {
+                    $count += $data->designs->count();
+                }
+                $a='A5:'.'J'.(6+$count);
                 $x='A5:J5';
                 $event->sheet->getStyle($x)->applyFromArray([
                     'font' => [
