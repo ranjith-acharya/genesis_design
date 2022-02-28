@@ -15,7 +15,7 @@
             </div>
             <div class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <section>
-            <div class="row">
+            <!-- <div class="row">
                                     <h4 class="mt-2" style="margin-left:10px;">Upload Bill</h4>
                                     <div class="col s12">
                                         <div class="mh-a" id="uppyBill"></div>
@@ -31,7 +31,7 @@
                                         <label for="average_bill">Yearly usage: </label>
                                     </div>
                                 </div><br>
-                                <h3 class="center-align">- OR - </h3><br>
+                                <h3 class="center-align">- OR - </h3><br> -->
                                 <div class="row">
                                     <div class="col s6">
                                         <div class="input-field col s12">
@@ -490,7 +490,7 @@
                                     uploadFiles(response.db_response.id);
                                     if (fileCount === 0)
                                         window.location = "{{route('design.list', $project_id)}}";
-                                        toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                        toastr.success('Design Submitted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } else {
                                     toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                     console.error(response);

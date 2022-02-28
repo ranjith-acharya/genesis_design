@@ -337,6 +337,80 @@ public function assign(Request $request)
         return back()->with('success', 'Status Updated!');
     }
 
+    public function paymentInfo(Request $request)
+    {
+        $projects = Project::latest()->paginate(4);
+        $projectTypes = ProjectType::where('is_hidden', false)->get();
+        //$payments=SystemDesign::latest()->get();
+        return view('admin.payments.index', compact('projects','projectTypes'))->render();
+    }
+
+public function getPayments(Request $request)
+{
+
+    $projectQuery = Project::with('type')->with('designs');
+        $term = trim($request->search);
+        if ($term)
+            $projectQuery->where('name', 'LIKE', '%' . $term . "%");
+        $filters = json_decode($request->filters);
+        foreach ($filters as $filter)
+        {
+            if($filter->field=='project_status')
+            {
+                if ($filter->value == 'completed')
+                {
+                    $projectQuery->whereHas('designs', function($q){
+                        $q->where('status_engineer','completed');
+                    });
+                }
+                elseif($filter->value == 'in progress')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','in progress');
+                });
+                }
+                elseif($filter->value == 'on hold')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','on hold');
+                });
+                }
+                elseif($filter->value == 'change request')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','change request');
+                });
+                }
+                elseif($filter->value == 'assigned')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','assigned');
+                });
+                }
+                elseif($filter->value == 'not assigned')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','not assigned');
+                });
+                }
+                elseif($filter->value == 'submitted')
+                {
+                $projectQuery->whereHas('designs', function($q){
+                    $q->where('status_engineer','submitted');
+                });
+                }
+
+       
+            }
+            elseif ($filter->value != 'all' )
+                    $projectQuery->where($filter->field, '=', $filter->value);
+        }
+                    $projects=$projectQuery->latest()->paginate(5);
+            
+                    return view('admin.reports.payments', compact('projects'))->render();
+    }
+
+
     public function getFile(Request $request)
     {
         $this->validate($request, [

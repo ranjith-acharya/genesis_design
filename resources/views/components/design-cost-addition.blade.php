@@ -15,8 +15,16 @@
                         <li class="collection-item">No designs exist for this project</li>
                     @endif
                     <li class="collection-header steel-blue-text"><h6>This Design</h6></li>
+                    @if(is_array($design))
+                    @for ($i = 0; $i < count($design); $i++)
+                        @php($systemDesign = App\SystemDesignType::where('name', $design[$i])->first())
+                        @php($total += $systemDesign->latestPrice->price)
+                        <li class="collection-item capitalize">{{ $design[$i] }} <span class="secondary-content prussian-blue-text bold">${{$systemDesign->latestPrice->price}}</span></li>
+                    @endfor     
+                    @else
                     <li class="collection-item capitalize">{{$design->name}} <span class="secondary-content prussian-blue-text bold">${{$design->latestPrice->price}}</span></li>
                     @php($total += $design->latestPrice->price)
+                    @endif
                     <li class="collection-header imperial-red-text"><h6>Total</h6></li>
                     <li class="collection-item capitalize">&nbsp;<span class="secondary-content prussian-blue-text bold">${{$total}}</span></li>
                 </ul>

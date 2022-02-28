@@ -100,6 +100,78 @@
                 return false;
             });
         }
+
+
+      
+
+    designList=[];
+    function getDesign(e,designName,index)
+    {
+        
+        if(e.target.checked)
+        {
+            if(designName=="engineering permit package")
+            {
+                $("#check0").attr("checked",false);
+                $("#check1").attr("checked",false);
+                $("#check2").attr("checked",false);
+                $("#check3").attr("checked",false);
+                $("#check4").attr("checked",false);
+                $("#check0").attr("disabled",true);
+                $("#check1").attr("disabled",true);
+                $("#check2").attr("disabled",true);
+                $("#check3").attr("disabled",true);
+                $("#check4").attr("disabled",true);
+               
+            }
+            else{
+                $("#check5").attr("disabled",true);
+                $("#check5").attr("checked",false);
+                designList.push(designName);
+                console.log(designList);
+            }
+        }
+        else{
+            designList.pop();
+            console.log(designList);
+            if(designList.length>0)
+            {
+                $("#check5").attr("checked",false); 
+                $("#check5").attr("disabled",true);   
+            }
+            else
+            {
+                $("#check5").attr("disabled",false);
+                $("#check0").attr("disabled",false);
+                $("#check1").attr("disabled",false);
+                $("#check2").attr("disabled",false);
+                $("#check3").attr("disabled",false);
+                $("#check4").attr("disabled",false);
+            }
+           
+        }
+            
+       
+    }
+
+    function fetchDesigns()
+    {
+        design_permit=document.getElementById("check5").checked;
+        alert(design_permit);
+        if(designList.length>0 ||design_permit)
+        {
+            $('.modal').modal('close');
+            $("#requestForms").submit();
+           
+            
+        }
+        else
+        {
+            toastr.error('Please Select One Design!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        }
+    }
+
+
     </script>
     <script id="basic_row" type="text/html">
         @{{#each data}}
@@ -239,7 +311,7 @@
                 <h6>For <span class="blue-text bold ">{{$project->name}}</span></h6>
             </div>
             @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER && $project->status !== \App\Statics\Statics::PROJECT_STATUS_ARCHIVED)
-                <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
+                {{-- <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
                     <a class="btn prussian-blue dropdown-trigger" data-target='dropdown1'>Request&nbsp;a&nbsp;design</a>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
@@ -247,7 +319,32 @@
                         <li><a href="{{route('design.form', ["type" => Str::slug($designType->name), "project_id" => $project->id])}}">{{Str::upper($designType->name)}}</a></li>
                         <li class="divider" tabindex="-1"></li>
                     @endforeach
-                </ul>
+                </ul> --}}
+                <div class="col s12 m3 pt-s hide-on-med-and-down right-align mt-xs">
+                    <a class="btn prussian-blue modal-trigger" href="#requestDesign">Request a Design</a>
+                </div>
+                <div id="requestDesign" class="modal">
+                    <div class="modal-content">
+                        <h4>Request a Design</h4><br>
+                        <form method="post"  id="requestForms" action="{{ route('project.designs') }}">
+                        @csrf
+                        <input type="hidden" value="{{$project->type->name}}" name="project_type">
+                        <input type="hidden" value="{{$project->id}}" name="project_id">
+                        @foreach($types as $k=>$designType)
+                            <p>
+                                <label>
+                                <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" id="check{{$k}}" name ="designs[]" value="{{$designType->name}}" class="filled-in" />
+                                <span>{{Str::upper($designType->name)}}</span>
+                                </label>
+                            </p>
+                        @endforeach
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close btn btn-small red">Cancel</a>
+                            <input type="button" onclick="fetchDesigns()" class="btn btn-small prussian-blue" value="Request">
+                        </div>
+                        </form>
+                    </div>
+                </div>
             @endif
         </div>
         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
@@ -419,4 +516,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
+
+

@@ -468,6 +468,10 @@ function bindAddress(_place) {
             M.FormSelect.init(stateSelect);
         } else if (item.types[0] === "postal_code") {
             document.getElementById("zip").value = item.short_name;
+            // console.log(item.short_name);
+        } else if (item.types[0] === "country") {
+            document.getElementById("country").value = item.long_name;
+            // console.log(item.long_name);
         }
     });
 

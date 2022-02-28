@@ -82,7 +82,7 @@
         <form id="lead_form" method="post">
             <input type="hidden" name="project_type_id" validate="string" value="{{$projectType->id}}">
             <input type="hidden" name="project_id" validate="string" value="{{($project)?$project->id:"0"}}">
-            <input type="hidden" name="country" validate="string" value="United States of America">
+            <input type="hidden" name="country" id="country" validate="string">
             <div class="row">
                 <div class="input-field col s6">
                     <input id="name" class="main_text_fields" name="name" value="{{($project)?$project->name:""}}" validate="string" type="text"/>

@@ -46,7 +46,7 @@ Manager Home - Genesis Design
                             <h6 class="white-text op-5 text-darken-2">Active Projects</h6>
                         </div>
                         <div class="ml-auto">
-                            <span class="white-text display-6"><i class="material-icons">equalizer</i></span>
+                            <span class="white-text display-6"><i class="ti-bar-chart"></i></span>
                         </div>
                     </div>
                 </div>
