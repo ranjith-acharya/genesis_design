@@ -29,7 +29,7 @@ class PaymentController extends Controller
             'payment_method' => Auth::user()->default_payment_method
         ]);
         Log::info("Amount held for design request", ["stripe_response" => $stripeResponse]);
-        return ["client_secret" => $stripeResponse->client_secret];
+        return ["client_secret" => $stripeResponse->client_secret,"response"=>$stripeResponse];
     }
 
     //     For change request
@@ -109,5 +109,18 @@ class PaymentController extends Controller
         return Auth::user()->update([
             "default_payment_method" => $info['invoice_settings']['default_payment_method']
         ]);
+    }
+
+
+    public function cancelPayment(Request $request)
+    {
+        //$type = SystemDesignType::with('latestPrice')->where('name', $request->name)->firstOrFail();
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $stripeResponse = \Stripe\PaymentIntent::retrieve($request->code,[]);
+        $response = $stripeResponse->cancel();
+        Log::info("Payment Intent :", $response->toArray());
+        return $response;
     }
 }

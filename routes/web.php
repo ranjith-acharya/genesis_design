@@ -39,6 +39,10 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/projects/list', 'ProjectController@indexProject')->name('projects.list');
                 Route::post('/project/set/status', 'ProjectController@setStatus')->name('projects.set.status');
                 
+                //Project Payment Info 
+                Route::get('/payments', 'ProjectController@paymentInfo')->name('payment');
+                Route::get('/paymentview', 'ProjectController@getPayments')->name('projects.getPayments');
+
                 //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
 
                 //project controller edit, delete
@@ -216,6 +220,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('hold', 'PaymentController@placeHoldOnFunds')->name('hold');
                 Route::post('new', 'PaymentController@newCard')->name('new');
                 Route::post('update', 'PaymentController@setDefault')->name('update');
+
+                Route::post('cancel', 'PaymentController@cancelPayment')->name('cancel');
 
                 Route::get('methods', 'PaymentController@getPaymentMethods')->name('methods');
             });
