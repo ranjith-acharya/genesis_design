@@ -24,7 +24,7 @@
                 <div id="loginform">
                     <div class="logo">
                         <span class="db"><img src="{{ asset('assets/images/logo-icon-1.png') }}" alt="logo" height="50px" width="60px" /></span>
-                        <h5 class="font-medium m-b-20">Sign up to continue <br> Genesis Design</h5>
+                        <h5 class="font-medium m-b-20">Sign up  <br></h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
@@ -94,7 +94,7 @@
                             <!-- pwd -->
                             <div class="row m-t-40">
                                 <div class="col s12">
-                                    <button class="btn-large w100 red" type="button" id="register">Sign Up</button>
+                                    <button class="btn-large w100 blue accent-4" type="button" id="register">Sign Up</button>
                                 </div>
                             </div>
                         </form>

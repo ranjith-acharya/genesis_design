@@ -119,10 +119,10 @@
                                 <!-- <li><a href="#"><i class="material-icons">account_circle</i> My Profile</a></li> -->
                                 @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons">account_balance_wallet</i> Payment Methods</a></li>
+                                    <li><a href="{{route('profile.payment.methods')}}"><i class="ti-credit-card"></i> Payment Methods</a></li>
                                 @endif
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{{ route('logout') }}"><i class="material-icons">power_settings_new</i> Logout</a></li>
+                                <li><a href="{{ route('logout') }}"><i class="ti-power-off"></i> Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -136,60 +136,67 @@
                     <ul class="collapsible">
                         @if(Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                         <li class="small-cap"><span class="hide-menu white-text">ADMINISTRATOR PANEL</span></li>
-                        <li><a href="{{ route('admin.home') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text" style="font-size:16px;">Dashboard</span></a></li>
+                        <li><a href="{{ route('admin.home') }}"><i class="ti-home white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Dashboard</span></a></li>
                         <li>
-                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="material-icons white-text">dashboard</i><span class="hide-menu white-text" style="font-size:16px;"> Users</span></a>
+                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="ti-menu white-text"></i><span class="hide-menu white-text" style="font-size:16px;"> Users</span></a>
                         <div class="collapsible-body">
                             <ul>
                                 <ul>
-                                    <li><a href="{{ route('admin.customer.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Customers</span></a></li>
-                                    <li><a href="{{ route('admin.manager.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Managers</span></a></li>
-                                    <li><a href="{{ route('admin.engineer.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Engineers</span></a></li>
-                                    <li><a href="{{ route('admin.users.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Users</span></a></li>
+                                    <li><a href="{{ route('admin.customer.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Customers</span></a></li>
+                                    <li><a href="{{ route('admin.manager.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Managers</span></a></li>
+                                    <li><a href="{{ route('admin.engineer.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Engineers</span></a></li>
+                                    <li><a href="{{ route('admin.users.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Users</span></a></li>
                                 </ul>
                             </ul>
                         </div>
                         </li>
-                        <li><a href="{{ route('admin.price.index') }}"><i class="material-icons white-text" style="font-size:26px;">attach_money</i><span class="hide-menu white-text" style="font-size:16px;">Set Price</span></a></li>
-                        <li><a href="{{ route('admin.roles.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Roles</span></a></li>
-                        <li><a href="{{ route('admin.projects.list') }}"><i class="material-icons white-text" style="font-size:26px;">next_week</i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
+                        <li><a href="{{ route('admin.price.index') }}"><i class="ti-money white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Set Price</span></a></li>
+                        <li><a href="{{ route('admin.roles.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Roles</span></a></li>
+                        <li><a href="{{ route('admin.projects.list') }}"><i class="ti-files white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
+                            <li>
+                                <a href="{{ route('admin.payment') }}"><i class="ti-power-off white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Payments Info </span></a>
+                            </li>
+                        @endif
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
                             <li class="small-cap"><span class="hide-menu white-text">CUSTOMER PANEL</span></li>
-                            <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text" style="font-size:16px;">Home</span></a></li>
-                            <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Profile</span></a></li>
-                            <li><a href="{{route('customer.export')}}"><i class="material-icons white-text" style="font-size:26px;">assignment</i><span class="hide-menu white-text" style="font-size:16px;">Reports</span></a></li>
+                            <li><a href="{{ route('home') }}"><i class="ti-home white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Home</span></a></li>
+                            <li><a href="{{route('profile.profile.index')}}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Profile</span></a></li>
+                            <li><a href="{{route('customer.export')}}"><i class="ti-stats-up white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Reports</span></a></li>
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:26px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ENGINEER)
                             <li class="small-cap"><span class="hide-menu white-text">ENGINEER PANEL</span></li>
-                            <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
+                            <li><a href="{{ route('home') }}"><i class="ti-home white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
                             <!-- <li><a href="{{route('profile.profile.index')}}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text">Profile</span></a></li> -->
                             <!-- <li><a href="{{route('profile.payment.methods')}}"><i class="material-icons white-text" style="font-size:26px;">credit_card</i><span class="hide-menu white-text">Payment Methods</span></a></li> -->
                             <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_MANAGER)
                             <li class="small-cap"><span class="hide-menu white-text">MANAGER PANEL</span></li>
-                            <li><a href="{{ route('manager.home.index') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text" style="font-size:16px;">Dashboard</span></a></li>
-                            <li><a href="{{ route('manager.projects.list') }}"><i class="material-icons white-text" style="font-size:26px;">next_week</i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
+                            <li><a href="{{ route('manager.home.index') }}"><i class="ti-home white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Dashboard</span></a></li>
+                            <li><a href="{{ route('manager.projects.list') }}"><i class="ti-files white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
                             <!-- <li><a href="{{ route('home') }}"><i class="material-icons white-text" style="font-size:26px;">home</i><span class="hide-menu white-text">Dashboard</span></a></li> -->
                             <li>
-                            <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="material-icons white-text">dashboard</i><span class="hide-menu white-text" style="font-size:16px;"> Users</span></a>
+                            <a href="javascript: void(0);" class="collapsible-header has-arrow"><i class="ti-menu white-text"></i><span class="hide-menu white-text" style="font-size:16px;"> Users</span></a>
                             <div class="collapsible-body">
                                 <ul>
                                     <ul>
-                                        <li><a href="{{ route('manager.customer.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Customers</span></a></li>
-                                        <li><a href="{{ route('manager.engineer.index') }}"><i class="material-icons white-text" style="font-size:26px;">person_pin</i><span class="hide-menu white-text" style="font-size:16px;">Engineers</span></a></li>
+                                        <li><a href="{{ route('manager.customer.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Customers</span></a></li>
+                                        <li><a href="{{ route('manager.engineer.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Engineers</span></a></li>
                                     </ul>
                                 </ul>
                             </div>
                             </li>
+                          
                             <li class="divider"></li>
                         @endif
+                       
                         <li>
-                            <a href="{{ route('logout') }}"><i class="material-icons white-text" style="font-size:26px;">power_settings_new</i><span class="hide-menu white-text" style="font-size:16px;"> Log Out </span></a>
+                            <a href="{{ route('logout') }}"><i class="ti-power-off white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Log Out </span></a>
                         </li>
                         <li class="divider"></li>
                     </ul>

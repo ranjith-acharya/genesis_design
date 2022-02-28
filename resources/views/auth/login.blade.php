@@ -24,7 +24,7 @@
                 <div id="loginform" >
                     <div class="logo">
                         <span class="db"><img src="{{ asset('assets/images/logo-icon-1.png') }}" alt="logo" height="50px" width="60px"/></span>
-                        <h5 class="font-medium m-b-20">Sign in to continue <br> Genesis Design</h5>
+                        <h5 class="font-medium m-b-20">Sign in <br></h5>
                     </div>
                     <!-- Form -->
                     <div class="row">
