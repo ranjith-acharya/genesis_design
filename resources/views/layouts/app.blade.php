@@ -153,6 +153,11 @@
                         <li><a href="{{ route('admin.price.index') }}"><i class="ti-money white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Set Price</span></a></li>
                         <li><a href="{{ route('admin.roles.index') }}"><i class="ti-user white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Roles</span></a></li>
                         <li><a href="{{ route('admin.projects.list') }}"><i class="ti-files white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
+                        @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
+                            <li>
+                                <a href="{{ route('admin.payment') }}"><i class="ti-power-off white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Payments Info </span></a>
+                            </li>
+                        @endif
                         <li class="divider"></li>
                         @endif
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_CUSTOMER)
@@ -186,8 +191,10 @@
                                 </ul>
                             </div>
                             </li>
+                          
                             <li class="divider"></li>
                         @endif
+                       
                         <li>
                             <a href="{{ route('logout') }}"><i class="ti-power-off white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Log Out </span></a>
                         </li>

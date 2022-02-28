@@ -52,6 +52,14 @@ class Statics
 
     const STATUSES = [self::STATUS_ACTIVE, self::STATUS_IN_ACTIVE];
 
+//Design Payment Status
+const DESIGN_PAYMENT_STATUS_HOLD = "hold";
+const DESIGN_PAYMENT_STATUS_CAPTURE = "capture";
+const DESIGN_PAYMENT_STATUS_REFUND = "refund";
+const DESIGN_PAYMENT_STATUS_CANCEL = "cancel";
+
+const DESIGN_PAYMENT_STATUSES = [self::DESIGN_PAYMENT_STATUS_HOLD, self::DESIGN_PAYMENT_STATUS_CAPTURE,self::DESIGN_PAYMENT_STATUS_REFUND,self::DESIGN_PAYMENT_STATUS_CANCEL];
+
 //    Design Status Customer
     const DESIGN_STATUS_CUSTOMER_HOLD = "on hold";
     const DESIGN_STATUS_CUSTOMER_CHANGE_REQUEST = "change request";

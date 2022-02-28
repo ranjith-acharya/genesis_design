@@ -9,7 +9,7 @@ async function holdPayment(design_name = "none", overload = null) {
             'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
         }
     }).then(response => {
-        console.log(response);
+        console.log("Payment 345656 : ",response);
         if (response.status === 200 || response.status === 201) {
             if (response.data.client_secret === "skip") {
                 return "skip";
