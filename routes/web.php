@@ -42,6 +42,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Project Payment Info 
                 Route::get('/payments', 'ProjectController@paymentInfo')->name('payment');
                 Route::get('/paymentview', 'ProjectController@getPayments')->name('projects.getPayments');
+                //update Payment Status
+                Route::post('/update/paymentStatus','ProjectController@paymentStatus')->name('payment.status');
 
                 //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
 

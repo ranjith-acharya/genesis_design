@@ -410,7 +410,15 @@ public function getPayments(Request $request)
                     return view('admin.reports.payments', compact('projects'))->render();
     }
 
-
+//Update Payment Status
+    public function paymentStatus(Request $request)
+    {
+        return $request;
+        $design = SystemDesign::findOrFail($request->design_id);
+        $design->payment_status=$request->payment_status;
+        $design->save();
+        return $design;
+    }
     public function getFile(Request $request)
     {
         $this->validate($request, [

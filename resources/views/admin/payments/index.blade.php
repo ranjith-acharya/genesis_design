@@ -24,6 +24,7 @@ const paymentCancelUrl="{{route('payment.cancel')}}";
 async function cancelProjectPayment(stripe_payment_code,design_id)
 {
    console.log(stripe_payment_code);
+   console.log("<-------ID --->: ",design_id);
    let stripe = Stripe(stripePublicKey);
 
     return await axios(paymentCancelUrl, {
@@ -39,21 +40,20 @@ async function cancelProjectPayment(stripe_payment_code,design_id)
         {
 
 
-            fetch("{{ route('design.update_status') }}", {
+            fetch("{{ route('admin.payment.status') }}", {
                                 method: 'post',
-                                body: {design_id:design_id},
+                                data: {design_id:design_id,payment_status:'cancel'},
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                                 }
-                            }).then(async response => {
-                                return {db_response: await response.json(), "status": response.status};
+                            
                             }).then(response => {
                                 if (response.status === 200 || response.status === 201)
                                 {
-                                    console.log(response.db_response);
-                                    window.location = "{{route('design.payment')}}";
-                                    toastr.success('Design Status Updated !', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                    console.log(response);
+                                    
+                                    toastr.success('Design Payment Status Updated !', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } 
                                 else 
                                 {
