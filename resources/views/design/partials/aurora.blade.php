@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col s12">
         <span class="prussian-blue-text"><b>Note</b></span>
-        <blockquote class="mt-xxs">
+        <blockquote class="mt-xxs capitalize">
             {{$design->fields['notes']}}
         </blockquote>
     </div>
@@ -16,7 +16,7 @@
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Installation restrictions: </b></span>
-            {{($design->fields['installation']?$design->fields['installation']:"-")}}
+            <span class="capitalize">{{($design->fields['installation']?$design->fields['installation']:"-")}}</span>
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Created On: </b></span>
@@ -26,7 +26,7 @@
     <div class="col s12 m6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>System Size: </b></span>
-            {{ $design->fields['system_size'] }}
+            <span class="capitalize">{{ $design->fields['system_size'] }}</span>
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>HOA?: </b></span>
@@ -34,7 +34,7 @@
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Remarks: </b></span>
-            {{ $design->fields['remarks'] }}
+            <span class="capitalize">{{ $design->fields['remarks'] }}</span>
         </div>
     </div>
 </div>

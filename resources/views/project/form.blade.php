@@ -151,7 +151,7 @@
         @isset($project)
             <div class="row">
                 <div class="col s12 center">
-                    <p class="imperial-red-text">Project Information cannot be updated, contact support if you think there is a mistake in the information you've provided. You can still attach new files.</p>
+                    <p class="imperial-red-text">Project information cannot be updated, contact support if you think there is a mistake in the information you have provided. You can still attach new files.</p>
                 </div>
             </div>
         @endisset

@@ -11,19 +11,19 @@
     <div class="col s4">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>System Size: </b></span>
-            {{$design->fields['system_size']}}
+            <span class="capitalize">{{$design->fields['system_size']}}</span>
         </div>
     </div>
     <div class="col s4">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Installation Restricitons: </b></span>
-            {{$design->fields['installation']}}
+            <span class="capitalize">{{$design->fields['installation']}}</span>
         </div>
     </div>
     <div class="col s4">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Remarks?: </b></span>
-            {{$design->fields['remarks']}}
+            <span class="capitalize">{{$design->fields['remarks']}}</span>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
     <div class="col s3">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Tree Cutting: </b></span>
-            {{ $design->fields['tree_cutting'] }}
+            <span class="capitalize">{{ $design->fields['tree_cutting'] }}</span>
         </div>
     </div>
     @endif
@@ -66,7 +66,7 @@
     <div class="col s3">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Re-Roofing: </b></span>
-            {{ $design->fields['re_roofing'] }}
+            <span class="capitalize">{{ $design->fields['re_roofing'] }}</span>
         </div>
     </div>
     @endif
@@ -77,7 +77,7 @@
     <div class="col s3">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Surface Upgrade: </b></span>
-            {{ $design->fields['service_upgrade']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['service_upgrade']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -88,7 +88,7 @@
     <div class="col s3">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Others: </b></span>
-            {{ $design->fields['others'] }}
+            <span class="capitalize">{{ $design->fields['others'] }}</span>
         </div>
     </div>
     @endif
@@ -125,7 +125,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Plywood: </b></span>
-            {{ $design->fields['plywood']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['plywood']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -136,7 +136,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>OSB: </b></span>
-            {{ $design->fields['osb']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['osb']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -147,7 +147,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Skip Sheating: </b></span>
-            {{ $design->fields['skip_sheating']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['skip_sheating']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -158,7 +158,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Plank: </b></span>
-            {{ $design->fields['plank']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['plank']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -169,7 +169,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Roof Decking / Layer Thickess: </b></span>
-            {{ $design->fields['roofDecking_LayerThickness'] }}
+            <span class="capitalize">{{ $design->fields['roofDecking_LayerThickness'] }}</span>
         </div>
     </div>
     @endif
@@ -180,7 +180,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Center Spacing: </b></span>
-            {{ $design->fields['center_spacing']}}
+            <span class="capitalize">{{ $design->fields['center_spacing']}}</span>
         </div>
     </div>
     @endif
@@ -191,7 +191,7 @@
     <div class="col s12">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Purlin/Support Structure Sizes, Spacing, Span, Notes: </b></span>
-            {{ $design->fields['purlin'] }}
+            <span class="capitalize">{{ $design->fields['purlin'] }}</span>
         </div>
     </div>
     @endif
@@ -202,7 +202,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Pitch: </b></span>
-            {{ $design->fields['pitch'] }}
+            <span class="capitalize">{{ $design->fields['pitch'] }}</span>
         </div>
     </div>
     @endif
@@ -213,7 +213,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Azimuth: </b></span>
-            {{ $design->fields['azimuth'] }}
+            <span class="capitalize">{{ $design->fields['azimuth'] }}</span>
         </div>
     </div>
     @endif
@@ -224,7 +224,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Rafter Size: </b></span>
-            {{ $design->fields['rafter_size'] }}
+            <span class="capitalize">{{ $design->fields['rafter_size'] }}</span>
         </div>
     </div>
     @endif
@@ -235,14 +235,14 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Roof Material: </b></span>
-            {{ $design->fields['other_roof_material'] }}
+            <span class="capitalize">{{ $design->fields['other_roof_material'] }}</span>
         </div>
     </div>
     @else
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Roof Material: </b></span>
-            {{ $design->fields['roofMaterialOption'] }}
+            <span class="capitalize">{{ $design->fields['roofMaterialOption'] }}</span>
         </div>
     </div>
     @endif
@@ -253,7 +253,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Soft Spots: </b></span>
-            {{ $design->fields['soft_spots']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['soft_spots']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -264,7 +264,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Bouncy: </b></span>
-            {{ $design->fields['bouncy']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['bouncy']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -275,7 +275,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Existing Leaks: </b></span>
-            {{ $design->fields['existing_leaks']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['existing_leaks']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -286,7 +286,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Vaulted Ceiling: </b></span>
-            {{ $design->fields['vaulted_ceiling']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['vaulted_ceiling']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -297,7 +297,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Comp Shingle Layers: </b></span>
-            {{ $design->fields['comp_shingle_layers'] }}
+            <span class="capitalize">{{ $design->fields['comp_shingle_layers'] }}</span>
         </div>
     </div>
     @endif
@@ -308,7 +308,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Age of Shingles: </b></span>
-            {{ $design->fields['age_of_shingles'] }}
+            <span class="capitalize">{{ $design->fields['age_of_shingles'] }}</span>
         </div>
     </div>
     @endif
@@ -319,7 +319,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Roof Condition: </b></span>
-            {{ $design->fields['roof_condition']?"Good":"Bad" }}
+            <span class="capitalize">{{ $design->fields['roof_condition']?"Good":"Bad" }}</span>
         </div>
     </div>
     @endif
@@ -330,7 +330,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Access from Attic vent?: </b></span>
-            {{ $design->fields['access_attic_vent']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['access_attic_vent']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -341,7 +341,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Stud Finder: </b></span>
-            {{ $design->fields['stud_finder']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['stud_finder']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -354,7 +354,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Supply Side Voltage: </b></span>
-            {{ $design->fields['supply_side_voltage'] }}
+            <span class="capitalize">{{ $design->fields['supply_side_voltage'] }}</span>
         </div>
     </div>
     @endif
@@ -365,7 +365,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Manufacturer Model: </b></span>
-            {{ $design->fields['manufacturer_model'] }}
+            <span class="capitalize">{{ $design->fields['manufacturer_model'] }}</span>
         </div>
     </div>
     @endif
@@ -376,7 +376,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Main Breaker Rating: </b></span>
-            {{ $design->fields['main_breaker_rating'] }}
+            <span class="capitalize">{{ $design->fields['main_breaker_rating'] }}</span>
         </div>
     </div>
     @endif
@@ -387,7 +387,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Busbar Rating: </b></span>
-            {{ $design->fields['busbar_rating'] }}
+            <span class="capitalize">{{ $design->fields['busbar_rating'] }}</span>
         </div>
     </div>
     @endif
@@ -398,7 +398,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Meter No: </b></span>
-            {{ $design->fields['meter_no'] }}
+            <span class="capitalize">{{ $design->fields['meter_no'] }}</span>
         </div>
     </div>
     @endif
@@ -409,7 +409,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Proposed Point Connection: </b></span>
-            {{ $design->fields['proposed_point_connection'] }}
+            <span class="capitalize">{{ $design->fields['proposed_point_connection'] }}</span>
         </div>
     </div>
     @endif
@@ -420,7 +420,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Meter Location: </b></span>
-            {{ $design->fields['meter_location'] }}
+            <span class="capitalize">{{ $design->fields['meter_location'] }}</span>
         </div>
     </div>
     @endif
@@ -431,7 +431,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Tap Possible: </b></span>
-            {{ $design->fields['tap_possible']?"Yes":"No" }}
+            <span class="capitalize">{{ $design->fields['tap_possible']?"Yes":"No" }}</span>
         </div>
     </div>
     @endif
@@ -442,7 +442,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Breaker Space: </b></span>
-            {{ $design->fields['breaker_space'] }}
+            <span class="capitalize">{{ $design->fields['breaker_space'] }}</span>
         </div>
     </div>
     @endif
@@ -453,7 +453,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Grounding Method: </b></span>
-            {{ $design->fields['grounding_method'] }}
+            <span class="capitalize">{{ $design->fields['grounding_method'] }}</span>
         </div>
     </div>
     @endif
@@ -464,7 +464,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Disconnect Type: </b></span>
-            {{ $design->fields['disconnect_type'] }}
+            <span class="capitalize">{{ $design->fields['disconnect_type'] }}</span>
         </div>
     </div>
     @endif
@@ -475,7 +475,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Panel Location: </b></span>
-            {{ $design->fields['panel_location'] }}
+            <span class="capitalize">{{ $design->fields['panel_location'] }}</span>
         </div>
     </div>
     @endif
@@ -486,7 +486,7 @@
     <div class="col s6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Manufacturer Model: </b></span>
-            {{ $design->fields['array']['manufacturer_model'] }}
+            <span class="capitalize">{{ $design->fields['array']['manufacturer_model'] }}</span>
         </div>
     </div>
     @endif
@@ -499,7 +499,7 @@
     <div class="col s12">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Utility: </b></span>
-            {{ $design->fields['utility'] }}
+            <span class="capitalize">{{ $design->fields['utility'] }}</span>
         </div>
     </div>
     @endif

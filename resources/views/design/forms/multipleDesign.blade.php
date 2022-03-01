@@ -243,14 +243,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
-                                <div class="card-panel center imperial-red honeydew-text">
-                                    <h5 id="stripe_error"></h5>
-                                    <h6>Try again later or add / change your default payment method</h6>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </section>
                     @endif
 @if(in_array('structural load letter and calculations',$type))
@@ -452,14 +445,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
-                                <div class="card-panel center imperial-red honeydew-text">
-                                    <h5 id="stripe_error"></h5>
-                                    <h6>Try again later or add / change your default payment method</h6>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </section>
 @endif
 @if(in_array('pe stamping',$type))
@@ -518,14 +504,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
-                                <div class="card-panel center imperial-red honeydew-text">
-                                    <h5 id="stripe_error"></h5>
-                                    <h6>Try again later or add / change your default payment method</h6>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </section>
                     @endif
                 @if(in_array('electrical load calculations',$type))
@@ -780,20 +759,21 @@
                                 </div>
                             </div><br>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
-                                <div class="card-panel center imperial-red honeydew-text">
-                                    <h5 id="stripe_error"></h5>
-                                    <h6>Try again later or add / change your default payment method</h6>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </section>
                 @endif
                     <h6>Payment Details</h6>
                     <section>
                         <div class="row">
                             <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                <div class="card-panel center prussian-blue" style="color:#fff;">
+                                    <h5 id="stripe_error" class="white-text"></h5>
+                                    <h6  class="white-text">Try again later or add / change your default payment method</h6>
+                                </div>
+                            </div>
                         </div>
                     </section>
                     </form>
@@ -1440,6 +1420,13 @@
                 @foreach($type as $t)
                 holdPayment('{{$t}}').then(resp=>{
                     console.log("{{$t}} : ",resp);
+                    if (resp) {
+                        if (resp.error) {
+                            document.getElementById('stripe_error').innerText = resp.error.message;
+                            elem.disabled = false;
+                            document.getElementById('stripe_card').style.display = 'block';
+                            toastr.error('Make your Payment Method Default in Profile!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        } else {
                     @if($t=="aurora design")
                     validationResult.columns['stripe_payment_aurora'] = resp.paymentIntent.id;
                     @elseif($t=="structural load letter and calculations")
@@ -1449,7 +1436,7 @@
                     @else
                         validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
                     @endif
-
+            
                     @if(end($type)==$t)
                         fetch("{{ route('design.multiple_design') }}", {
                                 method: 'post',
@@ -1479,6 +1466,10 @@
                                 elem.disabled = false;
                             });
                     @endif
+                    }}else {
+                        console.log("error")
+                        elem.disabled = false;
+                    }
                 })
                 @endforeach
 

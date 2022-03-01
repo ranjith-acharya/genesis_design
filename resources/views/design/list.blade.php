@@ -157,7 +157,7 @@
     function fetchDesigns()
     {
         design_permit=document.getElementById("check5").checked;
-        alert(design_permit);
+        // alert(design_permit);
         if(designList.length>0 ||design_permit)
         {
             $('.modal').modal('close');
@@ -334,7 +334,7 @@
                             <p>
                                 <label>
                                 <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" id="check{{$k}}" name ="designs[]" value="{{$designType->name}}" class="filled-in" />
-                                <span>{{Str::upper($designType->name)}}</span>
+                                <span class="capitalize">{{ $designType->name }}</span>
                                 </label>
                             </p>
                         @endforeach

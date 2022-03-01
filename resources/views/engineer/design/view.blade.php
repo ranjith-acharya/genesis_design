@@ -124,8 +124,8 @@
                     @csrf<div class="input-field col s4">
                         <select id="statusOption" name="statusOption">
                             <option value="" disabled selected>Set Status</option>
-                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD }}">{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD }}</option>
-                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS }}">{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS }}</option>
+                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD }}">{{ ucwords(strtolower(\App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD)) }}</option>
+                            <option value="{{ \App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS }}">{{ ucwords(strtolower(\App\Statics\Statics::DESIGN_STATUS_ENGINEER_PROGRESS)) }}</option>
                         </select>
                     </div>
                     <div class="input-field col s4" id="holdStatusOption">

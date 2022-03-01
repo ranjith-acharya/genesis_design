@@ -47,7 +47,7 @@
                     <x-ListFiles :files="$design->files" path="{{route('design.file')}}?design={{$design->id}}"></x-ListFiles>
                 @endif
             </div>
-        </div><hr>
+        </div>
         <div class="row" id="messages">
             <div class="col s12">
                 <h4>Messages</h4>

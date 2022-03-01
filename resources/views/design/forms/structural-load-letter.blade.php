@@ -550,7 +550,7 @@
         <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
         <div class="row">
             <div class="col s12 center">
-                <p class="imperial-red-text">We will initiate a hold of ${{$type->latestPrice->price}} when you save this request. The funds will only be captured when we send a proposal</p>
+                <p class="imperial-red-text">We will initiate a hold of ${{$type->latestPrice->price}} when you save this request. The entire amount will only be captured once we send you the design.</p>
                 <button type="button" class="btn imperial-red-outline-button" onclick="insert(this)">Request&nbsp;Design</button>
             </div>
         </div>
