@@ -71,7 +71,8 @@
                         <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
                     </div>
                     <div class="row center">
-                        <button class="btn green" type="button" onclick="insert(this)">Submit</button>
+                        <p class="imperial-red-text">We will initiate a hold of ${{$type->latestPrice->price}} when you save this request. The entire amount will only be captured once we send you the design.</p>
+                        <button class="btn green" type="button" onclick="insert(this)">Request Design</button>
                         <div class="row">
                             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
                                 <div class="card-panel center imperial-red honeydew-text">

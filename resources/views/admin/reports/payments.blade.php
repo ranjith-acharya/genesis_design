@@ -22,7 +22,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        NO DESIGN
+                                        No Design
                                     </td>
                                     <td>
                                         {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}

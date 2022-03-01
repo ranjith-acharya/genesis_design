@@ -334,7 +334,7 @@
                             <p>
                                 <label>
                                 <input type="checkbox" onchange="getDesign(event,'{{$designType->name}}',{{$k}})" id="check{{$k}}" name ="designs[]" value="{{$designType->name}}" class="filled-in" />
-                                <span>{{Str::upper($designType->name)}}</span>
+                                <span class="capitalize">{{ $designType->name }}</span>
                                 </label>
                             </p>
                         @endforeach

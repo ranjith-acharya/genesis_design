@@ -68,11 +68,11 @@
     <div class="col s12 m6">
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Project Type: </b></span>
-            {{ $project->type->name }}
+            <span class="capitalize">{{ $project->type->name }}</span>
         </div>
         <div class="mb-xxxs">
             <span class="prussian-blue-text"><b>Project Status: </b></span>
-            {{ $project->status }}
+            <span class="capitalize">{{ $project->status }}</span>
         </div>
     </div>
     <div class="col s12 m6">

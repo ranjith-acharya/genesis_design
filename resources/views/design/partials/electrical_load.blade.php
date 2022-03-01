@@ -20,4 +20,4 @@
         </div>
     </div>
     @endif
-</div><hr>
+</div>
