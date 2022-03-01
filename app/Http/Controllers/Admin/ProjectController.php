@@ -273,7 +273,7 @@ public function assign(Request $request)
             User::findOrFail($manager)->notify(new ManagerAssign($project->name, route('manager.projects.edit', $project->id)));
         }
 
-        return back()->with('success', 'Project assigned successfully!');
+        return back()->with('success', 'Project Assigned Successfully!');
     }
     public function getAssignEngineer($id)
     {

@@ -7,7 +7,7 @@
                                 <th>Service Name</th>
                                 <th>State</th>
                                 <th>Project Status</th>
-                                <th>Created At</th>
+                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

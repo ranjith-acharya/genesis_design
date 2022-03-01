@@ -60,7 +60,7 @@
                 <div class="row">
                     <div class="col s4 left-align prussian-blue-text bold center">Note</div>
                     <div class="col s2 left-align black-text center">Has Change Request?</div>
-                    <div class="col s4 left-align black-text center">Created At</div>
+                    <div class="col s4 left-align black-text center">Created On</div>
                     <div class="col s2 left-align center"></div>
                 </div>
                 <ul class="collection">

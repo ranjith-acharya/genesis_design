@@ -108,7 +108,7 @@
                     }
                 }).then(response => {
                     if (response.status === 200 || response.status === 201) {
-                        toastr.success('Change request sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        toastr.success('Change Request Sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     } else {
                         toastr.error('There was a error sending the message. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     }

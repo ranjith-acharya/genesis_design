@@ -32,7 +32,7 @@ Users - Genesis Design
                                 <th>Email Address</th>
                                 <th>Company Name</th>
                                 <th>Role</th>
-                                <th>Created at</th>
+                                <th>Created On</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

@@ -157,7 +157,7 @@ axios(fileInsert, {
 }).then(response => {
     if (response.status === 200 || response.status === 201) {
         console.log(response.data);
-        toastr.success('Files uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        toastr.success('Files Uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
         // M.toast({
         //     html: "Files uploaded",
         //     classes: "green"

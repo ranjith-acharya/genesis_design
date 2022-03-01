@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col s4 left-align prussian-blue-text bold center">Note</div>
                         <div class="col s2 left-align black-text center">Change request status</div>
-                        <div class="col s4 left-align black-text center">Created At</div>
+                        <div class="col s4 left-align black-text center">Created On</div>
                         <div class="col s2 left-align black-text center"></div>
                     </div>
                     <ul class="collection">
@@ -160,7 +160,7 @@
         @if ($design->status_engineer === \App\Statics\Statics::DESIGN_STATUS_ENGINEER_ASSIGNED && Auth::user()->role == 'engineer')
             <div class="row">
                 <div class="col s12 center">
-                    <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Work&nbsp;On&nbsp;Design</a>
+                    <a class="btn btn-large indigo imperial-red-outline-button" href="{{route('engineer.design.start', $design->id)}}">Start&nbsp;Design</a>
                 </div>
             </div>
         @endif

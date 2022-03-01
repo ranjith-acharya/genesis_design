@@ -30,7 +30,7 @@
                 }).then(response => {
                     console.log(response);
                     if (response.status === 200 || response.status === 201) {
-                        toastr.success('Quote sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        toastr.success('Quote Sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         // M.toast({
                         //     html: "Quote sent!",
                         //     classes: "green"
@@ -74,7 +74,7 @@
                 }).then(response => {
                     console.log(response);
                     if (response.status === 200 || response.status === 201) {
-                        toastr.success('Quote sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                        toastr.success('Quote Sent!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         window.location.reload();
                     } else {
                         toastr.error('There was a error sending the quote. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });

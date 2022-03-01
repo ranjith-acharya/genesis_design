@@ -247,7 +247,7 @@
                             <div class="col s2 prussian-blue-text bold">Service</div>
                             <div class="col s1 prussian-blue-text capitalize">State</div>
                             <div class="col s2 prussian-blue-text capitalize">Project Status</div>
-                            <div class="col s4 prussian-blue-text capitalize">Created at</div>
+                            <div class="col s4 prussian-blue-text capitalize">Created On</div>
                             <div class="col s12 m5 right-align prussian-blue-text hide-on-med-and-down center"></div>
                         </div>
                     </div>
