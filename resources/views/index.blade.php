@@ -91,7 +91,7 @@ function getMoreUsers(page) {
                         <!-- Dropdown Structure -->
                         <ul id='dropdown1' class='dropdown-content prussian-blue-text'>
                             @foreach($projectTypes as $projectType)
-                                <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{Str::ucfirst($projectType->name)}}</a></li>
+                                <li><a href="{{route('project.form', Str::slug($projectType->name))}}">{{ucwords(strtolower($projectType->name))}}</a></li>
                                 <li class="divider" tabindex="-1"></li>
                             @endforeach
                         </ul>
@@ -105,7 +105,7 @@ function getMoreUsers(page) {
                     <div class="col s3">
                         <div class="input-field inline">
                             <input id="project_search" type="text" data-type="projects">
-                            <label for="project_search">Search for project(s)...</label>
+                            <label for="project_search">Search For Project(s)...</label>
                         </div>
                     </div>
                     <div class="col s3">
@@ -113,7 +113,7 @@ function getMoreUsers(page) {
                         <select id="project_type_select" onchange="filter()">
                                 <option value="all">All</option>
                                 @foreach($projectTypes as $projectType)
-                                    <option value="{{$projectType->id}}">{{Str::ucfirst($projectType->name)}}</option>
+                                    <option value="{{$projectType->id}}">{{ucwords(strtolower($projectType->name))}}</option>
                                 @endforeach
                             </select>
                             <label for="project_type_select">Project Type</label>
@@ -124,7 +124,7 @@ function getMoreUsers(page) {
                             <select id="status_select" onchange="filter()">
                                 <option value="all">All</option>
                                     @foreach(\App\Statics\Statics::STATUSES as $Status)
-                                        <option value="{{$Status}}">{{Str::ucfirst($Status)}}</option>
+                                        <option value="{{$Status}}">{{ucwords(strtolower($Status))}}</option>
                                     @endforeach
                             </select>
                             <label for="status_select"> State</label>
@@ -136,7 +136,7 @@ function getMoreUsers(page) {
                             <select id="project_status_select" onchange="filter()">
                                 <option value="all">All</option>
                                     @foreach(\App\Statics\Statics::DESIGN_STATUS_CUSTOMER as $projectStatus)
-                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                        <option value="{{$projectStatus}}">{{ucwords(strtolower($projectStatus))}}</option>
                                     @endforeach
                             </select>  
                             <label for="project_status_select">Project Status</label>
@@ -148,7 +148,7 @@ function getMoreUsers(page) {
                             <select id="project_status_select" onchange="filter()">
                                 <option value="all">All</option>
                                     @foreach(\App\Statics\Statics::DESIGN_STATUS_ENGINEER as $projectStatus)
-                                        <option value="{{$projectStatus}}">{{Str::ucfirst($projectStatus)}}</option>
+                                        <option value="{{$projectStatus}}">{{ucwords(strtolower($projectStatus))}}</option>
                                     @endforeach
                             </select>  
                             <label for="project_status_select">Project Status</label>

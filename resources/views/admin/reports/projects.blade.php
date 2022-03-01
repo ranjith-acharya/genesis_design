@@ -17,7 +17,7 @@
                             @foreach($projects as $weekly)
                                 @if($weekly->designs->count()==0)
                                 <tr>
-                                    <td>
+                                    <td class="capitalize">
                                         <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif">
                                             {{ $weekly->name }}
                                         </a>
@@ -28,7 +28,7 @@
                                     <!-- <td>
                                         {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
                                     </td> -->
-                                    <td>
+                                    <td class="capitalize">
                                         @if($weekly->engineer_id == "")
                                             <span class="helper-text red-text">Not Assigned</span>
                                         @else
@@ -60,7 +60,7 @@
                                 @else
                                 @foreach($weekly->designs as $design)
                                 <tr>
-                                    <td>
+                                    <td class="capitalize">
                                         <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif">
                                             {{ $weekly->name }}
                                         </a>
@@ -71,7 +71,7 @@
                                     <!-- <td>
                                         {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
                                     </td> -->
-                                    <td>
+                                    <td class="capitalize">
                                         @if($weekly->engineer_id == "")
                                             <span class="helper-text red-text">Not Assigned</span>
                                         @else

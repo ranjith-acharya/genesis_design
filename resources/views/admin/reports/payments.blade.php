@@ -17,7 +17,7 @@
                                 @if($weekly->designs->count()>0)
                                 @foreach($weekly->designs as $design)
                                 <tr>
-                                    <td>
+                                    <td class="capitalize">
                                         <a href="@if(Auth::user()->role == 'admin'){{ route('admin.projects.edit', $weekly->id) }}@else{{ route('manager.projects.edit', $weekly->id) }}@endif">
                                             {{ $weekly->name }}
                                         </a>
@@ -25,7 +25,7 @@
                                     <td class="capitalize">
                                        {{$design->type->name}}
                                     </td>
-                                    <td>
+                                    <td class="capitalize">
                                         {{$weekly->customer->first_name}}{{$weekly->customer->last_name}}
                                     </td>
                                     <!-- <td>
