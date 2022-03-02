@@ -83,7 +83,7 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.db_response);
-                    toastr.success('Images uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    toastr.success('Images Uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location = "{{route('design.list', $project_id)}}";

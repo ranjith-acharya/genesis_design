@@ -179,22 +179,22 @@ Update Project Details - Genesis Design
     </script>
     <script src="{{asset('js/project/form.js')}}"></script>
     <script>
-        function setStatus(a){
-            //alert(a.value);
-            var status = a.value;
-            var id = {{ $project->id }};
-            var _token=$('input[name="_token"]').val();
-            //alert(id);
-            //alert(status);
-            $.ajax({
-                url:"@if(Auth::user()->role == 'admin'){{ route('admin.projects.set.status') }}@else{{ route('manager.projects.set.status') }}@endif",
-                method:"POST",
-                data:{statusName: status, projectId: id, _token:_token},
-                success:function(data){
-                    toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-                    window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
-                }      
-            });
-        }
+        // function setStatus(a){
+        //     //alert(a.value);
+        //     var status = a.value;
+        //     var id = {{ $project->id }};
+        //     var _token=$('input[name="_token"]').val();
+        //     //alert(id);
+        //     //alert(status);
+        //     $.ajax({
+        //         url:"@if(Auth::user()->role == 'admin'){{ route('admin.projects.set.status') }}@else{{ route('manager.projects.set.status') }}@endif",
+        //         method:"POST",
+        //         data:{statusName: status, projectId: id, _token:_token},
+        //         success:function(data){
+        //             toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+        //             window.location = "@if(Auth::user()->role == 'admin'){{ route('admin.projects.list') }}@else{{ route('manager.projects.list') }}@endif";
+        //         }      
+        //     });
+        // }
     </script>
 @endsection

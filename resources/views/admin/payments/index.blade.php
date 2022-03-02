@@ -38,11 +38,9 @@ async function cancelProjectPayment(stripe_payment_code,design_id)
         console.log(response);
         if (response.status === 200 || response.status === 201) 
         {
-
-
             fetch("{{ route('admin.payment.status') }}", {
                                 method: 'post',
-                                body: {design_id:design_id,payment_status:'cancel'},
+                                body: JSON.stringify({design_id:design_id,payment_status:'cancel'}),
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
@@ -52,7 +50,7 @@ async function cancelProjectPayment(stripe_payment_code,design_id)
                                 if (response.status === 200 || response.status === 201)
                                 {
                                     console.log(response);
-                                    
+                                    window.location = "{{route('admin.payment')}}";
                                     toastr.success('Design Payment Status Updated !', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } 
                                 else 

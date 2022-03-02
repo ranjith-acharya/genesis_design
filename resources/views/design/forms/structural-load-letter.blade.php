@@ -101,7 +101,7 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.db_response);
-                    toastr.success('Images uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    toastr.success('Images Uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     // M.toast({
                     //     html: "Images uploaded",
                     //     classes: "green"

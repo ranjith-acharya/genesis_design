@@ -189,7 +189,8 @@
             success:function(data){
                 console.log(data);
                 toastr.success('Status Set Successfully!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-                location.reload();
+                //location.reload();
+                window.location="{{route('engineer.design.view', $design->id)}}";
             }      
         });
     }

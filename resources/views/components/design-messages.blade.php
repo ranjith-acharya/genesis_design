@@ -159,7 +159,7 @@
             }).then(response => {
                 if (response.status === 200 || response.status === 201) {
                     console.log(response.data);
-                    toastr.success('Image uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                    toastr.success('Image Uploaded!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                     filesUploaded++;
                     if (filesUploaded === fileCount)
                         window.location.reload();

@@ -413,9 +413,10 @@ public function getPayments(Request $request)
 //Update Payment Status
     public function paymentStatus(Request $request)
     {
-        return $request;
         $design = SystemDesign::findOrFail($request->design_id);
         $design->payment_status=$request->payment_status;
+        $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_CANCELLED;
+        $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_CANCELLED;
         $design->save();
         return $design;
     }
