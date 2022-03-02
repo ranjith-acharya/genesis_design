@@ -448,7 +448,7 @@
                         
                     </section>
 @endif
-@if(in_array('pe stamping',$type))
+@if(in_array('PE stamping',$type))
                     <h6>PE Stamping</h6>
                     <section>
                         <div class="row">

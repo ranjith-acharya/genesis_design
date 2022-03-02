@@ -37,7 +37,13 @@
                                     </td> -->
                                   
                                    
-                                    <td class="capitalize"> {{ $design->payment_status }} </td>
+                                    <td class="capitalize"> 
+                                        @if($design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_HOLD || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_CAPTURE || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_REFUND)
+                                            <span class="label label-success capitalize">{{ $design->payment_status }}</span>
+                                        @else
+                                            <span class="label label-red capitalize">{{ $design->payment_status }}</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($weekly->status == 'in active')
                                             <span class="label label-red capitalize">{{ $weekly->status }}</span>
