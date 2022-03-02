@@ -51,7 +51,7 @@ async function cancelProjectPayment(stripe_payment_code,design_id,status)
                                 {
                                     console.log(response);
                                     window.location = "{{route('admin.payment')}}";
-                                    toastr.success('Design Payment Status Updated !', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
+                                    toastr.success('Design Payment Status Updated!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } 
                                 else 
                                 {

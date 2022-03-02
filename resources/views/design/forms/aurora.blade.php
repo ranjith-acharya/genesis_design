@@ -246,7 +246,8 @@
                         if (resp.error) {
                             document.getElementById('stripe_error').innerText = resp.error.message;
                             elem.disabled = false;
-                            document.getElementById('stripe_card').style.display = 'block'
+                            document.getElementById('stripe_card').style.display = 'block';
+                            toastr.error('Make your Payment Method Default in Profile!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                         } else {
 
                             validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
@@ -564,9 +565,9 @@
         </div>
         <div class="row">
             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
-                <div class="card-panel center imperial-red honeydew-text">
-                    <h5 id="stripe_error"></h5>
-                    <h6>Try again later or add / change your default payment method</h6>
+                <div class="card-panel center prussian-blue" style="color:#fff;">
+                    <h5 id="stripe_error" class="white-text"></h5>
+                    <h6  class="white-text">Try again later or add / change your default payment method</h6>
                 </div>
             </div>
         </div>
