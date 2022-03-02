@@ -14,7 +14,7 @@
                 </div>
                 <div class="col s12 m2 hide-on-small-and-down">
                     <h3 class="capitalize">Status</h3>
-                    @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST)
+                    @if($design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_HOLD || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_NOT_ASSIGNED || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CHANGE_REQUEST || $design->status_engineer == \App\Statics\Statics::DESIGN_STATUS_ENGINEER_CANCELLED)
                         <h6><span class="label label-red white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>
                     @else
                         <h6><span class="label label-success white-text bold capitalize" style="font-size:16px;">{{$design->status_engineer}}</span></h6>

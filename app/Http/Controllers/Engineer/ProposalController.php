@@ -71,10 +71,10 @@ class ProposalController extends Controller
         if (sizeof($design->proposals) === 0) {
             if (!$design->paymant_date) {
                 $capture = $this->capture($design->stripe_payment_code);
-
+                
                 if ($capture->status != 'succeeded')
                     return abort(500, 'Could not capture payment');
-
+                $design->payment_status=Statics::DESIGN_PAYMENT_STATUS_CAPTURE;
                 $design->payment_date = now();
                 $design->update();
             }
