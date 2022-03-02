@@ -76,7 +76,6 @@ class ProjectController extends Controller
             $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_PROGRESS;
         }
         $design->update();
-        return $design;
         $managers = User::whereHas(
             'roles', function($q){
                 $q->where('name', 'manager');
@@ -84,7 +83,7 @@ class ProjectController extends Controller
         )->pluck('id');
         //return $managers;
         foreach($managers as $manager){
-            User::findOrFail($manager)->notify(new StatusChange($design->type->name, route('engineer.design.view', $design->id)));
+            User::findOrFail($manager)->notify(new StatusChange(ucwords(strtolower($design->type->name)), route('engineer.design.view', $design->id)));
         }
 
         $allManagers = User::whereHas(
@@ -96,16 +95,16 @@ class ProjectController extends Controller
         foreach($allManagers as $allManager){
             Mail::to($allManager->email)
             ->send(new Notification($design->project->customer->email,
-                "New update on design: " . $design->type->name,
+                "New update on design: " . ucwords(strtolower($design->type->name)),
                 "",
                 route('engineer.design.view', $design->id),
                 "View Design"));
         }
 
-        User::findOrFail($design->project->customer->id)->notify(new StatusChange($design->type->name, route('design.view', $design->id)));
+        User::findOrFail($design->project->customer->id)->notify(new StatusChange(ucwords(strtolower($design->type->name)), route('design.view', $design->id)));
         Mail::to($design->project->customer->email)
             ->send(new Notification($design->project->customer->email,
-                "New update on your design: " . $design->type->name,
+                "New update on your design: " .ucwords(strtolower($design->type->name)),
                 "",
                 route('design.view', $design->id),
                 "View Design"));
