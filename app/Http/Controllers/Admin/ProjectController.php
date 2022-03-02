@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Mail\Notification;
 use App\Notifications\ManagerAssign;
+use App\Notifications\PaymentCancel;
 use App\Notifications\StatusChange;
 use App\Notifications\StatusHold;
 use Illuminate\Support\Facades\Mail;
@@ -418,6 +419,15 @@ public function getPayments(Request $request)
         $design->status_engineer = Statics::DESIGN_STATUS_ENGINEER_CANCELLED;
         $design->status_customer = Statics::DESIGN_STATUS_CUSTOMER_CANCELLED;
         $design->save();
+
+        User::findOrFail($design->project->customer->id)->notify(new PaymentCancel(ucwords(strtolower($design->type->name)), route('design.view', $design->id)));
+        Mail::to($design->project->customer->email)
+            ->send(new Notification($design->project->customer->email,
+                "Payment has been cancelled for: " . ucwords(strtolower($design->type->name)),
+                "",
+                route('design.view', $design->id),
+                "View Design"));
+        
         return $design;
     }
     public function getFile(Request $request)
