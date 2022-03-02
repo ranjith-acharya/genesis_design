@@ -448,7 +448,7 @@
                         
                     </section>
 @endif
-@if(in_array('pe stamping',$type))
+@if(in_array('PE stamping',$type))
                     <h6>PE Stamping</h6>
                     <section>
                         <div class="row">
@@ -1431,7 +1431,7 @@
                     validationResult.columns['stripe_payment_aurora'] = resp.paymentIntent.id;
                     @elseif($t=="structural load letter and calculations")
                     validationResult.columns['stripe_payment_structural'] = resp.paymentIntent.id;
-                    @elseif($t=="pe stamping")
+                    @elseif($t=="PE stamping")
                     validationResult.columns['stripe_payment_stamping'] = resp.paymentIntent.id;
                     @else
                         validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
