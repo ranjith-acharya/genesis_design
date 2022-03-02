@@ -1431,7 +1431,7 @@
                     validationResult.columns['stripe_payment_aurora'] = resp.paymentIntent.id;
                     @elseif($t=="structural load letter and calculations")
                     validationResult.columns['stripe_payment_structural'] = resp.paymentIntent.id;
-                    @elseif($t=="pe stamping")
+                    @elseif($t=="PE stamping")
                     validationResult.columns['stripe_payment_stamping'] = resp.paymentIntent.id;
                     @else
                         validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
