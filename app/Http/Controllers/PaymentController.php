@@ -117,9 +117,18 @@ class PaymentController extends Controller
         //$type = SystemDesignType::with('latestPrice')->where('name', $request->name)->firstOrFail();
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
         $stripeResponse = \Stripe\PaymentIntent::retrieve($request->code,[]);
+        if($request->status=='cancel')
+        {
+        
         $response = $stripeResponse->cancel();
+        }
+        else
+        {
+            $response=\Stripe\Refund::create(['payment_intent' => $stripeResponse]);
+            //$response=$stripeResponse->refund();
+        }
+
         Log::info("Payment Intent :", $response->toArray());
         return $response;
     }

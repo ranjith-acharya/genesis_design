@@ -47,9 +47,9 @@
                                     </td>
                                     <td class="center">
                                     @if($design->payment_date == "")
-                                    <button  onclick="cancelProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}})" class="btn btn-small indigo">Cancel Design</button>     
+                                    <button  onclick="cancelProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}},'cancel')" class="btn btn-small indigo">Cancel Design</button>     
                                     @else
-                                    <button  onclick="refundProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}})" class="btn btn-small green">Refund Design</button>  
+                                    <button  onclick="cancelProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}},'refund')" class="btn btn-small green">Refund Design</button>  
                                     @endif
                                  </td>
                                 </tr>

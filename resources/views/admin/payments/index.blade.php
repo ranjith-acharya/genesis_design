@@ -21,7 +21,7 @@ Project Index - Genesis Design
 <script>
 const stripePublicKey = "{{env('STRIPE_KEY')}}";
 const paymentCancelUrl="{{route('payment.cancel')}}";
-async function cancelProjectPayment(stripe_payment_code,design_id)
+async function cancelProjectPayment(stripe_payment_code,design_id,status)
 {
    console.log(stripe_payment_code);
    console.log("<-------ID --->: ",design_id);
@@ -29,7 +29,7 @@ async function cancelProjectPayment(stripe_payment_code,design_id)
 
     return await axios(paymentCancelUrl, {
         method: 'post',
-        data: {code: stripe_payment_code},
+        data: {code: stripe_payment_code,status:status},
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
@@ -40,7 +40,7 @@ async function cancelProjectPayment(stripe_payment_code,design_id)
         {
             fetch("{{ route('admin.payment.status') }}", {
                                 method: 'post',
-                                body: JSON.stringify({design_id:design_id,payment_status:'cancel'}),
+                                body: JSON.stringify({design_id:design_id,payment_status:status}),
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
