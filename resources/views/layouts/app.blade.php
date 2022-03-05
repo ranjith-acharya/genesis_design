@@ -155,7 +155,7 @@
                         <li><a href="{{ route('admin.projects.list') }}"><i class="ti-files white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;">Projects</span></a></li>
                         @if (Auth::user()->role === \App\Statics\Statics::USER_TYPE_ADMIN)
                             <li>
-                                <a href="{{ route('admin.payment') }}"><i class="ti-power-off white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Payments Info </span></a>
+                                <a href="{{ route('admin.payment') }}"><i class="ti-credit-card white-text" style="font-size:26px;"></i><span class="hide-menu white-text" style="font-size:16px;"> Payments Info </span></a>
                             </li>
                         @endif
                         <li class="divider"></li>
