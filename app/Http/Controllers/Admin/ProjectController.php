@@ -430,6 +430,12 @@ public function getPayments(Request $request)
         
         return $design;
     }
+
+
+    public function updatePaymentStatus(Request $request)
+    {
+        return "hello";
+    }
     public function getFile(Request $request)
     {
         $this->validate($request, [

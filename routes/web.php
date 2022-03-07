@@ -44,9 +44,11 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::get('/paymentview', 'ProjectController@getPayments')->name('projects.getPayments');
                 //update Payment Status
                 Route::post('/update/paymentStatus','ProjectController@paymentStatus')->name('payment.status');
-
+                //Route::get('/update/design/paymentStatus','ProjectController@updatePaymentStatus')->name('design.payment.status');
                 //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
-
+                
+                //Webhook URL to Handle Stripe EVents
+                Route::stripeWebhooks('/update/design/paymentStatus');
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
@@ -214,6 +216,8 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 Route::post('/pe_stamping', 'DesignRequestController@savePEStamping')->name('pe_stamping');
                 Route::post('/engineering_permit_package', 'DesignRequestController@saveEngPermitPackage')->name('engineering_permit_package');
                 Route::post('/multiple/design', 'DesignRequestController@storeMultiple')->name('multiple_design');
+            
+               
             });
         });
 
