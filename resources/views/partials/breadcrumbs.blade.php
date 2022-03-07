@@ -4,9 +4,9 @@
             <div class="col s12 custom-breadcrumb">
                 @foreach ($breadcrumbs as $breadcrumb)
                     @if ($breadcrumb->url && !$loop->last)
-                        <a href="{{ $breadcrumb->url }}" class="breadcrumb blue-text">{{ $breadcrumb->title }}</a>
+                        <a href="{{ $breadcrumb->url }}" class="breadcrumb blue-text capitalize">{{ $breadcrumb->title }}</a>
                     @else
-                        <span class="breadcrumb prussian-blue-text">{{ $breadcrumb->title }}</span>
+                        <span class="breadcrumb prussian-blue-text capitalize">{{ $breadcrumb->title }}</span>
                     @endif
                 @endforeach
             </div>

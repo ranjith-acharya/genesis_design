@@ -48,8 +48,8 @@ class ReportController extends Controller
     public function exportExcel(Request $request){
         //dd($request->all());
         $projects = $this->getProjects($request);
-        ob_end_clean(); // this
-        ob_start(); // and this
+        // ob_end_clean(); // this
+        // ob_start(); // and this
         return Excel::download(new CustomerProjectExport($projects), 'Projects_All.xlsx');
     }
 
