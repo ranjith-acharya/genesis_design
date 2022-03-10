@@ -16,7 +16,7 @@ Route::post('/register/verify', '\App\Http\Controllers\Auth\RegisterController@v
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::stripeWebhooks('admin/update/design/paymentStatus');
 Route::middleware(['verified', 'auth'])->group(function () {
 
     Route::group(['middleware' => ['role:admin']], function () {
@@ -48,7 +48,7 @@ Route::middleware(['verified', 'auth'])->group(function () {
                 //Route::get('/design/view/{id?}', 'SystemDesignController@view')->name('view');
                 
                 //Webhook URL to Handle Stripe EVents
-                Route::stripeWebhooks('/update/design/paymentStatus');
+                
                 //project controller edit, delete
                 Route::resource('/projects', 'ProjectController');
                 Route::post('/projects/file', 'ProjectController@attachFile')->name('projects.file');
