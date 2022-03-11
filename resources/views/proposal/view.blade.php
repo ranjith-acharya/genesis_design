@@ -70,8 +70,8 @@
                         <div class="col s6">
                             @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
                             <div class="mb-xxxs capitalize">
-                                <span class="prussian-blue-text"><b>Quoted Price Cost: </b></span>
-                                {{ ($design->proposals[0]->changeRequest->price !== null)?"$" . $design->proposals[0]->changeRequest->price: "Waiting for quote"}}
+                                <span class="prussian-blue-text"><b>Change Design Price: </b></span>
+                                {{ ($design->proposals[0]->changeRequest->price !== null)?"$" . $design->proposals[0]->changeRequest->price: "Waiting for Price"}}
                             </div>
                             @endif
                             <div class="mb-xxxs">
@@ -110,7 +110,7 @@
                             @switch($design->proposals[0]->changeRequest->status)
                                 @case(\App\Statics\Statics::CHANGE_REQUEST_STATUS_REQUESTED)
                                 @if(Auth::user()->role == 'admin')
-                                    <a class="btn btn-large imperial-red-outline-button" id="quote_price">Quote price for the change request</a>
+                                    <a class="btn btn-large imperial-red-outline-button" id="quote_price">Set price for the change request</a>
                                 @else
                                     <span class="imperial-red white-text p-10">Waiting for Approval!</span>
                                 @endif
@@ -132,11 +132,11 @@
                                             @csrf
                                             <input type="hidden" name="design_id" value="{{$design->id}}">
                                             <input type="hidden" name="change_request_id" value="{{$design->proposals[0]->changeRequest->id}}">
-                                            <button type="submit" class="btn btn-large prussian-blue">Reject Quote and close design</button>
+                                            <button type="submit" class="btn btn-large prussian-blue">Close design</button>
                                         </form>
                                     </div>
                                     <div class="col s12 m6 center">
-                                        <button type="button" class="btn btn-large prussian-blue" id="accept_quote">Accept Quote of ${{$design->proposals[0]->changeRequest->price}}</button>
+                                        <button type="button" class="btn btn-large prussian-blue" id="accept_quote">Accept Quote</button>
                                         <br><br>@component('components.accept-quote', ["design"=>$design])@endcomponent
                                         <div class="row">
                                             <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
