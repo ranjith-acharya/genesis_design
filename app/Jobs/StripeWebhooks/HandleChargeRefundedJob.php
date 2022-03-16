@@ -8,7 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\WebhookClient\Models\WebhookCall;
-
+use App\Statics\Statics;
+use App\SystemDesign;
 class HandleChargeRefundedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -31,6 +32,9 @@ class HandleChargeRefundedJob implements ShouldQueue
     public function handle()
     {
         $response=$this->webhookCall->payload['data']['object'];
-        return $response;
+        $payment_id=$response['payment_intent'];
+        $system_design=SystemDesign::where('stripe_payment_code', $payment_id)->first();
+        $system_design->payment_status=Statics::DESIGN_PAYMENT_STATUS_REFUNDED;
+        $system_design->save();
     }
 }

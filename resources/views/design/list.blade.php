@@ -107,48 +107,18 @@
     designList=[];
     function getDesign(e,designName,index)
     {
-        
+        alert(index);
         if(e.target.checked)
         {
-            if(designName=="engineering permit package")
-            {
-                $("#check0").attr("checked",false);
-                $("#check1").attr("checked",false);
-                $("#check2").attr("checked",false);
-                $("#check3").attr("checked",false);
-                $("#check4").attr("checked",false);
-                $("#check0").attr("disabled",true);
-                $("#check1").attr("disabled",true);
-                $("#check2").attr("disabled",true);
-                $("#check3").attr("disabled",true);
-                $("#check4").attr("disabled",true);
-               
-            }
-            else{
-                $("#check5").attr("disabled",true);
-                $("#check5").attr("checked",false);
-                designList.push(designName);
+            
+                designList[index]=designName;
                 console.log(designList);
-            }
+            
         }
         else{
-            designList.pop();
+            designList.splice(index,1,0);
             console.log(designList);
-            if(designList.length>0)
-            {
-                $("#check5").attr("checked",false); 
-                $("#check5").attr("disabled",true);   
-            }
-            else
-            {
-                $("#check5").attr("disabled",false);
-                $("#check0").attr("disabled",false);
-                $("#check1").attr("disabled",false);
-                $("#check2").attr("disabled",false);
-                $("#check3").attr("disabled",false);
-                $("#check4").attr("disabled",false);
-            }
-           
+            
         }
             
        
@@ -156,9 +126,9 @@
 
     function fetchDesigns()
     {
-        design_permit=document.getElementById("check5").checked;
+        //design_permit=document.getElementById("check5").checked;
         // alert(design_permit);
-        if(designList.length>0 ||design_permit)
+        if(designList.length>0)
         {
             $('.modal').modal('close');
             $("#requestForms").submit();

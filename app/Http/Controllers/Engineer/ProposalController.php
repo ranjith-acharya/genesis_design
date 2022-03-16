@@ -74,7 +74,7 @@ class ProposalController extends Controller
                 
                 if ($capture->status != 'succeeded')
                     return abort(500, 'Could not capture payment');
-                $design->payment_status=Statics::DESIGN_PAYMENT_STATUS_CAPTURE;
+                $design->payment_status=Statics::DESIGN_PAYMENT_STATUS_CAPTURED;
                 $design->payment_date = now();
                 $design->update();
             }
