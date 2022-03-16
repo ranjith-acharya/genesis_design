@@ -118,12 +118,12 @@ class PaymentController extends Controller
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $stripeResponse = \Stripe\PaymentIntent::retrieve($request->code,[]);
-        if($request->status=='cancel')
+        if($request->status=='cancel initiated')
         {
         
         $response = $stripeResponse->cancel();
         }
-        else
+        else if($request->status=='refund initiated')
         {
             $response=\Stripe\Refund::create(['payment_intent' => $stripeResponse]);
             //$response=$stripeResponse->refund();

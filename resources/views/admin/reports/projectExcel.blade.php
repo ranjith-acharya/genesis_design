@@ -23,6 +23,7 @@
             <th>Design Status</th>
             @if(Auth::user()->role == 'admin')
             <th>Price</th>
+            <th>Payment Status</th>
             @endif
             <th>Payment Date</th>
         </tr>
@@ -66,6 +67,9 @@
             <td>
                 $ {{ $design->price }}
             </td>
+            <td>
+                 {{ $design->payment_status }}
+            </td>
             @endif
             <td>    
                 {{$design['payment_date']}}
@@ -105,6 +109,9 @@
                ---
             </td>
             @if(Auth::user()->role == 'admin')
+            <td>
+                ---
+            </td>
             <td>
                 ---
             </td>

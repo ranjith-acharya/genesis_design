@@ -1438,6 +1438,8 @@
                     @endif
             
                     @if(end($type)==$t)
+                    setTimeout(function(){
+                    console.log(validationResult.columns);
                         fetch("{{ route('design.multiple_design') }}", {
                                 method: 'post',
                                 body: JSON.stringify(validationResult.columns),
@@ -1453,7 +1455,7 @@
                                     for(i=0;i<response.db_response.length;i++)
                                     uploadFiles(response.db_response[i]['name'],response.db_response[i]['design_id']);
                                     if (fileCount === 0)
-                                        window.location = "{{route('design.list', $project_id)}}";
+                                        // window.location = "{{route('design.list', $project_id)}}";
                                         toastr.success('Design Submitted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 } else {
                                     toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
@@ -1464,7 +1466,7 @@
                                 toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                                 console.error(err);
                                 elem.disabled = false;
-                            });
+                            });},5000);
                     @endif
                     }}else {
                         console.log("error")

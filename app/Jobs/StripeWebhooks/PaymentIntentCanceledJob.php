@@ -31,6 +31,9 @@ class PaymentIntentCanceledJob implements ShouldQueue
     public function handle()
     {
         $response=$this->webhookCall->payload['data']['object'];
-        return $response;
+        $payment_id=$response['charges']['data'][0]['payment_intent'];
+        $system_design=SystemDesign::where('stripe_payment_code', $payment_id)->first();
+        $system_design->payment_status=Statics::DESIGN_PAYMENT_STATUS_CANCELED;
+        $system_design->save();
     }
 }

@@ -36,8 +36,8 @@ class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
                 foreach($datas as $data) {
                     $count += $data->designs->count();
                 }
-                $a='A5:'.'J'.(6+$count);
-                $x='A5:J5';
+                $a='A5:'.'K'.(6+$count);
+                $x='A5:K5';
                 $event->sheet->getStyle($x)->applyFromArray([
                     'font' => [
                         'bold' => true
@@ -58,7 +58,7 @@ class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
                         $event->sheet->getStyle('H6')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ADFF2F');
 
                         $event->sheet->styleCells(
-                            'A2:J2',
+                            'A2:K2',
                             [
                                 'alignment' => [
                                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -66,7 +66,7 @@ class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
                             ]
                         );
                         $event->sheet->styleCells(
-                            'A3:J3',
+                            'A3:K3',
                             [
                                 'alignment' => [
                                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -91,9 +91,9 @@ class ProjectExportExcel implements FromView, ShouldAutoSize, WithEvents
                             ]
                         );
                         $event->sheet->getStyle($a)->getAlignment()->setWrapText(true);
-                        $event->sheet->getDelegate()->mergeCells('A2:J2');
+                        $event->sheet->getDelegate()->mergeCells('A2:K2');
                         $event->sheet->getRowDimension(2)->setRowHeight(50);
-                        $event->sheet->getDelegate()->mergeCells('A3:J3');  
+                        $event->sheet->getDelegate()->mergeCells('A3:K3');  
                         $event->sheet->getRowDimension(3)->setRowHeight(30);
                                     
             },
