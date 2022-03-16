@@ -107,7 +107,7 @@
     designList=[];
     function getDesign(e,designName,index)
     {
-        alert(index);
+        // alert(index);
         if(e.target.checked)
         {
             

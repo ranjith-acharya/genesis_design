@@ -765,7 +765,7 @@
                 @if(in_array('engineering permit package',$type))
                     <h6>Engineering Permit Package</h6>
                     <section>
-                        <h6>Basic Information</h6>
+                        <h4>Basic Information</h4>
                             <section>
                                 <div class="row">
                                     <div class="col m4">
@@ -944,11 +944,8 @@
                                     </div>
                                     @endif
                                 </div>
-                                <div class="row">
-                                    <br><br>
-                                </div>
-                            </section>
-                            <h6>Roof Information</h6>
+                            </section><hr>
+                            <h4>Roof Information</h4>
                             <section>
                                 <div class="row">
                                     <div class="col s6">
@@ -1278,8 +1275,8 @@
                                     </div> -->
                                     </div>
                                 </div>
-                            </section>
-                            <h6>Electrical Information</h6>
+                            </section><hr>
+                            <h4>Electrical Information</h4>
                             <section>
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -1383,11 +1380,10 @@
                                     </div>
                                     <button type="button" data-repeater-create="" class="btn btn-small m-l-10">Add Sub Panel</button>
                                 </div>
-                            </section>
-                            <h6>Utility Bills/Electrical Load</h6>
+                            </section><hr>
+                            <h4>Utility Bills/Electrical Load</h4>
                             <section>
                                 <div class="row">
-                                    <h4 class="mt-2">Upload Bill</h4>
                                     <div class="col s12">
                                         <div class="mh-a" id="uppyBill"></div>
                                         <div class="center">
@@ -1651,15 +1647,14 @@
                                             <label for="average_bill1">Yearly usage:  <span class="red-text lead">*</span></label>
                                             <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                         </div>
-                                    </div><br>
+                                    </div>
                                 </div>
-                            </section>
-                            <h6>Upload Supporting Documents</h6>
+                            </section><hr>
+                            <h4>Upload Supporting Documents</h4>
                             <section>
-                            <h4 class="mt-2">Supporting Documents</h4><br>
                                 <div class="row">
                                     <div class="col s9">
-                                        <div class="mh-a" id="uppy"></div>
+                                        <div class="mh-a" id="uppySupportingDocuments1"></div>
                                         <div class="center">
                                             <span class="helper-text imperial-red-text" id="files_error"></span>
                                         </div>
@@ -1670,13 +1665,13 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
-                                            <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
-                                        @endif
-                                    </div>
-                                </div>
+                                    {{-- <div class="row">
+                                        <div class="col s12">
+                                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                                                <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                                            @endif
+                                        </div>
+                                    </div> --}}
                                
                                 <div class="row">
                                     <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
@@ -2215,6 +2210,48 @@
                 }
             }).use(Uppy.Dashboard, {
                 target: `#uppySupportingDocuments`,
+                inline: true,
+                hideUploadButton: true,
+                note: "Upto 20 files of 20 MBs each"
+            }).use(Uppy.XHRUpload, {
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
+                headers: {
+                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
+                },
+                fieldName: "file"
+            });
+            uppy3.on('upload-success', sendFileToDb);
+
+            uppy3.on('file-added', (file) => {
+                fileCount++;
+            });
+
+            uppy3.on('file-removed', (file) => {
+                fileCount--;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            uppy3 = Uppy.Core({
+                id: "files",
+                debug: true,
+                meta: {
+                    save_as: ''
+                },
+                restrictions: {
+                    maxFileSize: 21000000,
+                    maxNumberOfFiles: 20
+                },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = files[fileID];
+                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
+                    })
+                    return updatedFiles
+                }
+            }).use(Uppy.Dashboard, {
+                target: `#uppySupportingDocuments1`,
                 inline: true,
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
