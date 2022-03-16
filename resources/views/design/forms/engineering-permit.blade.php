@@ -90,7 +90,6 @@
                                                 <option value="garage">Garage</option>
                                             </select>
                                             <label for="installation">Installation restrictions</label>
-                                            <span class="helper-text red-text" data-error="This field is required" data-success="">Required</span>
                                         </div>
                                     </div>
                                     <div class="col m4">
@@ -109,13 +108,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                <label for="moduleType">Module Type</label>                                            
+                                                <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                                 <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                                <label for="moduleOther">Other: </label>
+                                                <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -126,13 +125,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                <label for="inverterType">Inverter Type</label>
+                                                <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                                 <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                                <label for="inverterOther">Other: </label>
+                                                <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -143,13 +142,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                <label for="rackingType">Racking Type</label>
+                                                <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                                 <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                                <label for="rackingOther">Other: </label>
+                                                <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -160,13 +159,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
-                                                <label for="monitorType">Monitor Type</label>
+                                                <label for="monitorType">Monitor Type <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
                                                 <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
-                                                <label for="monitorOther">Other: </label>
+                                                <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -179,13 +178,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                <label for="moduleType">Module Type</label>                                            
+                                                <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                                 <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                                <label for="moduleOther">Other: </label>
+                                                <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -196,13 +195,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                <label for="inverterType">Inverter Type</label>
+                                                <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                                 <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                                <label for="inverterOther">Other: </label>
+                                                <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -213,13 +212,13 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                <label for="rackingType">Racking Type</label>
+                                                <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                                 <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                                <label for="rackingOther">Other: </label>
+                                                <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -231,12 +230,6 @@
                             </section>
                             <h6>Roof Information</h6>
                             <section>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="utility" name="utility" type="text"  value="" placeholder=" ">
-                                        <label for="utility">Utility</label>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col s6">
                                         <div class="input-field col s12">
@@ -338,15 +331,15 @@
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
                                                 <input id="overhang" name="overhang[]" type="text" class="required" placeholder="(feet)">
-                                                <label for="overhang">Overhang (A): </label>
+                                                <label for="overhang">Overhang (A):  <span class="red-text lead">*</span></label>
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
                                                 <input id="width" name="width[]" type="text" class="required" placeholder="(feet)">
-                                                <label for="width">Width (B): </label>
+                                                <label for="width">Width (B):  <span class="red-text lead">*</span></label>
                                             </div>
                                             <div class="input-field col s2" style="margin-top:5%;">
                                                 <input id="height" name="height[]" type="text" class="required" placeholder="(feet)">
-                                                <label for="height">Height (C): </label>
+                                                <label for="height">Height (C):  <span class="red-text lead">*</span></label>
                                             </div>
                                             <div class="input-field col s1" style="margin-top:5%;">
                                                 <button data-repeater-delete="" class="btn btn-small red" type="button"><i class="material-icons">clear</i></button>
@@ -401,12 +394,12 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <input id="center_spacing" name="center_spacing" type="text" class="required" placeholder="(inches)">
-                                        <label for="center_spacing">On-Center Spacing: </label>
+                                        <label for="center_spacing">On-Center Spacing:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="purlin" name="purlin" type="text" class="required" placeholder="(inches)">
-                                        <label for="purlin">Purlin/Support Structure Sizes, Spacing, Span, Notes: </label>
+                                        <label for="purlin">Purlin/Support Structure Sizes, Spacing, Span, Notes:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                 </div>
@@ -509,7 +502,7 @@
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="age_of_shingles" name="age_of_shingles" type="text" class="required" placeholder="(years)">
-                                        <label for="age_of_shingles">Age of Shingles: </label>
+                                        <label for="age_of_shingles">Age of Shingles:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="col s6">
@@ -569,6 +562,12 @@
                             <h6>Electrical Information</h6>
                             <section>
                                 <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="utility" name="utility" type="text"  value="" placeholder=" ">
+                                        <label for="utility">Utility</label>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="input-field col s3">
                                         <input id="supply_side_voltage" name="supply_side_voltage" type="text" placeholder=" ">
                                         <label for="supply_side_voltage">Supply Side Voltage: </label>
@@ -581,12 +580,12 @@
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="main_breaker_rating" name="main_breaker_rating" type="text" class="required" placeholder=" ">
-                                        <label for="main_breaker_rating">Main Breaker Rating: </label>
+                                        <label for="main_breaker_rating">Main Breaker Rating:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="busbar_rating" name="busbar_rating" type="text" class="required" placeholder=" ">
-                                        <label for="busbar_rating">Busbar Rating: </label>
+                                        <label for="busbar_rating">Busbar Rating:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                 </div>
@@ -603,7 +602,7 @@
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="meter_location" name="meter_location" type="text" class="required" placeholder=" ">
-                                        <label for="meter_location">Meter Location: </label>
+                                        <label for="meter_location">Meter Location:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s3">
@@ -620,22 +619,22 @@
                                 <div class="row">
                                     <div class="input-field col s3">
                                         <input id="breaker_space" name="breaker_space" type="text" class="required" placeholder=" ">
-                                        <label for="breaker_space">Breaker Space: </label>
+                                        <label for="breaker_space">Breaker Space:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="grounding_method" name="grounding_method" type="text" class="required" placeholder=" ">
-                                        <label for="grounding_method">Grounding Method: </label>
+                                        <label for="grounding_method">Grounding Method:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="disconnect_type" name="disconnect_type" type="text" class="required" placeholder=" ">
-                                        <label for="disconnect_type">Disconnect Type: </label>
+                                        <label for="disconnect_type">Disconnect Type:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                     <div class="input-field col s3">
                                         <input id="panel_location" name="panel_location" type="text" class="required" placeholder=" ">
-                                        <label for="panel_location">Panel Location: </label>
+                                        <label for="panel_location">Panel Location:  <span class="red-text lead">*</span></label>
         
                                     </div>
                                 </div>
@@ -647,7 +646,7 @@
                                             </div>
                                             <div class="input-field col s3">
                                                 <input id="manufacturer_model1" name="manufacturer_model1[]" class="required" type="text" placeholder="">
-                                                <label for="manufacturer_model1">Manufacturer and Model: </label>
+                                                <label for="manufacturer_model1">Manufacturer and Model:  <span class="red-text lead">*</span></label>
                                             </div>
                                             <div class="input-field col s3">
                                                 <input id="main_breaker_rating1" name="main_breaker_rating1[]"type="text" placeholder="">
@@ -928,8 +927,8 @@
                                     <br>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" ">
-                                            <label for="average_bill1">Yearly usage: </label>
+                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" " value="0">
+                                            <label for="average_bill1">Yearly usage:  <span class="red-text lead">*</span></label>
                                             <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                         </div>
                                     </div><br>

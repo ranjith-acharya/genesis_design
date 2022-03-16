@@ -10,7 +10,7 @@
 <div class="row">
     <div class="input-field col s12">
         <input type="text" id="{{$name}}1" name="{{$name}}" class="autocomplete required" onchange="equipment1(this.value, {{$name}});">
-        <label for="{{$name}}1" class="capitalize">{{$name}}</label>
+        <label for="{{$name}}1" class="capitalize">{{$name}} <span class="red-text lead">*</span></label>
         <span class="helper-text red-text">Required</span>
     </div>
 </div>
