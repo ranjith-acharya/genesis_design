@@ -104,10 +104,9 @@
 
       
 
-    designList=[];
+    designList=[0,0,0,0,0,0];
     function getDesign(e,designName,index)
     {
-        alert(index);
         if(e.target.checked)
         {
             
@@ -128,12 +127,15 @@
     {
         //design_permit=document.getElementById("check5").checked;
         // alert(design_permit);
-        if(designList.length>0)
+        var count = 0;
+        for(var i = 0; i < designList.length; ++i){
+        if(designList[i] == 0)
+            count++;
+        }
+        if(count<6)
         {
             $('.modal').modal('close');
-            $("#requestForms").submit();
-           
-            
+            $("#requestForms").submit(); 
         }
         else
         {
