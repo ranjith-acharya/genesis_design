@@ -65,12 +65,12 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <input id="annual_usage" name="annual_usage" type="number" validate="annual_usage" class="required">
-                                <label for="annual_usage">Annual Usage</label>
+                                <label for="annual_usage">Annual Usage <span class="red-text lead">*</span></label>
                                 <span class="helper-text" data-error="Enter a value greater than 1">Required</span>
                             </div>
                             <div class="input-field col s6">
                                 <input id="max_offset" name="max_offset" type="number" validate="offset" class="required">
-                                <label for="max_offset">Max Offset %</label>
+                                <label for="max_offset">Max Offset % <span class="red-text lead">*</span></label>
                                 <span class="helper-text" data-error="Enter a value between 1 and 200">Required. Max 200%</span>
                             </div>
                         </div>
@@ -109,13 +109,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                            <label for="moduleType">Module Type</label>                                            
+                                                            <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                                             <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                                            <label for="moduleOther">Other: </label>
+                                                            <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,13 +126,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                            <label for="inverterType">Inverter Type</label>
+                                                            <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                                             <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                                            <label for="inverterOther">Other: </label>
+                                                            <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,13 +143,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                            <label for="rackingType">Racking Type</label>
+                                                            <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                                             <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                                            <label for="rackingOther">Other: </label>
+                                                            <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,13 +160,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
-                                                            <label for="monitorType">Monitor Type</label>
+                                                            <label for="monitorType">Monitor Type <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
                                                             <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
-                                                            <label for="monitorOther">Other: </label>
+                                                            <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,13 +179,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                            <label for="moduleType">Module Type</label>                                            
+                                                            <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                                             <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                                            <label for="moduleOther">Other: </label>
+                                                            <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,13 +196,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                            <label for="inverterType">Inverter Type</label>
+                                                            <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                                             <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                                            <label for="inverterOther">Other: </label>
+                                                            <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -213,13 +213,13 @@
                                                     <div class="col s4">
                                                         <div class="input-field col s12">
                                                             <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                            <label for="rackingType">Racking Type</label>
+                                                            <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                     <div class="col s4">
                                                         <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                                             <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                                            <label for="rackingOther">Other: </label>
+                                                            <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,12 +274,12 @@
                                         <div class="col s4">
                                             <div class="input-field col s12">
                                                 <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                <label for="moduleType">Module Type</label>                                            
+                                                <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="moduleOther_input1" style="display:none;">
                                                     <input type="text" name="moduleOther" id="moduleOther1" value="moduleOther">
-                                                    <label for="moduleOther">Other: </label>
+                                                    <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,13 +291,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                    <label for="inverterType">Inverter Type</label>
+                                                    <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="inverterOther_input1" style="display:none;">
                                                     <input type="text" name="inverterOther" id="inverterOther1" value="inverterOther">
-                                                    <label for="inverterOther">Other: </label>
+                                                    <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,13 +308,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                    <label for="rackingType">Racking Type</label>
+                                                    <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="rackingOther_input1" style="display:none;">
                                                     <input type="text" name="rackingOther" id="rackingOther1" value="rackingOther">
-                                                    <label for="rackingOther">Other: </label>
+                                                    <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,13 +325,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
-                                                    <label for="monitorType">Monitor Type</label>
+                                                    <label for="monitorType">Monitor Type <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="monitorOther_input1" style="display:none;" >
                                                     <input type="text" name="monitorOther" id="monitorOther1" value="monitorOther">
-                                                    <label for="monitorOther">Other: </label>
+                                                    <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -344,13 +344,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                                    <label for="moduleType">Module Type</label>                                            
+                                                    <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="moduleOther_input1" style="display:none;">
                                                     <input type="text" name="moduleOther" id="moduleOther1" value="moduleOther">
-                                                    <label for="moduleOther">Other: </label>
+                                                    <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -361,13 +361,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                                    <label for="inverterType">Inverter Type</label>
+                                                    <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="inverterOther_input1" style="display:none;">
                                                     <input type="text" name="inverterOther" id="inverterOther1" value="inverterOther">
-                                                    <label for="inverterOther">Other: </label>
+                                                    <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -378,13 +378,13 @@
                                             <div class="col s4">
                                                 <div class="input-field col s12">
                                                     <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                                    <label for="rackingType">Racking Type</label>
+                                                    <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="input-field col s12" id="rackingOther_input1" style="display:none;">
                                                     <input type="text" name="rackingOther" id="rackingOther1" value="rackingOther">
-                                                    <label for="rackingOther">Other: </label>
+                                                    <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -393,17 +393,17 @@
                                 <div class="row">
                                     <div class="col s12 m4 input-field">
                                         <input id="panels" name="panels" validate="panels" type="number" value="1" class="required">
-                                        <label for="panels"># of Panels</label>
+                                        <label for="panels"># of Panels <span class="red-text lead">*</span></label>
                                         <span class="helper-text">Required. at least 1</span>
                                     </div>
                                     <div class="col s12 m4 input-field">
                                         <input id="tilt" name="tilt" validate="tilt" type="number" value="0" class="required">
-                                        <label for="tilt">Tilt</label>
+                                        <label for="tilt">Tilt <span class="red-text lead">*</span></label>
                                         <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 90">Required 0-90</span>
                                     </div>
                                     <div class="col s12 m4 input-field">
                                         <input id="azimuth" name="azimuth" validate="azimuth" type="number" value="0" class="required">
-                                        <label for="azimuth">Azimuth</label>
+                                        <label for="azimuth">Azimuth <span class="red-text lead">*</span></label>
                                         <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 360">Required 0-360</span>
                                     </div>
                                     <div class="col s12 center center-align">
@@ -754,12 +754,934 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="average_bill1" name="average_bill1" type="text" placeholder=" " value="0">
-                                    <label for="average_bill1">Yearly usage: </label>
+                                    <label for="average_bill1">Yearly usage:  <span class="red-text lead">*</span></label>
                                     <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                 </div>
                             </div><br>
                         </div>
                         
+                    </section>
+                @endif
+                @if(in_array('engineering permit package',$type))
+                    <h6>Engineering Permit Package</h6>
+                    <section>
+                        <h4>Basic Information</h4>
+                            <section>
+                                <div class="row">
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <div class="switch center">
+                                                <label>
+                                                    Max System Size
+                                                    <input type="checkbox" id="hoa" onclick="toggleSystemSize(this)">
+                                                    <span class="lever"></span>
+                                                    Limited System Size
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col m8">
+                                        <div class="input-field col s12">
+                                            <input id="system_size" name="system_size" type="text" class="required" value="maximum" placeholder=" ">
+                                            <label for="system_size">System Size</label>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <div class="switch center">
+                                                <label class="tooltipped" data-position="top" data-delay="10" data-tooltip="House Owner Association">                         
+                                                    HOA? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No
+                                                    <input type="checkbox" onclick="toggleHOA(this)" checked>
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <select name="installation" id="installation" >
+                                                <option value="none" selected>None</option>
+                                                <option value="front roof">Front Roof</option>
+                                                <option value="black roof">Back Roof</option>
+                                                <option value="garage">Garage</option>
+                                            </select>
+                                            <label for="installation">Installation restrictions</label>
+                                        </div>
+                                    </div>
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <input id="remarks" name="remarks" type="text"  value="" placeholder="If any">
+                                            <label for="remarks">Remarks</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @if($project_type == 'commercial')
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
+                                                <label for="monitorType">Monitor Type <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
+                                                <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
+                                                <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($project_type == 'residential')
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
+                                                <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                                <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
+                                                <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                                <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s4">
+                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12">
+                                                <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
+                                                <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col s4">
+                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                                <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </section><hr>
+                            <h4>Roof Information</h4>
+                            <section>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="tree_cutting" name="tree_cutting" type="text"  value="" placeholder=" ">
+                                            <label for="tree_cutting">Tree Cutting</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="re_roofing" name="re_roofing" type="text"  value="" placeholder=" ">
+                                            <label for="re_roofing">Re-Roofing</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <div class="switch center">
+                                                <label>
+                                                    Service Upgrade&emsp;&emsp;No
+                                                    <input type="checkbox" id="service_upgrade">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <input id="others" name="others" type="text"  value="" placeholder=" ">
+                                            <label for="others">Others</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <p>
+                                            <strong>Arrival</strong>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Screen shot of Calendar invite</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Location of nearest Transformer</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <p>
+                                            <strong>Interior</strong>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Ceilings-existing cracks</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Close up of breakers</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <p>
+                                            <strong>Attic</strong>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Sheating size, stamp if possible</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Pitch on rafter of each roof plane</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="row image-repeater">
+                                    <div data-repeater-list="repeater-group" id="repeater-group">
+                                        <div data-repeater-item class="row">
+                                            <div class="input-field col s4">
+                                                <img src="{{ asset('assets/images/big/roof.jpg') }}" class="materialboxed" width="320px" height="150px" >
+                                            </div>
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="overhang" name="overhang[]" type="text" class="required" placeholder="(feet)">
+                                                <label for="overhang">Overhang (A):  <span class="red-text lead">*</span></label>
+                                            </div>
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="width" name="width[]" type="text" class="required" placeholder="(feet)">
+                                                <label for="width">Width (B):  <span class="red-text lead">*</span></label>
+                                            </div>
+                                            <div class="input-field col s2" style="margin-top:5%;">
+                                                <input id="height" name="height[]" type="text" class="required" placeholder="(feet)">
+                                                <label for="height">Height (C):  <span class="red-text lead">*</span></label>
+                                            </div>
+                                            <div class="input-field col s1" style="margin-top:5%;">
+                                                <button data-repeater-delete="" class="btn btn-small red" type="button"><i class="material-icons">clear</i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" data-repeater-create="" class="btn btn-small indigo m-l-10">Add Roof</button>
+                                </div>
+                                <div class="row"><br>
+                                    <div class="left-align">Roof Decking/Layer:</div>
+                                    <div class="row center-align">
+                                        <div class="input-field col s3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" id="plywood"/>
+                                                    <span>Plywood</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" id="osb"/>
+                                                    <span>OSB</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" id="skip_sheating"/>
+                                                    <span>Skip Sheating</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" id="plank"/>
+                                                    <span>Plank</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="roofDecking_LayerThickness" name="roofDecking_LayerThickness" type="text"  value="" placeholder=" ">
+                                        <label for="roofDecking_LayerThickness">Roof Decking / Layer Thickess</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="center_spacing" name="center_spacing" type="text" class="required" placeholder="(inches)">
+                                        <label for="center_spacing">On-Center Spacing:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="purlin" name="purlin" type="text" class="required" placeholder="(inches)">
+                                        <label for="purlin">Purlin/Support Structure Sizes, Spacing, Span, Notes:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                </div>
+                                <div class="row"><br>
+                                    <div class="left-align">Describe Access to Attic:</div><br>
+                                    <div class="row">
+                                        <div class="col s4 input-field">
+                                            <input id="pitch" name="pitch" validate="pitch" type="number" onblur="checkVal()" value="0">
+                                            <label for="pitch">Pitch: </label>
+                                            <span class="helper-text red-text" id="pitch_error"></span>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <input id="azimuth" name="azimuth" validate="azimuth" type="number" onblur="checkVal()" value="0">
+                                            <label for="azimuth">Azimuth: </label>
+                                            <span class="helper-text red-text" id="azimuth_error"></span>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select name="rafter_size" id="rafter_size">
+                                                <option value="" disabled selected>Choose your option</option>
+                                                <option value="2x4">2x4</option>
+                                                <option value="2x6">2x6</option>
+                                                <option value="2x8">2x8</option>
+                                                <option value="4x6">4x6</option>
+                                                <option value="4x8">4x8</option>
+                                            </select>
+                                            <label for="rafter_size">Rafter Size: </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <select id="roofMaterialOption" name="roofMaterialOption" onchange="check(this.value);">
+                                                <option value="" disabled selected>Choose your option</option>
+                                                <option value="Asphalt">Asphalt</option>
+                                                <option value="Metal">Metal</option>
+                                                <option value="Shingle">Shingle</option>
+                                                <option value="Tile">Tile</option>
+                                                <option value="Others">Others</option>
+                                            </select>
+                                            <label for="roof_material">Roof Material: </label>
+                                        </div>
+                                        <div class="input-field col s4" id="other_roof_material_input" style="display:none;">
+                                            <input id="other_roof_material" name="other_roof_material" type="text" class="required" placeholder=" ">
+                                            <label for="other_roof_material">Other Roof Material: </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <div class="switch center">
+                                                <label>
+                                                    Soft Spots&emsp;&emsp;No
+                                                    <input type="checkbox" id="soft_spots">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <div class="switch center">
+                                                <label>
+                                                    Bouncy&emsp;&emsp;No
+                                                    <input type="checkbox" id="bouncy">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <div class="switch center">
+                                                <label>
+                                                    Existing Leaks&emsp;&emsp;No
+                                                    <input type="checkbox" id="existing_leaks">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-field col s3">
+                                            <div class="switch center">
+                                                <label>
+                                                    Vaulted Ceiling&emsp;&emsp;No
+                                                    <input type="checkbox" id="vaulted_ceiling">
+                                                    <span class="lever"></span>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select name="comp_shingle_layers" id="comp_shingle_layers">
+                                            <option value="" disabled selected>Choose your option</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="more than 3">More than 3</option>
+                                        </select>
+                                        <label for="comp_shingle_layers">If Comp Shingle how many layers: </label>
+        
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="age_of_shingles" name="age_of_shingles" type="text" class="required" placeholder="(years)">
+                                        <label for="age_of_shingles">Age of Shingles:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field">
+                                            <div class="switch center">
+                                                <label>
+                                                    Roof Condition&emsp;&emsp;Bad
+                                                    <input type="checkbox" id="roof_condition">
+                                                    <span class="lever"></span>
+                                                    Good
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col m4">
+                                            <div class="input-field col s12">
+                                                <p>
+                                                <strong>Finished or Valued ceiling protocol</strong>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" class="filled-in" id="access_attic_vent"/>
+                                                        <span>Access from attic vent?</span>
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" class="filled-in" id="stud_finder"/>
+                                                        <span>Stud finder</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <!-- <div class="col m4">
+                                        <div class="input-field col s12">
+                                            <p>
+                                            <strong>Roof</strong>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>360&#176; skyline</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" class="filled-in" />
+                                                    <span>Pliability test</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div> -->
+                                    </div>
+                                </div>
+                            </section><hr>
+                            <h4>Electrical Information</h4>
+                            <section>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="utility" name="utility" type="text"  value="" placeholder=" ">
+                                        <label for="utility">Utility</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input id="supply_side_voltage" name="supply_side_voltage" type="text" placeholder=" ">
+                                        <label for="supply_side_voltage">Supply Side Voltage: </label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="manufacturer_model" name="manufacturer_model" type="text" placeholder=" ">
+                                        <label for="manufacturer_model">Manufacturer and Model: </label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="main_breaker_rating" name="main_breaker_rating" type="text" class="required" placeholder=" ">
+                                        <label for="main_breaker_rating">Main Breaker Rating:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="busbar_rating" name="busbar_rating" type="text" class="required" placeholder=" ">
+                                        <label for="busbar_rating">Busbar Rating:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input id="meter_no" name="meter_no" type="text" placeholder=" ">
+                                        <label for="meter_no">Meter No: </label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="proposed_point_connection" name="proposed_point_connection" type="text" placeholder=" ">
+                                        <label for="proposed_point_connection">Proposed Point of Connection: </label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="meter_location" name="meter_location" type="text" class="required" placeholder=" ">
+                                        <label for="meter_location">Meter Location:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <div class="switch center">
+                                            <label>
+                                                Tap Possible&emsp;&emsp;No
+                                                <input type="checkbox" id="tap_possible">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input id="breaker_space" name="breaker_space" type="text" class="required" placeholder=" ">
+                                        <label for="breaker_space">Breaker Space:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="grounding_method" name="grounding_method" type="text" class="required" placeholder=" ">
+                                        <label for="grounding_method">Grounding Method:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="disconnect_type" name="disconnect_type" type="text" class="required" placeholder=" ">
+                                        <label for="disconnect_type">Disconnect Type:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="panel_location" name="panel_location" type="text" class="required" placeholder=" ">
+                                        <label for="panel_location">Panel Location:  <span class="red-text lead">*</span></label>
+        
+                                    </div>
+                                </div>
+                                <div class="row panel-repeater">
+                                    <div data-repeater-list="repeater-group">
+                                        <div data-repeater-item class="row">
+                                            <div class="input-field col s2">
+                                                <label>Sub Panel</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="manufacturer_model1" name="manufacturer_model1[]" class="required" type="text" placeholder="">
+                                                <label for="manufacturer_model1">Manufacturer and Model:  <span class="red-text lead">*</span></label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="main_breaker_rating1" name="main_breaker_rating1[]"type="text" placeholder="">
+                                                <label for="main_breaker_rating1">Main Breaker Rating</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="busbar_rating1" name="busbar_rating1[]"type="text" placeholder="">
+                                                <label for="busbar_rating1">Busbar Rating</label>
+                                            </div>
+                                            <div class="input-field col s1">
+                                                <button data-repeater-delete="" class="btn btn-small" type="button"><i class="material-icons">clear</i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" data-repeater-create="" class="btn btn-small m-l-10">Add Sub Panel</button>
+                                </div>
+                            </section><hr>
+                            <h4>Utility Bills/Electrical Load</h4>
+                            <section>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="mh-a" id="uppyBill"></div>
+                                        <div class="center">
+                                            <span class="helper-text imperial-red-text" id="files_error"></span>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <h3 class="center-align">- OR - </h3><br>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="average_bill" name="average_bill" type="text" placeholder=" ">
+                                        <label for="average_bill">Yearly usage: </label>
+                                    </div>
+                                </div><br>
+                                <h3 class="center-align">- OR - </h3><br>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem1" multiple onchange="getSelectedValue('1')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
+                                                <option value="Freezer_Chest">Freezer - Chest</option>
+                                                <option value="Freezer_Upright">Freezer - Upright</option>
+                                                <option value="Dishwasher">Dishwasher</option>
+                                                <option value="Range">Range</option>
+                                                <option value="Oven">Oven</option>
+                                                <option value="Microwave">Microwave</option>
+                                                <option value="Toaster_oven">Toaster oven</option>
+                                                <option value="Coffee_maker">Coffee maker</option>
+                                                <option value="Garbage_disposal">Garbage disposal</option>
+                                                <option value="Well_pump_1_2_HP">Well pump 1/2 HP</option>
+                                            </select>
+                                            <label>Kitchen</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly kWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem1">                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem2" multiple onchange="getSelectedValue('2')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Stereo">Stereo</option>
+                                                <option value="TV_small_up_to_19">TV - small (up to 19)</option>
+                                                <option value="TV_medium_up_to_27">TV - medium (up to 27)</option>
+                                                <option value="TV_large_greater_than_27">TV - large (greater than 27)</option>
+                                                <option value="TV_27_LCD_Flat_Screen">TV - 27 LCD Flat Screen</option>
+                                                <option value="TV_42Plasma">TV - 42 Plasma</option>
+                                                <option value="VCR_DVD">VCR/DVD</option>
+                                                <option value="Cable_box">Cable box</option>
+                                                <option value="Satellite_dish">Satellite dish</option>
+                                                <option value="Computer_and_printer">Computer and printer</option>
+                                            </select>
+                                            <label>Entertainment</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem2">                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem3" multiple onchange="getSelectedValue('3')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Lighting_of_rooms">Lighting # of rooms</option>
+                                                <option value="Outdoor_lighting_175W">Outdoor lighting 175W</option>
+                                                <option value="Outdoor_lighting_250W">Outdoor lighting 250W</option>
+                                            </select>
+                                            <label>Lighting</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem3">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem4" multiple onchange="getSelectedValue('4')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Water_Heater">Water Heater (# of bedrooms)</option>
+                                                <option value="Electric_Dryer_of_loads_per_week">Electric Dryer # of loads per week</option>
+                                                <option value="Washing_of_loads">Washing # of loads</option>
+                                            </select>
+                                            <label>Laundry</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem4">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem5" multiple onchange="getSelectedValue('5')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Hot_Tub">Hot Tub</option>
+                                                <option value="Pool_filter_pump">Pool filter / pump</option>
+                                            </select>
+                                            <label>Outdoor Equipment</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem5">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <select id="selectItem6" multiple onchange="getSelectedValue('6')">
+                                                <option value="" disabled>Choose your option</option>
+                                                <option value="Dehumidifier">Dehumidifier</option>
+                                                <option value="Humidifier">Humidifier</option>
+                                                <option value="Air_Purifier">Air Purifier</option>
+                                                <option value="Evaporative_Cooler">Evaporative Cooler</option>
+                                                <option value="Window_Air_Conditioner">Window Air Conditioner</option>
+                                                <option value="Ceiling_Fan">Ceiling Fan</option>
+                                                <option value="Box_Fan">Box Fan</option>
+                                                <option value="Electric_Blanket">Electric Blanket</option>
+                                                <option value="Water_Bed_Heater">Water Bed Heater</option>
+                                                <option value="Furnace_Fan">Furnace Fan</option>
+                                                <option value="Furn_15KW_1100">Furn 15KW ~ 1100sq.ft</option>
+                                                <option value="Furn_20KW_2000">Furn 20KW ~ 2000sq.ft</option>
+                                                <option value="Furn_25KW_3000">Furn 25KW ~ 3000sq.ft</option>
+                                                <option value="Bassboard_Lin_Feet">Bassboard Lin. Feet</option>
+                                                <option value="Wall_Heaters_2000w">Wall Heaters @ 2000w</option>
+                                                <option value="1500W_Portable">1500 W Portable</option>
+                                                <option value="Heat_pump_fan">Heat pump fan</option>
+                                                <option value="Heat_pump_800_1100">Heat pump 800 ~ 1100sq.ft</option>
+                                                <option value="Heat_pump_1100_2000">Heat pump 1100 ~ 2000sq.ft</option>
+                                                <option value="Heat_pump_2000_3000">Heat pump 2000 ~ 3000sq.ft</option>
+                                                <option value="Air_Conditioner">Air Conditioner 1/2 ton</option>
+                                                <option value="Air_Conditioner1_5_ton">Air Conditioner 1.5 ton</option>
+                                                <option value="Air_Conditioner2_ton">Air Conditioner 2 ton</option>
+                                                <option value="Air_Conditioner3_ton">Air Conditioner 3 ton</option>
+                                                <option value="Air_Conditioner4_ton">Air Conditioner 4 ton</option>
+                                                <option value="Air_Conditioner5_ton">Air Conditioner 5 ton</option>
+                                            </select>
+                                            <label>Comfort controls</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="input-field col s12">
+                                            <table class="responsive-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            Items
+                                                        </td>
+                                                        <td>
+                                                            Quantity
+                                                        </td>
+                                                        <td>
+                                                            Monthly KWh
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="selectedItem6">                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" " value="0">
+                                            <label for="average_bill1">Yearly usage:  <span class="red-text lead">*</span></label>
+                                            <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><hr>
+                            <h4>Upload Supporting Documents</h4>
+                            <section>
+                                <div class="row">
+                                    <div class="col s9">
+                                        <div class="mh-a" id="uppySupportingDocuments1"></div>
+                                        <div class="center">
+                                            <span class="helper-text imperial-red-text" id="files_error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col s3">
+                                        <a href="{{ asset('assets/document/Site_Survey_Document.pdf') }}" target="_blank">
+                                            <button type="button" class="btn btn-small indigo tooltipped" data-position="bottom" data-tooltip="Click here to view Sample Upload"><i class="ti-cloud-down left"></i>Sample Upload</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                    {{-- <div class="row">
+                                        <div class="col s12">
+                                            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'customer')
+                                                <x-DesignCostAddition :projectID=$project_id :design=$type></x-DesignCostAddition>
+                                            @endif
+                                        </div>
+                                    </div> --}}
+                               
+                                <div class="row">
+                                    <div class="col s12 m4 offset-m4" id="stripe_card" style="display: none">
+                                        <div class="card-panel center prussian-blue" style="color:#fff;">
+                                            <h5 id="stripe_error" class="white-text"></h5>
+                                            <h6  class="white-text">Try again later or add / change your default payment method</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                     </section>
                 @endif
                     <h6>Payment Details</h6>
@@ -897,9 +1819,12 @@
                         right(item)
                     else
                         wrong(item)
-                } 
-                else if(item.getAttribute('id') === 'aurora_design')
-                {
+                } else if (item.getAttribute('validate') === 'offset') {
+                    if (item.value >= 1 && item.value <= 200)
+                        right(item)
+                    else
+                        wrong(item)
+                }else if(item.getAttribute('id') === 'aurora_design'){
                    
                     aurora_fields();
                 }
@@ -1285,6 +2210,48 @@
                 }
             }).use(Uppy.Dashboard, {
                 target: `#uppySupportingDocuments`,
+                inline: true,
+                hideUploadButton: true,
+                note: "Upto 20 files of 20 MBs each"
+            }).use(Uppy.XHRUpload, {
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
+                headers: {
+                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
+                },
+                fieldName: "file"
+            });
+            uppy3.on('upload-success', sendFileToDb);
+
+            uppy3.on('file-added', (file) => {
+                fileCount++;
+            });
+
+            uppy3.on('file-removed', (file) => {
+                fileCount--;
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            uppy3 = Uppy.Core({
+                id: "files",
+                debug: true,
+                meta: {
+                    save_as: ''
+                },
+                restrictions: {
+                    maxFileSize: 21000000,
+                    maxNumberOfFiles: 20
+                },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = files[fileID];
+                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
+                    })
+                    return updatedFiles
+                }
+            }).use(Uppy.Dashboard, {
+                target: `#uppySupportingDocuments1`,
                 inline: true,
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"

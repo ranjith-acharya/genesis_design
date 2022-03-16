@@ -274,8 +274,8 @@
                                     </div><br><br>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" ">
-                                            <label for="average_bill1">Yearly usage: </label>
+                                            <input id="average_bill1" name="average_bill1" type="text" placeholder=" " value="0">
+                                            <label for="average_bill1">Yearly usage:  <span class="red-text lead">*</span></label>
                                             <input type="button" class="btn btn-primary" onclick="getTotal()" value="Calculate">
                                         </div>
                                     </div><br>

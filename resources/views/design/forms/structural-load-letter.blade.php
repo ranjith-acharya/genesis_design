@@ -376,12 +376,12 @@
                             <div class="col s4">
                                 <div class="input-field col s12">
                                     <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                    <label for="moduleType">Module Type</label>                                            
+                                    <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                         <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                        <label for="moduleOther">Other: </label>
+                                        <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -393,13 +393,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                        <label for="inverterType">Inverter Type</label>
+                                        <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                         <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                        <label for="inverterOther">Other: </label>
+                                        <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -410,13 +410,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                        <label for="rackingType">Racking Type</label>
+                                        <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                         <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                        <label for="rackingOther">Other: </label>
+                                        <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -427,13 +427,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="monitorType" name="monitorType" type="text"  value="" placeholder="Mention">
-                                        <label for="monitorType">Monitor Type</label>
+                                        <label for="monitorType">Monitor Type <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
                                         <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
-                                        <label for="monitorOther">Other: </label>
+                                        <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -446,13 +446,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="moduleType" name="moduleType" type="text"  value="" placeholder="Mention (watts)">
-                                        <label for="moduleType">Module Type</label>                                            
+                                        <label for="moduleType">Module Type <span class="red-text lead">*</span></label>                                            
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="moduleOther_input" style="display:none;">
                                         <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
-                                        <label for="moduleOther">Other: </label>
+                                        <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -463,13 +463,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="inverterType" name="inverterType" type="text"  value="" placeholder="Mention">
-                                        <label for="inverterType">Inverter Type</label>
+                                        <label for="inverterType">Inverter Type <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="inverterOther_input" style="display:none;">
                                         <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
-                                        <label for="inverterOther">Other: </label>
+                                        <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -480,13 +480,13 @@
                                 <div class="col s4">
                                     <div class="input-field col s12">
                                         <input id="rackingType" name="rackingType" type="text"  value="" placeholder="Mention">
-                                        <label for="rackingType">Racking Type</label>
+                                        <label for="rackingType">Racking Type <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col s4">
                                     <div class="input-field col s12" id="rackingOther_input" style="display:none;">
                                         <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
-                                        <label for="rackingOther">Other: </label>
+                                        <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -495,17 +495,17 @@
                     <div class="row">
                         <div class="col s12 m4 input-field">
                             <input id="panels" name="panels" validate="panels" type="number" value="1">
-                            <label for="panels"># of Panels</label>
+                            <label for="panels"># of Panels <span class="red-text lead">*</span></label>
                             <span class="helper-text">Required. at least 1</span>
                         </div>
                         <div class="col s12 m4 input-field">
                             <input id="tilt" name="tilt" validate="tilt" type="number" value="0">
-                            <label for="tilt">Tilt</label>
+                            <label for="tilt">Tilt <span class="red-text lead">*</span></label>
                             <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 90">Required 0-90</span>
                         </div>
                         <div class="col s12 m4 input-field">
                             <input id="azimuth" name="azimuth" validate="azimuth" type="number" value="0">
-                            <label for="azimuth">Azimuth</label>
+                            <label for="azimuth">Azimuth <span class="red-text lead">*</span></label>
                             <span class="helper-text" data-error="Enter a value greater than equal to 0 and less than equal to 360">Required 0-360</span>
                         </div>
                         <div class="col s12 center center-align">
