@@ -457,7 +457,7 @@
                                 <input type="hidden" name="pe_stamping" id="pe_stamping" value="pe stamping">
                                     <div class="col s12">
                                     <h4>Supporting Documents(Site Survey Pictures)</h4>
-                                    <div class="mh-a" id="uppySupportingDocuments"></div>
+                                    <div class="mh-a" id="uppystructural_letter"></div>
                                         <div class="">
                                             <span class="helper-text imperial-red-text" id="files_error"></span>
                                         </div>
@@ -468,7 +468,7 @@
                                 <div class="input-field">
                                     <div class="col s12">
                                     <h4>Engineering Plan Set</h4>
-                                    <div class="mh-a" id="uppyPermitChange"></div>
+                                    <div class="mh-a" id="uppyplanset"></div>
                                         <div class="">
                                             <span class="helper-text imperial-red-text" id="files_error"></span>
                                         </div>
@@ -513,7 +513,7 @@
                         <div class="row">
                             <div class="col s6">
                                 <div class="input-field col s12">
-                                <input type="hidden" name="electrical_load_calculations" value="electrical load calculations">
+                                <input type="hidden" name="electrical_load_calculations" id="electrical_load_calculations" value="electrical load calculations">
                                     <select id="selectItem1" multiple onchange="getSelectedValue('1')">
                                         <option value="" disabled>Choose your option</option>
                                         <option value="Refrigerator_w_freezer">Refrigerator w/freezer</option>
@@ -773,7 +773,7 @@
                                             <div class="switch center">
                                                 <label>
                                                     Max System Size
-                                                    <input type="checkbox" id="hoa" onclick="toggleSystemSize(this)">
+                                                    <input type="checkbox" id="hoa1" onclick="toggleSystemSize(this)">
                                                     <span class="lever"></span>
                                                     Limited System Size
                                                 </label>
@@ -782,7 +782,8 @@
                                     </div>
                                     <div class="col m8">
                                         <div class="input-field col s12">
-                                            <input id="system_size" name="system_size" type="text" class="required" value="maximum" placeholder=" ">
+                                        <input type="hidden" name="eng_permit_package" id="eng_permit_package" value="engineering_permit_package">
+                                            <input id="system_size1" name="system_size" type="text" class="required" value="maximum" placeholder=" ">
                                             <label for="system_size">System Size</label>
             
                                         </div>
@@ -803,7 +804,7 @@
                                     </div>
                                     <div class="col m4">
                                         <div class="input-field col s12">
-                                            <select name="installation" id="installation" >
+                                            <select name="installation" id="installation1" >
                                                 <option value="none" selected>None</option>
                                                 <option value="front roof">Front Roof</option>
                                                 <option value="black roof">Back Roof</option>
@@ -814,7 +815,7 @@
                                     </div>
                                     <div class="col m4">
                                         <div class="input-field col s12">
-                                            <input id="remarks" name="remarks" type="text"  value="" placeholder="If any">
+                                            <input id="remarks1" name="remarks" type="text"  value="" placeholder="If any">
                                             <label for="remarks">Remarks</label>
                                         </div>
                                     </div>
@@ -1833,6 +1834,11 @@
                     
                     structural_load();
                 }
+                else if(item.getAttribute('id') === 'engineering_permit_package')
+                {
+                    
+                    eng_permit_package();
+                }
                 else {
                     if (!validate.single(item.value, {presence: {allowEmpty: false}}))
                         right(item);
@@ -1841,10 +1847,59 @@
                 }
             }
 
+
+            function eng_permit_package()
+            {
+                const overhang = document.getElementById('overhang').value;
+                const width = document.getElementById('width').value;
+                const height = document.getElementById('height').value;
+                const manufacturer_model = document.getElementById('manufacturer_model1').value;
+                const fields = {arrays: [], overhang: overhang[0], width: width[0], height: height[0], manufacturer_model: manufacturer_model[0]};
+
+                for(const key in arrays) {
+                    fields.arrays.push(arrays[key]);
+                    console.log(arrays[key]);
+                }
+                jsonData["array"] = fields;
+
+                M.FormSelect.init(document.querySelector("#installation1"));
+            M.FormSelect.init(document.querySelector("#roofMaterialOption"));
+            M.FormSelect.init(document.querySelector("#comp_shingle_layers"));
+            M.FormSelect.init(document.querySelector("#rafter_size"));
+           
+            const installation = M.FormSelect.getInstance(document.querySelector("#installation1"));
+                jsonData["installation"] = installation.getSelectedValues()[0];
+            
+            const roofMaterialOption = M.FormSelect.getInstance(document.querySelector("#roofMaterialOption"));
+                jsonData["roofMaterialOption"] = roofMaterialOption.getSelectedValues()[0];
+            
+            const comp_shingle_layers = M.FormSelect.getInstance(document.querySelector("#comp_shingle_layers"));
+                jsonData["comp_shingle_layers"] = comp_shingle_layers.getSelectedValues()[0];
+
+            const rafter_size = M.FormSelect.getInstance(document.querySelector("#rafter_size"));
+                jsonData["rafter_size"] = rafter_size.getSelectedValues()[0];
+
+                jsonData["hoa"] = document.getElementById('hoa1').checked;
+            jsonData["service_upgrade"] = document.getElementById('service_upgrade').checked;
+            jsonData["plywood"] = document.getElementById('plywood').checked;
+            jsonData["osb"] = document.getElementById('osb').checked;
+            jsonData["skip_sheating"] = document.getElementById('skip_sheating').checked;
+            jsonData["plank"] = document.getElementById('plank').checked;
+            jsonData["soft_spots"] = document.getElementById('soft_spots').checked;
+            jsonData["bouncy"] = document.getElementById('bouncy').checked;
+            jsonData["existing_leaks"] = document.getElementById('existing_leaks').checked;
+            jsonData["vaulted_ceiling"] = document.getElementById('vaulted_ceiling').checked;
+            jsonData["roof_condition"] = document.getElementById('roof_condition').checked;
+            jsonData["access_attic_vent"] = document.getElementById('access_attic_vent').checked;
+            jsonData["stud_finder"] = document.getElementById('stud_finder').checked;
+            jsonData["tap_possible"] = document.getElementById('tap_possible').checked;
+            jsonData["project_id"] = "{{$project_id}}";
+            
+            }
             function aurora_fields()
             {
 
-                const inverterOther = document.getElementById('inverterOther');
+            const inverterOther = document.getElementById('inverterOther');
             // const monitorOther = document.getElementById('monitorOther');
             const moduleOther = document.getElementById('moduleOther');
             const rackingOther = document.getElementById('rackingOther');
@@ -1909,11 +1964,7 @@
                 jsonData[inverterOther1.getAttribute("name")] = "No inverter";
             }
 
-            // if(monitorOther.value !== "")
-            //     right(monitorOther);
-            // else
-            //     jsonData[monitorOther.getAttribute("name")] = "No monitor";
-
+            
             if(moduleOther1.value !== ""){
                 //alert("Module");
                 right(moduleOther1);
@@ -1942,6 +1993,7 @@
             jsonData['stripe_payment_stamping']="no";
             jsonData['stripe_payment_structural']="no";
             jsonData['stripe_payment_electrical']="no";
+            jsonData['stripe_payment_permit']="no";
             jsonData['average_bill']="";
             return {
                 errors: errors,
@@ -2097,6 +2149,8 @@
         let uppy2 = null;
         let uppy3 = null;
         let uppy4 = null;
+        let uppys1=null;
+        let uppyb2=null;
         let fileCount = 0;
         let filesUploaded = 0;
 
@@ -2189,6 +2243,48 @@
             });
         });
 
+
+        document.addEventListener("DOMContentLoaded", function () {
+            uppyb2 = Uppy.Core({
+                id: "files",
+                debug: true,
+                meta: {
+                    save_as: ''
+                },
+                restrictions: {
+                    maxFileSize: 21000000,
+                    maxNumberOfFiles: 20
+                },
+                onBeforeUpload: (files) => {
+                    const updatedFiles = {}
+                    Object.keys(files).forEach(fileID => {
+                        updatedFiles[fileID] = files[fileID];
+                        updatedFiles[fileID].meta.name = Date.now() + '_' + files[fileID].name;
+                    })
+                    return updatedFiles
+                }
+            }).use(Uppy.Dashboard, {
+                target: `#uppyBill`,
+                inline: true,
+                hideUploadButton: true,
+                note: "Upto 20 files of 20 MBs each"
+            }).use(Uppy.XHRUpload, {
+                endpoint: "{{ env('SUN_STORAGE') }}/file",
+                headers: {
+                    'api-key': "{{env('SUN_STORAGE_KEY')}}"
+                },
+                fieldName: "file"
+            });
+            uppyb2.on('upload-success', sendFileToDb);
+
+            uppyb2.on('file-added', (file) => {
+                fileCount++;
+            });
+
+            uppyb2.on('file-removed', (file) => {
+                fileCount--;
+            });
+        });
         document.addEventListener("DOMContentLoaded", function () {
             uppy3 = Uppy.Core({
                 id: "files",
@@ -2209,7 +2305,7 @@
                     return updatedFiles
                 }
             }).use(Uppy.Dashboard, {
-                target: `#uppySupportingDocuments`,
+                target: `#uppystructural_letter`,
                 inline: true,
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
@@ -2232,7 +2328,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            uppy3 = Uppy.Core({
+            uppys1 = Uppy.Core({
                 id: "files",
                 debug: true,
                 meta: {
@@ -2262,13 +2358,13 @@
                 },
                 fieldName: "file"
             });
-            uppy3.on('upload-success', sendFileToDb);
+            uppys1.on('upload-success', sendFileToDb);
 
-            uppy3.on('file-added', (file) => {
+            uppys1.on('file-added', (file) => {
                 fileCount++;
             });
 
-            uppy3.on('file-removed', (file) => {
+            uppys1.on('file-removed', (file) => {
                 fileCount--;
             });
         });
@@ -2293,7 +2389,7 @@
                     return updatedFiles
                 }
             }).use(Uppy.Dashboard, {
-                target: `#uppyPermitChange`,
+                target: `#uppyplanset`,
                 inline: true,
                 hideUploadButton: true,
                 note: "Upto 20 files of 20 MBs each"
@@ -2375,6 +2471,13 @@
                 uppy2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
                 uppy2.upload();
                 }
+                else if(designs=='permit')
+                {
+                uppys1.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppys1.upload();
+                uppyb2.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
+                uppyb2.upload();
+                }
                 else 
                 {
                 uppy3.setMeta({system_design_id: system_design_id, path: `genesis/${company}/design_requests/${system_design_id}`})
@@ -2400,6 +2503,8 @@
                     validationResult.columns['stripe_payment_structural'] = resp.paymentIntent.id;
                     @elseif($t=="PE stamping")
                     validationResult.columns['stripe_payment_stamping'] = resp.paymentIntent.id;
+                    @elseif($t=="engineering permit package")
+                    validationResult.columns['stripe_payment_permit'] = resp.paymentIntent.id;
                     @else
                         validationResult.columns['stripe_payment_electrical'] = resp.paymentIntent.id;
                     @endif
@@ -2441,54 +2546,6 @@
                     }
                 })
                 @endforeach
-
-
-               
-
-                
-                // holdPayment('{{$type[1]}}').then(resp => {
-                //     console.log(resp)
-                //     if (resp) {
-                //         if (resp.error) {
-                //             document.getElementById('stripe_error').innerText = resp.error.message;
-                //             elem.disabled = false;
-                //             document.getElementById('stripe_card').style.display = 'block'
-                //         } else {
-
-                //             validationResult.columns['stripe_payment_code'] = resp.paymentIntent.id;
-                //             fetch("{{ route('design.multiple_design') }}", {
-                //                 method: 'post',
-                //                 body: JSON.stringify(validationResult.columns),
-                //                 headers: {
-                //                     'Content-Type': 'application/json',
-                //                     'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
-                //                 }
-                //             }).then(async response => {
-                //                 return {db_response: await response.json(), "status": response.status};
-                //             }).then(response => {
-                //                 if (response.status === 200 || response.status === 201) {
-                //                     console.log(response.db_response)
-                //                     uploadFiles(response.db_response.id);
-                //                     if (fileCount === 0)
-                //                         window.location = "{{route('design.list', $project_id)}}";
-                //                         toastr.success('Design inserted!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-                //                 } else {
-                //                     toastr.error('There was a error inserting the design. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-                //                     console.error(response);
-                //                     elem.disabled = false;
-                //                 }
-                //             }).catch(err => {
-                //                 toastr.error('There was a network error. Please try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
-                //                 console.error(err);
-                //                 elem.disabled = false;
-                //             });
-                //         }
-                //     } else {
-                //         console.log("error")
-                //         elem.disabled = false;
-                //     }
-                // })
-
             } else {
                 toastr.error('There are somr error in your form, please fix them and try again!', '', { positionClass: 'toast-top-right', containerId: 'toast-top-right' });
                 elem.disabled = false;
