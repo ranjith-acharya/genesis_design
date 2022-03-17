@@ -787,7 +787,7 @@
                                     </div>
                                     <div class="col m8">
                                         <div class="input-field col s12">
-                                        <input type="hidden" name="eng_permit_package" id="eng_permit_package" value="engineering_permit_package">
+                                        <input type="hidden" name="eng_permit_package" id="engineering_permit_package" value="engineering_permit_package">
                                             <input id="system_size1" name="system_size" type="text" class="required" value="maximum" placeholder=" ">
                                             <label for="system_size">System Size</label>
             
