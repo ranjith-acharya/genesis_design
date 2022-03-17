@@ -38,6 +38,11 @@
                 <div class="wizard-content" style="padding-bottom:2%;">
                     <form id="array_form" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
                     @csrf
+                    <div class="row">
+                        <div class="col s12">
+                            <h6 class="red-text capitalize" style="padding-bottom:2%;padding-left:2%;">* Fields are Required</h6>
+                        </div>
+                    </div>
                     <input type="hidden" name="project_id" value="{{$project_id}}">
                   
                    

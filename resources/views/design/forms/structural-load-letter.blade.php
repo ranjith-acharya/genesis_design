@@ -353,6 +353,11 @@
         </div>
         <form id="array_form" class="card card-content" style="padding-top:2%;padding-bottom:2%;">
             <div class="row">
+                <div class="col s12">
+                    <h6 class="red-text capitalize" style="padding-bottom:2%;">* Fields are Required</h6>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col s12 input-field">
                     <select id="roof_type">
                         <option value="Asphalt">Asphalt</option>

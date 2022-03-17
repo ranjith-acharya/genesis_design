@@ -58,7 +58,7 @@ class PaymentCancel extends Notification
     public function toArray($notifiable)
     {
         return [
-            'info' => "Payment Cancelled!",
+            'info' => "Project Cancelled!",
             'project_name' => $this->project_name,
             'route' => $this->link,
         ];

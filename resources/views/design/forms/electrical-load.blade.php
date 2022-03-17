@@ -14,6 +14,11 @@
                 </div>
             </div>
             <div class="card card-content" style="padding-top:2%;padding-bottom:2%;">
+                <div class="row">
+                    <div class="col s12">
+                        <h6 class="red-text capitalize" style="padding-bottom:2%;">* Fields are Required</h6>
+                    </div>
+                </div>
             <section>
             <!-- <div class="row">
                                     <h4 class="mt-2" style="margin-left:10px;">Upload Bill</h4>

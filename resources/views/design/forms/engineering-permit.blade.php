@@ -44,6 +44,11 @@
                     <div class="wizard-content" style="padding-bottom:2%;">
                         <form id="engineering_permit_package" enctype="multipart/form-data" class="validation-wizard wizard-circle m-t-40">
                             @csrf
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6 class="red-text capitalize" style="padding-bottom:2%;padding-left:2%;">* Fields are Required</h6>
+                                </div>
+                            </div>
                             <input type="hidden" value="{{ $project_id }}" name="project_id">
                             <h6>Basic Information</h6>
                             <section>
