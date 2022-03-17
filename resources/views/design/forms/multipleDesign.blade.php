@@ -824,7 +824,7 @@
                                     @if($project_type == 'commercial')
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -833,15 +833,15 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                            <div class="input-field col s12" id="moduleOther_input2" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther2" value="moduleOther">
                                                 <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -850,15 +850,15 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                            <div class="input-field col s12" id="inverterOther_input2" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther2" value="inverterOther">
                                                 <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -867,15 +867,15 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                            <div class="input-field col s12" id="rackingOther_input2" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther2" value="rackingOther">
                                                 <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "monitor", "data" => $monitorSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -884,8 +884,8 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="monitorOther_input" style="display:none;" >
-                                                <input type="text" name="monitorOther" id="monitorOther" value="monitorOther">
+                                            <div class="input-field col s12" id="monitorOther_input2" style="display:none;" >
+                                                <input type="text" name="monitorOther" id="monitorOther2" value="monitorOther">
                                                 <label for="monitorOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
@@ -894,7 +894,7 @@
                                     @if($project_type == 'residential')
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "module", "data" => $moduleSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "module", "data" => $moduleSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -903,15 +903,15 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="moduleOther_input" style="display:none;">
-                                                <input type="text" name="moduleOther" id="moduleOther" value="moduleOther">
+                                            <div class="input-field col s12" id="moduleOther_input2" style="display:none;">
+                                                <input type="text" name="moduleOther" id="moduleOther2" value="moduleOther">
                                                 <label for="moduleOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "inverter", "data" => $inverterSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -920,15 +920,15 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="inverterOther_input" style="display:none;">
-                                                <input type="text" name="inverterOther" id="inverterOther" value="inverterOther">
+                                            <div class="input-field col s12" id="inverterOther_input2" style="display:none;">
+                                                <input type="text" name="inverterOther" id="inverterOther2" value="inverterOther">
                                                 <label for="inverterOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s4">
-                                            @component('components.autocomplete', ["name" => "racking", "data" => $rackingSelect])@endcomponent
+                                            @component('components.autocomplete2', ["name" => "racking", "data" => $rackingSelect])@endcomponent
                                         </div>
                                         <div class="col s4">
                                             <div class="input-field col s12">
@@ -937,8 +937,8 @@
                                             </div>
                                         </div>
                                         <div class="col s4">
-                                            <div class="input-field col s12" id="rackingOther_input" style="display:none;">
-                                                <input type="text" name="rackingOther" id="rackingOther" value="rackingOther">
+                                            <div class="input-field col s12" id="rackingOther_input2" style="display:none;">
+                                                <input type="text" name="rackingOther" id="rackingOther2" value="rackingOther">
                                                 <label for="rackingOther">Other:  <span class="red-text lead">*</span></label>
                                             </div>
                                         </div>
@@ -2102,7 +2102,7 @@
                 }
             }
         }
-            function equipment1(val, name){
+        function equipment1(val, name){
             // alert(val);
             console.log(name[1].id);
 
@@ -2134,6 +2134,41 @@
                         document.getElementById('moduleOther1').value = "";
                     }else{
                         document.getElementById('moduleOther_input1').style.display = "none";
+                }
+            }
+        }
+        function equipment2(val, name){
+            // alert(val);
+            console.log(name[2].id);
+
+            var name = name[2].id;
+            if(name == 'inverter2'){
+                    if(val == 'Others'){
+                        document.getElementById('inverterOther_input2').style.display = "block";
+                        document.getElementById('inverterOther2').value = "";
+                    }else{
+                        document.getElementById('inverterOther_input2').style.display = "none";
+                    }
+                }else if(name == 'monitor2'){
+                    if(val == 'Others'){
+                        document.getElementById('monitorOther_input2').style.display = "block";
+                        document.getElementById('monitorOther2').value = "";
+                    }else{
+                        document.getElementById('monitorOther_input2').style.display = "none";
+                    }
+                }else if(name == 'racking2'){
+                    if(val == 'Others'){
+                        document.getElementById('rackingOther_input2').style.display = "block";
+                        document.getElementById('rackingOther2').value = "";
+                    }else{
+                        document.getElementById('rackingOther_input2').style.display = "none";
+                    }
+                }else if(name == 'module2'){
+                    if(val == 'Others'){
+                        document.getElementById('moduleOther_input2').style.display = "block";
+                        document.getElementById('moduleOther2').value = "";
+                    }else{
+                        document.getElementById('moduleOther_input2').style.display = "none";
                 }
             }
         }
