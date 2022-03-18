@@ -356,48 +356,42 @@ public function getPayments(Request $request)
         $filters = json_decode($request->filters);
         foreach ($filters as $filter)
         {
-            if($filter->field=='project_status')
+            if($filter->field=='payment_status')
             {
-                if ($filter->value == 'completed')
+                if ($filter->value == 'captured')
                 {
                     $projectQuery->whereHas('designs', function($q){
-                        $q->where('status_engineer','completed');
+                        $q->where('payment_status','captured');
                     });
                 }
-                elseif($filter->value == 'in progress')
+                elseif($filter->value == 'hold')
                 {
                 $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','in progress');
+                    $q->where('payment_status','hold');
                 });
                 }
-                elseif($filter->value == 'on hold')
+                elseif($filter->value == 'cancel initiated')
                 {
                 $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','on hold');
+                    $q->where('payment_status','cancel initiated');
                 });
                 }
-                elseif($filter->value == 'change request')
+                elseif($filter->value == 'refund initiated')
                 {
                 $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','change request');
+                    $q->where('payment_status','refund initiated');
                 });
                 }
-                elseif($filter->value == 'assigned')
+                elseif($filter->value == 'refunded')
                 {
                 $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','assigned');
+                    $q->where('payment_status','refunded');
                 });
                 }
-                elseif($filter->value == 'not assigned')
+                elseif($filter->value == 'cancelled')
                 {
                 $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','not assigned');
-                });
-                }
-                elseif($filter->value == 'submitted')
-                {
-                $projectQuery->whereHas('designs', function($q){
-                    $q->where('status_engineer','submitted');
+                    $q->where('payment_status','cancelled');
                 });
                 }
 
@@ -423,7 +417,7 @@ public function getPayments(Request $request)
         User::findOrFail($design->project->customer->id)->notify(new PaymentCancel(ucwords(strtolower($design->type->name)), route('design.view', $design->id)));
         Mail::to($design->project->customer->email)
             ->send(new Notification($design->project->customer->email,
-                "Payment has been cancelled for: " . ucwords(strtolower($design->type->name)),
+                "Project has been cancelled for: " . ucwords(strtolower($design->type->name)),
                 "",
                 route('design.view', $design->id),
                 "View Design"));

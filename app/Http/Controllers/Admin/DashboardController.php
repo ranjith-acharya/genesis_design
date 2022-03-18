@@ -122,6 +122,12 @@ class DashboardController extends Controller
                 $q->where('status_engineer','submitted');
             });
             }
+            elseif($project_status == 'cancelled')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','cancelled');
+            });
+            }
 
                 $projects=$projects->get();
 
@@ -188,8 +194,13 @@ class DashboardController extends Controller
                 $q->where('status_engineer','submitted');
             });
             }
-
-                $projects=$projects->get();
+            elseif($project_status == 'cancelled')
+            {
+            $projects->whereHas('designs', function($q){
+                $q->where('status_engineer','cancelled');
+            });
+            }
+            $projects=$projects->get();
         return $projects;
     }
 

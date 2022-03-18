@@ -23,10 +23,10 @@ const stripePublicKey = "{{env('STRIPE_KEY')}}";
 const paymentCancelUrl="{{route('payment.cancel')}}";
 async function cancelProjectPayment(stripe_payment_code,design_id,status)
 {
-   console.log(stripe_payment_code);
-   console.log("<-------ID --->: ",design_id);
-   let stripe = Stripe(stripePublicKey);
-
+   var ans=confirm("Are you sure want to Refund /Cancel this Design");
+   if(ans==true)
+   {
+    let stripe = Stripe(stripePublicKey);
     return await axios(paymentCancelUrl, {
         method: 'post',
         data: {code: stripe_payment_code,status:status},
@@ -80,6 +80,7 @@ async function cancelProjectPayment(stripe_payment_code,design_id,status)
         console.error(err);
         return false;
     });
+    }
 }
 
 
@@ -94,7 +95,7 @@ function getMoreUsers(page) {
     M.FormSelect.init(document.querySelectorAll('select'));
     var filters = [
                 {field: "project_type_id", value: M.FormSelect.getInstance(document.getElementById('project_type_select')).getSelectedValues()[0]},
-                {field: "project_status", value: M.FormSelect.getInstance(document.getElementById('project_status_select')).getSelectedValues()[0]},
+                {field: "payment_status", value: M.FormSelect.getInstance(document.getElementById('payment_status_select')).getSelectedValues()[0]},
                 {field: "status", value: M.FormSelect.getInstance(document.getElementById('status_select')).getSelectedValues()[0]}
             ]
     var search=$('#project_search').val();
@@ -213,13 +214,13 @@ function setProjectID(name,id,design_id){
                     </div>
                     <div class="col s3">
                         <div class="input-field inline">
-                            <select id="project_status_select" onchange="filter()">
+                            <select id="payment_status_select" onchange="filter()">
                                 <option value="all">All</option>
-                                    @foreach(\App\Statics\Statics::DESIGN_STATUS_ENGINEER as $projectStatus)
+                                    @foreach(\App\Statics\Statics::DESIGN_PAYMENT_STATUSES as $projectStatus)
                                         <option value="{{$projectStatus}}">{{ucwords(strtolower($projectStatus))}}</option>
                                     @endforeach
                             </select>  
-                            <label for="project_status_select">Project Status</label>
+                            <label for="payment_status_select">Payment Status</label>
                         </div>
                     </div>
                 </div>

@@ -199,6 +199,12 @@ public function getProjectData(Request $request)
                 $q->where('status_customer','received');
             });
             }
+            elseif($filter->value == 'cancelled')
+            {
+            $projectQuery->whereHas('designs', function($q){
+                $q->where('status_customer','cancelled');
+            });
+            }
 
    
         }

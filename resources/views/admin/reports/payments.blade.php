@@ -38,7 +38,7 @@
                                   
                                    
                                     <td class="capitalize"> 
-                                        @if($design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_HOLD || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_CAPTURE || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_REFUND)
+                                        @if($design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_HOLD || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_CAPTURED || $design->payment_status == \App\Statics\Statics::DESIGN_PAYMENT_STATUS_REFUNDED)
                                             <span class="label label-success capitalize">{{ $design->payment_status }}</span>
                                         @else
                                             <span class="label label-red capitalize">{{ $design->payment_status }}</span>
@@ -52,9 +52,9 @@
                                         @endif
                                     </td>
                                     <td class="center">
-                                    @if($design->payment_date == "")
+                                    @if($design->payment_status == "hold")
                                     <button  onclick="cancelProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}},'cancel initiated')" class="btn btn-small indigo">Cancel Design</button>     
-                                    @else
+                                    @elseif($design->payment_status=="captured")
                                     <button  onclick="cancelProjectPayment('{{$design['stripe_payment_code']}}',{{$design->id}},'refund initiated')" class="btn btn-small green">Refund Design</button>  
                                     @endif
                                  </td>
